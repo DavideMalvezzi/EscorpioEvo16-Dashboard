@@ -19,6 +19,7 @@
 #include "variant.h"
 #include "WheelSensor.h"
 
+#include <ArduinoJson.h>
 #include <BitArray.h>
 #include <Button.h>
 #include <ByteBuffer.h>

@@ -4,9 +4,9 @@
 #define _MAPSFORM_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
+#include "arduino.h"
 #else
-	#include "WProgram.h"
+#include "WProgram.h"
 #endif
 
 #include "CanInterface.h"
@@ -15,13 +15,14 @@
 #include "Timer.h"
 
 #define MOTOR_CFG_FILE		"MOTOR.CFG"
-#define MOTOR					6
+#define MOTOR					7
 #define MOTOR_NAME				0
-#define MOTOR_TORQUE_CONST		1
-#define MOTOR_SPEED_CONST		2
-#define MOTOR_SPD_TORQUE_GRAD	3
-#define MOTOR_FRICTION			4
-#define MOTOR_FRICTION_GRAD		5
+#define MOTOR_DEF_MAP			1
+#define MOTOR_TORQUE_CONST		2
+#define MOTOR_SPEED_CONST		3
+#define MOTOR_SPD_TORQUE_GRAD	4
+#define MOTOR_FRICTION			5
+#define MOTOR_FRICTION_GRAD		6
 
 #define MAPS_CFG_FILE		"MAPS.CFG"
 #define MAP					10
@@ -68,6 +69,7 @@
 #pragma pack(push, 1)
 typedef struct Motor{
 	char name[8];
+	char defaulMap;
 	float torqueConst;
 	float speedConst;
 	float speedTorqueGrad;

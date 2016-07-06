@@ -1,4 +1,4 @@
-// File generated 05/10/2015 18:13:59
+// File generated 20/11/2015 17:02:51
 // Warning! This is a generated file, any manual changes will be
 // lost during the next generation.
 
@@ -63,6 +63,7 @@
     iWinbutton3     // offset 0x420C00
     iWinbutton4     // offset 0x423200
     iWinbutton5     // offset 0x425800
+    iTrackbar0      // offset 0x427E00
 #END
 
 #constant  Strings0StartH   0x0

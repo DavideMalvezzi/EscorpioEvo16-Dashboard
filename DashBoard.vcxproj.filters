@@ -81,7 +81,7 @@
     <ClInclude Include="MapsForm.h">
       <Filter>Header Files\DisplayForms</Filter>
     </ClInclude>
-    <ClInclude Include="Visual Micro\.REV3.vsarduino.h">
+    <ClInclude Include="Visual Micro\.REV4 (Modifica driver loader multimap da testare).vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

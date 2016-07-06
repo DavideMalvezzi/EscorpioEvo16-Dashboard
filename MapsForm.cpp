@@ -12,7 +12,7 @@ void MapsFormClass::init(Genie& genie){
 }
 
 void MapsFormClass::update(Genie& genie){
-	
+
 }
 
 void MapsFormClass::onEnter(Genie& genie){
@@ -22,29 +22,28 @@ void MapsFormClass::onEnter(Genie& genie){
 
 }
 
-
 void MapsFormClass::onEvent(Genie& genie, genieFrame& evt){
 	if (evt.reportObject.cmd == GENIE_REPORT_EVENT){
 		if (evt.reportObject.object == GENIE_OBJ_WINBUTTON){
 			switch (evt.reportObject.index){
-				case GET_DATA_BUTTON:
-					onGetDataButtonPressed(genie);
-					break;
-				case LOAD_MOT_BUTTON:
-					onLoadMotorButtonPressed(genie);
-					break;
-				case LOAD_MAP_BUTTON:
-					onLoadMapButtonPressed(genie);
-					break;
-				case OK_BUTTON:
-					onOkButtonPressed(genie);
-					break;
-				case UP_BUTTON:
-					onUpButtonPressed(genie);
-					break;
-				case DOWN_BUTTON:
-					onDownButtonPressed(genie);
-					break;
+			case GET_DATA_BUTTON:
+				onGetDataButtonPressed(genie);
+				break;
+			case LOAD_MOT_BUTTON:
+				onLoadMotorButtonPressed(genie);
+				break;
+			case LOAD_MAP_BUTTON:
+				onLoadMapButtonPressed(genie);
+				break;
+			case OK_BUTTON:
+				onOkButtonPressed(genie);
+				break;
+			case UP_BUTTON:
+				onUpButtonPressed(genie);
+				break;
+			case DOWN_BUTTON:
+				onDownButtonPressed(genie);
+				break;
 			}
 		}
 	}
@@ -86,10 +85,10 @@ bool MapsFormClass::getMotorData(){
 				return false;
 			}
 			memcpy(
-				(byte*)(&motor) + memIndex, 
-				frame.data.bytes, 
-				memIndex + frame.length > sizeof(Motor) ? sizeof(Motor) - memIndex : frame.length
-			);
+				(byte*)(&motor) + memIndex,
+				frame.data.bytes,
+				memIndex + frame.length > sizeof(Motor) ? sizeof(Motor)-memIndex : frame.length
+				);
 			memIndex += frame.length;
 		}
 	}
@@ -98,13 +97,13 @@ bool MapsFormClass::getMotorData(){
 		statusString.concat(F("Receive\ntimed\nout"));
 		return false;
 	}
-	else if (motor.ack != getAck((byte*)&motor, sizeof(Motor) - 1)){
+	else if (motor.ack != getAck((byte*)&motor, sizeof(Motor)-1)){
 		statusString.concat(F("Wrong\nmotor\nack"));
 		LOGLN(motor.ack);
 		LOGLN(getAck((byte*)&motor, sizeof(Motor)-1));
 		return false;
 	}
-	else{		
+	else{
 		leftList.concat(motor.name);
 
 		rightList.concat(motorCfg.getPropertyName(1));
@@ -133,7 +132,7 @@ bool MapsFormClass::getMotorData(){
 		rightList.concat("\n");
 
 		//statusString.concat(F("Params\nRetrieve\nSuccess"));
-		
+
 	}
 
 	return true;
@@ -158,7 +157,7 @@ bool MapsFormClass::getMapData(){
 			memcpy(
 				(byte*)(&map) + memIndex,
 				frame.data.bytes,
-				memIndex + frame.length > sizeof(MotorMap) ? sizeof(MotorMap) - memIndex : frame.length
+				memIndex + frame.length > sizeof(MotorMap) ? sizeof(MotorMap)-memIndex : frame.length
 				);
 			memIndex += frame.length;
 		}
@@ -168,7 +167,7 @@ bool MapsFormClass::getMapData(){
 		statusString.concat(F("Receive\ntimed\nout"));
 		return false;
 	}
-	else if (map.ack != getAck((byte*)&map, sizeof(MotorMap) - 1)){
+	else if (map.ack != getAck((byte*)&map, sizeof(MotorMap)-1)){
 		statusString.concat(F("Wrong\nmap\nack"));
 		return false;
 	}
@@ -190,7 +189,7 @@ bool MapsFormClass::getMapData(){
 		rightList.concat('=');
 		rightList.concat(String(map.a1, 6));
 		rightList.concat("\n");
-	
+
 		rightList.concat(mapCfg.getPropertyName(3));
 		rightList.concat('=');
 		rightList.concat(String(map.a2, 6));
@@ -205,27 +204,27 @@ bool MapsFormClass::getMapData(){
 		rightList.concat('=');
 		rightList.concat(map.useSyncSafe);
 		rightList.concat("\n");
-		
+
 		rightList.concat(mapCfg.getPropertyName(6));
 		rightList.concat('=');
 		rightList.concat(String(map.syncTrh, 6));
 		rightList.concat("\n");
-	
+
 		rightList.concat(mapCfg.getPropertyName(7));
 		rightList.concat('=');
 		rightList.concat(map.useEnergyRecovery);
 		rightList.concat("\n");
-		
+
 		rightList.concat(mapCfg.getPropertyName(8));
 		rightList.concat('=');
 		rightList.concat(map.flatOut);
 		rightList.concat("\n");
-	
+
 		rightList.concat(mapCfg.getPropertyName(9));
 		rightList.concat('=');
 		rightList.concat(String(map.flatLev, 6));
 		rightList.concat("\n");
-		
+
 		statusString.concat(F("Params\nretrieve\nsuccess"));
 	}
 
@@ -339,7 +338,7 @@ void MapsFormClass::onOkButtonPressed(Genie& genie){
 	if (currentState == LOADING_MAP_STATE){
 		setMapData();
 	}
-	else if(currentState == LOADING_MOT_STATE){
+	else if (currentState == LOADING_MOT_STATE){
 		setMotorData();
 	}
 
@@ -353,12 +352,14 @@ void MapsFormClass::setMotorData(){
 	Motor motor;
 
 	memcpy(motor.name, motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_NAME).c_str(), sizeof(motor.name));
+	motor.defaulMap = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_DEF_MAP).toInt();
 	motor.friction = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_FRICTION).toFloat();
 	motor.frictionGrad = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_FRICTION_GRAD).toFloat();
 	motor.speedConst = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_SPEED_CONST).toFloat();
 	motor.speedTorqueGrad = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_SPD_TORQUE_GRAD).toFloat();
 	motor.torqueConst = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_TORQUE_CONST).toFloat();
-	motor.ack = getAck((byte*)&motor, sizeof(Motor) - 1);
+	motor.ack = getAck((byte*)&motor, sizeof(Motor)-1);
+
 
 	canInterface.send(CAN_DRIVER_CMD, (byte*)SET_MOT_DATA_CMD, sizeof(SET_MOT_DATA_CMD));
 
@@ -382,21 +383,26 @@ void MapsFormClass::setMotorData(){
 				statusString.concat(F("Data\nloading\ncompleted"));
 				return;
 			}
-			else if(strcmp((char*)frame.data.bytes, ERROR_RX_CMD) == 0){
+			else if (strcmp((char*)frame.data.bytes, ERROR_RX_CMD) == 0){
 				statusString.concat(F("Data\nloading\nfailed"));
 				return;
 			}
 		}
 	}
-	
+
 	statusString.concat(F("Response\ntimed\nout"));
 }
 
 void MapsFormClass::setMapData(){
+	byte cmd[sizeof(SET_MOT_DATA_CMD)];
 	int r, q;
 	Timer timeOut;
 	CAN_FRAME frame;
 	MotorMap map;
+
+	//Set cmd with 
+	memcpy(cmd, SET_MAP_DATA_CMD, sizeof(SET_MAP_DATA_CMD));
+	cmd[sizeof(SET_MAP_DATA_CMD)-1] = 0;
 
 	memcpy(map.name, mapCfg.getProperty(MAP * currentListIndex + MAP_NAME).c_str(), sizeof(map.name));
 	map.a0 = mapCfg.getProperty(MAP * currentListIndex + MAP_A0).toFloat();
@@ -408,9 +414,9 @@ void MapsFormClass::setMapData(){
 	map.useEnergyRecovery = mapCfg.getProperty(MAP * currentListIndex + MAP_EN_RECOVERY).toInt();
 	map.useSyncRect = mapCfg.getProperty(MAP * currentListIndex + MAP_SYNC_RECT).toInt();
 	map.useSyncSafe = mapCfg.getProperty(MAP * currentListIndex + MAP_SYNC_SAFE).toInt();
-	map.ack = getAck((byte*)&map, sizeof(MotorMap) - 1);
+	map.ack = getAck((byte*)&map, sizeof(MotorMap)-1);
 
-	canInterface.send(CAN_DRIVER_CMD, (byte*)SET_MAP_DATA_CMD, sizeof(SET_MAP_DATA_CMD));
+	canInterface.send(CAN_DRIVER_CMD, cmd, sizeof(cmd));
 
 	q = sizeof(MotorMap) / 8;
 	r = sizeof(MotorMap) % 8;
@@ -444,7 +450,7 @@ void MapsFormClass::setMapData(){
 
 void MapsFormClass::showConfig(Genie& genie){
 	clearString(genie, rightList, RIGHT_TEXT_LIST);
-	
+
 	if (currentState == LOADING_MOT_STATE){
 		for (int i = 1; i < MOTOR; i++){
 			rightList.concat(motorCfg.getPropertyName(currentListIndex * MOTOR + i));
@@ -453,7 +459,7 @@ void MapsFormClass::showConfig(Genie& genie){
 			rightList.concat('\n');
 		}
 	}
-	else if(currentState == LOADING_MAP_STATE){
+	else if (currentState == LOADING_MAP_STATE){
 		for (int i = 1; i < MAP; i++){
 			rightList.concat(mapCfg.getPropertyName(currentListIndex * MAP + i));
 			rightList.concat(" = ");
