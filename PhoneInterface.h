@@ -47,12 +47,16 @@ typedef struct GpsData{
 
 #pragma pack(push, 1)
 typedef struct AccData{
-	byte accuracy;
+	byte status;
 	double x;
 	double y;
 	double z;
 }AccData;
 #pragma pack(pop)
+
+//Events handler
+typedef void(*GpsDataHandler)(GpsData&);
+//typedef void(*AccelerometerDataHandler)(AccData&);
 
 
 class PhoneInterfaceClass{
@@ -61,6 +65,8 @@ public:
 	void init();
 	void update();
 	void call();
+
+	void setGpsDataHandler(GpsDataHandler);
 
 	boolean isCallActive(){ return callActive; }
 
@@ -73,9 +79,12 @@ private:
 
 	boolean callActive;
 	String phoneToCall;
+
 	InfoData info;
 	GpsData gps;
 	AccData acc;
+
+	GpsDataHandler gpsHandler;
 
 	ByteBuffer rxBuffer;
 

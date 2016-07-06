@@ -29,7 +29,7 @@ void LCDStringMsg::repaint(){
 	parent->WriteStr(widgetIndex, (char*)buffer.c_str());
 }
 
-void LCDStringMsg::setMessage(String &str){
+void LCDStringMsg::setMessage(String str){
 	clear();
 	buffer += str;
 	repaint();

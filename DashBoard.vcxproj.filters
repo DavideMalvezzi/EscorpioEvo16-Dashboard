@@ -111,14 +111,14 @@
     <ClInclude Include="LCDStringMsg.h">
       <Filter>Header Files\Display\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV7 (In test).vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EarthDistance.h">
       <Filter>Header Files\Strategy\Gps</Filter>
     </ClInclude>
     <ClInclude Include="WayPoint.h">
       <Filter>Header Files\Strategy\Gps</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.REV9.vsarduino.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

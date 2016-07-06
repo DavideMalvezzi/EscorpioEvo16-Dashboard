@@ -14,7 +14,7 @@
 class LCDForm {
 
 protected:
-	void updateWidget(Genie& genie, WidgetType wType, uint16_t wIndex, uint16_t wValue){
+	void updateWidget(Genie& genie, uint16_t wType, uint16_t wIndex, uint16_t wValue){
 		genie.WriteObject(wType, wIndex, wValue);
 	}
 

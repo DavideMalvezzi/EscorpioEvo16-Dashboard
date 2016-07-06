@@ -87,6 +87,7 @@ typedef struct MotorMap{
 #define ENTER_BUTTON		9
 #define EXIT_BUTTON			10
 #define OK_BUTTON			11
+#define BACK_BUTTON			13
 
 //String-list
 #define PROP_TEXT_LIST		4

@@ -6,7 +6,7 @@ boolean ChannelsConfigClass::init(){
 	Channel* c;
 	Configuration cfg;
 	//Load cfg file
-	if (cfg.loadFromFile(CHANNELS_CFG_FILE)){
+	if (cfg.loadFromFile(CHANNELS_CFG_FILE) == FILE_VALID){
 		//Resize channel vector
 		channels.resize(cfg.getPropertyCount() / Channel::ATTR_COUNT);
 		//Load cfg data
@@ -20,8 +20,8 @@ boolean ChannelsConfigClass::init(){
 		}
 	}
 	else{
-		consoleForm.println(F("Channels configuration file not found!"));
-		ASSERT(false, F("Channels configuration file not found!"));
+		consoleForm.println(cfg.getErrorMsg());
+		ASSERT(false, cfg.getErrorMsg());
 	}
 
 }

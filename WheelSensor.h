@@ -7,6 +7,7 @@
 	#include "WProgram.h"
 #endif
 
+#include "StrategySettings.h"
 #include "WayPoint.h"
 
 #define WHEEL_CFR			1.496   // wheel cfr in m
@@ -45,6 +46,7 @@ public:
 	float getRelativeSpace() { return RelativeSpace; }
 	uint32_t getRelativeMillis() { return TimeMillis-LastFinishTime; }
 	uint32_t getLastRelativeMillis() { return LastRelativeMillis; }
+	uint32_t getLeftMillis(){ return strategySettings.TrackData[RACE_TIME] * 1000 - getRelativeMillis(); }
 	void reset();
 
 };

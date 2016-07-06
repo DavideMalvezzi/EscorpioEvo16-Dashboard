@@ -1,4 +1,4 @@
-file C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS
+file C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS
 
 file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\uLCD-43PT.fnc
 
@@ -2834,7 +2834,7 @@ file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\PicasoFunctions.fn
 002828  000111        
 002829  000112        
 002830  000002        
-002831  000003  // generated 03/01/2016 19:49:03
+002831  000003  // generated 23/01/2016 21:01:44
 002832  000004        
 002833  000005        
 file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
@@ -2868,11 +2868,11 @@ file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\VisualConst.inc
 002858  000007  #constant  LPSOLID     0x0000
 002859  000009        
 002860  000010        
-file C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCDConst.inc
+file C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCDConst.inc
 
 002861  000011  #inherit "DashBoardLCDConst.inc"
 002862  000011  #inherit "DashBoardLCDConst.inc"
-002863  000001  // File generated 03/01/2016 19:48:54
+002863  000001  // File generated 23/01/2016 21:01:34
 002864  000002  // Warning! This is a generated file, any manual changes will be
 002865  000003  // lost during the next generation.
 002866  000004        
@@ -2882,12 +2882,12 @@ file C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW
 002870  000006  #constant  Strings0Size     1
 002871  000007  #constant  Strings1Count    1
 002872  000007  #constant  Strings1Count    1
-002873  000008  #constant  Strings1Size     6
-002874  000008  #constant  Strings1Size     6
+002873  000008  #constant  Strings1Size     5
+002874  000008  #constant  Strings1Size     5
 002875  000009  #constant  Strings2Count    1
 002876  000009  #constant  Strings2Count    1
-002877  000010  #constant  Strings2Size     7
-002878  000010  #constant  Strings2Size     7
+002877  000010  #constant  Strings2Size     8
+002878  000010  #constant  Strings2Size     8
 002879  000011  #constant  Strings3Count    1
 002880  000011  #constant  Strings3Count    1
 002881  000012  #constant  Strings3Size     9
@@ -2904,49 +2904,49 @@ file C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW
 002892  000017  #constant  Strings6Count    0
 002893  000018  #constant  Strings6Size     1
 002894  000018  #constant  Strings6Size     1
-002895  000019  #constant  Strings7Count    0
-002896  000019  #constant  Strings7Count    0
-002897  000020  #constant  Strings7Size     1
-002898  000020  #constant  Strings7Size     1
+002895  000019  #constant  Strings7Count    1
+002896  000019  #constant  Strings7Count    1
+002897  000020  #constant  Strings7Size     21
+002898  000020  #constant  Strings7Size     21
 002899  000021  // object indexes into ImageControl
 002900  000022  #CONST
-002901  000076  #END
-002902  000077        
-002903  000078  #constant  Strings0StartH   0x0
-002904  000078  #constant  Strings0StartH   0x0
-002905  000079  #constant  Strings0StartL   0x0
-002906  000079  #constant  Strings0StartL   0x0
-002907  000080  #constant  Strings1StartH   0x0
-002908  000080  #constant  Strings1StartH   0x0
-002909  000081  #constant  Strings1StartL   0x200
-002910  000081  #constant  Strings1StartL   0x200
-002911  000082  #constant  Strings2StartH   0x0
-002912  000082  #constant  Strings2StartH   0x0
-002913  000083  #constant  Strings2StartL   0x400
-002914  000083  #constant  Strings2StartL   0x400
-002915  000084  #constant  Strings3StartH   0x0
-002916  000084  #constant  Strings3StartH   0x0
-002917  000085  #constant  Strings3StartL   0x600
-002918  000085  #constant  Strings3StartL   0x600
-002919  000086  #constant  Strings4StartH   0x0
-002920  000086  #constant  Strings4StartH   0x0
-002921  000087  #constant  Strings4StartL   0x800
-002922  000087  #constant  Strings4StartL   0x800
-002923  000088  #constant  Strings5StartH   0x0
-002924  000088  #constant  Strings5StartH   0x0
-002925  000089  #constant  Strings5StartL   0xA00
-002926  000089  #constant  Strings5StartL   0xA00
-002927  000090  #constant  Strings6StartH   0x0
-002928  000090  #constant  Strings6StartH   0x0
-002929  000091  #constant  Strings6StartL   0xC00
-002930  000091  #constant  Strings6StartL   0xC00
-002931  000092  #constant  Strings7StartH   0x0
-002932  000092  #constant  Strings7StartH   0x0
-002933  000093  #constant  Strings7StartL   0xE00
-002934  000093  #constant  Strings7StartL   0xE00
-002935  000094  #IFNOT EXISTS NOGLOBALS
-002936  000095  var hndl ;
-002937  000096  #ENDIF
+002901  000078  #END
+002902  000079        
+002903  000080  #constant  Strings0StartH   0x0
+002904  000080  #constant  Strings0StartH   0x0
+002905  000081  #constant  Strings0StartL   0x0
+002906  000081  #constant  Strings0StartL   0x0
+002907  000082  #constant  Strings1StartH   0x0
+002908  000082  #constant  Strings1StartH   0x0
+002909  000083  #constant  Strings1StartL   0x200
+002910  000083  #constant  Strings1StartL   0x200
+002911  000084  #constant  Strings2StartH   0x0
+002912  000084  #constant  Strings2StartH   0x0
+002913  000085  #constant  Strings2StartL   0x400
+002914  000085  #constant  Strings2StartL   0x400
+002915  000086  #constant  Strings3StartH   0x0
+002916  000086  #constant  Strings3StartH   0x0
+002917  000087  #constant  Strings3StartL   0x600
+002918  000087  #constant  Strings3StartL   0x600
+002919  000088  #constant  Strings4StartH   0x0
+002920  000088  #constant  Strings4StartH   0x0
+002921  000089  #constant  Strings4StartL   0x800
+002922  000089  #constant  Strings4StartL   0x800
+002923  000090  #constant  Strings5StartH   0x0
+002924  000090  #constant  Strings5StartH   0x0
+002925  000091  #constant  Strings5StartL   0xA00
+002926  000091  #constant  Strings5StartL   0xA00
+002927  000092  #constant  Strings6StartH   0x0
+002928  000092  #constant  Strings6StartH   0x0
+002929  000093  #constant  Strings6StartL   0xC00
+002930  000093  #constant  Strings6StartL   0xC00
+002931  000094  #constant  Strings7StartH   0x0
+002932  000094  #constant  Strings7StartH   0x0
+002933  000095  #constant  Strings7StartL   0xE00
+002934  000095  #constant  Strings7StartL   0xE00
+002935  000096  #IFNOT EXISTS NOGLOBALS
+002936  000097  var hndl ;
+002937  000098  #ENDIF
 002938  000012        
 file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\CLPrintStrings.inc
 
@@ -3018,1701 +3018,1822 @@ file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\CLPrintStrings.inc
 003004  000023  #CONST
 003005  000130  #END
 003006  000131        
-003007  000214  #END
-3008  0472
-3009  0473
-3010  0474
-3011  0475
-3012  0476
-3013  0477
-3014  0478
-3015  0479
-3016  047A
-3017  047B
-3018  047C
-3019  047D
-3020  047E
-3021  047F
-3022  0480
-3023  0481
-3024  0482
-3025  0483
-3026  0484
-3027  0485
-3028  0486
-3029  0487
-3030  0488
-3031  0489
-3032  048A
-3033  048B
-3034  048C
-3035  048D
-3036  048E
-3037  048F
-3038  0490
-3039  0491
-3040  0492
-3041  0493
-3042  0494
-3043  0495
-3044  0496
-3045  0497
-3046  0498
-3047  0499
-3048  049A
-3049  049B
-3050  049C
-3051  049D
-3052  049E
-3053  049F
-3054  04A0
-3055  04A1
-3056  04A2
-3057  04A3
-3058  04A4
-3059  04A5
-3060  04A6
-3061  04A7
-3062  04A8
-3063  04A9
-3064  04AA
-3065  04AB
-3066  04AC
-3067  04AD
-3068  04AE
-3069  04AF
-3070  04B0
-3071  04B1
-3072  04B2
-3073  04B3
-3074  04B4
-3075  04B5
-3076  04B6
-3077  04B7
-3078  04B8
-3079  04B9
-3080  04BA
-3081  04BB
-3082  04BC
-3083  04BD
-3084  04BE
-3085  04BF
-3086  04C0
-3087  04C1
-3088  04C2
-3089  04C3
-3090  04C4
-3091  04C5
-3092  04C6
-3093  04C7
-3094  04C8
-3095  04C9
-3096  04CA
-3097  04CB
-3098  04CC
-3099  04CD
-3100  04CE
-3101  04CF
-3102  04D0
-3103  04D1
-3104  04D2
-3105  04D3
-3106  04D4
-3107  04D5
-3108  04D6
-3109  04D7
-3110  04D8
-3111  04D9
-3112  04DA
-3113  04DB
-3114  04DC
-3115  04DD
-3116  04DE
-3117  04DF
-3118  04E0
-3119  04E1
-3120  04E2
-3121  04E3
-3122  04E4
-3123  04E5
-3124  04E6
-3125  04E7
-3126  04E8
-3127  04E9
-3128  04EA
-3129  04EB
-3130  04EC
-3131  04ED
-3132  04EE
-3133  04EF
-3134  04F0
-3135  04F1
-3136  04F2
-3137  04F3
-3138  04F4
-3139  04F5
-3140  04F6
-3141  04F7
-3142  04F8
-3143  04F9
-3144  04FA
-3145  04FB
-3146  04FC
-3147  04FD
-3148  04FE
-3149  04FF
-3150  0500
-3151  0501
-3152  0502
-3153  0503
-3154  0504
-3155  0505
-3156  0506
-3157  0507
-3158  0508
-3159  0509
-3160  050A
-3161  050B
-3162  050C
-3163  050D
-3164  050E
-3165  050F
-3166  0510
-3167  0511
-3168  0512
-3169  0513
-3170  0514
-3171  0515
-3172  0516
-3173  0517
-3174  0518
-3175  0519
-3176  051A
-3177  051B
-3178  051C
-3179  051D
-3180  051E
-3181  051F
-3182  0520
-3183  0521
-3184  0522
-3185  0523
-3186  0524
-3187  0525
-3188  0526
-3189  0527
-3190  0528
-3191  0529
-3192  052A
-3193  052B
-3194  052C
-3195  052D
-3196  052E
-3197  052F
-3198  0530
-3199  0531
-3200  0532
-3201  0533
-3202  0534
-3203  0535
-3204  0536
-3205  0537
-3206  0538
-3207  0539
-3208  053A
-3209  053B
-3210  053C
-3211  053D
-3212  053E
-3213  053F
-3214  0540
-3215  0541
-3216  0542
-3217  0543
-3218  0544
-3219  0545
-3220  0546
-3221  0547
-3222  0548
-3223  0549
-3224  054A
-3225  054B
-3226  054C
-3227  054D
-3228  054E
-3229  054F
-3230  0550
-3231  0551
-3232  0552
-3233  0553
-3234  0554
-3235  0555
-3236  0556
-3237  0557
-3238  0558
-3239  0559
-3240  055A
-3241  055B
-3242  055C
-3243  055D
-3244  055E
-3245  055F
-3246  0560
-3247  0561
-3248  0562
-3249  0563
-3250  0564
-3251  0565
-3252  0566
-3253  0567
-3254  0568
-3255  0569
-3256  056A
-3257  056B
-3258  056C
-3259  056D
-3260  056E
-3261  056F
-3262  0570
-3263  0571
-3264  0572
-3265  0573
-3266  0574
-3267  0575
-3268  0576
-3269  0577
-3270  0578
-3271  0579
-3272  057A
-3273  057B
-3274  057C
-3275  057D
-3276  057E
-3277  057F
-3278  0580
-3279  0581
-3280  0582
-3281  0583
-3282  0584
-3283  0585
-3284  0586
-3285  0587
-3286  0588
-3287  0589
-3288  058A
-3289  058B
-3290  058C
-3291  058D
-3292  058E
-3293  058F
-3294  0590
-3295  0591
-3296  0592
-3297  0593
-3298  0594
-3299  0595
-3300  0596
-3301  0597
-3302  0598
-3303  0599
-3304  059A
-3305  059B
-3306  059C
-3307  059D
-3308  059E
-3309  059F
-3310  05A0
-3311  05A1
-3312  05A2
-3313  05A3
-3314  05A4
-3315  05A5
-3316  05A6
-3317  05A7
-3318  05A8
-3319  05A9
-3320  05AA
-3321  05AB
-3322  05AC
-3323  05AD
-3324  05AE
-3325  05AF
-3326  05B0
-3327  05B1
-3328  05B2
-3329  05B3
-3330  05B4
-3331  05B5
-3332  05B6
-3333  05B7
-3334  05B8
-3335  05B9
-3336  05BA
-3337  05BB
-3338  05BC
-3339  05BD
-3340  05BE
-3341  05BF
-3342  05C0
-3343  05C1
-3344  05C2
-3345  05C3
-3346  05C4
-3347  05C5
-3348  05C6
-3349  05C7
-3350  05C8
-3351  05C9
-3352  05CA
-3353  05CB
-3354  05CC
-3355  05CD
-3356  05CE
-3357  05CF
-3358  05D0
-3359  05D1
-3360  05D2
-3361  05D3
-3362  05D4
-3363  05D5
-3364  05D6
-3365  05D7
-3366  05D8
-3367  05D9
-3368  05DA
-3369  05DB
-3370  05DC
-3371  05DD
-3372  05DE
-3373  05DF
-3374  05E0
-3375  05E1
-3376  05E2
-3377  05E3
-3378  05E4
-3379  05E5
-3380  05E6
-3381  05E7
-3382  05E8
-3383  05E9
-3384  05EA
-3385  05EB
-3386  05EC
-3387  05ED
-3388  05EE
-3389  05EF
-3390  05F0
-3391  05F1
-3392  05F2
-3393  05F3
-3394  05F4
-3395  05F5
-3396  05F6
-3397  05F7
-3398  05F8
-3399  05F9
-3400  05FA
-3401  05FB
-3402  05FC
-3403  05FD
-3404  05FE
-3405  05FF
-3406  0600
-3407  0601
-3408  0602
-3409  0603
-3410  0604
-3411  0605
-3412  0606
-3413  0607
-3414  0608
-3415  0609
-3416  060A
-3417  060B
-3418  060C
-3419  060D
-3420  060E
-3421  060F
-3422  0610
-3423  0611
-3424  0612
-3425  0613
-3426  0614
-3427  0615
-3428  0616
-3429  0617
-3430  0618
-3431  0619
-3432  061A
-3433  061B
-3434  061C
-3435  061D
-3436  061E
-3437  061F
-3438  0620
-3439  0621
-3440  0622
-3441  0623
-3442  0624
-3443  0625
-3444  0626
-3445  0627
-3446  0628
-3447  0629
-3448  062A
-3449  062B
-3450  062C
-3451  062D
-3452  062E
-3453  062F
-3454  0630
-3455  0631
-3456  0632
-3457  0633
-3458  0634
-3459  0635
-3460  0636
-3461  0637
-3462  0638
-3463  0639
-3464  063A
-3465  063B
-3466  063C
-3467  063D
-3468  063E
-3469  063F
-3470  0640
-3471  0641
-3472  0642
-3473  0643
-3474  0644
-3475  0645
-3476  0646
-3477  0647
-3478  0648
-3479  0649
-3480  064A
-3481  064B
-3482  064C
-3483  064D
-3484  064E
-3485  064F
-3486  0650
-3487  0651
-3488  0652
-3489  0653
-3490  0654
-3491  0655
-3492  0656
-3493  0657
-3494  0658
-3495  0659
-3496  065A
-3497  065B
-3498  065C
-3499  065D
-3500  065E
-3501  065F
-3502  0660
-3503  0661
-3504  0662
-3505  0663
-3506  0664
-3507  0665
-3508  0666
-3509  0667
-3510  0668
-3511  0669
-3512  066A
-3513  066B
-3514  066C
-3515  066D
-3516  066E
-3517  066F
-3518  0670
-3519  0671
-3520  0672
-3521  0673
-3522  0674
-3523  0675
-3524  0676
-3525  0677
-3526  0678
-3527  0679
-3528  067A
-3529  067B
-3530  067C
-3531  067D
-3532  067E
-3533  067F
-3534  0680
-3535  0681
-3536  0682
-3537  0683
-3538  0684
-3539  0685
-3540  0686
-3541  0687
-3542  0688
-3543  0689
-3544  068A
-3545  068B
-3546  068C
-3547  068D
-3548  068E
-3549  068F
-3550  0690
-3551  0691
-3552  0692
-3553  0693
-3554  0694
-3555  0695
-3556  0696
-3557  0697
-3558  0698
-3559  0699
-3560  069A
-3561  069B
-3562  069C
-3563  069D
-3564  069E
-3565  069F
-3566  06A0
-3567  06A1
-3568  06A2
-3569  06A3
-3570  06A4
-3571  06A5
-3572  06A6
-3573  06A7
-3574  06A8
-3575  06A9
-3576  06AA
-3577  06AB
-3578  06AC
-3579  06AD
-3580  06AE
-3581  06AF
-3582  06B0
-3583  06B1
-3584  06B2
-3585  06B3
-3586  06B4
-3587  06B5
-3588  06B6
-3589  06B7
-3590  06B8
-3591  06B9
-3592  06BA
-3593  06BB
-3594  06BC
-3595  06BD
-3596  06BE
-3597  06BF
-3598  06C0
-3599  06C1
-3600  06C2
-3601  06C3
-3602  06C4
-3603  06C5
-3604  06C6
-3605  06C7
-3606  06C8
-3607  06C9
-3608  06CA
-3609  06CB
-3610  06CC
-3611  06CD
-3612  06CE
-3613  06CF
-3614  06D0
-3615  06D1
-3616  06D2
-3617  06D3
-3618  06D4
-3619  06D5
-3620  06D6
-3621  06D7
-3622  06D8
-3623  06D9
-3624  06DA
-3625  06DB
-3626  06DC
-3627  06DD
-3628  06DE
-3629  06DF
-3630  06E0
-3631  06E1
-3632  06E2
-3633  06E3
-3634  06E4
-3635  06E5
-3636  06E6
-3637  06E7
-3638  06E8
-3639  06E9
-3640  06EA
-3641  06EB
-3642  06EC
-3643  06ED
-3644  06EE
-3645  06EF
-3646  06F0
-3647  06F1
-3648  06F2
-3649  06F3
-3650  06F4
-3651  06F5
-3652  06F6
-3653  06F7
-3654  06F8
-3655  06F9
-3656  06FA
-3657  06FB
-3658  06FC
-3659  06FD
-3660  06FE
-3661  06FF
-3662  0700
-3663  0701
-3664  0702
-3665  0703
-3666  0704
-3667  0705
-3668  0706
-3669  0707
-3670  0708
-3671  0709
-3672  070A
-3673  070B
-3674  070C
-3675  070D
-3676  070E
-3677  070F
-3678  0710
-3679  0711
-3680  0712
-3681  0713
-3682  0714
-3683  0715
-3684  0716
-3685  0717
-3686  0718
-3687  0719
-3688  071A
-3689  071B
-3690  071C
-3691  071D
-3692  071E
-3693  071F
-3694  0720
-3695  0721
-3696  0722
-3697  0723
-3698  0724
-3699  0725
-3700  0726
-3701  0727
-3702  0728
-3703  0729
-3704  072A
-3705  072B
-3706  072C
-3707  072D
-3708  072E
-3709  072F
-3710  0730
-3711  0731
-3712  0732
-3713  0733
-3714  0734
-3715  0735
-3716  0736
-3717  0737
-3718  0738
-3719  0739
-3720  073A
-3721  073B
-3722  073C
-3723  073D
-3724  073E
-3725  073F
-3726  0740
-3727  0741
-3728  0742
-3729  0743
-3730  0744
-3731  0745
-3732  0746
-3733  0747
-3734  0748
-3735  0749
-3736  074A
-3737  074B
-3738  074C
-3739  074D
-3740  074E
-3741  074F
-3742  0750
-3743  0751
-3744  0752
-3745  0753
-3746  0754
-3747  0755
-3748  0756
-3749  0757
-3750  0758
-3751  0759
-3752  075A
-3753  075B
-3754  075C
-3755  075D
-3756  075E
-3757  075F
-3758  0760
-3759  0761
-3760  0762
-3761  0763
-3762  0764
-3763  0765
-3764  0766
-3765  0767
-3766  0768
-3767  0769
-3768  076A
-3769  076B
-3770  076C
-3771  076D
-3772  076E
-3773  076F
-3774  0770
-3775  0771
-3776  0772
-3777  0773
-3778  0774
-3779  0775
-3780  0776
-3781  0777
-3782  0778
-3783  0779
-3784  077A
-3785  077B
-3786  077C
-3787  077D
-3788  077E
-3789  077F
-3790  0780
-3791  0781
-3792  0782
-3793  0783
-3794  0784
-3795  0785
-3796  0786
-3797  0787
-3798  0788
-3799  0789
-3800  078A
-3801  078B
-3802  078C
-3803  078D
-3804  078E
-3805  078F
-3806  0790
-3807  0791
-3808  0792
-3809  0793
-3810  0794
-3811  0795
-3812  0796
-3813  0797
-3814  0798
-3815  0799
-3816  079A
-3817  079B
-3818  079C
-3819  079D
-3820  079E
-3821  079F
-3822  07A0
-3823  07A1
-3824  07A2
-3825  07A3
-3826  07A4
-3827  07A5
-3828  07A6
-3829  07A7
-3830  07A8
-3831  07A9
-3832  07AA
-3833  07AB
-3834  07AC
-3835  07AD
-3836  07AE
-3837  07AF
-3838  07B0
-3839  07B1
-3840  07B2
-3841  07B3
-3842  07B4
-3843  07B5
-3844  07B6
-3845  07B7
-3846  07B8
-3847  07B9
-3848  07BA
-3849  07BB
-3850  07BC
-3851  07BD
-3852  07BE
-3853  07BF
-3854  07C0
-3855  07C1
-3856  07C2
-3857  07C3
-3858  07C4
-3859  07C5
-3860  07C6
-3861  07C7
-3862  07C8
-3863  07C9
-3864  07CA
-3865  07CB
-3866  07CC
-3867  07CD
-3868  07CE
-3869  07CF
-3870  07D0
-3871  07D1
-3872  07D2
-3873  07D3
-3874  07D4
-3875  07D5
-3876  07D6
-3877  07D7
-3878  07D8
-3879  07D9
-3880  07DA
-3881  07DB
-3882  07DC
-3883  07DD
-3884  07DE
-3885  07DF
-3886  07E0
-3887  07E1
-3888  07E2
-3889  07E3
-3890  07E4
-3891  07E5
-3892  07E6
-3893  07E7
-3894  07E8
-3895  07E9
-3896  07EA
-3897  07EB
-3898  07EC
-3899  07ED
-3900  07EE
-3901  07EF
-3902  07F0
-3903  07F1
-3904  07F2
-3905  07F3
-3906  07F4
-3907  07F5
-3908  07F6
-3909  07F7
-3910  07F8
-3911  07F9
-3912  07FA
-3913  07FB
-3914  07FC
-3915  07FD
-3916  07FE
-3917  07FF
-3918  0800
-3919  0801
-3920  0802
-3921  0803
-3922  0804
-3923  0805
-3924  0806
-3925  0807
-3926  0808
-3927  0809
-3928  080A
-3929  080B
-3930  080C
-3931  080D
-3932  080E
-3933  080F
-3934  0810
-3935  0811
-3936  0812
-3937  0813
-3938  0814
-3939  0815
-3940  0816
-3941  0817
-3942  0818
-3943  0819
-3944  081A
-3945  081B
-3946  081C
-3947  081D
-3948  081E
-3949  081F
-3950  0820
-3951  0821
-3952  0822
-3953  0823
-3954  0824
-3955  0825
-3956  0826
-3957  0827
-3958  0828
-3959  0829
-3960  082A
-3961  082B
-3962  082C
-3963  082D
-3964  082E
-3965  082F
-3966  0830
-3967  0831
-3968  0832
-3969  0833
-3970  0834
-3971  0835
-3972  0836
-3973  0837
-3974  0838
-3975  0839
-3976  083A
-3977  083B
-3978  083C
-3979  083D
-3980  083E
-3981  083F
-3982  0840
-3983  0841
-3984  0842
-3985  0843
-3986  0844
-3987  0845
-3988  0846
-3989  0847
-3990  0848
-3991  0849
-3992  084A
-3993  084B
-3994  084C
-3995  084D
-3996  084E
-3997  084F
-3998  0850
-3999  0851
-4000  0852
-4001  0853
-4002  0854
-4003  0855
-4004  0856
-4005  0857
-4006  0858
-4007  0859
-4008  085A
-4009  085B
-4010  085C
-4011  085D
-4012  085E
-4013  085F
-4014  0860
-4015  0861
-4016  0862
-4017  0863
-4018  0864
-4019  0865
-4020  0866
-4021  0867
-4022  0868
-4023  0869
-4024  086A
-4025  086B
-4026  086C
-4027  086D
-4028  086E
-4029  086F
-4030  0870
-4031  0871
-4032  0872
-4033  0873
-4034  0874
-4035  0875
-4036  0876
-4037  0877
-4038  0878
-4039  0879
-4040  087A
-4041  087B
-4042  087C
-4043  087D
-4044  087E
-4045  087F
-4046  0880
-4047  0881
-4048  0882
-4049  0883
-4050  0884
-4051  0885
-4052  0886
-4053  0887
-4054  0888
-4055  0889
-4056  088A
-4057  088B
-4058  088C
-4059  088D
-4060  088E
-4061  088F
-4062  0890
-4063  0891
-4064  0892
-4065  0893
-4066  0894
-4067  0895
-4068  0896
-4069  0897
-4070  0898
-4071  0899
-4072  089A
-4073  089B
-4074  089C
-4075  089D
-4076  089E
-4077  089F
-4078  08A0
-4079  08A1
-4080  08A2
-4081  08A3
-4082  08A4
-4083  08A5
-4084  08A6
-4085  08A7
-4086  08A8
-4087  08A9
-4088  08AA
-4089  08AB
-4090  08AC
-4091  08AD
-4092  08AE
-4093  08AF
-4094  08B0
-4095  08B1
-4096  08B2
-4097  08B3
-4098  08B4
-4099  08B5
-4100  08B6
-4101  08B7
-4102  08B8
-4103  08B9
-4104  08BA
-4105  08BB
-4106  08BC
-4107  08BD
-4108  08BE
-4109  08BF
-4110  08C0
-4111  08C1
-4112  08C2
-4113  08C3
-4114  08C4
-4115  08C5
-4116  08C6
-4117  08C7
-4118  08C8
-4119  08C9
-4120  08CA
-4121  08CB
-4122  08CC
-4123  08CD
-4124  08CE
-4125  08CF
-4126  08D0
-4127  08D1
-4128  08D2
-4129  08D3
-4130  08D4
-4131  08D5
-4132  08D6
-4133  08D7
-4134  08D8
-4135  08D9
-4136  08DA
-4137  08DB
-4138  08DC
-4139  08DD
-004140  000215        
-004141  000216  var hFonts[8] ;
-004142  000217  var stringsCV[8] := [0, 0, 0, 0, 0, 0, 0, 0], hstrings ;
-4143  0482
-4144  0483
-4145  0484
-4146  0485
-4147  0486
-4148  0487
-4149  0488
-4150  0489
-4151  048A
-4152  048B
-4153  048C
-4154  048D
-4155  048E
-4156  048F
-4157  0490
-4158  0491
-004159  000218  // Start P2.inc
-004160  000219  var oObjects[MaxTotObjects+1] ;                 // address of objects
-004161  000220  var CurrentForm ;
-004162  000221  var TouchXpos, TouchYpos ;
-004163  000222  var InputType, TouchState, CurInputData, pInputIndex ;
-004164  000223  var comRX[131], cmd[CMDLenMAX] ;
-004165  000224        
-004166  000225  var InputCS, OutputCS ;
-004167  000226        
-004168  000227        
-004169  000228        
-004170  000229  func seroutCS(var op)
-004171  000230      serout1(op) ;
-004172  000231      OutputCS ^= op ;
-004173  000232  endfunc
-004174  000233        
-004175  000234  func nak0()
-004176  000235      serout1(NAK) ;
-004177  000236      InputCS := 0 ;
-004178  000237  endfunc
-004179  000238        
-004180  000239  func seroutOcs()
-004181  000240      serout1(OutputCS) ;
-004182  000241      OutputCS := 0 ;
-004183  000242  endfunc
-004184  000243        
-004185  000244  func SendReport(var id, var objt, var objn, var val)
-004186  000245      seroutCS(id) ;
-004187  000246      seroutCS(objt) ;
-004188  000247      seroutCS(objn) ;
-004189  000248      seroutCS(val >> 8) ; // first 8 bits
-004190  000249      seroutCS(val) ;
-004191  000250      seroutOcs() ;
-004192  000251  endfunc
-004193  000252        
-004194  000253        
-004195  000254  func ReadObject(var ObjectType, var ObjectIdx)
-004196  000255      var j, k, Objects ;
-004197  000256      Objects := *(oObjects+ObjectType) ;
-004198  000257        
-004199  000258  //    seroutCS(REPORT_OBJ) ;
-004200  000259  //    seroutCS(ObjectType) ;
-004201  000260  //    seroutCS(ObjectIdx) ;
-004202  000261      j := 2 + ObjectIdx * 2 + Objects ;
-004203  000262       if (ObjectType == tForm)
-004204  000263          k := CurrentForm ;
-004205  000264      else if ((ObjectType == tCustomdigits) || (ObjectType == tLeddigits))
-004206  000265          k := img_GetWord(hndl, *j, IMAGE_TAG2);
-004207  000266      else if (ObjectType == tStrings)
-004208  000267          k := stringsCV[ObjectIdx];
-004209  000268          else
-004210  000269          k := img_GetWord(hndl, *j, IMAGE_INDEX);
-004211  000270          if (((ObjectType == tWinButton) || (ObjectType == tAniButton) || (ObjectType == tUserButton) || (ObjectType == t4Dbutton)) && (k)) k := 1 ; // this is not correct for blocked buttons and cannot be fixed as we cannot
-004212  000271                                                                                                                                                      // determine if button is momentary or not which is needed for correct answer.
-004213  000272      endif
-004214  000273      SendReport(REPORT_OBJ, ObjectType, ObjectIdx, k) ;
-004215  000274  endfunc
-004216  000275        
-004217  000276        
-004218  000277  func WriteObject(var ObjectType, var ObjectIdx, var NewVal)
-004219  000278      var i, j, k, Objects ;
-004220  000279      ObjectType &= 0x3f ;
-004221  000280      if (ObjectType == tForm)
-004222  000281          ActivateForm(ObjectIdx) ;
-004223  000282      else
-004224  000283          Objects := *(oObjects+ObjectType)+ObjectIdx*2+2 ;
-004225  000284          i := *(Objects) ;
-004226  000285          switch (ObjectType)
-004227  000286              case tWinButton :
-004228  000287                  j := InputControls[oWinButtons[ObjectIdx+1]] ;
-004229  000288                  break ;
-004230  000289              default : j := -1 ;
-004231  000290          endswitch
-004232  000291          if (j != -1)
-004233  000292              k := img_GetWord(hndl, i , IMAGE_INDEX) ;
-004234  000293              NewVal := NewVal << 1 ;
-004235  000294              if (OVF())      // button group index change
-004236  000295                  if (*(j+InputData+Ofs_IPD_P1))
-004237  000296                      k &= 1 ;    // mask off old group index for momentary
-004238  000297                  else
-004239  000298                      k &= 3 ;    // mask off old group index for toggle
-004240  000299                  endif
-004241  000300              else            // normal set
-004242  000301                  if (*(j+InputData+Ofs_IPD_P2) != -1) TurnOffButtons(*(j+InputData+Ofs_IPD_P2)) ;
-004243  000302                  k &= 0xfffc ;    // retain only group index for state set
-004244  000303              endif
-004245  000304              NewVal |= k ;
-004246  000305              endif
-004247  000306           if (ObjectType == tLeddigits)
-004248  000307              img_SetWord(hndl, i , IMAGE_TAG2, NewVal); // where state is 0 to 2
-004249  000308              ledDigitsDisplay(i, oLeddigitss, oLedDigitsn) ;
-004250  000309          else if (ObjectType == tSpectrum)
-004251  000310              i++ ;
-004252  000311              j := ObjectIdx*2 ;
-004253  000312              img_SetWord(hndl, i, IMAGE_XPOS, oSpectrumn[j] + (NewVal >> 8) * oSpectrumn[j+1]);
-004254  000313              img_SetWord(hndl, i, IMAGE_INDEX, NewVal & 0xFF) ;
-004255  000314              img_Show(hndl, i) ; // will only display if form is current
-004256  000315          else if (ObjectType == tStrings)
-004257  000316              PrintStrings(ObjectIdx, NewVal, 0);
-004258  000317          else
-004259  000318              img_SetWord(hndl, i , IMAGE_INDEX, NewVal); // where state is 0 to 2
-004260  000319              img_Show(hndl, i) ; // will only display if form is current
-004261  000320          endif
-004262  000321      endif
-004263  000322  endfunc
-004264  000323        
-004265  000324  func TurnOffButtons(var group)
-004266  000325      var j, k, l;
-004267  000326      for (j := 0; j < nInputs; j++)
-004268  000327          k := j*IPDatasize ;
-004269  000328          if (*(InputData+k+Ofs_IPD_P2) == group)
-004270  000329              l := -1 ;
-004271  000330               if (*(InputData+k) == tWinButton)
-004272  000331                  l := oWinButtons[*(InputData+k+Ofs_IPD_OBJVIDX)/2] ;
-004273  000332                  img_SetWord(hndl, l, IMAGE_INDEX, 0);
-004274  000333                  img_Show(hndl, l);      // only shows on current form
-004275  000334              endif
-004276  000335          endif
-004277  000336      next
-004278  000337  endfunc
-004279  000338        
-004280  000339        
-004281  000340  // WARNING, this code will crash if newval exceeds maximum displayable number
-004282  000341  func ledDigitsDisplay(var imgidx, var typeptr, var setptr)
-004283  000342      var i, j, k, l, lb, newval ;
-004284  000343      if (!((img_GetWord(hndl, imgidx, IMAGE_FLAGS) & I_ENABLED))) return ;  // ;img_GetWord(hndl, imgidx, IMAGE_TAG2) ;if diabled then exit
-004285  000344      newval := img_GetWord(hndl, imgidx, IMAGE_TAG2) ;
-004286  000345      i := -1 ;
-004287  000346      j := *(typeptr) ;
-004288  000347      repeat
-004289  000348          typeptr += 2 ;
-004290  000349          i++ ;
-004291  000350          until (*(typeptr) == imgidx);
-004292  000351      j := setptr + i*10 ;
-004293  000352        
-004294  000353      imgidx++ ;
-004295  000354      l := 1 ;
-004296  000355      for (i := 1; i < *(j+Ofs_Digits_Digits); i++)
-004297  000356          l *= 10 ;
-004298  000357      next
-004299  000358      lb := *(j+Ofs_Digits_LeadingBlanks) ;
-004300  000359      for (i := 0; i < *(j+Ofs_Digits_Digits); i++)
-004301  000360          k := newval / l ;
-004302  000361          newval -= k * l ;
-004303  000362          if ( lb && (i < *(j+Ofs_Digits_Digits) - *(j+Ofs_Digits_MinDigits)) )
-004304  000363              if (k == 0)
-004305  000364                  k := 10 ;
-004306  000365              else
-004307  000366                  lb := 0 ;
-004308  000367              endif
-004309  000368          endif
-004310  000369          l /= 10 ;
-004311  000370          img_SetWord(hndl, imgidx, IMAGE_INDEX, k);
-004312  000371          img_SetWord(hndl, imgidx, IMAGE_XPOS, *(j+Ofs_Digits_Left)+i* *(j+Ofs_Digits_Widthdigit)) ;
-004313  000372          img_Show(hndl, imgidx);
-004314  000373      next
-004315  000374  endfunc
-004316  000375        
-004317  000376        
-004318  000377  func ActivateForm(var newform)
-004319  000378      var i, j, *p ;
-004320  000379        
-004321  000380      if (CurrentForm != -1) // deactivate old form, by disabling all inputs
-004322  000381          for (i := FormStartIndex[CurrentForm]; i <= FormEndIndex[CurrentForm]; i++)
-004323  000382              if (img_GetWord(hndl, i, IMAGE_TAG))
-004324  000383                  img_Disable(hndl,i) ;
-004325  000384              endif
-004326  000385          next
-004327  000386      endif
-004328  000387      CurrentForm := newform ;
-004329  000388      // display newform image or clear to image color
-004330  000389      if (FormBGcolors[CurrentForm] != ColorBGimage)
-004331  000390          gfx_Set(BACKGROUND_COLOUR,FormBGcolors[CurrentForm]);
-004332  000391          gfx_Cls() ;
-004333  000392          DoGFXObjects() ;                                    // display GFX 'widgets'
-004334  000393      endif
-004335  000394        
-004336  000395      // enable inputs
-004337  000396      for (i := FormStartIndex[CurrentForm]; i < FormEndIndex[CurrentForm]; i++)
-004338  000397          j := img_GetWord(hndl, i, IMAGE_TAG) ;
-004339  000398          if (j)
-004340  000399              j-- ;
-004341  000400              img_SetAttributes(hndl, i, I_STAYONTOP+I_ENABLED);        // make sure this is on top of form, if applicable
-004342  000401              //if (j != tKeyboard)
-004343  000402              if ((j <= tWinButton) || (j >= t4Dbutton) )               // enable inputs
-004344  000403                  img_ClearAttributes(hndl, i, I_TOUCH_DISABLE);        // ensure touch is enabled
-004345  000404              endif
-004346  000405              img_Show(hndl,i) ; // show initialy, if required
-004347  000406              if (j == tForm)
-004348  000407                  DoGFXObjects() ;                                    // display GFX 'widgets' for image backgruobds
-004349  000408              else if (j == tLeddigits)
-004350  000409                  ledDigitsDisplay(i, oLeddigitss, oLedDigitsn) ;
-004351  000410              endif
-004352  000411          endif
-004353  000412      next
-004354  000413      for (i := 0; i < nStrings; i++)
-004355  000414          if (stringsCV[i] != -1)
-004356  000415              WriteObject(tStrings, i, stringsCV[i]) ;
-004357  000416          endif
-004358  000417      next
-004359  000418        
-004360  000419  endfunc
-004361  000420        
-004362  000421  func UpdateObjects(var newval)
-004363  000422      var IPidx, otherOBJ ;
-004364  000423      if ( ( img_GetWord(hndl, *(pInputIndex), IMAGE_INDEX) != newval) || (TouchState == Ofs_IPD_RELEASE) ) // only bother if values changed, or release
-004365  000424        
-004366  000425          img_SetWord(hndl, *(pInputIndex), IMAGE_INDEX, newval);
-004367  000426              img_Show(hndl, *(pInputIndex));      // only shows on current form
-004368  000427          if ((InputType == t4Dbutton) || (InputType == tUserButton) || (InputType == tWinButton))
-004369  000428              if (*(CurInputData+Ofs_IPD_P1))
-004370  000429                  newval &= 1;
-004371  000430              else
-004372  000431                  newval &= 3;
-004373  000432              endif
-004374  000433              if (newval > 1) newval := 1;
-004375  000434          endif
-004376  000435          IPidx := *(CurInputData+TouchState) ;
-004377  000436          while(IPidx != 0)
-004378  000437              otherOBJ := IPidx + InputData;
-004379  000438              if (*(otherOBJ) == OT_REPORT)
-004380  000439          SendReport(REPORT_EVENT, InputType, *(otherOBJ+Ofs_IPD_OBJVIDX), newval) ;
-004381  000440              else if (*(otherOBJ) == OT_MAGIC)
-004382  000441                  IPidx := *(otherOBJ+Ofs_IPD_P5) ;
-004383  000442                  IPidx(newval) ;
-004384  000443              else if (TouchState == *(otherOBJ+Ofs_IPD_P4))
-004385  000444                  if (*(otherOBJ) == OT_ACTIVATE)
-004386  000445                      ActivateForm(*(otherOBJ+Ofs_IPD_P2) ) ;
-004387  000446                      InputType := tForm ;
-004388  000447                  else if (*(otherOBJ) == OT_SETCONST)
-004389  000448                      newval := *(otherOBJ+Ofs_IPD_P3) ;
-004390  000449                      WriteObject(*(otherOBJ+Ofs_IPD_P1), *(otherOBJ+Ofs_IPD_P2), newval) ;
-004391  000450                  else if (*(otherOBJ) == OT_SETANOTHER)
-004392  000451                      WriteObject(*(otherOBJ+Ofs_IPD_P1), *(otherOBJ+Ofs_IPD_P2), newval) ;
-004393  000452                  else if (*(otherOBJ) == OT_PREVFRAME)
-004394  000453                      if (img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX))
-004395  000454                          WriteObject(*(otherOBJ+Ofs_IPD_P5),*(otherOBJ+Ofs_IPD_P2),img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX)-1) ;
-004396  000455                      endif
-004397  000456                      newval := img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX) ;
-004398  000457                  else if (*(otherOBJ) == OT_NEXTFRAME)
-004399  000458                      if (img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX) < *(otherOBJ+Ofs_IPD_P3))
-004400  000459                          WriteObject(*(otherOBJ+Ofs_IPD_P5),*(otherOBJ+Ofs_IPD_P2),img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX)+1) ;
-004401  000460                      endif
-004402  000461                      newval := img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX) ;
-004403  000462                  else if (*(otherOBJ) == OT_PREVSTRING)
-004404  000463                      if (stringsCV[*(otherOBJ+Ofs_IPD_P2)])
-004405  000464                          WriteObject(tStrings,*(otherOBJ+Ofs_IPD_P2),stringsCV[*(otherOBJ+Ofs_IPD_P2)]-1) ;
-004406  000465                      endif
-004407  000466                  else if (*(otherOBJ) == OT_NEXTSTRING)
-004408  000467                      if (stringsCV[*(otherOBJ+Ofs_IPD_P2)] < *(otherOBJ+Ofs_IPD_P3)) // fix IPD_P2 not filled in yet
-004409  000468                          WriteObject(tStrings,*(otherOBJ+Ofs_IPD_P2),stringsCV[*(otherOBJ+Ofs_IPD_P2)]+1) ;
-004410  000469                      endif
-004411  000470                  endif
-004412  000471              endif
-004413  000472              IPidx := *(otherOBJ+TouchState) ;
-004414  000473          wend
-004415  000474      endif
-004416  000475  endfunc
-004417  000476        
-004418  000477  // End P2.inc
-004419  000478  func DoGFXObjects()
-004420  000479  endfunc
-004421  000480        
-004422  000481  // Start P3.inc
-004423  000482  func main()
-004424  000483      var comTX[50], cmdi, i, j, ImageTouched, TouchStatus, oldn ;
-004425  000484        
-004426  000485      putstr("Mounting...\n");
-004427  000486      if (!(file_Mount()))
-004428  000487          while(!(file_Mount()))
-004429  000488              putstr("Drive not mounted...");
-004430  000489              pause(200);
-004431  000490              gfx_Cls();
-004432  000491              pause(200);
-004433  000492          wend
-004434  000493      endif
-004435  000494  //    gfx_MoveTo(0, 0);
-004436  000495  //    print(mem_Heap()," ") ;
-004437  000496  //    gfx_TransparentColour(0x0020);
-004438  000497  //    gfx_Transparency(ON);
-004439  000498        
-004440  000499      gfx_ScreenMode(LANDSCAPE) ;
-004441  000500        
-004442  000501      // open image control
-004443  000502      hndl := file_LoadImageControl("DASHBO~1.dat", "DASHBO~1.gci", 1);
-004444  000503        
-004445  000504      // init 'constants'
-004446  000505  // End P3.inc
-004447  000506        
-004448  000507      oObjects[tDipSwitch] := oDipSwitchs ;
-004449  000508      oObjects[tKnob] := oKnobs ;
-004450  000509      oObjects[tRockerSwitch] := oRockerSwitchs ;
-004451  000510      oObjects[tRotarySwitch] := oRotarySwitchs ;
-004452  000511      oObjects[tGSlider] := oGSliders ;
-004453  000512      oObjects[tTrackbar] := oTrackbars ;
-004454  000513      oObjects[tWinButton] := oWinButtons ;
-004455  000514      oObjects[tAngularmeter] := oAngularmeters ;
-004456  000515      oObjects[tCoolgauge] := oCoolgauges ;
-004457  000516      oObjects[tCustomdigits] := oCustomdigitss ;
-004458  000517      oObjects[tForm] := oForms ;
-004459  000518      oObjects[tGauge] := oGauges ;
-004460  000519      oObjects[tImage] := oImages ;
-004461  000520      oObjects[tKeyboard] := oKeyboards ;
-004462  000521      oObjects[tLed] := oLeds ;
-004463  000522      oObjects[tLeddigits] := oLeddigitss ;
-004464  000523      oObjects[tMeter] := oMeters ;
-004465  000524      oObjects[tStrings] := oStringss ;
-004466  000525      oObjects[tThermometer] := oThermometers ;
-004467  000526      oObjects[tUserled] := oUserleds ;
-004468  000527      oObjects[tVideo] := oVideos ;
-004469  000528      oObjects[tStaticText] := oStaticTexts ;
-004470  000529      oObjects[tSounds] := oSoundss ;
-004471  000530      oObjects[tTimer] := oTimers ;
-004472  000531      oObjects[tSpectrum] := oSpectrums ;
-004473  000532      oObjects[tTank] := oTanks ;
-004474  000533      oObjects[tUserImages] := oUserImagess ;
-004475  000534      oObjects[tPinOutput] := oPinOutputs ;
-004476  000535      oObjects[tPinInput] := oPinInputs ;
-004477  000536      oObjects[t4Dbutton] := o4Dbuttons ;
-004478  000537      oObjects[tAniButton] := oAniButtons ;
-004479  000538      oObjects[tColorPicker] := oColorPickers ;
-004480  000539      oObjects[tUserButton] := oUserButtons ;
-004481  000540      hFonts[0] := FONT3 ;
-004482  000541      hFonts[1] := file_LoadImageControl("DASHBO~1.d01", "DASHBO~1.g01", 1)  ;
-004483  000542      hFonts[3] := file_LoadImageControl("DASHBO~1.d02", "DASHBO~1.g02", 1)  ;
-004484  000543      hFonts[4] := file_LoadImageControl("DASHBO~1.d03", "DASHBO~1.g03", 1)  ;
-004485  000544      hFonts[5] := file_LoadImageControl("DASHBO~1.d04", "DASHBO~1.g04", 1)  ;
-004486  000545      hFonts[2] := hFonts[1] ;
-004487  000546      hFonts[6] := hFonts[5] ;
-004488  000547      hFonts[7] := hFonts[4] ;
-004489  000548  // Start P4.inc
-004490  000549      hstrings := file_Open("DASHBO~1.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
-004491  000550      // init comms
-004492  000551      com1_Init(comRX,CMDLenMAX,0);
-004493  000552      com_SetBaud(COM1,11520);
-004494  000553      com1_TXbuffer(comTX, 100, 0);
-004495  000554      // tag 'real' objects
-004496  000555      for (i := 0; i <= MaxTotObjects; i++)
-004497  000556          if (   (i != tSounds)
-004498  000557              && (i != tTimer)
-004499  000558              && (i != tPinOutput)
-004500  000559              && (i != tPinInput) )
-004501  000560              TouchXpos := oObjects[i] ;
-004502  000561              TouchYpos := *(TouchXpos) ;
-004503  000562              for (ImageTouched := 1; ImageTouched <= TouchYpos; ImageTouched++)
-004504  000563                  oldn := *(TouchXpos+ImageTouched*2) ;
-004505  000564                  img_SetAttributes(hndl, oldn, I_TOUCH_DISABLE);  // ensure touch is enabled
-004506  000565                  if (oldn != -1)
-004507  000566                      img_SetWord(hndl, oldn, IMAGE_TAG, i+1);
-004508  000567                      img_Disable(hndl, oldn) ;
-004509  000568                  endif
-004510  000569              next
-004511  000570          endif
-004512  000571      next
-004513  000572        
-004514  000573      // display initial form
-004515  000574      CurrentForm := -1 ;
-004516  000575      ActivateForm(0) ; // need to change this according to first actual form
-004517  000576        
-004518  000577  // End P4.inc
-004519  000578  // Start P5.inc
-004520  000579      touch_Set(TOUCH_ENABLE);                            // enable the touch screen
-004521  000580      oldn := -1 ;
-004522  000581      repeat
-004523  000582        
-004524  000583          // check comms for command, how to NAK invalid command
-004525  000584          if (com1_Count() != 0)
-004526  000585              i := serin1() ;
-004527  000586              InputCS ^= i ;               // update checksum
-004528  000587              if (   (cmdi > 2)
-004529  000588                  && (cmd[0] == WRITE_STRU) )
-004530  000589                  j := (cmdi-1) >> 1 + 2 ;
-004531  000590                  if (j == CMDLenMAX)    // max length exceeded
-004532  000591                      nak0() ;
-004533  000592                  cmdi := -1 ;
-004534  000593                  else if (cmdi & 1)
-004535  000594                      cmd[j] := i ;
-004536  000595                      if (cmd[2] == 0)    // if string complete
-004537  000596                          if (InputCS)
-004538  000597                              nak0() ;
-004539  000598                          else
-004540  000599                              if (cmd[0] == WRITE_STRU)
-004541  000600                                  cmd[j] := 0 ;                     // terminate it
-004542  000601                                  PrintStrings(cmd[1], &cmd[3], 1) ;
-004543  000602                                  serout1(ACK) ;
-004544  000603                              else
-004545  000604                              endif
-004546  000605                          endif
-004547  000606                          cmdi := -1 ;
-004548  000607                      endif
-004549  000608                  else
-004550  000609                      cmd[j] := cmd[j] << 8 + i ;
-004551  000610                      cmd[2]-- ;          // dec length
-004552  000611                  endif
-004553  000612                  cmdi++ ;
-004554  000613              else // not unicode string
-004555  000614                  cmd[cmdi++] := i ;
-004556  000615                   if (cmd[0] == WRITE_STR)                  // Ansi String
-004557  000616                      if (cmdi == CMDLenMAX)      // max length exceeded
-004558  000617                          nak0() ;
-004559  000618                          cmdi := 0 ;
-004560  000619                      else if (cmdi > 2)
-004561  000620                          if (cmd[2] == -1)
-004562  000621                              if (InputCS)
-004563  000622                                  nak0() ;
-004564  000623                              else
-004565  000624                                  if (cmd[0] == WRITE_STR)
-004566  000625                                      cmd[cmdi-1] := 0 ;                     // terminate it
-004567  000626                                      PrintStrings(cmd[1], &cmd[3], 1) ;
-004568  000627                                      serout1(ACK) ;
-004569  000628                                  else
-004570  000629                                  endif
-004571  000630                              endif
-004572  000631                              cmdi := 0 ;
-004573  000632                          else
-004574  000633                              cmd[2]-- ;          // dec length
-004575  000634                          endif
-004576  000635                      endif
-004577  000636                  else if (   (cmd[0] == READ_OBJ)
-004578  000637                           && (cmdi == 4)         )
-004579  000638                      if (InputCS)
-004580  000639                          nak0() ;
-004581  000640                      else
-004582  000641                          ReadObject(cmd[1], cmd[2]) ;
-004583  000642                      endif
-004584  000643                      cmdi := 0 ;
-004585  000644                  else if (   (cmd[0] == WRITE_OBJ)    // 6 byte write command (gen option)
-004586  000645                           && (cmdi == 6)          )
-004587  000646                      if (InputCS)
-004588  000647                          nak0() ;
-004589  000648                      else
-004590  000649                          WriteObject(cmd[1], cmd[2], cmd[3] << 8 + cmd[4]) ;
-004591  000650                          serout1(ACK) ;
-004592  000651                      endif
-004593  000652                      cmdi := 0 ;
-004594  000653                  else if (   (cmd[0] == WRITE_CONTRAST)
-004595  000654                           && (cmdi == 3)         )
-004596  000655                      if (InputCS)
-004597  000656                          nak0() ;
-004598  000657                      else
-004599  000658                          gfx_Contrast(cmd[1]) ;
-004600  000659                          serout1(ACK) ;
-004601  000660                      endif
-004602  000661                      cmdi := 0 ;
-004603  000662                  else if (cmdi == 6)    // we have 6 bytes and we've gotten here -> something wrong
-004604  000663                      nak0() ;
-004605  000664                      cmdi := 0 ;
-004606  000665                  endif
-004607  000666              endif   // not unicode string
-004608  000667          endif   // a character is available
-004609  000668        
-004610  000669        
-004611  000670      // touch code processing
-004612  000671        
-004613  000672          TouchStatus := touch_Get(TOUCH_STATUS);               // get touchscreen status
-004614  000673          ImageTouched := img_Touched(hndl,-1) ;
-004615  000674          if ((TouchStatus == TOUCH_PRESSED) || (TouchStatus == TOUCH_RELEASED) || (TouchStatus == TOUCH_MOVING))
-004616  000675              if ((TouchStatus != TOUCH_RELEASED) && (ImageTouched != oldn) && (oldn != -1))
-004617  000676                  TouchStatus := TOUCH_RELEASED ;       // simulate release if we move off object
-004618  000677              endif
-004619  000678              if (TouchStatus != TOUCH_RELEASED)        // if not released
-004620  000679                  if (oldn != -1)
-004621  000680                      ImageTouched := oldn ;
-004622  000681                  else
-004623  000682                      if (oldn != ImageTouched)
-004624  000683                          oldn := ImageTouched ;
-004625  000684                          TouchStatus := TOUCH_PRESSED ;
-004626  000685                      endif
-004627  000686                  endif
-004628  000687                  TouchXpos  := touch_Get(TOUCH_GETX);
-004629  000688                  TouchYpos  := touch_Get(TOUCH_GETY);
-004630  000689                  TouchState := Ofs_IPD_DOWN ;
-004631  000690              else
-004632  000691                  ImageTouched := oldn ;                     // simulate release of what we touched
-004633  000692                  oldn := -1 ;                    // prevent double release
-004634  000693                  TouchState := Ofs_IPD_RELEASE ;
-004635  000694              endif
-004636  000695              if (ImageTouched != -1)
-004637  000696                          CurInputData := InputControls[ImageTouched] + InputData;
-004638  000697                          InputType := *(CurInputData) ;
-004639  000698                          i := InputType ;
-004640  000699                          if (InputType >= t4Dbutton) i -= 23 ; // adjust to ensure next in gosub
-004641  000700                          gosub (i), (cDipswitch, cKnob, cRockerswitch, cRotaryswitch, cSlider, cTrackbar, cWinbutton, c4DButton, cAniButton, cColorPicker, cUserButton) ;
-004642  000701              endif
-004643  000702          endif
-004644  000703   //       if ((n != -1) && (oldn == -1)) oldn := n ;    // save what we touched in case we move off it
-004645  000704        
-004646  000705          sys_EventsResume() ;
-004647  000706      forever
-004648  000707        
-004649  000708  cDipswitch:
-004650  000709        
-004651  000710  cKnob:
-004652  000711        
-004653  000712  cRockerswitch:
-004654  000713        
-004655  000714  cRotaryswitch:
-004656  000715        
-004657  000716  cSlider:
-004658  000717  cTrackbar:
-004659  000718        
-004660  000719  c4DButton:
-004661  000720  cUserButton:
-004662  000721  cWinbutton:
-004663  000722      pInputIndex := oWinButtons + *(CurInputData+Ofs_IPD_OBJVIDX) ;
-004664  000723  gbutton:
-004665  000724      i := img_GetWord(hndl, *(pInputIndex), IMAGE_INDEX) ; // current state
-004666  000725      if (*(CurInputData+Ofs_IPD_P1))                                 // momentary, reports 0, but should report 1
-004667  000726          if (TouchStatus == TOUCH_RELEASED)
-004668  000727              i &= 0xfffe ;
-004669  000728              TouchState == Ofs_IPD_DOWN ;
-004670  000729          else
-004671  000730              i |= 1 ;
-004672  000731              TouchState == Ofs_IPD_RELEASE ;
-004673  000732          endif
-004674  000733      else if (*(CurInputData+Ofs_IPD_P2) == -1)                      // Toggle, reports 0+2, but should report 0+1
-004675  000734          if (TouchStatus == TOUCH_RELEASED)                     // only truly change on release
-004676  000735              if ((i & 3) == 3)
-004677  000736                  i &= 0xfffc ;
-004678  000737              else
-004679  000738                  i++ ;
-004680  000739              endif
-004681  000740          else
-004682  000741              i |= 1 ;                                      // make down regardless of current state
-004683  000742          endif
-004684  000743      else                        // group action, up all other buttons on touch press, reports 0 for button down
-004685  000744          if (TouchStatus == TOUCH_PRESSED)                     // only truly change on release
-004686  000745              TurnOffButtons(*(CurInputData+Ofs_IPD_P2)) ;
-004687  000746          endif
-004688  000747          i := (i & 0xfffc) | 2 ;
-004689  000748      endif
-004690  000749        
-004691  000750      UpdateObjects(i) ;
-004692  000751  endsub ;
-004693  000752        
-004694  000753  cAniButton:
-004695  000754        
-004696  000755  cColorPicker:
-004697  000756        
-004698  000757  endfunc
-004699  000758  // End P5.inc
-Notice: Check that the function called via pointer  'IPidx' requires 1 argument (line 442 file:DashBoardLCD.4DGenieS)
-Notice: local var 'p' in func 'ActivateForm' is never used (line 378 file:DashBoardLCD.4DGenieS)
+003007  000218  #END
+3008  04D2
+3009  04D3
+3010  04D4
+3011  04D5
+3012  04D6
+3013  04D7
+3014  04D8
+3015  04D9
+3016  04DA
+3017  04DB
+3018  04DC
+3019  04DD
+3020  04DE
+3021  04DF
+3022  04E0
+3023  04E1
+3024  04E2
+3025  04E3
+3026  04E4
+3027  04E5
+3028  04E6
+3029  04E7
+3030  04E8
+3031  04E9
+3032  04EA
+3033  04EB
+3034  04EC
+3035  04ED
+3036  04EE
+3037  04EF
+3038  04F0
+3039  04F1
+3040  04F2
+3041  04F3
+3042  04F4
+3043  04F5
+3044  04F6
+3045  04F7
+3046  04F8
+3047  04F9
+3048  04FA
+3049  04FB
+3050  04FC
+3051  04FD
+3052  04FE
+3053  04FF
+3054  0500
+3055  0501
+3056  0502
+3057  0503
+3058  0504
+3059  0505
+3060  0506
+3061  0507
+3062  0508
+3063  0509
+3064  050A
+3065  050B
+3066  050C
+3067  050D
+3068  050E
+3069  050F
+3070  0510
+3071  0511
+3072  0512
+3073  0513
+3074  0514
+3075  0515
+3076  0516
+3077  0517
+3078  0518
+3079  0519
+3080  051A
+3081  051B
+3082  051C
+3083  051D
+3084  051E
+3085  051F
+3086  0520
+3087  0521
+3088  0522
+3089  0523
+3090  0524
+3091  0525
+3092  0526
+3093  0527
+3094  0528
+3095  0529
+3096  052A
+3097  052B
+3098  052C
+3099  052D
+3100  052E
+3101  052F
+3102  0530
+3103  0531
+3104  0532
+3105  0533
+3106  0534
+3107  0535
+3108  0536
+3109  0537
+3110  0538
+3111  0539
+3112  053A
+3113  053B
+3114  053C
+3115  053D
+3116  053E
+3117  053F
+3118  0540
+3119  0541
+3120  0542
+3121  0543
+3122  0544
+3123  0545
+3124  0546
+3125  0547
+3126  0548
+3127  0549
+3128  054A
+3129  054B
+3130  054C
+3131  054D
+3132  054E
+3133  054F
+3134  0550
+3135  0551
+3136  0552
+3137  0553
+3138  0554
+3139  0555
+3140  0556
+3141  0557
+3142  0558
+3143  0559
+3144  055A
+3145  055B
+3146  055C
+3147  055D
+3148  055E
+3149  055F
+3150  0560
+3151  0561
+3152  0562
+3153  0563
+3154  0564
+3155  0565
+3156  0566
+3157  0567
+3158  0568
+3159  0569
+3160  056A
+3161  056B
+3162  056C
+3163  056D
+3164  056E
+3165  056F
+3166  0570
+3167  0571
+3168  0572
+3169  0573
+3170  0574
+3171  0575
+3172  0576
+3173  0577
+3174  0578
+3175  0579
+3176  057A
+3177  057B
+3178  057C
+3179  057D
+3180  057E
+3181  057F
+3182  0580
+3183  0581
+3184  0582
+3185  0583
+3186  0584
+3187  0585
+3188  0586
+3189  0587
+3190  0588
+3191  0589
+3192  058A
+3193  058B
+3194  058C
+3195  058D
+3196  058E
+3197  058F
+3198  0590
+3199  0591
+3200  0592
+3201  0593
+3202  0594
+3203  0595
+3204  0596
+3205  0597
+3206  0598
+3207  0599
+3208  059A
+3209  059B
+3210  059C
+3211  059D
+3212  059E
+3213  059F
+3214  05A0
+3215  05A1
+3216  05A2
+3217  05A3
+3218  05A4
+3219  05A5
+3220  05A6
+3221  05A7
+3222  05A8
+3223  05A9
+3224  05AA
+3225  05AB
+3226  05AC
+3227  05AD
+3228  05AE
+3229  05AF
+3230  05B0
+3231  05B1
+3232  05B2
+3233  05B3
+3234  05B4
+3235  05B5
+3236  05B6
+3237  05B7
+3238  05B8
+3239  05B9
+3240  05BA
+3241  05BB
+3242  05BC
+3243  05BD
+3244  05BE
+3245  05BF
+3246  05C0
+3247  05C1
+3248  05C2
+3249  05C3
+3250  05C4
+3251  05C5
+3252  05C6
+3253  05C7
+3254  05C8
+3255  05C9
+3256  05CA
+3257  05CB
+3258  05CC
+3259  05CD
+3260  05CE
+3261  05CF
+3262  05D0
+3263  05D1
+3264  05D2
+3265  05D3
+3266  05D4
+3267  05D5
+3268  05D6
+3269  05D7
+3270  05D8
+3271  05D9
+3272  05DA
+3273  05DB
+3274  05DC
+3275  05DD
+3276  05DE
+3277  05DF
+3278  05E0
+3279  05E1
+3280  05E2
+3281  05E3
+3282  05E4
+3283  05E5
+3284  05E6
+3285  05E7
+3286  05E8
+3287  05E9
+3288  05EA
+3289  05EB
+3290  05EC
+3291  05ED
+3292  05EE
+3293  05EF
+3294  05F0
+3295  05F1
+3296  05F2
+3297  05F3
+3298  05F4
+3299  05F5
+3300  05F6
+3301  05F7
+3302  05F8
+3303  05F9
+3304  05FA
+3305  05FB
+3306  05FC
+3307  05FD
+3308  05FE
+3309  05FF
+3310  0600
+3311  0601
+3312  0602
+3313  0603
+3314  0604
+3315  0605
+3316  0606
+3317  0607
+3318  0608
+3319  0609
+3320  060A
+3321  060B
+3322  060C
+3323  060D
+3324  060E
+3325  060F
+3326  0610
+3327  0611
+3328  0612
+3329  0613
+3330  0614
+3331  0615
+3332  0616
+3333  0617
+3334  0618
+3335  0619
+3336  061A
+3337  061B
+3338  061C
+3339  061D
+3340  061E
+3341  061F
+3342  0620
+3343  0621
+3344  0622
+3345  0623
+3346  0624
+3347  0625
+3348  0626
+3349  0627
+3350  0628
+3351  0629
+3352  062A
+3353  062B
+3354  062C
+3355  062D
+3356  062E
+3357  062F
+3358  0630
+3359  0631
+3360  0632
+3361  0633
+3362  0634
+3363  0635
+3364  0636
+3365  0637
+3366  0638
+3367  0639
+3368  063A
+3369  063B
+3370  063C
+3371  063D
+3372  063E
+3373  063F
+3374  0640
+3375  0641
+3376  0642
+3377  0643
+3378  0644
+3379  0645
+3380  0646
+3381  0647
+3382  0648
+3383  0649
+3384  064A
+3385  064B
+3386  064C
+3387  064D
+3388  064E
+3389  064F
+3390  0650
+3391  0651
+3392  0652
+3393  0653
+3394  0654
+3395  0655
+3396  0656
+3397  0657
+3398  0658
+3399  0659
+3400  065A
+3401  065B
+3402  065C
+3403  065D
+3404  065E
+3405  065F
+3406  0660
+3407  0661
+3408  0662
+3409  0663
+3410  0664
+3411  0665
+3412  0666
+3413  0667
+3414  0668
+3415  0669
+3416  066A
+3417  066B
+3418  066C
+3419  066D
+3420  066E
+3421  066F
+3422  0670
+3423  0671
+3424  0672
+3425  0673
+3426  0674
+3427  0675
+3428  0676
+3429  0677
+3430  0678
+3431  0679
+3432  067A
+3433  067B
+3434  067C
+3435  067D
+3436  067E
+3437  067F
+3438  0680
+3439  0681
+3440  0682
+3441  0683
+3442  0684
+3443  0685
+3444  0686
+3445  0687
+3446  0688
+3447  0689
+3448  068A
+3449  068B
+3450  068C
+3451  068D
+3452  068E
+3453  068F
+3454  0690
+3455  0691
+3456  0692
+3457  0693
+3458  0694
+3459  0695
+3460  0696
+3461  0697
+3462  0698
+3463  0699
+3464  069A
+3465  069B
+3466  069C
+3467  069D
+3468  069E
+3469  069F
+3470  06A0
+3471  06A1
+3472  06A2
+3473  06A3
+3474  06A4
+3475  06A5
+3476  06A6
+3477  06A7
+3478  06A8
+3479  06A9
+3480  06AA
+3481  06AB
+3482  06AC
+3483  06AD
+3484  06AE
+3485  06AF
+3486  06B0
+3487  06B1
+3488  06B2
+3489  06B3
+3490  06B4
+3491  06B5
+3492  06B6
+3493  06B7
+3494  06B8
+3495  06B9
+3496  06BA
+3497  06BB
+3498  06BC
+3499  06BD
+3500  06BE
+3501  06BF
+3502  06C0
+3503  06C1
+3504  06C2
+3505  06C3
+3506  06C4
+3507  06C5
+3508  06C6
+3509  06C7
+3510  06C8
+3511  06C9
+3512  06CA
+3513  06CB
+3514  06CC
+3515  06CD
+3516  06CE
+3517  06CF
+3518  06D0
+3519  06D1
+3520  06D2
+3521  06D3
+3522  06D4
+3523  06D5
+3524  06D6
+3525  06D7
+3526  06D8
+3527  06D9
+3528  06DA
+3529  06DB
+3530  06DC
+3531  06DD
+3532  06DE
+3533  06DF
+3534  06E0
+3535  06E1
+3536  06E2
+3537  06E3
+3538  06E4
+3539  06E5
+3540  06E6
+3541  06E7
+3542  06E8
+3543  06E9
+3544  06EA
+3545  06EB
+3546  06EC
+3547  06ED
+3548  06EE
+3549  06EF
+3550  06F0
+3551  06F1
+3552  06F2
+3553  06F3
+3554  06F4
+3555  06F5
+3556  06F6
+3557  06F7
+3558  06F8
+3559  06F9
+3560  06FA
+3561  06FB
+3562  06FC
+3563  06FD
+3564  06FE
+3565  06FF
+3566  0700
+3567  0701
+3568  0702
+3569  0703
+3570  0704
+3571  0705
+3572  0706
+3573  0707
+3574  0708
+3575  0709
+3576  070A
+3577  070B
+3578  070C
+3579  070D
+3580  070E
+3581  070F
+3582  0710
+3583  0711
+3584  0712
+3585  0713
+3586  0714
+3587  0715
+3588  0716
+3589  0717
+3590  0718
+3591  0719
+3592  071A
+3593  071B
+3594  071C
+3595  071D
+3596  071E
+3597  071F
+3598  0720
+3599  0721
+3600  0722
+3601  0723
+3602  0724
+3603  0725
+3604  0726
+3605  0727
+3606  0728
+3607  0729
+3608  072A
+3609  072B
+3610  072C
+3611  072D
+3612  072E
+3613  072F
+3614  0730
+3615  0731
+3616  0732
+3617  0733
+3618  0734
+3619  0735
+3620  0736
+3621  0737
+3622  0738
+3623  0739
+3624  073A
+3625  073B
+3626  073C
+3627  073D
+3628  073E
+3629  073F
+3630  0740
+3631  0741
+3632  0742
+3633  0743
+3634  0744
+3635  0745
+3636  0746
+3637  0747
+3638  0748
+3639  0749
+3640  074A
+3641  074B
+3642  074C
+3643  074D
+3644  074E
+3645  074F
+3646  0750
+3647  0751
+3648  0752
+3649  0753
+3650  0754
+3651  0755
+3652  0756
+3653  0757
+3654  0758
+3655  0759
+3656  075A
+3657  075B
+3658  075C
+3659  075D
+3660  075E
+3661  075F
+3662  0760
+3663  0761
+3664  0762
+3665  0763
+3666  0764
+3667  0765
+3668  0766
+3669  0767
+3670  0768
+3671  0769
+3672  076A
+3673  076B
+3674  076C
+3675  076D
+3676  076E
+3677  076F
+3678  0770
+3679  0771
+3680  0772
+3681  0773
+3682  0774
+3683  0775
+3684  0776
+3685  0777
+3686  0778
+3687  0779
+3688  077A
+3689  077B
+3690  077C
+3691  077D
+3692  077E
+3693  077F
+3694  0780
+3695  0781
+3696  0782
+3697  0783
+3698  0784
+3699  0785
+3700  0786
+3701  0787
+3702  0788
+3703  0789
+3704  078A
+3705  078B
+3706  078C
+3707  078D
+3708  078E
+3709  078F
+3710  0790
+3711  0791
+3712  0792
+3713  0793
+3714  0794
+3715  0795
+3716  0796
+3717  0797
+3718  0798
+3719  0799
+3720  079A
+3721  079B
+3722  079C
+3723  079D
+3724  079E
+3725  079F
+3726  07A0
+3727  07A1
+3728  07A2
+3729  07A3
+3730  07A4
+3731  07A5
+3732  07A6
+3733  07A7
+3734  07A8
+3735  07A9
+3736  07AA
+3737  07AB
+3738  07AC
+3739  07AD
+3740  07AE
+3741  07AF
+3742  07B0
+3743  07B1
+3744  07B2
+3745  07B3
+3746  07B4
+3747  07B5
+3748  07B6
+3749  07B7
+3750  07B8
+3751  07B9
+3752  07BA
+3753  07BB
+3754  07BC
+3755  07BD
+3756  07BE
+3757  07BF
+3758  07C0
+3759  07C1
+3760  07C2
+3761  07C3
+3762  07C4
+3763  07C5
+3764  07C6
+3765  07C7
+3766  07C8
+3767  07C9
+3768  07CA
+3769  07CB
+3770  07CC
+3771  07CD
+3772  07CE
+3773  07CF
+3774  07D0
+3775  07D1
+3776  07D2
+3777  07D3
+3778  07D4
+3779  07D5
+3780  07D6
+3781  07D7
+3782  07D8
+3783  07D9
+3784  07DA
+3785  07DB
+3786  07DC
+3787  07DD
+3788  07DE
+3789  07DF
+3790  07E0
+3791  07E1
+3792  07E2
+3793  07E3
+3794  07E4
+3795  07E5
+3796  07E6
+3797  07E7
+3798  07E8
+3799  07E9
+3800  07EA
+3801  07EB
+3802  07EC
+3803  07ED
+3804  07EE
+3805  07EF
+3806  07F0
+3807  07F1
+3808  07F2
+3809  07F3
+3810  07F4
+3811  07F5
+3812  07F6
+3813  07F7
+3814  07F8
+3815  07F9
+3816  07FA
+3817  07FB
+3818  07FC
+3819  07FD
+3820  07FE
+3821  07FF
+3822  0800
+3823  0801
+3824  0802
+3825  0803
+3826  0804
+3827  0805
+3828  0806
+3829  0807
+3830  0808
+3831  0809
+3832  080A
+3833  080B
+3834  080C
+3835  080D
+3836  080E
+3837  080F
+3838  0810
+3839  0811
+3840  0812
+3841  0813
+3842  0814
+3843  0815
+3844  0816
+3845  0817
+3846  0818
+3847  0819
+3848  081A
+3849  081B
+3850  081C
+3851  081D
+3852  081E
+3853  081F
+3854  0820
+3855  0821
+3856  0822
+3857  0823
+3858  0824
+3859  0825
+3860  0826
+3861  0827
+3862  0828
+3863  0829
+3864  082A
+3865  082B
+3866  082C
+3867  082D
+3868  082E
+3869  082F
+3870  0830
+3871  0831
+3872  0832
+3873  0833
+3874  0834
+3875  0835
+3876  0836
+3877  0837
+3878  0838
+3879  0839
+3880  083A
+3881  083B
+3882  083C
+3883  083D
+3884  083E
+3885  083F
+3886  0840
+3887  0841
+3888  0842
+3889  0843
+3890  0844
+3891  0845
+3892  0846
+3893  0847
+3894  0848
+3895  0849
+3896  084A
+3897  084B
+3898  084C
+3899  084D
+3900  084E
+3901  084F
+3902  0850
+3903  0851
+3904  0852
+3905  0853
+3906  0854
+3907  0855
+3908  0856
+3909  0857
+3910  0858
+3911  0859
+3912  085A
+3913  085B
+3914  085C
+3915  085D
+3916  085E
+3917  085F
+3918  0860
+3919  0861
+3920  0862
+3921  0863
+3922  0864
+3923  0865
+3924  0866
+3925  0867
+3926  0868
+3927  0869
+3928  086A
+3929  086B
+3930  086C
+3931  086D
+3932  086E
+3933  086F
+3934  0870
+3935  0871
+3936  0872
+3937  0873
+3938  0874
+3939  0875
+3940  0876
+3941  0877
+3942  0878
+3943  0879
+3944  087A
+3945  087B
+3946  087C
+3947  087D
+3948  087E
+3949  087F
+3950  0880
+3951  0881
+3952  0882
+3953  0883
+3954  0884
+3955  0885
+3956  0886
+3957  0887
+3958  0888
+3959  0889
+3960  088A
+3961  088B
+3962  088C
+3963  088D
+3964  088E
+3965  088F
+3966  0890
+3967  0891
+3968  0892
+3969  0893
+3970  0894
+3971  0895
+3972  0896
+3973  0897
+3974  0898
+3975  0899
+3976  089A
+3977  089B
+3978  089C
+3979  089D
+3980  089E
+3981  089F
+3982  08A0
+3983  08A1
+3984  08A2
+3985  08A3
+3986  08A4
+3987  08A5
+3988  08A6
+3989  08A7
+3990  08A8
+3991  08A9
+3992  08AA
+3993  08AB
+3994  08AC
+3995  08AD
+3996  08AE
+3997  08AF
+3998  08B0
+3999  08B1
+4000  08B2
+4001  08B3
+4002  08B4
+4003  08B5
+4004  08B6
+4005  08B7
+4006  08B8
+4007  08B9
+4008  08BA
+4009  08BB
+4010  08BC
+4011  08BD
+4012  08BE
+4013  08BF
+4014  08C0
+4015  08C1
+4016  08C2
+4017  08C3
+4018  08C4
+4019  08C5
+4020  08C6
+4021  08C7
+4022  08C8
+4023  08C9
+4024  08CA
+4025  08CB
+4026  08CC
+4027  08CD
+4028  08CE
+4029  08CF
+4030  08D0
+4031  08D1
+4032  08D2
+4033  08D3
+4034  08D4
+4035  08D5
+4036  08D6
+4037  08D7
+4038  08D8
+4039  08D9
+4040  08DA
+4041  08DB
+4042  08DC
+4043  08DD
+4044  08DE
+4045  08DF
+4046  08E0
+4047  08E1
+4048  08E2
+4049  08E3
+4050  08E4
+4051  08E5
+4052  08E6
+4053  08E7
+4054  08E8
+4055  08E9
+4056  08EA
+4057  08EB
+4058  08EC
+4059  08ED
+4060  08EE
+4061  08EF
+4062  08F0
+4063  08F1
+4064  08F2
+4065  08F3
+4066  08F4
+4067  08F5
+4068  08F6
+4069  08F7
+4070  08F8
+4071  08F9
+4072  08FA
+4073  08FB
+4074  08FC
+4075  08FD
+4076  08FE
+4077  08FF
+4078  0900
+4079  0901
+4080  0902
+4081  0903
+4082  0904
+4083  0905
+4084  0906
+4085  0907
+4086  0908
+4087  0909
+4088  090A
+4089  090B
+4090  090C
+4091  090D
+4092  090E
+4093  090F
+4094  0910
+4095  0911
+4096  0912
+4097  0913
+4098  0914
+4099  0915
+4100  0916
+4101  0917
+4102  0918
+4103  0919
+4104  091A
+4105  091B
+4106  091C
+4107  091D
+4108  091E
+4109  091F
+4110  0920
+4111  0921
+4112  0922
+4113  0923
+4114  0924
+4115  0925
+4116  0926
+4117  0927
+4118  0928
+4119  0929
+4120  092A
+4121  092B
+4122  092C
+4123  092D
+4124  092E
+4125  092F
+4126  0930
+4127  0931
+4128  0932
+4129  0933
+4130  0934
+4131  0935
+4132  0936
+4133  0937
+4134  0938
+4135  0939
+4136  093A
+4137  093B
+4138  093C
+4139  093D
+4140  093E
+4141  093F
+4142  0940
+4143  0941
+4144  0942
+4145  0943
+4146  0944
+4147  0945
+4148  0946
+4149  0947
+4150  0948
+4151  0949
+4152  094A
+4153  094B
+4154  094C
+4155  094D
+4156  094E
+4157  094F
+4158  0950
+4159  0951
+4160  0952
+4161  0953
+4162  0954
+4163  0955
+4164  0956
+4165  0957
+4166  0958
+4167  0959
+4168  095A
+4169  095B
+4170  095C
+4171  095D
+4172  095E
+4173  095F
+4174  0960
+4175  0961
+4176  0962
+4177  0963
+4178  0964
+4179  0965
+4180  0966
+4181  0967
+4182  0968
+4183  0969
+4184  096A
+4185  096B
+4186  096C
+4187  096D
+4188  096E
+4189  096F
+4190  0970
+4191  0971
+4192  0972
+4193  0973
+4194  0974
+4195  0975
+4196  0976
+4197  0977
+4198  0978
+4199  0979
+4200  097A
+4201  097B
+4202  097C
+4203  097D
+4204  097E
+4205  097F
+4206  0980
+4207  0981
+4208  0982
+4209  0983
+4210  0984
+4211  0985
+4212  0986
+4213  0987
+4214  0988
+4215  0989
+4216  098A
+4217  098B
+4218  098C
+4219  098D
+4220  098E
+4221  098F
+4222  0990
+4223  0991
+4224  0992
+4225  0993
+4226  0994
+4227  0995
+4228  0996
+4229  0997
+4230  0998
+4231  0999
+4232  099A
+4233  099B
+4234  099C
+4235  099D
+004236  000219        
+004237  000220  var hFonts[8] ;
+004238  000221  var stringsCV[8] := [0, 0, 0, 0, 0, 0, 0, 0], hstrings ;
+4239  04E2
+4240  04E3
+4241  04E4
+4242  04E5
+4243  04E6
+4244  04E7
+4245  04E8
+4246  04E9
+4247  04EA
+4248  04EB
+4249  04EC
+4250  04ED
+4251  04EE
+4252  04EF
+4253  04F0
+4254  04F1
+004255  000222  // Start P2.inc
+004256  000223  var oObjects[MaxTotObjects+1] ;                 // address of objects
+004257  000224  var CurrentForm ;
+004258  000225  var TouchXpos, TouchYpos ;
+004259  000226  var InputType, TouchState, CurInputData, pInputIndex ;
+004260  000227  var comRX[131], cmd[CMDLenMAX] ;
+004261  000228  var InputCS, OutputCS ;
+004262  000229        
+004263  000230        
+004264  000231        
+004265  000232  func seroutCS(var op)
+004266  000233      serout1(op) ;
+004267  000234      OutputCS ^= op ;
+004268  000235  endfunc
+004269  000236        
+004270  000237  func nak0()
+004271  000238      serout1(NAK) ;
+004272  000239      InputCS := 0 ;
+004273  000240  endfunc
+004274  000241        
+004275  000242  func seroutOcs()
+004276  000243      serout1(OutputCS) ;
+004277  000244      OutputCS := 0 ;
+004278  000245  endfunc
+004279  000246        
+004280  000247  func SendReport(var id, var objt, var objn, var val)
+004281  000248      seroutCS(id) ;
+004282  000249      seroutCS(objt) ;
+004283  000250      seroutCS(objn) ;
+004284  000251      seroutCS(val >> 8) ; // first 8 bits
+004285  000252      seroutCS(val) ;
+004286  000253      seroutOcs() ;
+004287  000254  endfunc
+004288  000255        
+004289  000256        
+004290  000257  func ReadObject(var ObjectType, var ObjectIdx)
+004291  000258      var j, k, Objects ;
+004292  000259      Objects := *(oObjects+ObjectType) ;
+004293  000260        
+004294  000261  //    seroutCS(REPORT_OBJ) ;
+004295  000262  //    seroutCS(ObjectType) ;
+004296  000263  //    seroutCS(ObjectIdx) ;
+004297  000264      j := 2 + ObjectIdx * 2 + Objects ;
+004298  000265       if (ObjectType == tForm)
+004299  000266          k := CurrentForm ;
+004300  000267      else if ((ObjectType == tCustomdigits) || (ObjectType == tLeddigits))
+004301  000268          k := img_GetWord(hndl, *j, IMAGE_TAG2);
+004302  000269      else if (ObjectType == tStrings)
+004303  000270          k := stringsCV[ObjectIdx];
+004304  000271          else
+004305  000272          k := img_GetWord(hndl, *j, IMAGE_INDEX);
+004306  000273          if (((ObjectType == tWinButton) || (ObjectType == tAniButton) || (ObjectType == tUserButton) || (ObjectType == t4Dbutton)) && (k)) k := 1 ; // this is not correct for blocked buttons and cannot be fixed as we cannot
+004307  000274                                                                                                                                                      // determine if button is momentary or not which is needed for correct answer.
+004308  000275      endif
+004309  000276      SendReport(REPORT_OBJ, ObjectType, ObjectIdx, k) ;
+004310  000277  endfunc
+004311  000278        
+004312  000279        
+004313  000280  func WriteObject(var ObjectType, var ObjectIdx, var NewVal)
+004314  000281      var i, j, k, Objects ;
+004315  000282      ObjectType &= 0x3f ;
+004316  000283      if (ObjectType == tForm)
+004317  000284          ActivateForm(ObjectIdx) ;
+004318  000285      else
+004319  000286          Objects := *(oObjects+ObjectType)+ObjectIdx*2+2 ;
+004320  000287          i := *(Objects) ;
+004321  000288          switch (ObjectType)
+004322  000289              case tWinButton :
+004323  000290                  j := InputControls[oWinButtons[ObjectIdx+1]] ;
+004324  000291                  break ;
+004325  000292              default : j := -1 ;
+004326  000293          endswitch
+004327  000294          if (j != -1)
+004328  000295              k := img_GetWord(hndl, i , IMAGE_INDEX) ;
+004329  000296              if (   (k == -1)                    // currently disabled
+004330  000297                  && (NewVal != -1) )             // and don't want it disabled
+004331  000298                  img_ClearAttributes(hndl, i, I_TOUCH_DISABLE);    // enable touch
+004332  000299              else if (   (k != -1)               // currently enabled
+004333  000300                       && (NewVal == -1) )        // and want it disabled
+004334  000301                  img_SetWord(hndl, i, IMAGE_INDEX, 0xffff) ;       // make invisible
+004335  000302                  img_SetAttributes(hndl, i, I_TOUCH_DISABLE);      // and disable touch
+004336  000303                  if (FormBGcolors[CurrentForm] != ColorBGimage)
+004337  000304                      gfx_RectangleFilled(img_GetWord(hndl, i, IMAGE_XPOS), img_GetWord(hndl, i, IMAGE_YPOS),
+004338  000305                                          img_GetWord(hndl, i, IMAGE_XPOS) + img_GetWord(hndl, i, IMAGE_WIDTH),
+004339  000306                                          img_GetWord(hndl, i, IMAGE_YPOS) + img_GetWord(hndl, i, IMAGE_HEIGHT), FormBGcolors[CurrentForm]);
+004340  000307                  else
+004341  000308                      gfx_ClipWindow(img_GetWord(hndl, i, IMAGE_XPOS), img_GetWord(hndl, i, IMAGE_YPOS),
+004342  000309                                     img_GetWord(hndl, i, IMAGE_XPOS) + img_GetWord(hndl, i, IMAGE_WIDTH),
+004343  000310                                     img_GetWord(hndl, i, IMAGE_YPOS) + img_GetWord(hndl, i, IMAGE_HEIGHT)) ;
+004344  000311                      gfx_Clipping(ON) ;
+004345  000312                      img_Show(hndl,FormStartIndex[CurrentForm]) ;
+004346  000313                      gfx_Clipping(OFF) ;
+004347  000314                  endif
+004348  000315                  return ;
+004349  000316              else
+004350  000317              NewVal := NewVal << 1 ;
+004351  000318              if (OVF())      // button group index change
+004352  000319                  if (*(j+InputData+Ofs_IPD_P1))
+004353  000320                      k &= 1 ;    // mask off old group index for momentary
+004354  000321                  else
+004355  000322                      k &= 3 ;    // mask off old group index for toggle
+004356  000323                  endif
+004357  000324              else            // normal set
+004358  000325                  if (*(j+InputData+Ofs_IPD_P2) != -1) TurnOffButtons(*(j+InputData+Ofs_IPD_P2)) ;
+004359  000326                  k &= 0xfffc ;    // retain only group index for state set
+004360  000327              endif
+004361  000328              NewVal |= k ;
+004362  000329              endif
+004363  000330              endif
+004364  000331           if (ObjectType == tLeddigits)
+004365  000332              img_SetWord(hndl, i , IMAGE_TAG2, NewVal); // where state is 0 to 2
+004366  000333              ledDigitsDisplay(i, oLeddigitss, oLedDigitsn) ;
+004367  000334          else if (ObjectType == tSpectrum)
+004368  000335              i++ ;
+004369  000336              j := ObjectIdx*2 ;
+004370  000337              img_SetWord(hndl, i, IMAGE_XPOS, oSpectrumn[j] + (NewVal >> 8) * oSpectrumn[j+1]);
+004371  000338              img_SetWord(hndl, i, IMAGE_INDEX, NewVal & 0xFF) ;
+004372  000339              img_Show(hndl, i) ; // will only display if form is current
+004373  000340          else if (ObjectType == tStrings)
+004374  000341              PrintStrings(ObjectIdx, NewVal, 0);
+004375  000342          else
+004376  000343              img_SetWord(hndl, i , IMAGE_INDEX, NewVal); // where state is 0 to 2
+004377  000344              img_Show(hndl, i) ; // will only display if form is current
+004378  000345          endif
+004379  000346      endif
+004380  000347  endfunc
+004381  000348        
+004382  000349  func TurnOffButtons(var group)
+004383  000350      var j, k, l;
+004384  000351      for (j := 0; j < nInputs; j++)
+004385  000352          k := j*IPDatasize ;
+004386  000353          if (*(InputData+k+Ofs_IPD_P2) == group)
+004387  000354              l := -1 ;
+004388  000355               if (*(InputData+k) == tWinButton)
+004389  000356                  l := oWinButtons[*(InputData+k+Ofs_IPD_OBJVIDX)/2] ;
+004390  000357                  if (img_GetWord(hndl, l, IMAGE_INDEX) != 0xffff)
+004391  000358                  img_SetWord(hndl, l, IMAGE_INDEX, 0);
+004392  000359                  img_Show(hndl, l);      // only shows on current form
+004393  000360                  endif
+004394  000361              endif
+004395  000362          endif
+004396  000363      next
+004397  000364  endfunc
+004398  000365        
+004399  000366        
+004400  000367  // WARNING, this code will crash if newval exceeds maximum displayable number
+004401  000368  func ledDigitsDisplay(var imgidx, var typeptr, var setptr)
+004402  000369      var i, j, k, l, lb, newval ;
+004403  000370      if (!((img_GetWord(hndl, imgidx, IMAGE_FLAGS) & I_ENABLED))) return ;  // ;img_GetWord(hndl, imgidx, IMAGE_TAG2) ;if diabled then exit
+004404  000371      newval := img_GetWord(hndl, imgidx, IMAGE_TAG2) ;
+004405  000372      i := -1 ;
+004406  000373      j := *(typeptr) ;
+004407  000374      repeat
+004408  000375          typeptr += 2 ;
+004409  000376          i++ ;
+004410  000377          until (*(typeptr) == imgidx);
+004411  000378      j := setptr + i*10 ;
+004412  000379        
+004413  000380      imgidx++ ;
+004414  000381      l := 1 ;
+004415  000382      for (i := 1; i < *(j+Ofs_Digits_Digits); i++)
+004416  000383          l *= 10 ;
+004417  000384      next
+004418  000385      lb := *(j+Ofs_Digits_LeadingBlanks) ;
+004419  000386      for (i := 0; i < *(j+Ofs_Digits_Digits); i++)
+004420  000387          k := newval / l ;
+004421  000388          newval -= k * l ;
+004422  000389          if ( lb && (i < *(j+Ofs_Digits_Digits) - *(j+Ofs_Digits_MinDigits)) )
+004423  000390              if (k == 0)
+004424  000391                  k := 10 ;
+004425  000392              else
+004426  000393                  lb := 0 ;
+004427  000394              endif
+004428  000395          endif
+004429  000396          l /= 10 ;
+004430  000397          img_SetWord(hndl, imgidx, IMAGE_INDEX, k);
+004431  000398          img_SetWord(hndl, imgidx, IMAGE_XPOS, *(j+Ofs_Digits_Left)+i* *(j+Ofs_Digits_Widthdigit)) ;
+004432  000399          img_Show(hndl, imgidx);
+004433  000400      next
+004434  000401  endfunc
+004435  000402        
+004436  000403        
+004437  000404  func ActivateForm(var newform)
+004438  000405      var i, j, *p ;
+004439  000406        
+004440  000407      if (CurrentForm != -1) // deactivate old form, by disabling all inputs
+004441  000408          for (i := FormStartIndex[CurrentForm]; i <= FormEndIndex[CurrentForm]; i++)
+004442  000409              if (img_GetWord(hndl, i, IMAGE_TAG))
+004443  000410                  img_Disable(hndl,i) ;
+004444  000411              endif
+004445  000412          next
+004446  000413      endif
+004447  000414      CurrentForm := newform ;
+004448  000415      // display newform image or clear to image color
+004449  000416      if (FormBGcolors[CurrentForm] != ColorBGimage)
+004450  000417          gfx_Set(BACKGROUND_COLOUR,FormBGcolors[CurrentForm]);
+004451  000418          gfx_Cls() ;
+004452  000419          DoGFXObjects() ;                                    // display GFX 'widgets'
+004453  000420      endif
+004454  000421        
+004455  000422      // enable inputs
+004456  000423      for (i := FormStartIndex[CurrentForm]; i < FormEndIndex[CurrentForm]; i++)
+004457  000424          j := img_GetWord(hndl, i, IMAGE_TAG) ;
+004458  000425          if (j)
+004459  000426              j-- ;
+004460  000427              img_SetAttributes(hndl, i, I_STAYONTOP+I_ENABLED);        // make sure this is on top of form, if applicable
+004461  000428              //if (j != tKeyboard)
+004462  000429              if (img_GetWord(hndl, i, IMAGE_INDEX) != 0xffff)
+004463  000430              if ((j <= tWinButton) || (j >= t4Dbutton) )               // enable inputs
+004464  000431                  img_ClearAttributes(hndl, i, I_TOUCH_DISABLE);        // ensure touch is enabled
+004465  000432              endif
+004466  000433              img_Show(hndl,i) ; // show initialy, if required
+004467  000434              endif
+004468  000435              if (j == tForm)
+004469  000436                  DoGFXObjects() ;                                    // display GFX 'widgets' for image backgruobds
+004470  000437              else if (j == tLeddigits)
+004471  000438                  ledDigitsDisplay(i, oLeddigitss, oLedDigitsn) ;
+004472  000439              endif
+004473  000440          endif
+004474  000441      next
+004475  000442      for (i := 0; i < nStrings; i++)
+004476  000443          if (stringsCV[i] != -1)
+004477  000444              WriteObject(tStrings, i, stringsCV[i]) ;
+004478  000445          endif
+004479  000446      next
+004480  000447        
+004481  000448  endfunc
+004482  000449        
+004483  000450  func UpdateObjects(var newval)
+004484  000451      var IPidx, otherOBJ ;
+004485  000452      if ( ( img_GetWord(hndl, *(pInputIndex), IMAGE_INDEX) != newval) || (TouchState == Ofs_IPD_RELEASE) ) // only bother if values changed, or release
+004486  000453        
+004487  000454          img_SetWord(hndl, *(pInputIndex), IMAGE_INDEX, newval);
+004488  000455              img_Show(hndl, *(pInputIndex));      // only shows on current form
+004489  000456          if ((InputType == t4Dbutton) || (InputType == tUserButton) || (InputType == tWinButton))
+004490  000457              if (*(CurInputData+Ofs_IPD_P1))
+004491  000458                  newval &= 1;
+004492  000459              else
+004493  000460                  newval &= 3;
+004494  000461              endif
+004495  000462              if (newval > 1) newval := 1;
+004496  000463          endif
+004497  000464          IPidx := *(CurInputData+TouchState) ;
+004498  000465          while(IPidx != 0)
+004499  000466              otherOBJ := IPidx + InputData;
+004500  000467              if (*(otherOBJ) == OT_REPORT)
+004501  000468          SendReport(REPORT_EVENT, InputType, *(otherOBJ+Ofs_IPD_OBJVIDX), newval) ;
+004502  000469              else if (*(otherOBJ) == OT_MAGIC)
+004503  000470                  IPidx := *(otherOBJ+Ofs_IPD_P5) ;
+004504  000471                  IPidx(newval) ;
+004505  000472              else if (TouchState == *(otherOBJ+Ofs_IPD_P4))
+004506  000473                  if (*(otherOBJ) == OT_ACTIVATE)
+004507  000474                      ActivateForm(*(otherOBJ+Ofs_IPD_P2) ) ;
+004508  000475                      InputType := tForm ;
+004509  000476                  else if (*(otherOBJ) == OT_SETCONST)
+004510  000477                      newval := *(otherOBJ+Ofs_IPD_P3) ;
+004511  000478                      WriteObject(*(otherOBJ+Ofs_IPD_P1), *(otherOBJ+Ofs_IPD_P2), newval) ;
+004512  000479                  else if (*(otherOBJ) == OT_SETANOTHER)
+004513  000480                      WriteObject(*(otherOBJ+Ofs_IPD_P1), *(otherOBJ+Ofs_IPD_P2), newval) ;
+004514  000481                  else if (*(otherOBJ) == OT_PREVFRAME)
+004515  000482                      if (img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX))
+004516  000483                          WriteObject(*(otherOBJ+Ofs_IPD_P5),*(otherOBJ+Ofs_IPD_P2),img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX)-1) ;
+004517  000484                      endif
+004518  000485                      newval := img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX) ;
+004519  000486                  else if (*(otherOBJ) == OT_NEXTFRAME)
+004520  000487                      if (img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX) < *(otherOBJ+Ofs_IPD_P3))
+004521  000488                          WriteObject(*(otherOBJ+Ofs_IPD_P5),*(otherOBJ+Ofs_IPD_P2),img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX)+1) ;
+004522  000489                      endif
+004523  000490                      newval := img_GetWord(hndl, *(otherOBJ+Ofs_IPD_P6), IMAGE_INDEX) ;
+004524  000491                  else if (*(otherOBJ) == OT_PREVSTRING)
+004525  000492                      if (stringsCV[*(otherOBJ+Ofs_IPD_P2)])
+004526  000493                          WriteObject(tStrings,*(otherOBJ+Ofs_IPD_P2),stringsCV[*(otherOBJ+Ofs_IPD_P2)]-1) ;
+004527  000494                      endif
+004528  000495                  else if (*(otherOBJ) == OT_NEXTSTRING)
+004529  000496                      if (stringsCV[*(otherOBJ+Ofs_IPD_P2)] < *(otherOBJ+Ofs_IPD_P3)) // fix IPD_P2 not filled in yet
+004530  000497                          WriteObject(tStrings,*(otherOBJ+Ofs_IPD_P2),stringsCV[*(otherOBJ+Ofs_IPD_P2)]+1) ;
+004531  000498                      endif
+004532  000499                  endif
+004533  000500              endif
+004534  000501              IPidx := *(otherOBJ+TouchState) ;
+004535  000502          wend
+004536  000503      endif
+004537  000504  endfunc
+004538  000505        
+004539  000506  // End P2.inc
+004540  000507  func DoGFXObjects()
+004541  000508  endfunc
+004542  000509        
+004543  000510  // Start P3.inc
+004544  000511  func main()
+004545  000512      var comTX[50], cmdi, i, j, ImageTouched, TouchStatus, oldn ;
+004546  000513        
+004547  000514      putstr("Mounting...\n");
+004548  000515      if (!(file_Mount()))
+004549  000516          while(!(file_Mount()))
+004550  000517              putstr("Drive not mounted...");
+004551  000518              pause(200);
+004552  000519              gfx_Cls();
+004553  000520              pause(200);
+004554  000521          wend
+004555  000522      endif
+004556  000523  //    gfx_MoveTo(0, 0);
+004557  000524  //    print(mem_Heap()," ") ;
+004558  000525  //    gfx_TransparentColour(0x0020);
+004559  000526  //    gfx_Transparency(ON);
+004560  000527        
+004561  000528      gfx_ScreenMode(LANDSCAPE) ;
+004562  000529        
+004563  000530      // open image control
+004564  000531      hndl := file_LoadImageControl("DASHBO~1.dat", "DASHBO~1.gci", 1);
+004565  000532        
+004566  000533      // init 'constants'
+004567  000534  // End P3.inc
+004568  000535        
+004569  000536      oObjects[tDipSwitch] := oDipSwitchs ;
+004570  000537      oObjects[tKnob] := oKnobs ;
+004571  000538      oObjects[tRockerSwitch] := oRockerSwitchs ;
+004572  000539      oObjects[tRotarySwitch] := oRotarySwitchs ;
+004573  000540      oObjects[tGSlider] := oGSliders ;
+004574  000541      oObjects[tTrackbar] := oTrackbars ;
+004575  000542      oObjects[tWinButton] := oWinButtons ;
+004576  000543      oObjects[tAngularmeter] := oAngularmeters ;
+004577  000544      oObjects[tCoolgauge] := oCoolgauges ;
+004578  000545      oObjects[tCustomdigits] := oCustomdigitss ;
+004579  000546      oObjects[tForm] := oForms ;
+004580  000547      oObjects[tGauge] := oGauges ;
+004581  000548      oObjects[tImage] := oImages ;
+004582  000549      oObjects[tKeyboard] := oKeyboards ;
+004583  000550      oObjects[tLed] := oLeds ;
+004584  000551      oObjects[tLeddigits] := oLeddigitss ;
+004585  000552      oObjects[tMeter] := oMeters ;
+004586  000553      oObjects[tStrings] := oStringss ;
+004587  000554      oObjects[tThermometer] := oThermometers ;
+004588  000555      oObjects[tUserled] := oUserleds ;
+004589  000556      oObjects[tVideo] := oVideos ;
+004590  000557      oObjects[tStaticText] := oStaticTexts ;
+004591  000558      oObjects[tSounds] := oSoundss ;
+004592  000559      oObjects[tTimer] := oTimers ;
+004593  000560      oObjects[tSpectrum] := oSpectrums ;
+004594  000561      oObjects[tTank] := oTanks ;
+004595  000562      oObjects[tUserImages] := oUserImagess ;
+004596  000563      oObjects[tPinOutput] := oPinOutputs ;
+004597  000564      oObjects[tPinInput] := oPinInputs ;
+004598  000565      oObjects[t4Dbutton] := o4Dbuttons ;
+004599  000566      oObjects[tAniButton] := oAniButtons ;
+004600  000567      oObjects[tColorPicker] := oColorPickers ;
+004601  000568      oObjects[tUserButton] := oUserButtons ;
+004602  000569      hFonts[0] := FONT3 ;
+004603  000570      hFonts[1] := file_LoadImageControl("DASHBO~1.d01", "DASHBO~1.g01", 1)  ;
+004604  000571      hFonts[3] := file_LoadImageControl("DASHBO~1.d02", "DASHBO~1.g02", 1)  ;
+004605  000572      hFonts[4] := file_LoadImageControl("DASHBO~1.d03", "DASHBO~1.g03", 1)  ;
+004606  000573      hFonts[5] := file_LoadImageControl("DASHBO~1.d04", "DASHBO~1.g04", 1)  ;
+004607  000574      hFonts[2] := hFonts[1] ;
+004608  000575      hFonts[6] := hFonts[5] ;
+004609  000576      hFonts[7] := hFonts[4] ;
+004610  000577  // Start P4.inc
+004611  000578      hstrings := file_Open("DASHBO~1.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
+004612  000579      // init comms
+004613  000580      com1_Init(comRX,CMDLenMAX,0);
+004614  000581      com_SetBaud(COM1,11520);
+004615  000582      com1_TXbuffer(comTX, 100, 0);
+004616  000583      // tag 'real' objects
+004617  000584      for (i := 0; i <= MaxTotObjects; i++)
+004618  000585          if (   (i != tSounds)
+004619  000586              && (i != tTimer)
+004620  000587              && (i != tPinOutput)
+004621  000588              && (i != tPinInput) )
+004622  000589              TouchXpos := oObjects[i] ;
+004623  000590              TouchYpos := *(TouchXpos) ;
+004624  000591              for (ImageTouched := 1; ImageTouched <= TouchYpos; ImageTouched++)
+004625  000592                  oldn := *(TouchXpos+ImageTouched*2) ;
+004626  000593                  img_SetAttributes(hndl, oldn, I_TOUCH_DISABLE);  // ensure touch is enabled
+004627  000594                  if (oldn != -1)
+004628  000595                      img_SetWord(hndl, oldn, IMAGE_TAG, i+1);
+004629  000596                      img_Disable(hndl, oldn) ;
+004630  000597                  endif
+004631  000598              next
+004632  000599          endif
+004633  000600      next
+004634  000601        
+004635  000602      // display initial form
+004636  000603      CurrentForm := -1 ;
+004637  000604      ActivateForm(0) ; // need to change this according to first actual form
+004638  000605        
+004639  000606  // End P4.inc
+004640  000607  // Start P5.inc
+004641  000608      touch_Set(TOUCH_ENABLE);                            // enable the touch screen
+004642  000609      oldn := -1 ;
+004643  000610      repeat
+004644  000611        
+004645  000612          // check comms for command, how to NAK invalid command
+004646  000613          if (com1_Count() != 0)
+004647  000614              i := serin1() ;
+004648  000615              InputCS ^= i ;               // update checksum
+004649  000616              if (   (cmdi > 2)
+004650  000617                  && (cmd[0] == WRITE_STRU) )
+004651  000618                  j := (cmdi-1) >> 1 + 2 ;
+004652  000619                  if (j == CMDLenMAX)    // max length exceeded
+004653  000620                      nak0() ;
+004654  000621                  cmdi := -1 ;
+004655  000622                  else if (cmdi & 1)
+004656  000623                      cmd[j] := i ;
+004657  000624                      if (cmd[2] == 0)    // if string complete
+004658  000625                          if (InputCS)
+004659  000626                              nak0() ;
+004660  000627                          else
+004661  000628                              if (cmd[0] == WRITE_STRU)
+004662  000629                                  cmd[j] := 0 ;                     // terminate it
+004663  000630                                  PrintStrings(cmd[1], &cmd[3], 1) ;
+004664  000631                                  serout1(ACK) ;
+004665  000632                              else
+004666  000633                              endif
+004667  000634                          endif
+004668  000635                          cmdi := -1 ;
+004669  000636                      endif
+004670  000637                  else
+004671  000638                      cmd[j] := cmd[j] << 8 + i ;
+004672  000639                      cmd[2]-- ;          // dec length
+004673  000640                  endif
+004674  000641                  cmdi++ ;
+004675  000642              else // not unicode string
+004676  000643                  cmd[cmdi++] := i ;
+004677  000644                   if (cmd[0] == WRITE_STR)                  // Ansi String
+004678  000645                      if (cmdi == CMDLenMAX)      // max length exceeded
+004679  000646                          nak0() ;
+004680  000647                          cmdi := 0 ;
+004681  000648                      else if (cmdi > 2)
+004682  000649                          if (cmd[2] == -1)
+004683  000650                              if (InputCS)
+004684  000651                                  nak0() ;
+004685  000652                              else
+004686  000653                                  if (cmd[0] == WRITE_STR)
+004687  000654                                      cmd[cmdi-1] := 0 ;                     // terminate it
+004688  000655                                      PrintStrings(cmd[1], &cmd[3], 1) ;
+004689  000656                                      serout1(ACK) ;
+004690  000657                                  else
+004691  000658                                  endif
+004692  000659                              endif
+004693  000660                              cmdi := 0 ;
+004694  000661                          else
+004695  000662                              cmd[2]-- ;          // dec length
+004696  000663                          endif
+004697  000664                      endif
+004698  000665                  else if (   (cmd[0] == READ_OBJ)
+004699  000666                           && (cmdi == 4)         )
+004700  000667                      if (InputCS)
+004701  000668                          nak0() ;
+004702  000669                      else
+004703  000670                          ReadObject(cmd[1], cmd[2]) ;
+004704  000671                      endif
+004705  000672                      cmdi := 0 ;
+004706  000673                  else if (   (cmd[0] == WRITE_OBJ)    // 6 byte write command (gen option)
+004707  000674                           && (cmdi == 6)          )
+004708  000675                      if (InputCS)
+004709  000676                          nak0() ;
+004710  000677                      else
+004711  000678                          WriteObject(cmd[1], cmd[2], cmd[3] << 8 + cmd[4]) ;
+004712  000679                          serout1(ACK) ;
+004713  000680                      endif
+004714  000681                      cmdi := 0 ;
+004715  000682                  else if (   (cmd[0] == WRITE_CONTRAST)
+004716  000683                           && (cmdi == 3)         )
+004717  000684                      if (InputCS)
+004718  000685                          nak0() ;
+004719  000686                      else
+004720  000687                          gfx_Contrast(cmd[1]) ;
+004721  000688                          serout1(ACK) ;
+004722  000689                      endif
+004723  000690                      cmdi := 0 ;
+004724  000691                  else if (cmdi == 6)    // we have 6 bytes and we've gotten here -> something wrong
+004725  000692                      nak0() ;
+004726  000693                      cmdi := 0 ;
+004727  000694                  endif
+004728  000695              endif   // not unicode string
+004729  000696          endif   // a character is available
+004730  000697        
+004731  000698        
+004732  000699      // touch code processing
+004733  000700        
+004734  000701          TouchStatus := touch_Get(TOUCH_STATUS);               // get touchscreen status
+004735  000702          ImageTouched := img_Touched(hndl,-1) ;
+004736  000703          if ((TouchStatus == TOUCH_PRESSED) || (TouchStatus == TOUCH_RELEASED) || (TouchStatus == TOUCH_MOVING))
+004737  000704              if ((TouchStatus != TOUCH_RELEASED) && (ImageTouched != oldn) && (oldn != -1))
+004738  000705                  TouchStatus := TOUCH_RELEASED ;       // simulate release if we move off object
+004739  000706              endif
+004740  000707              if (TouchStatus != TOUCH_RELEASED)        // if not released
+004741  000708                  if (oldn != -1)
+004742  000709                      ImageTouched := oldn ;
+004743  000710                  else
+004744  000711                      if (oldn != ImageTouched)
+004745  000712                          oldn := ImageTouched ;
+004746  000713                          TouchStatus := TOUCH_PRESSED ;
+004747  000714                      endif
+004748  000715                  endif
+004749  000716                  TouchXpos  := touch_Get(TOUCH_GETX);
+004750  000717                  TouchYpos  := touch_Get(TOUCH_GETY);
+004751  000718                  TouchState := Ofs_IPD_DOWN ;
+004752  000719              else
+004753  000720                  ImageTouched := oldn ;                     // simulate release of what we touched
+004754  000721                  oldn := -1 ;                    // prevent double release
+004755  000722                  TouchState := Ofs_IPD_RELEASE ;
+004756  000723              endif
+004757  000724              if (ImageTouched != -1)
+004758  000725                          CurInputData := InputControls[ImageTouched] + InputData;
+004759  000726                          InputType := *(CurInputData) ;
+004760  000727                          i := InputType ;
+004761  000728                          if (InputType >= t4Dbutton) i -= 23 ; // adjust to ensure next in gosub
+004762  000729                          gosub (i), (cDipswitch, cKnob, cRockerswitch, cRotaryswitch, cSlider, cTrackbar, cWinbutton, c4DButton, cAniButton, cColorPicker, cUserButton) ;
+004763  000730              endif
+004764  000731          endif
+004765  000732   //       if ((n != -1) && (oldn == -1)) oldn := n ;    // save what we touched in case we move off it
+004766  000733        
+004767  000734          sys_EventsResume() ;
+004768  000735      forever
+004769  000736        
+004770  000737  cDipswitch:
+004771  000738        
+004772  000739  cKnob:
+004773  000740        
+004774  000741  cRockerswitch:
+004775  000742        
+004776  000743  cRotaryswitch:
+004777  000744        
+004778  000745  cSlider:
+004779  000746  cTrackbar:
+004780  000747        
+004781  000748  c4DButton:
+004782  000749  cUserButton:
+004783  000750  cWinbutton:
+004784  000751      pInputIndex := oWinButtons + *(CurInputData+Ofs_IPD_OBJVIDX) ;
+004785  000752  gbutton:
+004786  000753      i := img_GetWord(hndl, *(pInputIndex), IMAGE_INDEX) ; // current state
+004787  000754      if (*(CurInputData+Ofs_IPD_P1))                                 // momentary, reports 0, but should report 1
+004788  000755          if (TouchStatus == TOUCH_RELEASED)
+004789  000756              i &= 0xfffe ;
+004790  000757              TouchState == Ofs_IPD_DOWN ;
+004791  000758          else
+004792  000759              i |= 1 ;
+004793  000760              TouchState == Ofs_IPD_RELEASE ;
+004794  000761          endif
+004795  000762      else if (*(CurInputData+Ofs_IPD_P2) == -1)                      // Toggle, reports 0+2, but should report 0+1
+004796  000763          if (TouchStatus == TOUCH_RELEASED)                     // only truly change on release
+004797  000764              if ((i & 3) == 3)
+004798  000765                  i &= 0xfffc ;
+004799  000766              else
+004800  000767                  i++ ;
+004801  000768              endif
+004802  000769          else
+004803  000770              i |= 1 ;                                      // make down regardless of current state
+004804  000771          endif
+004805  000772      else                        // group action, up all other buttons on touch press, reports 0 for button down
+004806  000773          if (TouchStatus == TOUCH_PRESSED)                     // only truly change on release
+004807  000774              TurnOffButtons(*(CurInputData+Ofs_IPD_P2)) ;
+004808  000775          endif
+004809  000776          i := (i & 0xfffc) | 2 ;
+004810  000777      endif
+004811  000778        
+004812  000779      UpdateObjects(i) ;
+004813  000780  endsub ;
+004814  000781        
+004815  000782  cAniButton:
+004816  000783        
+004817  000784  cColorPicker:
+004818  000785        
+004819  000786  endfunc
+004820  000787  // End P5.inc
+Notice: Check that the function called via pointer  'IPidx' requires 1 argument (line 471 file:DashBoardLCD.4DGenieS)
+Notice: local var 'p' in func 'ActivateForm' is never used (line 405 file:DashBoardLCD.4DGenieS)
 
 
 Symbol Table:
@@ -4723,7 +4844,7 @@ __MAXPROG                          14400  0x00003840 (const dword)  (usage 1)
 __PLATFORM                             1  0x00000001 (const dword)  (not used)
 ABS                                  -13  0xfffffff3 (PmmC func) args[1] r=1  (not used)
 ACK                                    6  0x00000006 (const dword)  (usage 12)
-ActivateForm                        3674  0x00000e5a (User func) args[1] r=0  (usage 9)
+ActivateForm                        3770  0x00000eba (User func) args[1] r=0  (usage 9)
 ALICEBLUE                          63455  0x0000f7df (const dword)  (not used)
 ALL                                65535  0x0000ffff (const dword)  (not used)
 ANTIQUEWHITE                       65370  0x0000ff5a (const dword)  (not used)
@@ -4836,7 +4957,7 @@ BUTTON_DOWN                            0  0x00000000 (const dword)  (not used)
 BUTTON_UP                              1  0x00000001 (const dword)  (not used)
 ByteSwap                            -215  0xffffff29 (PmmC func) args[1] r=1  (not used)
 c4DButton                         UNRESOLVED  (not used)
-C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS    2803  0x00000af3 (const ??? 0)  (not used)
+C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS    2803  0x00000af3 (const ??? 0)  (not used)
 CADETBLUE                          23796  0x00005cf4 (const dword)  (not used)
 cAniButton                        UNRESOLVED  (not used)
 cColorPicker                      UNRESOLVED  (not used)
@@ -4854,7 +4975,7 @@ cKnob                             UNRESOLVED  (not used)
 CLIPPING                              19  0x00000013 (const dword)  (not used)
 cmd                                  380  0x0000017c (mem) word[261] (global)  (usage 84)
 CMDLenMAX                            261  0x00000105 (const dword)  (usage 12)
-ColorBGimage                          32  0x00000020 (const dword)  (usage 9)
+ColorBGimage                          32  0x00000020 (const dword)  (usage 12)
 COLOUR16                               0  0x00000000 (const dword)  (not used)
 COLOUR8                                1  0x00000001 (const dword)  (not used)
 COLOUR_MODE                           27  0x0000001b (const dword)  (not used)
@@ -4893,7 +5014,7 @@ cRotaryswitch                     UNRESOLVED  (not used)
 cSlider                           UNRESOLVED  (not used)
 cTrackbar                         UNRESOLVED  (not used)
 CurInputData                         114  0x00000072 (mem) word (global)  (usage 24)
-CurrentForm                          104  0x00000068 (mem) word (global)  (usage 42)
+CurrentForm                          104  0x00000068 (mem) word (global)  (usage 51)
 cUserButton                       UNRESOLVED  (not used)
 cWinbutton                        UNRESOLVED  (not used)
 CY                                  -285  0xfffffee3 (PmmC func) args[0] r=1  (not used)
@@ -4964,7 +5085,7 @@ disp_WriteControl                   -147  0xffffff6d (PmmC func) args[1] r=0  (n
 disp_WriteWord                      -148  0xffffff6c (PmmC func) args[1] r=0  (not used)
 DISPLAY_PAGE                          33  0x00000021 (const dword)  (not used)
 DODGERBLUE                          7327  0x00001c9f (const dword)  (not used)
-DoGFXObjects                        3042  0x00000be2 (User func) args[0] r=0  (usage 6)
+DoGFXObjects                        3138  0x00000c42 (User func) args[0] r=0  (usage 6)
 DOWN                                   0  0x00000000 (const dword)  (not used)
 DSK                                63490  0x0000f802 (const dword)  (not used)
 ENABLE                                 1  0x00000001 (const dword)  (not used)
@@ -5056,10 +5177,10 @@ FONT3                                  2  0x00000002 (const dword)  (usage 3)
 FONT_ID                                2  0x00000002 (const dword)  (not used)
 FONT_SIZE                              2  0x00000002 (const dword)  (not used)
 FORESTGREEN                         9284  0x00002444 (const dword)  (not used)
-FormBGcolors                        1043  0x00000413FormBGcolors                        1043  0x00000413 (mem) word[4] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 8)
+FormBGcolors                        1139  0x00000473FormBGcolors                        1139  0x00000473 (mem) word[4] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 14)
 FormBGcolors                      UNRESOLVED  (usage 4)
-FormEndIndex                          15  0x0000000fFormEndIndex                          15  0x0000000f (mem) word[4] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 6)
-FormStartIndex                         7  0x00000007FormStartIndex                         7  0x00000007 (mem) word[4] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 7)
+FormEndIndex                          15  0x0000000fFormEndIndex                          15  0x0000000f (mem) word[4] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 6)
+FormStartIndex                         7  0x00000007FormStartIndex                         7  0x00000007 (mem) word[4] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 10)
 FormStartIndex                    UNRESOLVED  (usage 2)
 FRAME_DELAY                           22  0x00000016 (const dword)  (not used)
 FUCHSIA                            63519  0x0000f81f (const dword)  (not used)
@@ -5087,8 +5208,8 @@ GFX_CLIP_RIGHT                       113  0x00000071 (const dword)  (not used)
 GFX_CLIP_RIGHT_VAL                   109  0x0000006d (const dword)  (not used)
 GFX_CLIP_TOP                         112  0x00000070 (const dword)  (not used)
 GFX_CLIP_TOP_VAL                     108  0x0000006c (const dword)  (not used)
-gfx_Clipping                         -94  0xffffffa2 (PmmC func) args[1] r=0  (usage 6)
-gfx_ClipWindow                       -75  0xffffffb5 (PmmC func) args[4] r=0  (usage 3)
+gfx_Clipping                         -94  0xffffffa2 (PmmC func) args[1] r=0  (usage 12)
+gfx_ClipWindow                       -75  0xffffffb5 (PmmC func) args[4] r=0  (usage 6)
 gfx_Cls                              -51  0xffffffcd (PmmC func) args[0] r=0  (usage 6)
 gfx_ColourMode                      -102  0xffffff9a (PmmC func) args[1] r=1  (not used)
 gfx_Contrast                        -100  0xffffff9c (PmmC func) args[1] r=1  (usage 3)
@@ -5135,7 +5256,7 @@ GFX_RECT_X2                           73  0x00000049 (const dword)  (not used)
 GFX_RECT_Y1                           72  0x00000048 (const dword)  (not used)
 GFX_RECT_Y2                           74  0x0000004a (const dword)  (not used)
 gfx_Rectangle                        -59  0xffffffc5 (PmmC func) args[5] r=0  (not used)
-gfx_RectangleFilled                  -60  0xffffffc4 (PmmC func) args[5] r=0  (usage 6)
+gfx_RectangleFilled                  -60  0xffffffc4 (PmmC func) args[5] r=0  (usage 9)
 gfx_RGBto565                         -84  0xffffffac (PmmC func) args[3] r=1  (not used)
 GFX_RIGHT                             50  0x00000032 (const dword)  (not used)
 GFX_RIGHT_GUTTER_WIDTH                69  0x00000045 (const dword)  (not used)
@@ -5197,7 +5318,7 @@ hFonts                                 2  0x00000002 (mem) word[8] (global)  (us
 HI                                     1  0x00000001 (const dword)  (not used)
 HIbyte                              -214  0xffffff2a (PmmC func) args[1] r=1  (not used)
 HIDE                                   2  0x00000002 (const dword)  (not used)
-hndl                                   0  0x00000000 (mem) word (global)  (usage 114)
+hndl                                   0  0x00000000 (mem) word (global)  (usage 168)
 HONEYDEW                           63486  0x0000f7fe (const dword)  (not used)
 HOTPINK                            64342  0x0000fb56 (const dword)  (not used)
 hstrings                              34  0x00000022 (mem) word (global)  (usage 12)
@@ -5229,7 +5350,7 @@ I_MOVIE                              128  0x00000080 (const dword)  (not used)
 I_NOGROUP                             64  0x00000040 (const dword)  (not used)
 I_STAYONTOP                          256  0x00000100 (const dword)  (usage 3)
 I_TOPMOST                            512  0x00000200 (const dword)  (not used)
-I_TOUCH_DISABLE                       32  0x00000020 (const dword)  (usage 6)
+I_TOUCH_DISABLE                       32  0x00000020 (const dword)  (usage 12)
 I_TOUCHED                           4096  0x00001000 (const dword)  (not used)
 I_X_LOCK                            1024  0x00000400 (const dword)  (not used)
 I_Y_LOCK                            2048  0x00000800 (const dword)  (not used)
@@ -5256,17 +5377,17 @@ IMAGE_CLUSTER                         10  0x0000000a (const dword)  (not used)
 IMAGE_DELAY                            7  0x00000007 (const dword)  (not used)
 IMAGE_FLAGS                            6  0x00000006 (const dword)  (usage 3)
 IMAGE_FRAMES                           8  0x00000008 (const dword)  (not used)
-IMAGE_HEIGHT                           5  0x00000005 (const dword)  (not used)
+IMAGE_HEIGHT                           5  0x00000005 (const dword)  (usage 6)
 IMAGE_HIWORD                           1  0x00000001 (const dword)  (not used)
-IMAGE_INDEX                            9  0x00000009 (const dword)  (usage 45)
+IMAGE_INDEX                            9  0x00000009 (const dword)  (usage 54)
 IMAGE_LOWORD                           0  0x00000000 (const dword)  (not used)
 IMAGE_SECTOR                          11  0x0000000b (const dword)  (not used)
 IMAGE_TAG                             12  0x0000000c (const dword)  (usage 9)
 IMAGE_TAG2                            13  0x0000000d (const dword)  (usage 9)
-IMAGE_WIDTH                            4  0x00000004 (const dword)  (not used)
-IMAGE_XPOS                             2  0x00000002 (const dword)  (usage 6)
-IMAGE_YPOS                             3  0x00000003 (const dword)  (not used)
-img_ClearAttributes                 -187  0xffffff45 (PmmC func) args[3] r=1  (usage 3)
+IMAGE_WIDTH                            4  0x00000004 (const dword)  (usage 6)
+IMAGE_XPOS                             2  0x00000002 (const dword)  (usage 18)
+IMAGE_YPOS                             3  0x00000003 (const dword)  (usage 12)
+img_ClearAttributes                 -187  0xffffff45 (PmmC func) args[3] r=1  (usage 6)
 IMG_COUNT                              0  0x00000000 (const dword)  (not used)
 IMG_CURRENT_FRAME                     89  0x00000059 (const dword)  (not used)
 img_Darken                          -181  0xffffff4b (PmmC func) args[2] r=1  (not used)
@@ -5279,24 +5400,24 @@ IMG_FRAME_COUNT                       86  0x00000056 (const dword)  (not used)
 IMG_FRAME_DELAY                       84  0x00000054 (const dword)  (not used)
 IMG_GCI_FILENAME                       3  0x00000003 (const dword)  (not used)
 IMG_GCIFILE_HANDLE                     5  0x00000005 (const dword)  (not used)
-img_GetWord                         -184  0xffffff48 (PmmC func) args[3] r=1  (usage 45)
+img_GetWord                         -184  0xffffff48 (PmmC func) args[3] r=1  (usage 87)
 IMG_HEIGHT                            83  0x00000053 (const dword)  (not used)
 img_Lighten                         -182  0xffffff4a (PmmC func) args[2] r=1  (not used)
 IMG_MODE                               2  0x00000002 (const dword)  (not used)
 IMG_PIXEL_COUNT_HI                    88  0x00000058 (const dword)  (not used)
 IMG_PIXEL_COUNT_LO                    87  0x00000057 (const dword)  (not used)
-img_SetAttributes                   -186  0xffffff46 (PmmC func) args[3] r=1  (usage 6)
+img_SetAttributes                   -186  0xffffff46 (PmmC func) args[3] r=1  (usage 9)
 img_SetPosition                     -178  0xffffff4e (PmmC func) args[4] r=1  (not used)
-img_SetWord                         -183  0xffffff49 (PmmC func) args[4] r=1  (usage 27)
-img_Show                            -185  0xffffff47 (PmmC func) args[2] r=1  (usage 21)
+img_SetWord                         -183  0xffffff49 (PmmC func) args[4] r=1  (usage 30)
+img_Show                            -185  0xffffff47 (PmmC func) args[2] r=1  (usage 24)
 img_Touched                         -188  0xffffff44 (PmmC func) args[2] r=1  (usage 3)
 IMG_WIDTH                             82  0x00000052 (const dword)  (not used)
 INDIANRED                          51947  0x0000caeb (const dword)  (not used)
 INDIGO                             18448  0x00004810 (const dword)  (not used)
 INPUT                                  1  0x00000001 (const dword)  (not used)
-InputControls                         23  0x00000017InputControls                         23  0x00000017 (mem) word[53] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 6)
+InputControls                         23  0x00000017InputControls                         23  0x00000017 (mem) word[55] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 6)
 InputCS                              902  0x00000386 (mem) word (global)  (usage 21)
-InputData                            129  0x00000081InputData                            129  0x00000081 (mem) word[264] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 24)
+InputData                            133  0x00000085InputData                            133  0x00000085 (mem) word[308] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 24)
 InputType                            110  0x0000006e (mem) word (global)  (usage 24)
 INVERSE                               64  0x00000040 (const dword)  (not used)
 IO1_PIN                                1  0x00000001 (const dword)  (not used)
@@ -5330,14 +5451,14 @@ iStatictext6                          16  0x00000010 (const ??? 0)  (usage 3)
 iStatictext7                          17  0x00000011 (const ??? 0)  (usage 3)
 iStatictext8                          20  0x00000014 (const ??? 0)  (usage 3)
 iStatictext9                          21  0x00000015 (const ??? 0)  (usage 3)
-iStrings0                            657  0x00000291iStrings0                            657  0x00000291 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-iStrings1                            683  0x000002abiStrings1                            683  0x000002ab (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-iStrings2                            709  0x000002c5iStrings2                            709  0x000002c5 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-iStrings3                            735  0x000002dfiStrings3                            735  0x000002df (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-iStrings4                            761  0x000002f9iStrings4                            761  0x000002f9 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-iStrings5                            787  0x00000313iStrings5                            787  0x00000313 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-iStrings6                            813  0x0000032diStrings6                            813  0x0000032d (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-iStrings7                            839  0x00000347iStrings7                            839  0x00000347 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+iStrings0                            749  0x000002ediStrings0                            749  0x000002ed (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+iStrings1                            775  0x00000307iStrings1                            775  0x00000307 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+iStrings2                            801  0x00000321iStrings2                            801  0x00000321 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+iStrings3                            827  0x0000033biStrings3                            827  0x0000033b (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+iStrings4                            853  0x00000355iStrings4                            853  0x00000355 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+iStrings5                            879  0x0000036fiStrings5                            879  0x0000036f (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+iStrings6                            905  0x00000389iStrings6                            905  0x00000389 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+iStrings7                            931  0x000003a3iStrings7                            931  0x000003a3 (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
 isupper                             -204  0xffffff34 (PmmC func) args[1] r=1  (not used)
 iswhite                             -210  0xffffff2e (PmmC func) args[1] r=1  (not used)
 isxdigit                            -203  0xffffff35 (PmmC func) args[1] r=1  (not used)
@@ -5349,24 +5470,26 @@ iUserled2                             43  0x0000002b (const ??? 0)  (usage 3)
 IVORY                              65534  0x0000fffe (const dword)  (not used)
 iWinbutton0                           36  0x00000024 (const ??? 0)  (usage 3)
 iWinbutton1                           37  0x00000025 (const ??? 0)  (usage 3)
-iWinbutton10                          51  0x00000033 (const ??? 0)  (usage 3)
-iWinbutton11                          52  0x00000034 (const ??? 0)  (usage 3)
+iWinbutton10                          52  0x00000034 (const ??? 0)  (usage 3)
+iWinbutton11                          53  0x00000035 (const ??? 0)  (usage 3)
+iWinbutton12                          44  0x0000002c (const ??? 0)  (usage 3)
+iWinbutton13                          54  0x00000036 (const ??? 0)  (usage 3)
 iWinbutton2                           38  0x00000026 (const ??? 0)  (usage 3)
-iWinbutton3                           44  0x0000002c (const ??? 0)  (usage 3)
-iWinbutton4                           45  0x0000002d (const ??? 0)  (usage 3)
-iWinbutton5                           46  0x0000002e (const ??? 0)  (usage 3)
-iWinbutton6                           47  0x0000002f (const ??? 0)  (usage 3)
-iWinbutton7                           48  0x00000030 (const ??? 0)  (usage 3)
-iWinbutton8                           49  0x00000031 (const ??? 0)  (usage 3)
-iWinbutton9                           50  0x00000032 (const ??? 0)  (usage 3)
+iWinbutton3                           45  0x0000002d (const ??? 0)  (usage 3)
+iWinbutton4                           46  0x0000002e (const ??? 0)  (usage 3)
+iWinbutton5                           47  0x0000002f (const ??? 0)  (usage 3)
+iWinbutton6                           48  0x00000030 (const ??? 0)  (usage 3)
+iWinbutton7                           49  0x00000031 (const ??? 0)  (usage 3)
+iWinbutton8                           50  0x00000032 (const ??? 0)  (usage 3)
+iWinbutton9                           51  0x00000033 (const ??? 0)  (usage 3)
 KHAKI                              63281  0x0000f731 (const dword)  (not used)
-kKeyboardKeystrokes                 1051  0x0000041bkKeyboardKeystrokes                 1051  0x0000041b (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (not used)
+kKeyboardKeystrokes                 1147  0x0000047bkKeyboardKeystrokes                 1147  0x0000047b (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (not used)
 LANDSCAPE                              0  0x00000000 (const dword)  (usage 3)
 LANDSCAPE_R                            1  0x00000001 (const dword)  (not used)
 LAVENDER                           59199  0x0000e73f (const dword)  (not used)
 LAVENDERBLUSH                      65438  0x0000ff9e (const dword)  (not used)
 LAWNGREEN                          32736  0x00007fe0 (const dword)  (not used)
-ledDigitsDisplay                    4020  0x00000fb4 (User func) args[3] r=0  (usage 6)
+ledDigitsDisplay                    4134  0x00001026 (User func) args[3] r=0  (usage 6)
 LEFT_POS                               2  0x00000002 (const dword)  (not used)
 LEMONCHIFFON                       65497  0x0000ffd9 (const dword)  (not used)
 LIGHTBLUE                          44764  0x0000aedc (const dword)  (not used)
@@ -5382,7 +5505,7 @@ LIGHTSKYBLUE                       34431  0x0000867f (const dword)  (not used)
 LIGHTSLATEGRAY                     29779  0x00007453 (const dword)  (not used)
 LIGHTSTEELBLUE                     46651  0x0000b63b (const dword)  (not used)
 LIGHTYELLOW                        65532  0x0000fffc (const dword)  (not used)
-LIME                                2016  0x000007e0 (const dword)  (not used)
+LIME                                2016  0x000007e0 (const dword)  (usage 3)
 LIMEGREEN                          13926  0x00003666 (const dword)  (not used)
 LINE_PATTERN                          26  0x0000001a (const dword)  (not used)
 LINEN                              65436  0x0000ff9c (const dword)  (not used)
@@ -5395,7 +5518,7 @@ LPFINE                             43690  0x0000aaaa (const dword)  (not used)
 LPMEDIUM                           13107  0x00003333 (const dword)  (not used)
 LPSOLID                                0  0x00000000 (const dword)  (not used)
 MAGENTA                            63519  0x0000f81f (const dword)  (not used)
-main                                1367  0x00000557 (User func) args[0] r=0  (not used)
+main                                1463  0x000005b7 (User func) args[0] r=0  (not used)
 MAROON                             32768  0x00008000 (const dword)  (usage 3)
 MAX                                  -15  0xfffffff1 (PmmC func) args[2] r=1  (not used)
 MaxTotObjects                         33  0x00000021 (const dword)  (usage 6)
@@ -5445,24 +5568,24 @@ MINTCREAM                          63487  0x0000f7ff (const dword)  (not used)
 MISTYROSE                          65340  0x0000ff3c (const dword)  (not used)
 MOCCASIN                           65334  0x0000ff36 (const dword)  (not used)
 NAK                                   21  0x00000015 (const dword)  (usage 3)
-nak0                                5131  0x0000140b (User func) args[0] r=0  (usage 24)
+nak0                                5554  0x000015b2 (User func) args[0] r=0  (usage 24)
 nAniTimers                             0  0x00000000 (const dword)  (not used)
 NAVAJOWHITE                        65269  0x0000fef5 (const dword)  (not used)
 NAVY                                  16  0x00000010 (const dword)  (usage 3)
-nInputs                               24  0x00000018 (const dword)  (usage 3)
-nObjects                              53  0x00000035 (const dword)  (not used)
+nInputs                               28  0x0000001c (const dword)  (usage 3)
+nObjects                              55  0x00000037 (const dword)  (not used)
 NOTOUCH                                0  0x00000000 (const dword)  (not used)
 nStrings                               8  0x00000008 (const dword)  (usage 3)
-o4Dbuttons                          1029  0x00000405o4Dbuttons                          1029  0x00000405 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oAngularmeters                       903  0x00000387oAngularmeters                       903  0x00000387 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oAniButtons                         1031  0x00000407oAniButtons                         1031  0x00000407 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+o4Dbuttons                          1125  0x00000465o4Dbuttons                          1125  0x00000465 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oAngularmeters                       999  0x000003e7oAngularmeters                       999  0x000003e7 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oAniButtons                         1127  0x00000467oAniButtons                         1127  0x00000467 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
 OBJECT_COLOUR                         18  0x00000012 (const dword)  (not used)
-oColorPickers                       1033  0x00000409oColorPickers                       1033  0x00000409 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oCoolgauges                          905  0x00000389oCoolgauges                          905  0x00000389 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oCustomdigitss                       907  0x0000038boCustomdigitss                       907  0x0000038b (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oDipSwitchs                          865  0x00000361oDipSwitchs                          865  0x00000361 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-OFF                                    0  0x00000000 (const dword)  (usage 3)
-oForms                               909  0x0000038doForms                               909  0x0000038d (mem) word[5] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oColorPickers                       1129  0x00000469oColorPickers                       1129  0x00000469 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oCoolgauges                         1001  0x000003e9oCoolgauges                         1001  0x000003e9 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oCustomdigitss                      1003  0x000003eboCustomdigitss                      1003  0x000003eb (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oDipSwitchs                          957  0x000003bdoDipSwitchs                          957  0x000003bd (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+OFF                                    0  0x00000000 (const dword)  (usage 6)
+oForms                              1005  0x000003edoForms                              1005  0x000003ed (mem) word[5] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
 Ofs_Digits_Digits                      2  0x00000002 (const dword)  (usage 9)
 Ofs_Digits_LeadingBlanks               8  0x00000008 (const dword)  (usage 3)
 Ofs_Digits_Left                        0  0x00000000 (const dword)  (usage 3)
@@ -5491,34 +5614,34 @@ Ofs_String_x1                          6  0x00000006 (const dword)  (usage 12)
 Ofs_String_x2                         10  0x0000000a (const dword)  (usage 9)
 Ofs_String_y1                          8  0x00000008 (const dword)  (usage 12)
 Ofs_String_y2                         12  0x0000000c (const dword)  (usage 9)
-oGauges                              919  0x00000397oGauges                              919  0x00000397 (mem) word[2] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oGSliders                            873  0x00000369oGSliders                            873  0x00000369 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oImages                              923  0x0000039boImages                              923  0x0000039b (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oKeyboards                           925  0x0000039doKeyboards                           925  0x0000039d (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oKnobs                               867  0x00000363oKnobs                               867  0x00000363 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oGauges                             1015  0x000003f7oGauges                             1015  0x000003f7 (mem) word[2] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oGSliders                            965  0x000003c5oGSliders                            965  0x000003c5 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oImages                             1019  0x000003fboImages                             1019  0x000003fb (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oKeyboards                          1021  0x000003fdoKeyboards                          1021  0x000003fd (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oKnobs                               959  0x000003bfoKnobs                               959  0x000003bf (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
 OLDLACE                            65468  0x0000ffbc (const dword)  (not used)
-oLedDigitsn                         1055  0x0000041foLedDigitsn                         1055  0x0000041f (mem) word[40] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 6)
-oLeddigitss                          929  0x000003a1oLeddigitss                          929  0x000003a1 (mem) word[9] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 9)
-oLeds                                927  0x0000039foLeds                                927  0x0000039f (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oLedDigitsn                         1151  0x0000047foLedDigitsn                         1151  0x0000047f (mem) word[40] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 6)
+oLeddigitss                         1025  0x00000401oLeddigitss                         1025  0x00000401 (mem) word[9] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 9)
+oLeds                               1023  0x000003ffoLeds                               1023  0x000003ff (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
 OLIVE                              33792  0x00008400 (const dword)  (usage 3)
 OLIVEDRAB                          27748  0x00006c64 (const dword)  (not used)
-oMeters                              947  0x000003b3oMeters                              947  0x000003b3 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-ON                                     1  0x00000001 (const dword)  (usage 3)
+oMeters                             1043  0x00000413oMeters                             1043  0x00000413 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+ON                                     1  0x00000001 (const dword)  (usage 6)
 oObjects                              36  0x00000024 (mem) word[34] (global)  (usage 108)
 OPAQUE                                 1  0x00000001 (const dword)  (not used)
-oPinInputs                          1027  0x00000403oPinInputs                          1027  0x00000403 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oPinOutputs                         1041  0x00000411oPinOutputs                         1041  0x00000411 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oPinInputs                          1123  0x00000463oPinInputs                          1123  0x00000463 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oPinOutputs                         1137  0x00000471oPinOutputs                         1137  0x00000471 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
 ORANGE                             64800  0x0000fd20 (const dword)  (not used)
 ORANGERED                          64032  0x0000fa20 (const dword)  (not used)
 ORCHID                             56218  0x0000db9a (const dword)  (not used)
-oRockerSwitchs                       869  0x00000365oRockerSwitchs                       869  0x00000365 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oRotarySwitchs                       871  0x00000367oRotarySwitchs                       871  0x00000367 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oScopes                             1021  0x000003fdoScopes                             1021  0x000003fd (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (not used)
-oSoundss                            1039  0x0000040foSoundss                            1039  0x0000040f (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oSpectrumn                          1135  0x0000046foSpectrumn                          1135  0x0000046f (mem) word[2] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 6)
-oSpectrums                          1017  0x000003f9oSpectrums                          1017  0x000003f9 (mem) word[2] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oStaticTexts                         979  0x000003d3oStaticTexts                         979  0x000003d3 (mem) word[19] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oStringss                            949  0x000003b5oStringss                            949  0x000003b5 (mem) word[9] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 4)
+oRockerSwitchs                       961  0x000003c1oRockerSwitchs                       961  0x000003c1 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oRotarySwitchs                       963  0x000003c3oRotarySwitchs                       963  0x000003c3 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oScopes                             1117  0x0000045doScopes                             1117  0x0000045d (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (not used)
+oSoundss                            1135  0x0000046foSoundss                            1135  0x0000046f (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oSpectrumn                          1231  0x000004cfoSpectrumn                          1231  0x000004cf (mem) word[2] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 6)
+oSpectrums                          1113  0x00000459oSpectrums                          1113  0x00000459 (mem) word[2] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oStaticTexts                        1075  0x00000433oStaticTexts                        1075  0x00000433 (mem) word[19] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oStringss                           1045  0x00000415oStringss                           1045  0x00000415 (mem) word[9] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 4)
 oStringss                         UNRESOLVED  (usage 2)
 OT_ACTIVATE                          103  0x00000067 (const dword)  (usage 3)
 OT_MAGIC                             108  0x0000006c (const dword)  (usage 3)
@@ -5526,23 +5649,23 @@ OT_NEXTFRAME                         104  0x00000068 (const dword)  (usage 3)
 OT_NEXTSTRING                        106  0x0000006a (const dword)  (usage 3)
 OT_PREVFRAME                         105  0x00000069 (const dword)  (usage 3)
 OT_PREVSTRING                        107  0x0000006b (const dword)  (usage 3)
-OT_REPORT                            100  0x00000064 (const dword)  (usage 39)
+OT_REPORT                            100  0x00000064 (const dword)  (usage 45)
 OT_SETANOTHER                        102  0x00000066 (const dword)  (usage 3)
 OT_SETCONST                          101  0x00000065 (const dword)  (usage 3)
-oTanks                              1023  0x000003ffoTanks                              1023  0x000003ff (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oThermometers                        967  0x000003c7oThermometers                        967  0x000003c7 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oTimers                             1037  0x0000040doTimers                             1037  0x0000040d (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oTrackbars                           875  0x0000036boTrackbars                           875  0x0000036b (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oUserButtons                        1035  0x0000040boUserButtons                        1035  0x0000040b (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oUserImagess                        1025  0x00000401oUserImagess                        1025  0x00000401 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oUserleds                            969  0x000003c9oUserleds                            969  0x000003c9 (mem) word[4] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oTanks                              1119  0x0000045foTanks                              1119  0x0000045f (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oThermometers                       1063  0x00000427oThermometers                       1063  0x00000427 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oTimers                             1133  0x0000046doTimers                             1133  0x0000046d (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oTrackbars                           967  0x000003c7oTrackbars                           967  0x000003c7 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oUserButtons                        1131  0x0000046boUserButtons                        1131  0x0000046b (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oUserImagess                        1121  0x00000461oUserImagess                        1121  0x00000461 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oUserleds                           1065  0x00000429oUserleds                           1065  0x00000429 (mem) word[4] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
 OUTLINE                                1  0x00000001 (const dword)  (not used)
 OUTLINE_COLOUR                        24  0x00000018 (const dword)  (not used)
 OUTPUT                                 0  0x00000000 (const dword)  (not used)
 OutputCS                             904  0x00000388 (mem) word (global)  (usage 9)
 OVF                                  -21  0xffffffeb (PmmC func) args[0] r=1  (usage 3)
-oVideos                              977  0x000003d1oVideos                              977  0x000003d1 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
-oWinButtons                          877  0x0000036doWinButtons                          877  0x0000036d (mem) word[13] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 12)
+oVideos                             1073  0x00000431oVideos                             1073  0x00000431 (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 3)
+oWinButtons                          969  0x000003c9oWinButtons                          969  0x000003c9 (mem) word[15] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (usage 12)
 PALEGOLDENROD                      61269  0x0000ef55 (const dword)  (not used)
 PALEGREEN                          40915  0x00009fd3 (const dword)  (not used)
 PALETURQUOISE                      44925  0x0000af7d (const dword)  (not used)
@@ -5569,7 +5692,7 @@ pokeW                                -12  0xfffffff4 (PmmC func) args[2] r=0  (n
 PORTRAIT                               2  0x00000002 (const dword)  (not used)
 PORTRAIT_R                             3  0x00000003 (const dword)  (not used)
 POWDERBLUE                         46876  0x0000b71c (const dword)  (not used)
-PrintStrings                        5166  0x0000142e (User func) args[3] r=0  (usage 9)
+PrintStrings                        5589  0x000015d5 (User func) args[3] r=0  (usage 9)
 PROGRESSBAR_HIDE                       2  0x00000002 (const dword)  (not used)
 PROGRESSBAR_RAISED                 65535  0x0000ffff (const dword)  (not used)
 PROGRESSBAR_SUNKEN                 65534  0x0000fffe (const dword)  (not used)
@@ -5583,7 +5706,7 @@ RANDOM_LO                             32  0x00000020 (const dword)  (not used)
 READ_OBJ                               0  0x00000000 (const dword)  (usage 3)
 READ_PAGE                             34  0x00000022 (const dword)  (not used)
 ReadCmd                              128  0x00000080 (const dword)  (not used)
-ReadObject                          4878  0x0000130e (User func) args[2] r=0  (usage 3)
+ReadObject                          5301  0x000014b5 (User func) args[2] r=0  (usage 3)
 RED                                63488  0x0000f800 (const dword)  (not used)
 REPORT_EVENT                           7  0x00000007 (const dword)  (usage 3)
 REPORT_MAGIC_EVENT_BYTES              10  0x0000000a (const dword)  (not used)
@@ -5591,7 +5714,7 @@ REPORT_MAGIC_EVENT_DBYTES             11  0x0000000b (const dword)  (not used)
 REPORT_OBJ                             5  0x00000005 (const dword)  (usage 3)
 reserved                            -294  0xfffffeda (PmmC func) args[0] r=0  (not used)
 RIGHT_POS                              4  0x00000004 (const dword)  (not used)
-rKeyboardRoutines                   1053  0x0000041drKeyboardRoutines                   1053  0x0000041d (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV7 (In test)\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (not used)
+rKeyboardRoutines                   1149  0x0000047drKeyboardRoutines                   1149  0x0000047d (mem) word[1] (member of C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS)  (not used)
 ROSYBROWN                          48241  0x0000bc71 (const dword)  (not used)
 ROYALBLUE                          17244  0x0000435c (const dword)  (not used)
 RUNFLASH                             128  0x00000080 (const dword)  (not used)
@@ -5606,14 +5729,14 @@ SEASHELL                           65469  0x0000ffbd (const dword)  (not used)
 SEED                                 -20  0xffffffec (PmmC func) args[1] r=0  (not used)
 SELECT                                 3  0x00000003 (const dword)  (not used)
 SELECT_MULTIPLE                        4  0x00000004 (const dword)  (not used)
-SendReport                          5064  0x000013c8 (User func) args[4] r=0  (usage 6)
+SendReport                          5487  0x0000156f (User func) args[4] r=0  (usage 6)
 serin                                 -1  0xffffffff (PmmC func) args[0] r=1  (not used)
 serin1                              -140  0xffffff74 (PmmC func) args[0] r=1  (usage 3)
 serinX                               N/A         N/A (macro) serin1   (not used)
 serout                                -3  0xfffffffd (PmmC func) args[1] r=0  (not used)
 serout1                             -141  0xffffff73 (PmmC func) args[1] r=0  (usage 21)
-seroutCS                            5147  0x0000141b (User func) args[1] r=0  (usage 15)
-seroutOcs                           5114  0x000013fa (User func) args[0] r=0  (usage 3)
+seroutCS                            5570  0x000015c2 (User func) args[1] r=0  (usage 15)
+seroutOcs                           5537  0x000015a1 (User func) args[0] r=0  (usage 3)
 seroutX                              N/A         N/A (macro) serout1   (not used)
 setbaud                               -4  0xfffffffc (PmmC func) args[1] r=0  (not used)
 SIENNA                             41605  0x0000a285 (const dword)  (not used)
@@ -5745,11 +5868,11 @@ Strings0Size                           1  0x00000001 (const dword)  (usage 3)
 Strings0StartH                         0  0x00000000 (const dword)  (usage 3)
 Strings0StartL                         0  0x00000000 (const dword)  (usage 3)
 Strings1Count                          1  0x00000001 (const dword)  (not used)
-Strings1Size                           6  0x00000006 (const dword)  (usage 3)
+Strings1Size                           5  0x00000005 (const dword)  (usage 3)
 Strings1StartH                         0  0x00000000 (const dword)  (usage 3)
 Strings1StartL                       512  0x00000200 (const dword)  (usage 3)
 Strings2Count                          1  0x00000001 (const dword)  (not used)
-Strings2Size                           7  0x00000007 (const dword)  (usage 3)
+Strings2Size                           8  0x00000008 (const dword)  (usage 3)
 Strings2StartH                         0  0x00000000 (const dword)  (usage 3)
 Strings2StartL                      1024  0x00000400 (const dword)  (usage 3)
 Strings3Count                          1  0x00000001 (const dword)  (not used)
@@ -5768,8 +5891,8 @@ Strings6Count                          0  0x00000000 (const dword)  (not used)
 Strings6Size                           1  0x00000001 (const dword)  (usage 3)
 Strings6StartH                         0  0x00000000 (const dword)  (usage 3)
 Strings6StartL                      3072  0x00000c00 (const dword)  (usage 3)
-Strings7Count                          0  0x00000000 (const dword)  (not used)
-Strings7Size                           1  0x00000001 (const dword)  (usage 3)
+Strings7Count                          1  0x00000001 (const dword)  (not used)
+Strings7Size                          21  0x00000015 (const dword)  (usage 3)
 Strings7StartH                         0  0x00000000 (const dword)  (usage 3)
 Strings7StartL                      3584  0x00000e00 (const dword)  (usage 3)
 stringsCV                             18  0x00000012 (mem) word[8] (global)  (usage 27)
@@ -5892,13 +6015,13 @@ tTank                                 26  0x0000001a (const dword)  (usage 3)
 tThermometer                          18  0x00000012 (const dword)  (usage 3)
 tTimer                                23  0x00000017 (const dword)  (usage 6)
 tTrackbar                              5  0x00000005 (const dword)  (usage 3)
-TurnOffButtons                      4334  0x000010ee (User func) args[1] r=0  (usage 6)
+TurnOffButtons                      4448  0x00001160 (User func) args[1] r=0  (usage 6)
 TURQUOISE                          18202  0x0000471a (const dword)  (not used)
 tUserButton                           33  0x00000021 (const dword)  (usage 9)
 tUserImages                           27  0x0000001b (const dword)  (usage 3)
 tUserled                              19  0x00000013 (const dword)  (usage 3)
 tVideo                                20  0x00000014 (const dword)  (usage 3)
-tWinButton                             6  0x00000006 (const dword)  (usage 54)
+tWinButton                             6  0x00000006 (const dword)  (usage 60)
 txt_Attributes                       -38  0xffffffda (PmmC func) args[1] r=1  (usage 3)
 txt_BGcolour                         -26  0xffffffe6 (PmmC func) args[1] r=1  (usage 3)
 txt_Bold                             -34  0xffffffde (PmmC func) args[1] r=1  (not used)
@@ -5946,12 +6069,12 @@ umul_1616                           -289  0xfffffedf (PmmC func) args[3] r=1  (u
 UNDERLINED                           128  0x00000080 (const dword)  (not used)
 unicode_page                        -281  0xfffffee7 (PmmC func) args[3] r=1  (not used)
 UP                                     1  0x00000001 (const dword)  (not used)
-UpdateObjects                       3043  0x00000be3 (User func) args[1] r=0  (usage 3)
+UpdateObjects                       3139  0x00000c43 (User func) args[1] r=0  (usage 3)
 USER_INITIALIZED_DISPLAY              32  0x00000020 (const dword)  (not used)
 usub_3232                           -291  0xfffffedd (PmmC func) args[3] r=1  (not used)
 VIOLET                             60445  0x0000ec1d (const dword)  (not used)
 WHEAT                              63222  0x0000f6f6 (const dword)  (not used)
-WHITE                              65535  0x0000ffff (const dword)  (usage 15)
+WHITE                              65535  0x0000ffff (const dword)  (usage 12)
 WHITESMOKE                         63422  0x0000f7be (const dword)  (not used)
 WRITE_CONTRAST                         4  0x00000004 (const dword)  (usage 3)
 WRITE_MAGIC_BYTES                      8  0x00000008 (const dword)  (not used)
@@ -5961,7 +6084,7 @@ WRITE_PAGE                            35  0x00000023 (const dword)  (not used)
 WRITE_STR                              2  0x00000002 (const dword)  (usage 6)
 WRITE_STRU                             3  0x00000003 (const dword)  (usage 6)
 WriteCmd                               0  0x00000000 (const dword)  (not used)
-WriteObject                         4457  0x00001169 (User func) args[3] r=0  (usage 24)
+WriteObject                         4589  0x000011ed (User func) args[3] r=0  (usage 24)
 X_MAX                                  0  0x00000000 (const dword)  (not used)
 X_ORG                                  6  0x00000006 (const dword)  (not used)
 X_ORIGIN                              30  0x0000001e (const dword)  (not used)

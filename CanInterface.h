@@ -18,35 +18,66 @@
 class CanID{
 public:
 	enum IDs : unsigned short {
-		//Gps
-		GPS_LATITUDE = 0x060,	//Latitude
-		GPS_LONGITUDE = 0x061,	//Longitude
-		GPS_DATE = 0x064,		//Date dd/mm/yy
-		GPS_TIME = 0x065,		//Time hh:MM:ss
-		GPS_VALID = 0x068,		//GPS valid flag
+		//Phone
+		DATE = 0x60,			//Date dd/mm/yy
+		TIME = 0x61,			//Time hh:MM:ss
+		GPS_LATITUDE = 0x62,	//Latitude
+		GPS_LONGITUDE = 0x63,	//Longitude
+		GPS_ALTITUDE = 0x64,	//Altitude
+		GPS_ACCURACY = 0x65,	//Accuracy radius
+		GPS_SPEED = 0x66,		//GPS valid flag
+
+		CALL_STATUS = 0x70,		//Voice call status		0 - no call		1 - in call
+		ACC_X = 0x71,			//Accelerometer x value
+		ACC_Y = 0x72,			//Accelerometer y value
+		ACC_Z = 0x73,			//Accelerometer z value
+		ACC_STATUS = 0x74,		//Accelerometer values precision	
 
 		//Motor
-		MOTOR_DRIVER_CMD = 0x80,	//Set/Get Motor driver current settings
-		MOTOR_MAP = 0x091,			//Current selected map
-		MOTOR_POWER = 0x0A2,		//Power
-		MOTOR_DUTY_CICLE = 0x0A5,	//Duty cicle
+		DRIVER_SETTINGS_CMD = 0x80,	//Set/Get motor driver mapset/motor settings
+		DRIVER_SET_MAP_CMD =  0x81,	//Set motor current map
 
+		MOTOR_MAP = 0x91,			//Current selected map
+
+		//MOTOR_CURRENT = 0xA0,		//Current
+		//MOTOR_VOLTAGE = 0xA1,		//Voltage
+		MOTOR_POWER = 0xA2,			//Power
+		//MOTOR_TORQUE = 0xA3,		//Torque
+		//MOTOR_RPM = 0xA4,			//RPM
+		MOTOR_DUTY_CICLE = 0xA5,	//Duty cicle
+
+		//Strategy
+		//IST_VEL = 0x200,
+		//AVG_VEL = 0x201,
+		//DISTANCE = 0x202,
+		//RACE_TIME = 0x203,
+		//LAP = 0x204,
 		GPS_WAYPOINT = 0x205,
-
-		RADIO_STATUS = 0x209,  //Radio status flag
-		RADIO_REQUEST = 0x20C,  //Radio request flag
+		//REL_SPACE = 0x206,
+		//REL_TIME = 0x207,
+		//LAST_TIME = 0x208,
+		//GAP = 0x209,
+		//ENERGY = 0x20A,
+		//GAS = 0x20B,
 
 		//Bms
-		BMS_STATUS = 0x400,	//BMS status
-		BATTERY_CELL_0 = 0x401,	//Battery cell 0 voltage. Other cells' ids are next this
-		BATTERY_VOLTAGE = 0x410,	//Battery pack voltage
+		BMS_STATUS = 0x400,			//BMS status
+		BATTERY_CELL_0 = 0x401,		//Battery cell 0 voltage. Other cells' ids are next this
+		//...
+		PACK_VOLTAGE = 0x410,		
+		//CHG_VOLTAGE = 0x411,
+		//LOAD_VOLTAGE = 0x412,
+		//PACK_CURRENT = 0x413,
+		//TEMP_1 = 0x414,
+		//TEMP_2 = 0x415,
+
 	};
 };
 	
-
 //Can debug
-#define CANSerial				SerialUSB
-#define CAN_SERIAL_BAUD			9600
+#define DebugSerial				SerialUSB
+#define CAN_SERIAL_TIMEOUT		5000
+#define CAN_SERIAL_BAUD			115200
 #define CAD_MSG_HEADER			"CAD"	//CAN Analyzer Data
 #define CAN_MSG_HEADER			"CAN"	//SEND + CHANNEL + SIZE + DATA
 #define DEBUG_RX_BUFFER_SIZE	32
@@ -56,6 +87,7 @@ public:
 #define CMD_TIMEOUT		3000
 #define ERROR_CMD		"ERR"
 #define OK_CMD			"OK"
+
 enum CanStreamResult{
 	SUCCES,
 	ERROR,
@@ -64,15 +96,21 @@ enum CanStreamResult{
 	ABORT
 };
 
+typedef void(*CanEventHandler)(CAN_FRAME&);
+
+
 class CanInterfaceClass {
 
 public:
 	void init(int canSpeed, unsigned short minID = 0, unsigned short maxID = 2048);
+	void update();
+
+	void setCanEventCallBack(CanEventHandler);
+	void removeCanEventCallBack();
 
 	int available();
 	CAN_FRAME& read();
 	void send(CanID::IDs id, byte* data, byte size);
-	void update();
 
 	//Stream
 	CanStreamResult streamOverCan(CanID::IDs canID, const char* openStreamCmd, byte* buffer, int size);
@@ -80,18 +118,19 @@ public:
 	byte getAck(byte* data, int size);
 
 	//Debug
-	friend void onCanPacketCallBack(CAN_FRAME*);
 	void setCanDebugSerialPort(Stream* debugSerial);
 
 
 private:
+	Stream* debugSerial;
 	CAN_FRAME frame;
 	ByteBuffer rxBuffer;
-	Stream* debugSerial;
+	CanEventHandler canEvent;
 
 	//Debug
+	void writePacketOnDebugSerial(CAN_FRAME& packet);
 	void readFromDebugSerial();
-	void parseDebugCmd();
+	void parseSerialDebugCmd();
 };
 
 extern CanInterfaceClass canInterface;

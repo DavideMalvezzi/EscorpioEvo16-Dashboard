@@ -6,10 +6,11 @@ void onEvent(){
 	genieFrame evt;
 	//Get the next pending event
 	displayInterface.genie.DequeueEvent(&evt);
+
 	//If current form is valid
-	if (displayInterface.currentForm != -1 && displayInterface.forms[displayInterface.currentForm] != NULL){
+	if (displayInterface.currentForm != NULL){
 		//Redirect the screen event on the current form invoking onEvent method
-		displayInterface.forms[displayInterface.currentForm]->onEvent(displayInterface.genie, evt);
+		displayInterface.currentForm->onEvent(displayInterface.genie, evt);
 	}
 }
 
@@ -24,22 +25,15 @@ void DisplayInterfaceClass::init(){
 	digitalWrite(RESET_PIN, HIGH); 
 	delay(3500);
 
-	genie.WriteContrast(15);
 	//Attach event handler method
 	genie.AttachEventHandler(&onEvent);
 
 	//Init forms
-	currentForm = -1;
+	currentForm = &consoleForm;
 	consoleForm.init(genie);
 	mainForm.init(genie);
 	debugForm.init(genie);
 	mapsForm.init(genie);
-
-	//Add forms to formList
-	forms.resize(MAX_FORM_NUMBER);
-	forms.append(&mainForm);
-	forms.append(&debugForm);
-	forms.append(&mapsForm);
 
 	//Refresh rateo for the update method
 	refreshTimer.setDuration(1000 / REFRESH_RATEO).start();
@@ -51,25 +45,27 @@ void DisplayInterfaceClass::update(){
 	genie.DoEvents();
 	//If it's refresh time then update current form
 	if (refreshTimer.hasFinished()){
-		if (currentForm != -1 && forms[currentForm] != NULL){
-			forms[currentForm]->update(genie);
-			refreshTimer.start();
+		if (currentForm != NULL){
+			currentForm->update(genie);
 		}
+		refreshTimer.start();
 	}
 }
 
-void DisplayInterfaceClass::nextForm(){
+void DisplayInterfaceClass::setCurrentForm(LCDForm* currentForm){
 	//If current form is not null invoke onExit method
-	if (currentForm != -1){
-		forms[currentForm]->onExit(genie);
+	if (currentForm != NULL){
+		this->currentForm->onExit(genie);
 	}
 
-	//Activate next form
-	currentForm = (currentForm + 1) % MAX_FORM_NUMBER;
-	genie.WriteObject(GENIE_OBJ_FORM, forms[currentForm]->getFormIndex(), 1);
+	this->currentForm = currentForm;
 
-	//Invoke new current form onEnter method
-	forms[currentForm]->onEnter(genie);
+	if (currentForm != NULL){
+		//Activate next form
+		genie.WriteObject(GENIE_OBJ_FORM, currentForm->getFormIndex(), 1);
+		//Invoke new current form onEnter method
+		currentForm->onEnter(genie);
+	}
 }
 
 

@@ -8,18 +8,6 @@ void MapsFormClass::init(Genie& genie){
 	detailList.init(DETAIL_TEXT_LIST, LIST_BUFFER_SIZE, &genie);
 	valueList.init(VALUE_TEXT_LIST, LIST_BUFFER_SIZE, &genie); 
 	statusMsg.init(STATUS_STRING, &genie);
-
-	//Load motor cfgs
-	if (!motorCfg.loadFromFile(MOTOR_CFG_FILE)){
-		consoleForm.println(F("Error loading motor config file!"));
-		ASSERT(false, F("Error loading motor config file!"));
-	}
-
-	//Load mapsets cfgs
-	if (!mapCfg.loadFromFile(MAPS_CFG_FILE)){
-		consoleForm.println(F("Error loading map config file!"));
-		ASSERT(false, F("Error loading map config file!"));
-	}
 }
 //OK
 void MapsFormClass::update(Genie& genie){
@@ -27,7 +15,23 @@ void MapsFormClass::update(Genie& genie){
 }
 //OK
 void MapsFormClass::onEnter(Genie& genie){
+	//Clear all the strings
 	clearAll();
+	
+	//Load motor cfgs
+	if (motorCfg.getPropertyCount() == 0){
+		if (motorCfg.loadFromFile(MOTOR_CFG_FILE) != FILE_VALID){
+			LOGLN(motorCfg.getErrorMsg());
+		}
+	}
+
+	//Load mapsets cfgs
+	if (mapCfg.getPropertyCount() == 0){
+		if (mapCfg.loadFromFile(MAPS_CFG_FILE) != FILE_VALID){
+			LOGLN(mapCfg.getErrorMsg());
+		}
+	}
+
 }
 //OK
 void MapsFormClass::onEvent(Genie& genie, genieFrame& evt){
@@ -42,10 +46,20 @@ void MapsFormClass::onEvent(Genie& genie, genieFrame& evt){
 					getMapSetData();
 					break;
 				case LOAD_MOT_BUTTON:
-					onLoadMotorButtonPressed(genie);
+					if (motorCfg.getPropertyCount() > 0){
+						onLoadMotorButtonPressed(genie);
+					}
+					else{
+						statusMsg.setMessage(F("Invalid motor cfg"));
+					}
 					break;
 				case LOAD_MAP_BUTTON:
-					onLoadMapButtonPressed(genie);
+					if (mapCfg.getPropertyCount() > 0){
+						onLoadMapButtonPressed(genie);
+					}
+					else{
+						statusMsg.setMessage(F("Invalid mapset cfg"));
+					}
 					break;
 				case OK_BUTTON:
 					onOkButtonPressed(genie);
@@ -61,6 +75,9 @@ void MapsFormClass::onEvent(Genie& genie, genieFrame& evt){
 					break;
 				case EXIT_BUTTON:
 					onExitButtonPressed(genie);
+					break;
+				case BACK_BUTTON:
+					displayInterface.setCurrentForm(&debugForm);
 					break;
 			}
 		}
@@ -95,7 +112,8 @@ void MapsFormClass::getMotorData(){
 	CanStreamResult sResult;
 
 	//Start the stream
-	sResult = canInterface.waitForStreamOverCan(CanID::MOTOR_DRIVER_CMD, GET_MOTOR_DATA_CMD, (byte*)&m, sizeof(Motor));
+	statusMsg.setMessage(F("Waiting for response..."));
+	sResult = canInterface.waitForStreamOverCan(CanID::DRIVER_SETTINGS_CMD, GET_MOTOR_DATA_CMD, (byte*)&m, sizeof(Motor));
 	//Clear display
 	clearAll();
 
@@ -103,7 +121,7 @@ void MapsFormClass::getMotorData(){
 	switch (sResult){
 		case SUCCES:
 			currentState = GETTING_MOTOR_STATE;
-			statusMsg.setMessage("Successful transfer!");
+			statusMsg.setMessage(F("Successful transfer!"));
 			workingList = &detailList;
 
 			for (int i = 0; i < Motor::ATTR_COUNT; i++){
@@ -149,17 +167,17 @@ void MapsFormClass::getMotorData(){
 
 		case ERROR:
 			currentState = NOTHING_LOADED;
-			statusMsg.setMessage("Error on transfer!");
+			statusMsg.setMessage(F("Error on transfer!"));
 			break;
 
 		case TIMEOUT:
 			currentState = NOTHING_LOADED;
-			statusMsg.setMessage("Transfer timed out!");
+			statusMsg.setMessage(F("Transfer timed out!"));
 			break;
 
 		case WRONG_ACK:
 			currentState = NOTHING_LOADED;
-			statusMsg.setMessage("Wrong ack!");
+			statusMsg.setMessage(F("Wrong ack!"));
 			break;
 	}
 
@@ -170,7 +188,8 @@ void MapsFormClass::getMapSetData(){
 	CanStreamResult sResult;
 
 	//Start the stream
-	sResult = canInterface.waitForStreamOverCan(CanID::MOTOR_DRIVER_CMD, GET_MAPSET_DATA_CMD, (byte*)&mapSet, sizeof(MotorMap)* MAPS_PER_SET);
+	statusMsg.setMessage(F("Waiting for response..."));
+	sResult = canInterface.waitForStreamOverCan(CanID::DRIVER_SETTINGS_CMD, GET_MAPSET_DATA_CMD, (byte*)&mapSet, sizeof(MotorMap)* MAPS_PER_SET);
 	//Clear the display
 	clearAll();
 
@@ -178,7 +197,7 @@ void MapsFormClass::getMapSetData(){
 	switch (sResult){
 		case SUCCES:
 			currentState = GETTING_MAPSET_STATE;
-			statusMsg.setMessage("Successful transfer!");
+			statusMsg.setMessage(F("Successful transfer!"));
 			workingList = &propList;
 			for (int i = 0; i < MAPS_PER_SET; i++){
 				propList.addElement(mapSet[i].name);
@@ -188,17 +207,17 @@ void MapsFormClass::getMapSetData(){
 
 		case ERROR:
 			currentState = NOTHING_LOADED;
-			statusMsg.setMessage("Error on transfer!");
+			statusMsg.setMessage(F("Error on transfer!"));
 			break;
 
 		case TIMEOUT:
 			currentState = NOTHING_LOADED;
-			statusMsg.setMessage("Transfer timed out!");
+			statusMsg.setMessage(F("Transfer timed out!"));
 			break;
 
 		case WRONG_ACK:
 			currentState = NOTHING_LOADED;
-			statusMsg.setMessage("Wrong ack!");
+			statusMsg.setMessage(F("Wrong ack!"));
 			break;
 
 	}
@@ -211,16 +230,17 @@ void MapsFormClass::getMapSetData(){
 CanStreamResult MapsFormClass::setMotorData(){
 	Motor motor;
 	//Load struct from cfg
+	statusMsg.setMessage(F("Transfer in progress..."));
 	motorCfg.toStruct((byte*)&motor, MOTOR_TYPES, propList.getCurrentElement() * Motor::ATTR_COUNT);
 	//Stream
-	return canInterface.streamOverCan(CanID::MOTOR_DRIVER_CMD, SET_MOT_DATA_CMD, (byte*)&motor, sizeof(Motor));
+	return canInterface.streamOverCan(CanID::DRIVER_SETTINGS_CMD, SET_MOT_DATA_CMD, (byte*)&motor, sizeof(Motor));
 
 }
 //OK
 CanStreamResult MapsFormClass::setMapData(){
-
-	//Load selected mapset
 	Configuration maps;
+	//Load selected mapset
+	statusMsg.setMessage(F("Transfer in progress..."));
 	maps.loadFromProperty(mapCfg.getProperty(propList.getCurrentElement()));
 
 	if (maps.getPropertyCount() / MotorMap::ATTR_COUNT == MAPS_PER_SET){
@@ -242,7 +262,7 @@ CanStreamResult MapsFormClass::setMapData(){
 		}
 
 		//Stream
-		return canInterface.streamOverCan(CanID::MOTOR_DRIVER_CMD, SET_MAP_DATA_CMD, (byte*)mapSet, sizeof(MotorMap)* MAPS_PER_SET);
+		return canInterface.streamOverCan(CanID::DRIVER_SETTINGS_CMD, SET_MAP_DATA_CMD, (byte*)mapSet, sizeof(MotorMap)* MAPS_PER_SET);
 	}
 
 	return ABORT;
@@ -287,8 +307,10 @@ void MapsFormClass::onEnterButtonPressed(Genie& genie){
 			break;
 
 		case GETTING_MAPSET_STATE:
-			loadGetMapSetValues();
-			workingList->repaint();
+			if (workingList == &propList){
+				loadGetMapSetValues();
+				workingList->repaint();
+			}
 			break;
 	}	
 }
@@ -356,19 +378,19 @@ void MapsFormClass::onOkButtonPressed(Genie& genie){
 
 	switch (sResult){
 		case SUCCES:
-			statusMsg.setMessage("Successful transfer!");
+			statusMsg.setMessage(F("Successful transfer!"));
 			break;
 
 		case ERROR:
-			statusMsg.setMessage("Error on transfer!");
+			statusMsg.setMessage(F("Error on transfer!"));
 			break;
 
 		case TIMEOUT:
-			statusMsg.setMessage("Transfer timed out!");
+			statusMsg.setMessage(F("Transfer timed out!"));
 			break;
 
 		case ABORT:
-			statusMsg.setMessage("Map number not match!");
+			statusMsg.setMessage(F("Map number not match!"));
 			break;
 	}
 }

@@ -19,6 +19,18 @@
 #include "WheelSensor.h"
 
 
+#define DUTY_CICLE_BAR		0
+#define IST_SPEED_DIGITS	0
+#define AVG_SPEED_DIGITS	1
+#define LEFT_TIME_DIGITS	2
+#define LAP_DIGITS			3
+#define LAST_TIME_DIGITS	4
+#define CURR_TIME_DIGITS	5
+#define RADIO_LED			0
+#define GAS_LED				1
+#define GAP_STRING			1
+#define CONSUMPTION_STRING	2
+
 class MainFormClass : public LCDForm{
 
 public:
@@ -27,7 +39,7 @@ public:
 	int getFormIndex(){ return 1; }
 
 private:
-
+	unsigned short convertMillisToMinSec(unsigned long time);
 };
 
 extern MainFormClass mainForm;

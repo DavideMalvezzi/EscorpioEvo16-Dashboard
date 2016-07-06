@@ -41,7 +41,6 @@ double ArcInRadians(GpsPoint from, GpsPoint to) {
   * @sa ArcInRadians 
   */
 
-double DistanceInMeters(GpsPoint from, GpsPoint to) 
-{  
-    return EARTH_RADIUS_IN_METERS*ArcInRadians(from, to);  
+double DistanceInMeters(GpsPoint from, GpsPoint to) {  
+    return EARTH_RADIUS_IN_METERS * ArcInRadians(from, to);  
 } 

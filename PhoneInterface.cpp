@@ -6,22 +6,24 @@ void PhoneInterfaceClass::init(){
 	//Init
 	INIT_SERIAL(BLSerial, BL_SERIAL_BAUD);
 	rxBuffer.resize(PHONE_RX_BUFFER_SIZE);
-
 	
+	//Load cfg
 	Configuration cfg;
-	if (cfg.loadFromFile(PHONE_CFG_FILE)){
+	if (cfg.loadFromFile(PHONE_CFG_FILE) == FILE_VALID){
 		phoneToCall = cfg.getProperty(PHONE_NUM).asString();
 	}
 	else{
-		consoleForm.println(F("Phone configuration file not found!"));
-		ASSERT(false, F("Phone configuration file not found!"));
+		consoleForm.println(cfg.getErrorMsg());
+		ASSERT(false, cfg.getErrorMsg());
 	}
-	
+
 	//Call not active
 	callActive = false;
 
-}
+	//No handler
+	gpsHandler = NULL;
 
+}
 
 void PhoneInterfaceClass::update(){
 	//Read all bytes on serial
@@ -31,19 +33,32 @@ void PhoneInterfaceClass::update(){
 		}
 
 		if (parsePacket(INFO_PACKET, (byte*)&info, sizeof(InfoData))){
-			//TODO: put in the ChannelsBuffer
+			channelsBuffer.setValue(CanID::DATE, (byte*)info.date, sizeof(info.date));
+			channelsBuffer.setValue(CanID::TIME, (byte*)info.date, sizeof(info.date));
 		}
 
 		if (parsePacket(GPS_PACKET, (byte*)&gps, sizeof(GpsData))){
-			//TODO: put in the ChannelsBuffer
+			channelsBuffer.setValue(CanID::GPS_LATITUDE,	(byte*)&gps.latitude,	sizeof(gps.latitude));
+			channelsBuffer.setValue(CanID::GPS_LONGITUDE,	(byte*)&gps.longitude,	sizeof(gps.latitude));
+			channelsBuffer.setValue(CanID::GPS_ALTITUDE,	(byte*)&gps.altitude,	sizeof(gps.latitude));
+			channelsBuffer.setValue(CanID::GPS_SPEED,		(byte*)&gps.speed,		sizeof(gps.latitude));
+			channelsBuffer.setValue(CanID::GPS_ACCURACY,	(byte*)&gps.accuracy,	sizeof(gps.latitude));
+			
+			//Invoke gps handler
+			if (gpsHandler != NULL){
+				gpsHandler(gps);
+			}
 		}
 
 		if (parsePacket(ACC_PACKET, (byte*)&acc, sizeof(AccData))){
-			//TODO: put in the ChannelsBuffer
+			channelsBuffer.setValue(CanID::ACC_X,		(byte*)&acc.x,		sizeof(acc.x));
+			channelsBuffer.setValue(CanID::ACC_Y,		(byte*)&acc.y,		sizeof(acc.y));
+			channelsBuffer.setValue(CanID::ACC_Y,		(byte*)&acc.z,		sizeof(acc.z));
+			channelsBuffer.setValue(CanID::ACC_STATUS,	(byte*)&acc.status, sizeof(acc.status));
 		}
 
 		if (parsePacket(CALL_PACKET, (byte*)&callActive, sizeof(boolean))){
-			//TODO: put in the ChannelsBuffer
+			channelsBuffer.setValue(CanID::CALL_STATUS, (byte*)&callActive, sizeof(callActive));
 		}
 	}
 }
@@ -73,6 +88,9 @@ boolean PhoneInterfaceClass::parsePacket(const char* header, byte* buffer, int s
 	return false;
 }
 
+void PhoneInterfaceClass::setGpsDataHandler(GpsDataHandler gpsHandler){
+	this->gpsHandler = gpsHandler;
+}
 
 
 PhoneInterfaceClass phoneInterface;

@@ -20,7 +20,7 @@ public:
 	void clear();
 	const String& getMessage();
 	void repaint();
-	void setMessage(String &str);
+	void setMessage(String str);
 	void setMessage(const char* str);
 
 private:

@@ -1,26 +1,37 @@
 
 #include "CanInterface.h"
 
-void onCanPacketCallBack(CAN_FRAME* frame){
-	Stream* dSerial = canInterface.debugSerial;
-
-	if (dSerial != NULL){
-		dSerial->print(CAD_MSG_HEADER);
-		dSerial->write(frame->id >> 8);
-		dSerial->write(frame->id);
-		dSerial->write(frame->length);
-		dSerial->write((byte*)frame->data.bytes, frame->length);
-	}
-}
 
 void CanInterfaceClass::init(int canSpeed, unsigned short minID, unsigned short maxID){
 	Can0.begin(canSpeed);
 	Can0.watchForRange(minID, maxID);
-
+	
 	debugSerial = NULL;
+	canEvent = NULL;
 	rxBuffer.resize(DEBUG_RX_BUFFER_SIZE);
 }
 
+void CanInterfaceClass::update(){
+
+	if (Can0.available()){
+		Can0.read(frame);
+
+		writePacketOnDebugSerial(frame);
+
+		if (canEvent != NULL){
+			canEvent(frame);
+		}
+	}
+
+
+	if (debugSerial != NULL){
+		readFromDebugSerial();
+		parseSerialDebugCmd();
+	}
+}
+
+
+//R/W
 int CanInterfaceClass::available(){
 	return Can0.available();
 }
@@ -46,11 +57,14 @@ void CanInterfaceClass::send(CanID::IDs id, byte* data, byte size){
 	Can0.sendFrame(frame);
 }
 
-void CanInterfaceClass::update(){
-	if (debugSerial != NULL){
-		readFromDebugSerial();
-		parseDebugCmd();
-	}
+
+//Event
+void CanInterfaceClass::setCanEventCallBack(CanEventHandler cb){
+	this->canEvent = cb;
+}
+
+void CanInterfaceClass::removeCanEventCallBack(){
+	this->canEvent = NULL;
 }
 
 
@@ -58,11 +72,15 @@ void CanInterfaceClass::update(){
 void CanInterfaceClass::setCanDebugSerialPort(Stream* debugSerial){
 	//Attach interrupt for Can Debug
 	this->debugSerial = debugSerial;
+}
+
+void CanInterfaceClass::writePacketOnDebugSerial(CAN_FRAME& packet){
 	if (debugSerial != NULL){
-		Can0.attachCANInterrupt(&onCanPacketCallBack);
-	}
-	else{
-		Can0.attachCANInterrupt(NULL);
+		debugSerial->print(CAD_MSG_HEADER);
+		debugSerial->write(packet.id >> 8);
+		debugSerial->write(packet.id);
+		debugSerial->write(packet.length);
+		debugSerial->write((byte*)packet.data.bytes, packet.length);
 	}
 }
 
@@ -75,7 +93,7 @@ void CanInterfaceClass::readFromDebugSerial(){
 	}
 }
 
-void CanInterfaceClass::parseDebugCmd(){
+void CanInterfaceClass::parseSerialDebugCmd(){
 	//Parse debug command
 	int index = rxBuffer.indexOf(CAN_MSG_HEADER);
 	unsigned short id, size;
@@ -91,6 +109,14 @@ void CanInterfaceClass::parseDebugCmd(){
 
 			if (rxBuffer.getSize() >= index + size){
 				send((CanID::IDs)id, &rxBuffer[index], size);
+
+				//test
+				frame.id = id;
+				frame.length = size;
+				memcpy(frame.data.bytes, &rxBuffer[index], size);
+				canEvent(frame);
+				//////////////
+
 				rxBuffer.remove(0, index + size);
 			}
 		}

@@ -1,7 +1,7 @@
 
 #include "ChannelsBuffer.h"
 
-#define WARNING_OFF	1
+#define WARNING
 
 void ChannelsBufferClass::init(){
 	Channel* c;
@@ -34,16 +34,11 @@ void ChannelsBufferClass::debug(){
 	LOGLN(F("========================================"));
 }
 
-String ChannelsBufferClass::getValueAsString(unsigned short id, bool clearUpdatedFlag){
+String ChannelsBufferClass::getValueAsString(unsigned short id){
 	int index = channelsConfig.getChannelIndex(id);
 	//If channel's config found
 	if (index != -1){
 		Channel* c = channelsConfig.getChannelByIndex(index);
-
-		//Clear updated flag if requested
-		if (clearUpdatedFlag){
-			updateFlags.clearBit(index);
-		}
 
 		//Convert to arduino String obj
 		switch (c->type){
@@ -59,17 +54,15 @@ String ChannelsBufferClass::getValueAsString(unsigned short id, bool clearUpdate
 				return String(buffer[index].as<double>(), 6);
 
 			case Channel::INTEGER:
-				//Need to convert to double because 8 byte int String constructor doesn't exist 
 				return intToString(c, buffer[index].data());
 
 			case Channel::U_INTEGER:
-				//Need to convert to double because 8 byte int String constructor doesn't exist 
 				return uintToString(c, buffer[index].data());
 
 			case Channel::STRING:
 				return buffer[index].toString();
 
-#ifndef WARNING_OFF
+#ifdef WARNING
 			default:
 				LOG(F("WARNING: Unknown conversion type channel ")); LOG(id); LOG(F(" to type ")); LOGLN((int)c->type);
 #endif
@@ -79,8 +72,6 @@ String ChannelsBufferClass::getValueAsString(unsigned short id, bool clearUpdate
 	//Error
 	return F("nil");
 }
-
-
 
 ByteBuffer ChannelsBufferClass::getValueAsByteArray(unsigned short id){
 	int index = channelsConfig.getChannelIndex(id);
@@ -95,17 +86,24 @@ ByteBuffer ChannelsBufferClass::getValueAsByteArray(unsigned short id){
 void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short size){
 	int index = channelsConfig.getChannelIndex(id);
 	if (index != -1){
-		if (channelsConfig.getChannelByIndex(index)->size != size){
-#ifndef WARNING_OFF
-			LOG(F("WARNING: ChannelsBuffer::setValue  expected size != received size for channel ")); LOGLN(id);
-#endif
+
+#ifdef WARNING
+		if (size < channelsConfig.getChannelByIndex(index)->size){
+			LOG(F("WARNING: ChannelsBuffer::setValue	Received size < expected size for channel ")); LOGLN(id);
 		}
-		buffer[index].clear();
-		buffer[index].append(data, size);
-		updateFlags.setBit(index);
+		else if (size > channelsConfig.getChannelByIndex(index)->size){
+			LOG(F("WARNING: ChannelsBuffer::setValue	Received size > expected size for channel ")); LOGLN(id);
+		}
+#endif
+		if (size <= channelsConfig.getChannelByIndex(index)->size){
+			buffer[index].clear();
+			buffer[index].append(data, size);
+			updateFlags.setBit(index);
+		}
+		
 	}
 	else {
-#ifndef WARNING_OFF
+#ifdef WARNING
 		LOG(F("WARNING: ChannelsBuffer::setValue  unknow packet id = ")); LOGLN(id);
 #endif
 	}
@@ -119,6 +117,11 @@ bool ChannelsBufferClass::isValueUpdated(unsigned short id){
 	}
 	return false;
 }
+
+void ChannelsBufferClass::invalidAllData(){
+	updateFlags.fill(0);
+}
+
 
 //Assuming CPU is LITTLE-ENDIAN
 String ChannelsBufferClass::uintToString(Channel* channel, byte* data){

@@ -13,7 +13,7 @@ void ConsoleFormClass::update(Genie &genie){
 }
 
 void ConsoleFormClass::print(String str){
-	addText(str);
+	text.concat(str);
 }
 
 void ConsoleFormClass::println(String str){
@@ -35,6 +35,7 @@ void ConsoleFormClass::addText(String str){
 		}
 		text.concat(str);
 	}
+	
 	genie->WriteStr(CONSOLE_STR, (char*)text.c_str());
 }
 

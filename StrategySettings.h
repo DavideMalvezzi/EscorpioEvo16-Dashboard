@@ -36,9 +36,9 @@
 #define PROFILE_ROW		2
 #define PROFILE_COL		1700
 
-#define STRATEGY_FIRSTLAP_FILE "Strategy//FirstLap.txt"
-#define STRATEGY_LAP_FILE "Strategy//Lap.txt"
-#define STRATEGY_LASTLAP_FILE "Strategy//LastLap.txt"
+#define STRATEGY_FIRSTLAP_FILE	"Strategy//FirstLap.txt"
+#define STRATEGY_LAP_FILE		"Strategy//Lap.txt"
+#define STRATEGY_LASTLAP_FILE	"Strategy//LastLap.txt"
 
 
 class StrategySettingsClass {

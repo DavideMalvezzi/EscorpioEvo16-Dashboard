@@ -24,20 +24,19 @@ public:
 	void debug();
 
 	template <typename T>
-	T getValueAs(unsigned short id, bool clearUpdatedFlag = false){
+	T getValueAs(unsigned short id){
 		int index = channelsConfig.getChannelIndex(id);
 		if (index != -1){
-			if (clearUpdatedFlag){
-				updateFlags.clearBit(index);
-			}
 			return buffer[index].as<T>();
 		}
 		return NAN;
 	}
 
 	ByteBuffer getValueAsByteArray(unsigned short id);
-	String getValueAsString(unsigned short id, bool clearUpdatedFlag = false);
+	String getValueAsString(unsigned short id);
+
 	bool isValueUpdated(unsigned short id);
+	void invalidAllData();
 
 	void setValue(unsigned short id, byte* data, unsigned short size);
 

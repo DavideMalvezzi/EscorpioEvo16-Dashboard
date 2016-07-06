@@ -22,28 +22,28 @@
 
 #define LCDSerial		Serial1
 #define LCD_SERIAL_BAUD	115200
-#define REFRESH_RATEO	10
+#define REFRESH_RATEO	5
 
 #define RESET_PIN				6
 #define CHANGE_FORM_BUTTON_PIN	3
 
-#define MAX_FORM_NUMBER			3
 
 class DisplayInterfaceClass{
 
 public:
 	void init();
 	void update();
-	void nextForm();
+	void setCurrentForm(LCDForm* currentForm);
+	const LCDForm* getCurrentForm(){ return currentForm; }
+
 
 	friend void onChangeFormButtonPress(void* data = NULL);
 	friend void onEvent();
 
 private:
-	short currentForm;
 	Genie genie;
 	Timer refreshTimer;
-	Vector<LCDForm*> forms;
+	LCDForm* currentForm;
 
 };
 

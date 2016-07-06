@@ -1,6 +1,6 @@
 #platform "uLCD-43PT"
 
-// generated 03/01/2016 19:49:03
+// generated 23/01/2016 21:01:44
 
 
 #inherit "4DGL_16bitColours.fnc"
@@ -123,47 +123,51 @@
     REPORT_MAGIC_EVENT_BYTES 10
     REPORT_MAGIC_EVENT_DBYTES 11
 // End P1.inc
-    nObjects        53
-    nInputs         24
+    nObjects        55
+    nInputs         28
     nAniTimers      0
     nStrings        8
 #END
 
 #DATA
-    word FormStartIndex 0, 1, 26, 44
-    word FormEndIndex 1, 26, 44, 53
-    word InputControls -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 44, 88, -1, -1, -1, -1, -1, 132, 176, 220, 264, 308, 352, 396, 440, 484
+    word FormStartIndex 0, 1, 26, 45
+    word FormEndIndex 1, 26, 45, 55
+    word InputControls -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 44, 88, -1, -1, -1, -1, -1, 132, 176, 220, 264, 308, 352, 396, 440, 484, 528, 572
     word InputData tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 22, 2,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 66, 4,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
                 tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 110, 6,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
-                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 154, 8,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 154, 26,
+                OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 198, 8,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3,
-                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 198, 10,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 242, 10,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
-                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 242, 12,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 286, 12,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5,
-                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 286, 14,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 330, 14,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6,
-                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 330, 16,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 374, 16,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7,
-                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 374, 18,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 418, 18,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8,
-                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 418, 20,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 462, 20,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
-                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 462, 22,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 506, 22,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10,
-                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 506, 24,
-                OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11
-    word iStrings0  Strings0StartH, Strings0StartL, Strings0Size, 0, 2, 479, 271, WHITE, BLACK, 0, 0, 1, 0 
-    word iStrings1  Strings1StartH, Strings1StartL, Strings1Size, 166, 212, 301, 247, YELLOW, BLACK, 0, 1, 1, 1 
-    word iStrings2  Strings2StartH, Strings2StartL, Strings2Size, 20, 220, 164, 255, YELLOW, BLACK, 0, 1, 1, 1 
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 550, 24,
+                OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11,
+                tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 594, 28,
+                OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13
+    word iStrings0  Strings0StartH, Strings0StartL, Strings0Size, 0, 2, 479, 271, LIME, BLACK, 0, 0, 1, 0 
+    word iStrings1  Strings1StartH, Strings1StartL, Strings1Size, 176, 216, 287, 263, YELLOW, BLACK, 0, 1, 1, 1 
+    word iStrings2  Strings2StartH, Strings2StartL, Strings2Size, 20, 224, 174, 259, YELLOW, BLACK, 0, 1, 1, 1 
     word iStrings3  Strings3StartH, Strings3StartL, Strings3Size, 56, 20, 193, 54, YELLOW, BLACK, 0, 1, 1, 2 
-    word iStrings4  Strings4StartH, Strings4StartL, Strings4Size, 4, 44, 105, 267, WHITE, GREEN, 0, 1, 1, 3 
-    word iStrings5  Strings5StartH, Strings5StartL, Strings5Size, 109, 44, 268, 267, WHITE, NAVY, 0, 1, 1, 3 
-    word iStrings6  Strings6StartH, Strings6StartL, Strings6Size, 273, 44, 432, 267, WHITE, OLIVE, 0, 1, 1, 3 
+    word iStrings4  Strings4StartH, Strings4StartL, Strings4Size, 4, 45, 105, 268, WHITE, GREEN, 0, 1, 1, 3 
+    word iStrings5  Strings5StartH, Strings5StartL, Strings5Size, 109, 45, 268, 268, WHITE, NAVY, 0, 1, 1, 3 
+    word iStrings6  Strings6StartH, Strings6StartL, Strings6Size, 273, 45, 432, 268, WHITE, OLIVE, 0, 1, 1, 3 
     word iStrings7  Strings7StartH, Strings7StartL, Strings7Size, 314, 14, 475, 31, WHITE, MAROON, 0, 1, 1, 3 
     word oDipSwitchs 0
     word oKnobs 0
@@ -171,7 +175,7 @@
     word oRotarySwitchs 0
     word oGSliders 0
     word oTrackbars 0
-    word oWinButtons 12, iWinbutton0, iWinbutton1, iWinbutton2, iWinbutton3, iWinbutton4, iWinbutton5, iWinbutton6, iWinbutton7, iWinbutton8, iWinbutton9, iWinbutton10, iWinbutton11
+    word oWinButtons 14, iWinbutton0, iWinbutton1, iWinbutton2, iWinbutton3, iWinbutton4, iWinbutton5, iWinbutton6, iWinbutton7, iWinbutton8, iWinbutton9, iWinbutton10, iWinbutton11, iWinbutton12, iWinbutton13
     word oAngularmeters 0
     word oCoolgauges 0
     word oCustomdigitss 0
@@ -204,13 +208,13 @@
     word rKeyboardRoutines -1
     word oLedDigitsn 8, 4, 3, 50, 0,
                 272, 4, 3, 50, 0,
-                176, 3, 2, 42, 0,
+                174, 3, 2, 44, 0,
                 210, 2, 1, 28, 0,
-                322, 3, 2, 42, 0,
-                32, 3, 2, 42, 0,
+                320, 3, 2, 44, 0,
+                30, 3, 2, 44, 0,
                 76, 4, 3, 28, 0,
-                232, 1, 1, 30, 0
-    word oSpectrumn 7, 18
+                236, 1, 1, 30, 0
+    word oSpectrumn 5, 16
 #END
 
 var hFonts[8] ;
@@ -221,7 +225,6 @@ var CurrentForm ;
 var TouchXpos, TouchYpos ;
 var InputType, TouchState, CurInputData, pInputIndex ;
 var comRX[131], cmd[CMDLenMAX] ;
-
 var InputCS, OutputCS ;
 
 
@@ -290,6 +293,27 @@ func WriteObject(var ObjectType, var ObjectIdx, var NewVal)
         endswitch
         if (j != -1)
             k := img_GetWord(hndl, i , IMAGE_INDEX) ;
+            if (   (k == -1)                    // currently disabled
+                && (NewVal != -1) )             // and don't want it disabled
+                img_ClearAttributes(hndl, i, I_TOUCH_DISABLE);    // enable touch
+            else if (   (k != -1)               // currently enabled
+                     && (NewVal == -1) )        // and want it disabled
+                img_SetWord(hndl, i, IMAGE_INDEX, 0xffff) ;       // make invisible
+                img_SetAttributes(hndl, i, I_TOUCH_DISABLE);      // and disable touch
+                if (FormBGcolors[CurrentForm] != ColorBGimage)
+                    gfx_RectangleFilled(img_GetWord(hndl, i, IMAGE_XPOS), img_GetWord(hndl, i, IMAGE_YPOS),
+                                        img_GetWord(hndl, i, IMAGE_XPOS) + img_GetWord(hndl, i, IMAGE_WIDTH),
+                                        img_GetWord(hndl, i, IMAGE_YPOS) + img_GetWord(hndl, i, IMAGE_HEIGHT), FormBGcolors[CurrentForm]);
+                else
+                    gfx_ClipWindow(img_GetWord(hndl, i, IMAGE_XPOS), img_GetWord(hndl, i, IMAGE_YPOS),
+                                   img_GetWord(hndl, i, IMAGE_XPOS) + img_GetWord(hndl, i, IMAGE_WIDTH),
+                                   img_GetWord(hndl, i, IMAGE_YPOS) + img_GetWord(hndl, i, IMAGE_HEIGHT)) ;
+                    gfx_Clipping(ON) ;
+                    img_Show(hndl,FormStartIndex[CurrentForm]) ;
+                    gfx_Clipping(OFF) ;
+                endif
+                return ;
+            else
             NewVal := NewVal << 1 ;
             if (OVF())      // button group index change
                 if (*(j+InputData+Ofs_IPD_P1))
@@ -302,6 +326,7 @@ func WriteObject(var ObjectType, var ObjectIdx, var NewVal)
                 k &= 0xfffc ;    // retain only group index for state set
             endif
             NewVal |= k ;
+            endif
             endif
          if (ObjectType == tLeddigits)
             img_SetWord(hndl, i , IMAGE_TAG2, NewVal); // where state is 0 to 2
@@ -329,8 +354,10 @@ func TurnOffButtons(var group)
             l := -1 ;
              if (*(InputData+k) == tWinButton)
                 l := oWinButtons[*(InputData+k+Ofs_IPD_OBJVIDX)/2] ;
+                if (img_GetWord(hndl, l, IMAGE_INDEX) != 0xffff)
                 img_SetWord(hndl, l, IMAGE_INDEX, 0);
                 img_Show(hndl, l);      // only shows on current form
+                endif
             endif
         endif
     next
@@ -399,10 +426,12 @@ func ActivateForm(var newform)
             j-- ;
             img_SetAttributes(hndl, i, I_STAYONTOP+I_ENABLED);        // make sure this is on top of form, if applicable
             //if (j != tKeyboard)
+            if (img_GetWord(hndl, i, IMAGE_INDEX) != 0xffff)
             if ((j <= tWinButton) || (j >= t4Dbutton) )               // enable inputs
                 img_ClearAttributes(hndl, i, I_TOUCH_DISABLE);        // ensure touch is enabled
             endif
             img_Show(hndl,i) ; // show initialy, if required
+            endif
             if (j == tForm)
                 DoGFXObjects() ;                                    // display GFX 'widgets' for image backgruobds
             else if (j == tLeddigits)

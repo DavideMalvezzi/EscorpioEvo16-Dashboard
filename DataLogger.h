@@ -17,8 +17,11 @@
 #include "ChannelsConfig.h"
 #include "ConsoleForm.h"
 
-#define LOG_FILE_FOLDER		"DataLog/"
+#define LOG_FILE_FOLDER		F("DataLog/")
 #define DL_CFG_FILE			"DATALOG.CFG"
+
+#define DEFAULT_LOG_NAME		F("LOG999.CSV")
+#define DEFAULT_SAMPLE_PER_S	2
 
 class DataLoggerClass {
 
@@ -37,7 +40,8 @@ private:
 	String logFileName;
 	Timer logTimer;
 
-	void createNewLogFile(Configuration& cfg);
+	void updateCfg(Configuration& cfg);
+	void createNewLogFile();
 };
 
 extern DataLoggerClass dataLogger;
