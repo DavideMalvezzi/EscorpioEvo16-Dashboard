@@ -4,6 +4,7 @@
 #include "ConsoleForm.h"
 
 void Interprete::init(){
+	/*
 	const TrackData& trackData = strategySettings.getTrackData();
 	LapProfile& firstLap = strategySettings.getFirstLap();
 	LapProfile& generalLap = strategySettings.getGeneralLap();
@@ -29,30 +30,35 @@ void Interprete::init(){
 
 	output = 0;
 	gapTime = 0;
+	*/
 	strategyTimer.setDuration(STRATEGY_STEP_PERIOD).start();
 }
 
 void Interprete::update(){
 	if (strategySettings.isValid()){
 		if (strategyTimer.hasFinished()){
+			
 			//Step strategy
-			step(
-				wheelSensor.getLapNumber(),
-				wheelSensor.getRelativeSpace() * 100,
+			//Log.e(STRAT_TAG) << "Step" << Endl;
+			output = step(
+				wheelSensor.getFullLaps(),
+				wheelSensor.getRelativeSpace()/*,
 				wheelSensor.getTimeMillis() / 10,
-				wheelSensor.getSpeed() * 360
+				wheelSensor.getSpeed() * 360*/
 			);
 
 			//Update values in ChannelBuffer	
 			channelsBuffer.setValue<byte>(CanID::GAS, getStrategyOutput());
-			channelsBuffer.setValue<int>(CanID::GAP, getGap());
+
+			strategyTimer.start();
+
 		}
-		strategyTimer.start();
 	}
 }
 
-// laps, relpos in m*10e-2, reltime in s*10e-2, speed in km/h *10e-2  
-byte Interprete::step(byte currentLap, unsigned long relPosition, unsigned long relTime, unsigned short speed){
+byte Interprete::step(byte fullLaps, unsigned long relPosition/*, unsigned long relTime, unsigned short speed*/){
+	/*
+	//laps, relpos in m*10e-2, reltime in s*10e-2, speed in km/h *10e-2  
 	if (strategySettings.isValid()){
 		byte stratOutput = output;
 		LapProfile& firstLap = strategySettings.getFirstLap();
@@ -160,8 +166,34 @@ byte Interprete::step(byte currentLap, unsigned long relPosition, unsigned long 
 
 		return stratOutput;
 	}
+	*/
 
-	return 0;
+	byte strat = 0;
+	LapProfile* refLap;
+
+	if (fullLaps == START_LAP){
+		refLap = strategySettings.getFirstLap();
+	}
+	else if (fullLaps == strategySettings.getTrackData().raceLaps - 1){
+		refLap = strategySettings.getLastLap();
+	}
+	else {
+		refLap = strategySettings.getGeneralLap();
+	}
+
+	//Log.e(STRAT_TAG) << "Rel space is " << relPosition << Endl;
+
+	for (byte pulse = 0; pulse < refLap->pulsesCount; pulse++){
+		if (relPosition >= refLap->pulses[pulse].startSpace){
+			//Log.e(STRAT_TAG) << "Start space is " << refLap->pulses[pulse].startSpace << Endl;
+			if ((relPosition - refLap->pulses[pulse].startSpace) <= refLap->pulses[pulse].pulseLenght){
+				strat = refLap->pulses[pulse].engineMap;
+				break;
+			}
+		}
+	}
+	
+	return strat;
 }
 
 Interprete strategy;

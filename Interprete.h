@@ -11,8 +11,8 @@
 class Interprete {
 
 private:
+	byte output; // Output Strategy
 	long gapTime; // Gap in ms
-	unsigned char output; // Output Strategy
 	Timer strategyTimer;
 
 public:
@@ -21,7 +21,7 @@ public:
 	byte getStrategyOutput() { return output; };
 
 	void init();
-	byte step(byte currentLap, unsigned long relPosition, unsigned long relTime, unsigned short speed);
+	byte step(byte fullLaps, unsigned long relPosition/*, unsigned long relTime, unsigned short speed*/);
 	void update();
 
 };

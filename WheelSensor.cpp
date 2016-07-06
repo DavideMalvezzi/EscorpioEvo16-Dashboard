@@ -198,6 +198,7 @@ void WheelSensorClass::update(){
 		channelsBuffer.setValue<uint32_t>(CanID::REL_TIME, getRelativeMillis());
 		channelsBuffer.setValue<uint32_t>(CanID::LEFT_TIME, getLeftMillis());
 		channelsBuffer.setValue<uint32_t>(CanID::LAST_TIME, getLastRelativeMillis());
+		channelsBuffer.setValue<int>(CanID::GAP, getGapMillis());
 
 		channelsBuffer.setValue<float>(CanID::ENERGY, getEnergy());
 

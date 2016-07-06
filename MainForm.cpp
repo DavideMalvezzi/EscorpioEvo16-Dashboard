@@ -4,6 +4,7 @@
 
 void MainFormClass::init(Genie &genie){
 	popUpIndex = POP_UP_HIDE;
+	prevMap = INVALID_MAP;
 	popUpTimer.setDuration(POP_UP_TTL).start().forceTimeout();
 }
 
@@ -50,7 +51,8 @@ void MainFormClass::showPopUp(byte index, unsigned long duration){
 
 
 void MainFormClass::updateCurrentMap(byte map){
-	if (map != INVALID_MAP && map!=DEFAULT_MAP && popUpIndex != map){
+	if (map != INVALID_MAP && map!=DEFAULT_MAP && prevMap != map){
+		prevMap = map;
 		showPopUp(map, POP_UP_TTL);
 	}
 }
@@ -76,13 +78,14 @@ void MainFormClass::updateWidgetsValues(Genie& genie){
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, LAST_TIME_DIGITS, convertMillisToMinSec(wheelSensor.getLastRelativeMillis()));
 
 	updateWidget(genie, GENIE_OBJ_USER_LED, RADIO_LED, phoneInterface.isCallActive());
-	updateWidget(genie, GENIE_OBJ_USER_LED, GAS_LED, strategy.getStrategyOutput());
-
+	updateWidget(genie, GENIE_OBJ_USER_LED, GAS_LED, strategy.getStrategyOutput() != 0 ? true : false);
+	updateWidget(genie, GENIE_OBJ_LED_DIGITS, PREF_MAP_DIGITS, strategy.getStrategyOutput());
 
 	updateString(genie, GAP_STRING, getGapString());
 	updateString(genie, CONSUMPTION_STRING, String(wheelSensor.getEnergy() / 1000.0, 2));
+	updateWidget(genie, GENIE_OBJ_LED_DIGITS, LAP_SPACE_DIGITS, wheelSensor.getRelativeSpace());
 
-	if (!channelsConfig.isValid() /* || !strategySettings.isValid() */){
+	if (!channelsConfig.isValid() || !strategySettings.isValid()){
 		updateString(genie, SAFE_MODE_STRING, F("Safe Mode"));
 	}
 }
@@ -95,7 +98,7 @@ unsigned short MainFormClass::convertMillisToMinSec(unsigned long time){
 String MainFormClass::getGapString(){
 	char sign = wheelSensor.getGapMillis() >= 0 ? '+' : '-';
 	String gap;
-	gap += strategy.getGap() / 1000;
+	gap += wheelSensor.getGapMillis() / 1000;
 	while (gap.length() < 3)gap = '0' + gap;
 	gap = sign + gap;
 	return gap;

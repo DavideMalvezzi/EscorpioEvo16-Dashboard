@@ -21,6 +21,9 @@ boolean StrategySettingsClass::init(){
 		trackData.generalLapTime = cfg.getProperty(T_LAP).asInt();
 		trackData.lastLapTime = cfg.getProperty(T_LAST_LAP).asInt();
 
+		debugTrackSettings();
+
+		/*
 		//Load first lap
 		if (trackData.firstLapTime != 0){
 			loadLapProfile(STRATEGY_FIRSTLAP_FILE, firstLap, trackData.trackLenght + 1);
@@ -56,7 +59,18 @@ boolean StrategySettingsClass::init(){
 			Log.w(STRAT_TAG) << F("Last lap profile SKIP") << Endl;
 			valid = false;
 		}
+		*/
 
+		if (loadLapProfile()){
+			consoleForm.println(F("Laps profiles loaded!"));
+			Log.i(STRAT_TAG) << F("Laps profiles loaded!") << Endl;
+		}
+		else{
+			consoleForm.println(F("Failed to load laps profiles!"));
+			Log.e(STRAT_TAG) << F("Failed to load laps profiles!") << Endl;
+			valid = false;
+		}
+		
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
@@ -78,6 +92,7 @@ void StrategySettingsClass::debugTrackSettings(){
 		<< trackData.lastLapTime << Endl;
 }
 
+/*
 void StrategySettingsClass::loadLapProfile(const char* filePath, LapProfile& profile, int len){
 	if (SD.exists(filePath)){
 		File config = SD.open(filePath, O_READ);
@@ -110,6 +125,35 @@ void StrategySettingsClass::loadLapProfile(const char* filePath, LapProfile& pro
 
 		valid = false;
 	}
+}
+*/
+
+bool StrategySettingsClass::loadLapProfile(){
+	if (SD.exists(STRAT_PULSES_FILE)){
+		File config = SD.open(STRAT_PULSES_FILE, O_READ);
+		if (config){
+			for (int i = 0; i < LAP_PROFILE_NUM; i++){
+				config.readBytes((byte*)&lapProfiles[i], sizeof(LapProfile));
+				//Log.w(STRAT_TAG) << "Lap " << i << "  " << lapProfiles[i].pulsesCount << Endl;
+				//delay(100);
+				for (int j = 0; j < lapProfiles[i].pulsesCount; j++){
+					/*
+					Log.w(STRAT_TAG) << lapProfiles[i].pulses[j].engineMap << "  "
+						<< lapProfiles[i].pulses[j].pulseLenght << "  "
+						<< lapProfiles[i].pulses[j].startSpace << "  " << Endl;
+					delay(100);
+					*/
+				}
+			}
+
+			return true;
+		}
+		Log.e(STRAT_TAG) << F("Laps profiles file opening error!") << Endl;
+	}
+	Log.e(STRAT_TAG) << F("Laps profiles file don't exists!") << Endl;
+
+
+	return false;
 }
 
 StrategySettingsClass strategySettings;

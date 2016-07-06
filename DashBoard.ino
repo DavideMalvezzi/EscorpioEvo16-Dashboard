@@ -73,7 +73,7 @@ void onGpsDataReceived(GpsData& gps);
 #define BTN_TAG		F("BTN")
 
 //SW info
-#define SW_REV		F("18")
+#define SW_REV		F("19")
 #define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
 ///////////////////////////
 
@@ -128,7 +128,7 @@ void setup() {
 
 	//GPS
 	#ifdef GPS_ON
-		//Strategy
+		//GPS
 		if (gps.init()){
 			gps.debugSettings();
 			consoleForm.println(F("Gps OK"));

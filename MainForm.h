@@ -32,6 +32,8 @@
 #define GAS_LED				1
 #define GAP_STRING			1
 #define CONSUMPTION_STRING	2
+#define LAP_SPACE_DIGITS	8
+#define	PREF_MAP_DIGITS		9
 #define SAFE_MODE_STRING	8
 #define POP_UP_IMG			0
 #define POP_UP_TTL			700
@@ -52,7 +54,7 @@ public:
 	void updateCurrentMotorPower(byte power);
 
 private:
-	byte popUpIndex;
+	byte popUpIndex, prevMap;
 	Timer popUpTimer;
 
 	void showPopUp(byte index, unsigned long duration);

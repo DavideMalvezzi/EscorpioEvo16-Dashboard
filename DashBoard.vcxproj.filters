@@ -156,7 +156,7 @@
     <ClInclude Include="GpsInterface.h">
       <Filter>Header Files\Strategy\Gps</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV18.vsarduino.h">
+    <ClInclude Include="__vm\.REV19.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,6 +13,7 @@
 #include "Configuration.h"
 #include "WayPoint.h"
 #include "Vector.h"
+#include "Logger.h"
 
 #define STRAT_TAG	F("STRAT")
 
@@ -30,14 +31,24 @@
 #define PROFILE_ROW		2
 #define PROFILE_LEN		1700
 
-#define STRATEGY_FIRSTLAP_FILE	"Strategy//FirstLap.txt"
-#define STRATEGY_LAP_FILE		"Strategy//Lap.txt"
-#define STRATEGY_LASTLAP_FILE	"Strategy//LastLap.txt"
+//#define STRATEGY_FIRSTLAP_FILE	"Strategy//FirstLap.txt"
+//#define STRATEGY_LAP_FILE			"Strategy//Lap.txt"
+//#define STRATEGY_LASTLAP_FILE		"Strategy//LastLap.txt"
+	
+#define LAP_PROFILE_NUM		3
+#define MAX_PULSES_PER_LAP	6
+#define STRAT_PULSES_FILE	"Strategy//STRATEGY.DAT"
 
+#define START_LAP	0
+#define GENERAL_LAP	1
+#define END_LAP		2
+
+/*
 typedef struct LapProfile{
 	unsigned short space[PROFILE_LEN];
 	unsigned short time[PROFILE_LEN];
 }LapProfile;
+*/
 
 typedef struct TrackData{
 	unsigned short trackLenght;
@@ -49,6 +60,30 @@ typedef struct TrackData{
 	unsigned short lastLapTime;
 }TrackData;
 
+#pragma pack(push, 1)
+typedef struct Pulse{
+	float startSpace;
+	float pulseLenght;
+	int engineMap;
+}Pulse;
+
+typedef struct LapProfile{
+	int pulsesCount;
+	Pulse pulses[MAX_PULSES_PER_LAP];
+}LapProfile;
+#pragma pack(pop)
+
+
+/*
+class strategyClass {
+public:
+	LapProfile firstLap;
+	LapProfile lastLap;
+	LapProfile defaultLap;
+
+};
+*/
+
 class StrategySettingsClass {
  	
 public:
@@ -58,18 +93,27 @@ public:
 	boolean isValid(){ return valid; }
 
 	const TrackData& getTrackData(){ return trackData; }
-	LapProfile& getFirstLap(){ return firstLap; }
-	LapProfile& getGeneralLap(){ return generalLap; }
-	LapProfile& getLastLap(){ return lastLap; }
+	//LapProfile& getFirstLap(){ return firstLap; }
+	//LapProfile& getGeneralLap(){ return generalLap; }
+	//LapProfile& getLastLap(){ return lastLap; }
+
+	LapProfile* getFirstLap(){ return &lapProfiles[START_LAP]; }
+	LapProfile* getGeneralLap(){ return &lapProfiles[GENERAL_LAP]; }
+	LapProfile* getLastLap(){ return &lapProfiles[END_LAP]; }
 
 	float getRaceLenght() { return (trackData.raceLaps - 1)*trackData.trackLenght + trackData.trackFinish; }
+
+	//strategyClass& getLapProfiles(){return  strategyclass;}
 
 private:
 	boolean valid;
 	TrackData trackData;
-	LapProfile firstLap, lastLap, generalLap;
+	LapProfile lapProfiles[LAP_PROFILE_NUM];
+	//strategyClass strategyclass;
+	//LapProfile firstLap, lastLap, generalLap;
 
-	void loadLapProfile(const char* filePath, LapProfile& lap, int len);
+	//void loadLapProfile(const char* filePath, LapProfile& lap, int len);
+	bool loadLapProfile();
 
 };
 
