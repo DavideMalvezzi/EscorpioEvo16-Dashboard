@@ -79,8 +79,8 @@ public:
 
 		STEER_SNS = 0x501,
 		STEER_ANGLE = 0x502,
-		STEER_RADINV = 0x503
-
+		STEER_RADINV = 0x503,
+		DIST_SNS = 0x504
 
 	};
 };

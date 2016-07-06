@@ -96,7 +96,7 @@ unsigned short MainFormClass::convertMillisToMinSec(unsigned long time){
 }
 
 String MainFormClass::getGapString(){
-	char sign = wheelSensor.getGapMillis() >= 0 ? '+' : '-';
+	char sign = wheelSensor.getGapMillis() >= 0 ? '+' : ' ';
 	String gap;
 	gap += wheelSensor.getGapMillis() / 1000;
 	while (gap.length() < 3)gap = '0' + gap;

@@ -38,6 +38,10 @@
 #define LCD_RESET_PIN				3
 #define LCD_CHANGE_FORM_BUTTON_PIN	6
 
+//Distance sensor
+#define DIST_SENSOR_TRIG_PIN		PIN_WIRE1_SCL
+#define DIST_SENSOR_ECHO_PIN		PIN_WIRE1_SDA
+
 //Gas
 #define GAS_BUTTON					46
 

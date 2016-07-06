@@ -53,8 +53,8 @@ void TC6_Handler()
 	wheelSensor.gapIsValid = true;
 	wheelSensor.Space += WHEEL_CFR;           // Incremento lo spazio totale
 	wheelSensor.RelativeSpace += WHEEL_CFR;   // Incremento lo spazio relativo
-	// Gestisco i giri non da gps
-	if (!gps.isValid() && wheelSensor.RelativeSpace >= (float)strategySettings.getTrackData().trackLenght)
+	// Gestisco i giri non da gps in caso il waypoint non sia stato preso
+	if (wheelSensor.RelativeSpace > (float)strategySettings.getTrackData().trackLenght + (float)strategySettings.getTrackData().trackLenght * 0.05)
 	{ // Se ho superato il giro
 		wheelSensor.RelativeSpace = 0.0;
 		wheelSensor.LastRelativeMillis = wheelSensor.getRelativeMillis(); // Salvo il tempo precedente

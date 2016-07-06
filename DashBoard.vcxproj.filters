@@ -156,8 +156,11 @@
     <ClInclude Include="GpsInterface.h">
       <Filter>Header Files\Strategy\Gps</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV19.vsarduino.h">
+    <ClInclude Include="__vm\.REV20.vsarduino.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceSensor.h">
+      <Filter>Header Files\ExtInterfaces\Sensor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="GpsInterface.cpp">
       <Filter>Source Files\Strategy\Gps</Filter>
+    </ClCompile>
+    <ClCompile Include="DistanceSensor.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
  Author:	Davide Malvezzi
 */
 
+#include "DistanceSensor.h"
 #include "GpsInterface.h"
 #include "SteerSensor.h"
 #include "BMSInterface.h"
@@ -73,7 +74,7 @@ void onGpsDataReceived(GpsData& gps);
 #define BTN_TAG		F("BTN")
 
 //SW info
-#define SW_REV		F("19")
+#define SW_REV		F("20")
 #define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
 ///////////////////////////
 
@@ -205,6 +206,9 @@ void loop() {
 	//Update the values on ChannelBuffer
 	wheelSensor.update();
 
+	//Update the distance sensor
+	//distanceSensor.update();
+
 	//Buttons update
 	Button::update();
 
@@ -299,6 +303,9 @@ void initPorts(){
 
 	//WheelSensor
 	wheelSensor.init(); //Reset is called in the init
+
+	//DistanceSensor
+	//distanceSensor.init();
 
 	//Utils
 	Log.init(&LOG_SERIAL);
