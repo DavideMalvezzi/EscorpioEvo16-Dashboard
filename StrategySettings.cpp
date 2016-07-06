@@ -31,82 +31,99 @@ void StrategySettingsClass::loadGPSSettings(){
 }
 
 void StrategySettingsClass::debugGPSSettings(){
-	/*
 	WayPoint w;
 
-	LOGLN("========== GPS loaded config: ==========");
-	LOG("Waypoints: "); LOGLN(gpsWayPoint.getCapacity());
+	Log.i(STRAT_TAG) << F("Waypoints: ") << gpsWayPoint.getCapacity() << Endl;
 	for (int i = 0; i < gpsWayPoint.getCapacity(); i++){
 		w = gpsWayPoint[i];
-		LOG(w.getLat()); LOG("  ");
-		LOG(w.getLon()); LOG("  ");
-		LOG(w.getRadius()); LOG("  ");
-		LOG(w.getSpaceReference()); LOG("  ");
-		LOG(w.getTime()); LOG("  ");
-		LOGLN(w.IsReference());
+
+		Log.i(STRAT_TAG) << F("Waypoint ") << i << " "
+			<< w.getLat() << " "
+			<< w.getLon() << " "
+			<< w.getRadius() << " "
+			<< w.getSpaceReference() << " "
+			<< w.getTime() << " "
+			<< w.isReference() << Endl;
 	}
-	LOGLN("========================================");
-	*/
+	
 }
+
+void StrategySettingsClass::debugTrackSettings(){
+	Log.i(STRAT_TAG) << trackData.trackLenght << " "
+		<< trackData.trackFinish << " "
+		<< trackData.raceLaps << " "
+		<< trackData.raceTime << " "
+		<< trackData.firstLapTime << " "
+		<< trackData.generalLapTime << " "
+		<< trackData.lastLapTime << Endl;
+}
+
 
 void StrategySettingsClass::loadStrategy(){
 	Configuration cfg;
-	Valid = true;
 
 	if (cfg.loadFromFile(STRATEGY_CONFIG_FILE) == FILE_VALID){	
+		//Load track data
+		trackData.trackLenght = cfg.getProperty(TRACK_LENGHT).asInt();
+		trackData.trackFinish= cfg.getProperty(TRACK_FINISH).asInt();
 
-		//LOGLN(F("========== Track loaded config: =========="))
-		for (int i = 0; i < TRACK_SETTINGS; i++){
-			TrackData[i] = cfg.getProperty(i).asInt();
-			//LOG(cfg.getProperty(i).getName()); LOG(F(" = ")); LOGLN(TrackData[i]);
-		}
-		//LOGLN(F("========================================"));
+		trackData.raceLaps = cfg.getProperty(RACE_LAPS).asInt();
+		trackData.raceTime = cfg.getProperty(RACE_TIME).asInt();
+
+		trackData.firstLapTime = cfg.getProperty(T_FIRST_LAP).asInt();
+		trackData.generalLapTime = cfg.getProperty(T_LAP).asInt();
+		trackData.lastLapTime = cfg.getProperty(T_LAST_LAP).asInt();
+
+		//Load lap
+		loadLapProfile(STRATEGY_FIRSTLAP_FILE, firstLap, trackData.trackLenght + 1);
+		consoleForm.println(F("First lap profile OK"));
+		Log.i(STRAT_TAG) << F("First lap profile OK") << Endl;
+
+		loadLapProfile(STRATEGY_FIRSTLAP_FILE, generalLap, trackData.trackLenght + 1);
+		consoleForm.println(F("General lap profile OK"));
+		Log.i(STRAT_TAG) << F("General lap profile OK") << Endl;
+
+		loadLapProfile(STRATEGY_FIRSTLAP_FILE, lastLap, trackData.trackLenght + 1);
+		consoleForm.println(F("Last lap profile OK"));
+		Log.i(STRAT_TAG) << F("Last lap profile OK") << Endl;
+
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
 		Log.assert(false, cfg.getErrorMsg());
 	}
 
-	loadLapProfile(STRATEGY_FIRSTLAP_FILE, FirstProfile, PROFILE_ROW, TrackData[TRACK_LENGHT] + 1);
-	consoleForm.println(F("First lap profile OK"));
-	Log.i(STRAT_TAG) << F("First lap profile OK") << Endl;
-
-	loadLapProfile(STRATEGY_LAP_FILE, Profile, PROFILE_ROW, TrackData[TRACK_LENGHT] + 1);
-	consoleForm.println(F("General lap profile OK"));
-	Log.i(STRAT_TAG) << F("General lap profile OK") << Endl;
-
-	loadLapProfile(STRATEGY_LASTLAP_FILE, LastProfile, PROFILE_ROW, TrackData[TRACK_LENGHT] + 1);
-	consoleForm.println(F("Last lap profile OK"));
-	Log.i(STRAT_TAG) << F("Last lap profile OK") << Endl;
 }
 
-void StrategySettingsClass::loadLapProfile(char* filePath, unsigned short profile[][PROFILE_COL], int row, int col){
+void StrategySettingsClass::loadLapProfile(const char* filePath, LapProfile& profile, int len){
 	if (SD.exists(filePath)){
 		File config = SD.open(filePath, O_READ);
+		if (config){
+			config.setTimeout(0);
 
-		for (int i = 0; i < row; i++){
 			config.readStringUntil(',');
-			for (int j = 0; j < col; j++){
-				profile[i][j] = config.readStringUntil(',').toInt();
+			for (int i = 0; i < len; i++){
+				profile.time[i] = config.readStringUntil(',').toInt();
 			}
+
 			config.readStringUntil('\n');
+
+			config.readStringUntil(',');
+			for (int i = 0; i < len; i++){
+				profile.space[i] = config.readStringUntil(',').toInt();
+			}
 		}
+		else{
+			consoleForm.println(String(filePath) + F(" error on opening!"));
+			Log.assert(false, String(filePath) + F(" error on opening!"));
+		}
+
 	}
 	else{
 		consoleForm.println(String(filePath) + F(" file not found!"));
 		Log.assert(false, String(filePath) + F(" file not found!"));
 	}
 }
-
-
-String StrategySettingsClass::parseNextTrackData(File& file){
-	String value;
-	value = file.readStringUntil('\n');
-	value = value.substring(value.indexOf(',') + 1);
-	value.trim();
-	return value;
-}
-
 
 StrategySettingsClass strategySettings;
 

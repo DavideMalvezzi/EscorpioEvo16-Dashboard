@@ -12,17 +12,16 @@ void CanInterfaceClass::init(int canSpeed, unsigned short minID, unsigned short 
 }
 
 void CanInterfaceClass::update(){
-
 	if (Can0.available()){
 		Can0.read(frame);
-
-		writePacketOnDebugSerial(frame);
 
 		if (canEvent != NULL){
 			canEvent(frame);
 		}
-	}
 
+		writePacketOnDebugSerial(frame);
+
+	}
 
 	if (debugSerial != NULL){
 		readFromDebugSerial();
@@ -40,6 +39,9 @@ CAN_FRAME& CanInterfaceClass::read(){
 	//Return next available can frame
 	if (Can0.available()){
 		Can0.read(frame);
+
+		//Echo
+		writePacketOnDebugSerial(frame);	
 	}
 	else{
 		//Invalid frame if nothing available
@@ -55,6 +57,9 @@ void CanInterfaceClass::send(CanID::IDs id, byte* data, byte size){
 	frame.length = size;
 	memcpy(frame.data.bytes, data, size);
 	Can0.sendFrame(frame);
+
+	//Echo
+	writePacketOnDebugSerial(frame);	
 }
 
 
@@ -111,10 +116,12 @@ void CanInterfaceClass::parseSerialDebugCmd(){
 				send((CanID::IDs)id, &rxBuffer[index], size);
 
 				//test
+				/*
 				frame.id = id;
 				frame.length = size;
 				memcpy(frame.data.bytes, &rxBuffer[index], size);
 				canEvent(frame);
+				*/
 				//////////////
 
 				rxBuffer.remove(0, index + size);
@@ -144,13 +151,13 @@ CanStreamResult CanInterfaceClass::streamOverCan(CanID::IDs canID, const char* o
 
 	//Send packets
 	for (int i = 0; i < q; i++){
-		canInterface.send(canID, buffer + 8 * i, 8);
+		canInterface.send(canID, buffer + i * 8, 8);
 		delay(PACKET_DELAY);
 	}
 
 	//Send remaining bytes
 	if (r != 0){
-		canInterface.send(canID, buffer + 8 * q, r);
+		canInterface.send(canID, buffer + q * 8, r);
 		delay(PACKET_DELAY);
 	}
 

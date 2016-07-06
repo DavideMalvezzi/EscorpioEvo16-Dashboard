@@ -36,35 +36,53 @@
 #define T_LAST_LAP		6
 
 #define PROFILE_ROW		2
-#define PROFILE_COL		1700
+#define PROFILE_LEN		1700
 
 #define STRATEGY_FIRSTLAP_FILE	"Strategy//FirstLap.txt"
 #define STRATEGY_LAP_FILE		"Strategy//Lap.txt"
 #define STRATEGY_LASTLAP_FILE	"Strategy//LastLap.txt"
 
+typedef struct LapProfile{
+	unsigned short space[PROFILE_LEN];
+	unsigned short time[PROFILE_LEN];
+}LapProfile;
+
+typedef struct TrackData{
+	unsigned short trackLenght;
+	unsigned short trackFinish;
+	unsigned short raceLaps;
+	unsigned short raceTime;
+	unsigned short firstLapTime;
+	unsigned short generalLapTime;
+	unsigned short lastLapTime;
+}TrackData;
 
 class StrategySettingsClass {
- private:
-	 Vector<WayPoint> gpsWayPoint;
-
-	 void loadStrategy();
-	 void loadGPSSettings();
-	 void loadLapProfile(char* filePath, unsigned short profile[][PROFILE_COL], int row, int col);
-	 String parseNextTrackData(File& file);
-	
- public:
-	unsigned short TrackData[TRACK_SETTINGS]; // TrackLenght, TrackFinish, RaceLaps, RaceTime, TFirstLap, TLap, TLastLap
-	unsigned short FirstProfile[PROFILE_ROW][PROFILE_COL];
-	unsigned short Profile[PROFILE_ROW][PROFILE_COL];
-	unsigned short LastProfile[PROFILE_ROW][PROFILE_COL];
-	bool Valid;
+ 	
+public:
 
 	void init();
 	void debugGPSSettings();
+	void debugTrackSettings();
 
 	WayPoint& getWayPoint(int index){ return gpsWayPoint[index]; }
 	int getWayPointsNum(){ return gpsWayPoint.getCapacity(); }
-	
+
+	const TrackData& getTrackData(){ return trackData; }
+	LapProfile& getFirstLap(){ return firstLap; }
+	LapProfile& getGeneralLap(){ return generalLap; }
+	LapProfile& getLastLap(){ return lastLap; }
+
+private:
+	TrackData trackData;
+	LapProfile firstLap, lastLap, generalLap;
+
+	Vector<WayPoint> gpsWayPoint;
+
+	void loadStrategy();
+	void loadGPSSettings();
+	void loadLapProfile(const char* filePath, LapProfile& lap, int len);
+
 
 };
 

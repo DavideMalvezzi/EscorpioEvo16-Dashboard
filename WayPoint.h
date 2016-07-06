@@ -9,14 +9,6 @@
 
 #include "EarthDistance.h"
 
-//GPS
-/*
-#define CAN_LAT			0x60
-#define CAN_LON			0x61
-#define CAN_GPSVALID	0x68
-#define CAN_WAYPOINT	0x205 
-*/
-
 class WayPoint {
 
 private:
@@ -26,18 +18,18 @@ private:
 	char pointSignal;
 	float lastdistance;
 	float spaceReference;
-	bool isReference;
+	bool reference;
 	uint32_t lastmillis;
 
 public:
 	void init(float CentralLAT, float CentralLON, float radius, float timeout, float space, bool isRef);
-	bool ProcessNewPoint (float lat, float lon);
+	bool processNewPoint (float lat, float lon);
 	float getLat(){return CentralPoint.LAT;}
 	float getLon(){return CentralPoint.LON;}
 	float getRadius(){return Radius;}
 	float getTime(){return Timeout;}
 	float getSpaceReference() {return spaceReference;}
-	bool  IsReference() {return isReference;}
+	bool  isReference() {return reference;}
 
 };
 

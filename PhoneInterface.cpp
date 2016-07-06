@@ -39,10 +39,10 @@ void PhoneInterfaceClass::update(){
 
 		if (parsePacket(GPS_PACKET, (byte*)&gps, sizeof(GpsData))){
 			channelsBuffer.setValue(CanID::GPS_LATITUDE,	(byte*)&gps.latitude,	sizeof(gps.latitude));
-			channelsBuffer.setValue(CanID::GPS_LONGITUDE,	(byte*)&gps.longitude,	sizeof(gps.latitude));
-			channelsBuffer.setValue(CanID::GPS_ALTITUDE,	(byte*)&gps.altitude,	sizeof(gps.latitude));
-			channelsBuffer.setValue(CanID::GPS_SPEED,		(byte*)&gps.speed,		sizeof(gps.latitude));
-			channelsBuffer.setValue(CanID::GPS_ACCURACY,	(byte*)&gps.accuracy,	sizeof(gps.latitude));
+			channelsBuffer.setValue(CanID::GPS_LONGITUDE,	(byte*)&gps.longitude,	sizeof(gps.longitude));
+			channelsBuffer.setValue(CanID::GPS_ALTITUDE,	(byte*)&gps.altitude,	sizeof(gps.altitude));
+			channelsBuffer.setValue(CanID::GPS_SPEED,		(byte*)&gps.speed,		sizeof(gps.speed));
+			channelsBuffer.setValue(CanID::GPS_ACCURACY,	(byte*)&gps.accuracy,	sizeof(gps.accuracy));
 			
 			//Invoke gps handler
 			if (gpsHandler != NULL){
@@ -65,7 +65,8 @@ void PhoneInterfaceClass::update(){
 
 void PhoneInterfaceClass::call(){
 	BLSerial.print(CALL_CMD);
-	BLSerial.println(phoneToCall);
+	BLSerial.print(phoneToCall);
+	BLSerial.print('\n');
 }
 
 boolean PhoneInterfaceClass::parsePacket(const char* header, byte* buffer, int size){

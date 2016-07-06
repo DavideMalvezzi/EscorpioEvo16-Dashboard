@@ -46,7 +46,7 @@ public:
 	float getRelativeSpace() { return RelativeSpace; }
 	uint32_t getRelativeMillis() { return TimeMillis-LastFinishTime; }
 	uint32_t getLastRelativeMillis() { return LastRelativeMillis; }
-	uint32_t getLeftMillis(){ return strategySettings.TrackData[RACE_TIME] * 1000 - getRelativeMillis(); }
+	uint32_t getLeftMillis(){ return strategySettings.getTrackData().raceTime * 1000 - getRelativeMillis(); }
 	void reset();
 
 };

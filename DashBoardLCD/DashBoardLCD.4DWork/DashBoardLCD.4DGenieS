@@ -1,6 +1,6 @@
 #platform "uLCD-43PT"
 
-// generated 23/01/2016 21:01:44
+// generated 19/02/2016 19:03:04
 
 
 #inherit "4DGL_16bitColours.fnc"
@@ -122,6 +122,7 @@
     WRITE_MAGIC_DBYTES  9
     REPORT_MAGIC_EVENT_BYTES 10
     REPORT_MAGIC_EVENT_DBYTES 11
+	CLEAR_SCREEN	12
 // End P1.inc
     nObjects        55
     nInputs         28
@@ -522,8 +523,8 @@ func main()
     endif
 //    gfx_MoveTo(0, 0);
 //    print(mem_Heap()," ") ;
-//    gfx_TransparentColour(0x0020);
-//    gfx_Transparency(ON);
+    gfx_TransparentColour(0xF81F);
+    gfx_Transparency(ON);
 
     gfx_ScreenMode(LANDSCAPE) ;
 
@@ -670,6 +671,10 @@ func main()
                         ReadObject(cmd[1], cmd[2]) ;
                     endif
                     cmdi := 0 ;
+				else if (cmd[0] == CLEAR_SCREEN)
+					gfx_Cls();
+					ActivateForm(cmd[1]) ;
+					
                 else if (   (cmd[0] == WRITE_OBJ)    // 6 byte write command (gen option)
                          && (cmdi == 6)          )
                     if (InputCS)

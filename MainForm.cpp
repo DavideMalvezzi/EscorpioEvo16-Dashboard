@@ -24,11 +24,11 @@ void MainFormClass::update(Genie &genie){
 	updateString(genie, 2, String((float)(millis() % 99999) / 100, 2));
 	*/
 
-	unsigned short dc = (float)channelsBuffer.getValueAs<byte>(CanID::MOTOR_DUTY_CICLE) / 255 * 100;
+	unsigned short dc = (float)channelsBuffer.getValueAs<byte>(CanID::MOTOR_DUTY_CICLE) / 255.0 * 100.0;
 	updateWidget(genie, GENIE_OBJ_GAUGE, DUTY_CICLE_BAR, dc);
 
-	updateWidget(genie, GENIE_OBJ_LED_DIGITS, IST_SPEED_DIGITS, wheelSensor.getSpeed() * 100);
-	updateWidget(genie, GENIE_OBJ_LED_DIGITS, AVG_SPEED_DIGITS, wheelSensor.getAvgSpeed() * 100);
+	updateWidget(genie, GENIE_OBJ_LED_DIGITS, IST_SPEED_DIGITS, wheelSensor.getSpeed() * 3.6 * 100);
+	updateWidget(genie, GENIE_OBJ_LED_DIGITS, AVG_SPEED_DIGITS, wheelSensor.getAvgSpeed() * 3.6 * 100);
 
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, LAP_DIGITS, wheelSensor.getLap());
 
@@ -37,7 +37,7 @@ void MainFormClass::update(Genie &genie){
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, LAST_TIME_DIGITS, convertMillisToMinSec(wheelSensor.getLastRelativeMillis()));
 
 	updateWidget(genie, GENIE_OBJ_USER_LED, RADIO_LED, phoneInterface.isCallActive());
-	updateWidget(genie, GENIE_OBJ_USER_LED, GAS_LED, strategy.getStrat());
+	updateWidget(genie, GENIE_OBJ_USER_LED, GAS_LED, strategy.getStrategyOutput());
 
 	String gap;
 	if (strategy.getGap() >= 0){
@@ -50,13 +50,13 @@ void MainFormClass::update(Genie &genie){
 	gap += strategy.getGap();
 
 	updateString(genie, GAP_STRING, gap);
-	updateString(genie, CONSUMPTION_STRING, String(wheelSensor.getEnergy(), 2));
+	updateString(genie, CONSUMPTION_STRING, String(wheelSensor.getEnergy() / 1000.0, 3));
 
 }
 
 
 unsigned short MainFormClass::convertMillisToMinSec(unsigned long time){
 	time /= 1000;
-	return (time / 60) * 10 + (time % 60) / 10;
+	return (time / 60) * 10 + (time % 60);// / 10;
 }
 MainFormClass mainForm;

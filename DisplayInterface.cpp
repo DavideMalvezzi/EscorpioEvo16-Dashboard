@@ -29,11 +29,11 @@ void DisplayInterfaceClass::init(){
 	genie.AttachEventHandler(&onEvent);
 
 	//Init forms
-	currentForm = &consoleForm;
 	consoleForm.init(genie);
 	mainForm.init(genie);
 	debugForm.init(genie);
 	mapsForm.init(genie);
+	currentForm = &consoleForm;
 
 	//Refresh rateo for the update method
 	refreshTimer.setDuration(1000 / REFRESH_RATEO).start();
@@ -43,6 +43,7 @@ void DisplayInterfaceClass::init(){
 void DisplayInterfaceClass::update(){
 	//Update events
 	genie.DoEvents();
+
 	//If it's refresh time then update current form
 	if (refreshTimer.hasFinished()){
 		if (currentForm != NULL){

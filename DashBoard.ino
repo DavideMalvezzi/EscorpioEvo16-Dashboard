@@ -32,13 +32,14 @@
 #include <Configuration.h>
 #include <due_can.h>
 #include <DueTimer.h>
-#include <genieArduino.h>	//Hacked: to reduce communication times
+#include <genieArduino.h>	//Hacked: to reduce communication time
 #include <Map.h>
 #include <SPI.h>
 #include <SD.h> 
 #include <Timer.h>
 #include <Utils.h>
 #include <Vector.h>
+
 
 //Hw settings
 #define WDT_TIMEOUT	10000
@@ -76,6 +77,7 @@ void onGpsDataReceived(GpsData& gps);
 #define USE_WDT		
 //#define ONLY_SHELL
 #define STRAT_ON
+#define LCD_ON
 
 //Log tag
 #define INIT_TAG	F("INIT")
@@ -83,9 +85,10 @@ void onGpsDataReceived(GpsData& gps);
 #define BTN_TAG		F("BTN")
 
 //SW info
-#define SW_REV		F("10")
+#define SW_REV		F("11")
 #define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
 
+byte cmap = 0;
 
 void setup() {
 	//Start timer to count init time
@@ -102,33 +105,33 @@ void setup() {
 	consoleForm.println(SW_INFO);
 	consoleForm.println(F("Display OK"));
 	Log.i(INIT_TAG) << SW_INFO << Endl;
-	Log.i(LCD_TAG) << F("Display OK") << Endl;
+	Log.i(LCD_TAG) << F("Display OK") << t.elapsedTime() << Endl;
 
 	//Can, Channels
 	initDataLogger();
 	consoleForm.println(F("Datalogger OK"));
-	Log.i(DL_TAG) << F("Datalogger OK") << Endl;
+	Log.i(DL_TAG) << F("Datalogger OK") << t.elapsedTime() << Endl;
 
 	//WheelSensor, Strategy
 #ifdef STRAT_ON
 	initStategy();
 	consoleForm.println(F("Strategy OK"));
-	Log.i(STRAT_TAG) << F("Strategy OK") << Endl;
+	Log.i(STRAT_TAG) << F("Strategy OK") << t.elapsedTime() << Endl;
 #endif
 	//Phone
 	phoneInterface.init();
 	phoneInterface.setGpsDataHandler(&onGpsDataReceived);
 	consoleForm.println(F("Phone OK"));
-	Log.i(PHONE_TAG) << F("Phone OK") << Endl;
+	Log.i(PHONE_TAG) << F("Phone OK") << t.elapsedTime() << Endl;
 
 	//Physical buttons
 	initButtons();
 	consoleForm.println(F("Buttons OK"));
-	Log.i(BTN_TAG) << F("Buttons OK") << Endl;
-
+	Log.i(BTN_TAG) << F("Buttons OK") << t.elapsedTime() << Endl;
+	
 	//Notify init completed
 	consoleForm.println(F("Dashboard init OK"));
-	Log.i(INIT_TAG) << F("Dashboard init OK") << Endl;
+	Log.i(INIT_TAG) << F("Dashboard init OK") << t.elapsedTime() << Endl;
 
 	//Go to the main form
 	displayInterface.setCurrentForm(&mainForm);
@@ -183,7 +186,9 @@ void loop() {
 	dataLogger.update();
 
 	//Display update
+#ifdef LCD_ON
 	displayInterface.update();
+#endif
 
 	//Buttons update
 	Button::update();
@@ -197,7 +202,7 @@ void loop() {
 	loops++;
 
 	if (sec.hasFinished()){
-		Log.i(LOOP_TAG) << F("Loop call: ") << loops
+		Log.i(LOOP_TAG) << F("Loop calls: ") << loops
 						<< F("\t avgExecTime: ") << (float)avgExecutionTime / loops * 1000 << F(" us ")
 						<< F("\t freeMem: ") << freeMemory() << Endl;
 
@@ -243,13 +248,9 @@ void initStategy(){
 
 	//Strategy
 	strategySettings.init();
-	strategy.setTFirstProfile(strategySettings.FirstProfile[0]);
-	strategy.setSFirstProfile(strategySettings.FirstProfile[1]);
-	strategy.setTProfile(strategySettings.Profile[0]);
-	strategy.setSProfile(strategySettings.Profile[1]);
-	strategy.setTLastProfile(strategySettings.LastProfile[0]);
-	strategy.setSLastProfile(strategySettings.LastProfile[1]);
-	strategy.setTrackData(strategySettings.TrackData);
+	//strategySettings.debugGPSSettings();
+	//strategySettings.debugTrackSettings();
+	
 	strategy.init();
 
 	strategyTimer.setDuration(STRATEGY_STEP_PERIOD).start();
@@ -267,12 +268,23 @@ void initButtons(){
 void updateStrategy(){
 	//Strategy update
 	if (strategyTimer.hasFinished()){
+
+		if (!channelsBuffer.isValueUpdated(CanID::MOTOR_POWER)){
+			wheelSensor.setPower(0);
+		}
+
+		byte currentMap = cmap + 1;
+		canInterface.send(CanID::DRIVER_SET_MAP_CMD, &currentMap, 1);
+
 		strategy.step(
 			wheelSensor.getLap(),
 			wheelSensor.getRelativeSpace() * 100,
-			wheelSensor.getRelativeMillis() / 10,
+			wheelSensor.getTimeMillis() / 10,
 			wheelSensor.getSpeed() * 360
 		);
+
+		//TODO: save strategy values into channelbuffer
+
 		strategyTimer.start();
 	}
 }
@@ -292,21 +304,21 @@ void onCanPacketReceived(CAN_FRAME& frame){
 
 }
 
-
 void onGpsDataReceived(GpsData& gps){
 	byte i = 0;
 
 	//Look if inside a waypoint 
 	while (i < strategySettings.getWayPointsNum() && 
-		!strategySettings.getWayPoint(i).ProcessNewPoint(gps.latitude, gps.longitude))i++;
+		!strategySettings.getWayPoint(i).processNewPoint(gps.latitude, gps.longitude))i++;
 
 	//If found -> process
 	if (i < strategySettings.getWayPointsNum()){
 		wheelSensor.processWayPoint(i);
 		channelsBuffer.setValue(CanID::GPS_WAYPOINT, &i, sizeof(byte));
 	}
-}
 
+	//Log.i("GPS") << gps.latitude << " " << gps.longitude << " " << gps.altitude << " " << gps.speed << " " << gps.accuracy << Endl;
+}
 
 //Buttons events
 void onResetButtonPress(void* data){
@@ -314,6 +326,8 @@ void onResetButtonPress(void* data){
 	Log.i(BTN_TAG) << F("Wheel sensor reset button pressed") << Endl;
 #endif
 	wheelSensor.reset();
+
+	cmap = (cmap + 1) % 4;
 }
 
 void onCallButtonPress(void* data){
@@ -321,6 +335,7 @@ void onCallButtonPress(void* data){
 	Log.i(BTN_TAG) << F("Call button pressed") << Endl;
 #endif
 	phoneInterface.call();
+	
 }
 
 void onChangeFormButtonPress(void* data){

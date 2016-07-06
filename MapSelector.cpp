@@ -4,6 +4,8 @@
 void MapSelectorClass::init(){
 	pinMode(SEL1_PIN, INPUT);
 	pinMode(SEL2_PIN, INPUT);
+
+	sendTimer.setDuration(CURR_MAP_TTL).start();
 }
 
 void MapSelectorClass::update(){
@@ -38,8 +40,11 @@ void MapSelectorClass::update(){
 		canInterface.send(CanID::DRIVER_SET_MAP_CMD, &currentMap, sizeof(byte));
 		Log.i(MAPSEL_TAG) << F("New map: ") << (int)currentMap << Endl;
 	}
-
-	
+	else if (sendTimer.hasFinished()){
+		canInterface.send(CanID::DRIVER_SET_MAP_CMD, &currentMap, sizeof(byte));
+		Log.i(MAPSEL_TAG) << F("Send map: ") << (int)currentMap << Endl;
+		sendTimer.start();
+	}
 
 }
 

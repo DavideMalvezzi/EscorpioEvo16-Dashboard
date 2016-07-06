@@ -5,7 +5,6 @@
 #endif
 
 #include "WayPoint.h"
-#include "EarthDistance.h"
 
 // deg, deg, meters, millis
 void WayPoint::init(float CentralLAT, float CentralLON, float radius, float timeout, float space, bool isRef)
@@ -15,16 +14,17 @@ void WayPoint::init(float CentralLAT, float CentralLON, float radius, float time
 	CentralPoint.LAT = CentralLAT;
 	CentralPoint.LON = CentralLON;
 	spaceReference = space;
-	isReference = isRef;
+	reference = isRef;
 	pointSignal = 0;
 	lastmillis = 0;
 }
 
-bool WayPoint::ProcessNewPoint (float lat, float lon)
+bool WayPoint::processNewPoint (float lat, float lon)
 {
 	bool ret = false;
 	GpsPoint newpoint;
-	newpoint.LAT = lat; newpoint.LON = lon;
+	newpoint.LAT = lat; 
+	newpoint.LON = lon;
 	float distance = DistanceInMeters(CentralPoint, newpoint);
 
 	if(distance<=Radius)

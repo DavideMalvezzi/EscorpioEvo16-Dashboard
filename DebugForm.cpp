@@ -10,11 +10,11 @@ void DebugFormClass::update(Genie &genie){
 
 	//BMS
 	updateString(genie, BMS_STATUS_STRING, channelsBuffer.getValueAsString(CanID::BMS_STATUS));
-	updateWidget(genie, GENIE_OBJ_LED_DIGITS, BATTERY_V_DIGITS, channelsBuffer.getValueAs<float>(CanID::PACK_VOLTAGE) * 100);
+	updateWidget(genie, GENIE_OBJ_LED_DIGITS, BATTERY_V_DIGITS, channelsBuffer.getValueAs<float>(CanID::PACK_VOLTAGE) * 100.0);
 
 	byte cell;
 	for (int i = 0; i < CELLS_BARS_NUM; i++){
-		cell = channelsBuffer.getValueAs<float>(CanID::BATTERY_CELL_0 + i) / CELLS_MAX_VOLT * 100;
+		cell = channelsBuffer.getValueAs<float>(CanID::BATTERY_CELL_0 + i) / CELLS_MAX_VOLT * 100.0;
 		updateWidget(genie, GENIE_OBJ_SPECTRUM, CELLS_BARS, ((i << 8) | cell));
 	}
 	

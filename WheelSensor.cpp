@@ -1,6 +1,4 @@
 #include "WheelSensor.h"
-#include "StrategySettings.h"
-#include "ConsoleForm.h"
 
 #include <DueTimer.h>
 
@@ -58,7 +56,7 @@ void TC6_Handler()
 	wheelSensor.Space += WHEEL_CFR;           // Incremento lo spazio totale
 	wheelSensor.RelativeSpace += WHEEL_CFR;   // Incremento lo spazio relativo
 	// Gestisco i giri non da gps
-	if (wheelSensor.RelativeSpace >= (float)strategySettings.TrackData[0])
+	if (wheelSensor.RelativeSpace >= (float)strategySettings.getTrackData().trackLenght)
 	{ // Se ho superato il giro
 		wheelSensor.RelativeSpace = 0.0;
 		wheelSensor.LastRelativeMillis = wheelSensor.getRelativeMillis(); // Salvo il tempo precedente
@@ -82,7 +80,7 @@ void TC6_Handler()
 
 void WheelSensorClass::processWayPoint (unsigned char WayPointIndex)
 {
-	if (strategySettings.getWayPoint(WayPointIndex).IsReference()) // se si tratta di un waypoint di riferimento
+	if (strategySettings.getWayPoint(WayPointIndex).isReference()) // se si tratta di un waypoint di riferimento
 	{
 		if(WayPointIndex == 0) // start waypoint: è lo 0-esimo
 		{

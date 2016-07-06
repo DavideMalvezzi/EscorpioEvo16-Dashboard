@@ -1,8 +1,8 @@
 ==============================================================
 ==============================================================
 4DGL Compiler 2.8.0.3 -- Copyright 2004-2015 4D Labs
-** C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS
-compiled Sat Jan 23 21:01:44 2016
+** C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV11\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS
+compiled Fri Feb 19 19:03:04 2016
 
 ==============================================================
 ==============================================================
@@ -17,71 +17,71 @@ function 'main' requires no arguments
 function 'main' has no return value
 
 [LINKING]
-function 12, DoGFXObjects, address 3138
+function 12, DoGFXObjects, address 3180
 stack usage 0 + 4
 !Empty Function
 [LINKING]
-function 11, UpdateObjects, address 3139
+function 11, UpdateObjects, address 3181
 stack usage 4 + 4
 function 'UpdateObjects' requires 1 argument
 function 'UpdateObjects' has no return value
 
 [LINKING]
-function 10, ActivateForm, address 3770
+function 10, ActivateForm, address 3812
 stack usage 6 + 4
 function 'ActivateForm' requires 1 argument
 function 'ActivateForm' has no return value
 
 [LINKING]
-function 9, ledDigitsDisplay, address 4134
+function 9, ledDigitsDisplay, address 4176
 stack usage 12 + 4
 function 'ledDigitsDisplay' requires 3 argument
 function 'ledDigitsDisplay' has no return value
 
 [LINKING]
-function 8, TurnOffButtons, address 4448
+function 8, TurnOffButtons, address 4490
 stack usage 6 + 4
 function 'TurnOffButtons' requires 1 argument
 function 'TurnOffButtons' has no return value
 
 [LINKING]
-function 7, WriteObject, address 4589
+function 7, WriteObject, address 4631
 stack usage 8 + 4
 function 'WriteObject' requires 3 argument
 function 'WriteObject' has no return value
 
 [LINKING]
-function 6, ReadObject, address 5301
+function 6, ReadObject, address 5343
 stack usage 6 + 4
 function 'ReadObject' requires 2 argument
 function 'ReadObject' has no return value
 
 [LINKING]
-function 5, SendReport, address 5487
+function 5, SendReport, address 5529
 stack usage 0 + 4
 function 'SendReport' requires 4 argument
 function 'SendReport' has no return value
 
 [LINKING]
-function 4, seroutOcs, address 5537
+function 4, seroutOcs, address 5579
 stack usage 0 + 4
 function 'seroutOcs' requires no arguments
 function 'seroutOcs' has no return value
 
 [LINKING]
-function 3, nak0, address 5554
+function 3, nak0, address 5596
 stack usage 0 + 4
 function 'nak0' requires no arguments
 function 'nak0' has no return value
 
 [LINKING]
-function 2, seroutCS, address 5570
+function 2, seroutCS, address 5612
 stack usage 0 + 4
 function 'seroutCS' requires 1 argument
 function 'seroutCS' has no return value
 
 [LINKING]
-function 1, PrintStrings, address 5589
+function 1, PrintStrings, address 5631
 stack usage 14 + 4
 function 'PrintStrings' requires 3 argument
 function 'PrintStrings' has no return value
@@ -153,6 +153,7 @@ __MAXPROG                         00003840      14400  (usage 1)
 ACK                               00000006          6  (usage 12)
 BACKGROUND_COLOUR                 00000011         17  (usage 3)
 BLACK                             00000000          0  (usage 12)
+CLEAR_SCREEN                      0000000C         12  (usage 3)
 CMDLenMAX                         00000105        261  (usage 12)
 ColorBGimage                      00000020         32  (usage 12)
 COM1                              0000F808      63496  (usage 3)
@@ -253,7 +254,7 @@ Ofs_String_x2                     0000000A         10  (usage 9)
 Ofs_String_y1                     00000008          8  (usage 12)
 Ofs_String_y2                     0000000C         12  (usage 9)
 OLIVE                             00008400      33792  (usage 3)
-ON                                00000001          1  (usage 6)
+ON                                00000001          1  (usage 9)
 OT_ACTIVATE                       00000067        103  (usage 3)
 OT_MAGIC                          0000006C        108  (usage 3)
 OT_NEXTFRAME                      00000068        104  (usage 3)
@@ -352,12 +353,14 @@ file_Open                         FFFFFF19        -231  args=2 r=1  (usage 3)
 file_Seek                         FFFFFF16        -234  args=3 r=1  (usage 3)
 gfx_Clipping                      FFFFFFA2         -94  args=1 r=0  (usage 12)
 gfx_ClipWindow                    FFFFFFB5         -75  args=4 r=0  (usage 6)
-gfx_Cls                           FFFFFFCD         -51  args=0 r=0  (usage 6)
+gfx_Cls                           FFFFFFCD         -51  args=0 r=0  (usage 9)
 gfx_Contrast                      FFFFFF9C        -100  args=1 r=1  (usage 3)
 gfx_MoveTo                        FFFFFFCC         -52  args=2 r=0  (usage 3)
 gfx_RectangleFilled               FFFFFFC4         -60  args=5 r=0  (usage 9)
 gfx_ScreenMode                    FFFFFF9E         -98  args=1 r=1  (usage 3)
 gfx_Set                           FFFFFFCE         -50  args=2 r=0  (usage 3)
+gfx_Transparency                  FFFFFFA0         -96  args=1 r=1  (usage 3)
+gfx_TransparentColour             FFFFFFA1         -95  args=1 r=1  (usage 3)
 img_ClearAttributes               FFFFFF45        -187  args=3 r=1  (usage 6)
 img_Disable                       FFFFFF4C        -180  args=2 r=1  (usage 6)
 img_GetWord                       FFFFFF48        -184  args=3 r=1  (usage 87)
@@ -383,21 +386,21 @@ uadd_3232                         FFFFFEDE        -290  args=3 r=1  (usage 3)
 umul_1616                         FFFFFEDF        -289  args=3 r=1  (usage 3)
 
 [USER FUNCTIONS]
-ActivateForm                      00000EBA  args=1 r=0  (usage 9)
-DoGFXObjects                      00000C42  args=0 r=0  (usage 6)
-ledDigitsDisplay                  00001026  args=3 r=0  (usage 6)
-nak0                              000015B2  args=0 r=0  (usage 24)
-PrintStrings                      000015D5  args=3 r=0  (usage 9)
-ReadObject                        000014B5  args=2 r=0  (usage 3)
-SendReport                        0000156F  args=4 r=0  (usage 6)
-seroutCS                          000015C2  args=1 r=0  (usage 15)
-seroutOcs                         000015A1  args=0 r=0  (usage 3)
-TurnOffButtons                    00001160  args=1 r=0  (usage 6)
-UpdateObjects                     00000C43  args=1 r=0  (usage 3)
-WriteObject                       000011ED  args=3 r=0  (usage 24)
+ActivateForm                      00000EE4  args=1 r=0  (usage 12)
+DoGFXObjects                      00000C6C  args=0 r=0  (usage 6)
+ledDigitsDisplay                  00001050  args=3 r=0  (usage 6)
+nak0                              000015DC  args=0 r=0  (usage 24)
+PrintStrings                      000015FF  args=3 r=0  (usage 9)
+ReadObject                        000014DF  args=2 r=0  (usage 3)
+SendReport                        00001599  args=4 r=0  (usage 6)
+seroutCS                          000015EC  args=1 r=0  (usage 15)
+seroutOcs                         000015CB  args=0 r=0  (usage 3)
+TurnOffButtons                    0000118A  args=1 r=0  (usage 6)
+UpdateObjects                     00000C6D  args=1 r=0  (usage 3)
+WriteObject                       00001217  args=3 r=0  (usage 24)
 
 [GLOBAL VARIABLES]
-cmd                                  191  word[261]   (usage 84)
+cmd                                  191  word[261]   (usage 90)
 comRX                                 60  word[131]   (usage 3)
 CurInputData                          58  word       (usage 24)
 CurrentForm                           53  word       (usage 51)
@@ -505,9 +508,9 @@ TouchYpos                             55  word       (usage 9)
 0557: 42 4F 7E 31 2E 64 30 33 00 44 41 53 48 42 4F 7E     BO~1.d03.DASHBO~
 0567: 31 2E 67 30 33 00 44 41 53 48 42 4F 7E 31 2E 64     1.g03.DASHBO~1.d
 0577: 30 34 00 44 41 53 48 42 4F 7E 31 2E 67 30 34 00     04.DASHBO~1.g04.
-0587: 44 41 53 48 42 4F 7E 31 2E 74 78 66 00 83 0B 83     DASHBO~1.txf.ƒ.ƒ
-0597: 0B 83 0B 83 0B 83 0B 83 0B 83 0B 83 0B 41 0C 41     .ƒ.ƒ.ƒ.ƒ.ƒ.ƒ.A.A
-05A7: 0C 83 0B 41 12 59 12                                .ƒ.A.Y.
+0587: 44 41 53 48 42 4F 7E 31 2E 74 78 66 00 AD 0B AD     DASHBO~1.txf.­.­
+0597: 0B AD 0B AD 0B AD 0B AD 0B AD 0B AD 0B 6B 0C 6B     .­.­.­.­.­.­.k.k
+05A7: 0C AD 0B 6B 12 83 12                                .­.k.ƒ.
 
 [__MAXPROG]
 14400
@@ -517,7 +520,7 @@ TouchYpos                             55  word       (usage 9)
 [PROGRAM]
 main
 [CODESIZE]
-6063
+6105
 [MEMSIZE]
 453
 [ARGCOUNT]
@@ -532,10 +535,10 @@ NO
 0
 
 [PROJECT]
-C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS
+C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV11\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS
 C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\uLCD-43PT.fnc
 C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\PicasoFunctions.fnc
 C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
 C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\VisualConst.inc
-C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV9\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCDConst.inc
+C:\Users\Davide\Google Drive\EscorpioEVO Elettronica\DAQSystem\2015-2016\SW\Arduino\DashBoard\REV11\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCDConst.inc
 C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\CLPrintStrings.inc

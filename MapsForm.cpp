@@ -242,6 +242,7 @@ CanStreamResult MapsFormClass::setMotorData(){
 	//Load struct from cfg
 	statusMsg.setMessage(F("Transfer in progress..."));
 	motorCfg.toStruct((byte*)&motor, MOTOR_TYPES, propList.getCurrentElement() * Motor::ATTR_COUNT);
+	motor.defaultMap -= '0';	//Convert char to int by Magneto
 	//Stream
 	return canInterface.streamOverCan(CanID::DRIVER_SETTINGS_CMD, SET_MOT_DATA_CMD, (byte*)&motor, sizeof(Motor));
 
@@ -257,18 +258,6 @@ CanStreamResult MapsFormClass::setMapData(){
 		//Load struct from cfg
 		for (int i = 0; i < MAPS_PER_SET; i++){
 			maps.toStruct((byte*)&mapSet[i], MAPS_TYPES, i * MotorMap::ATTR_COUNT);
-			/*
-			LOGLN(mapSet[i].name);
-			LOGLN(mapSet[i].a0);
-			LOGLN(mapSet[i].a1);
-			LOGLN(mapSet[i].a2);
-			LOGLN(mapSet[i].useSyncRect);
-			LOGLN(mapSet[i].useSyncSafe);
-			LOGLN(mapSet[i].syncTrh);
-			LOGLN(mapSet[i].useEnergyRecovery);
-			LOGLN(mapSet[i].flatOut);
-			LOGLN(mapSet[i].flatLev);
-			*/
 		}
 
 		//Stream

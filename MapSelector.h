@@ -14,6 +14,8 @@
 #define SEL1_PIN	40
 #define SEL2_PIN	39
 
+#define CURR_MAP_TTL	500
+
 #define MAP1	((LOW << 1) | HIGH)
 #define MAP2	((HIGH << 1) | HIGH)
 #define MAP3	((HIGH << 1) | LOW)
@@ -29,6 +31,7 @@ public:
 
  private:
 	 byte currentMap;
+	 Timer sendTimer;
 
 
 };

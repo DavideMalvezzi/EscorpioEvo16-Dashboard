@@ -123,20 +123,20 @@
     <ClInclude Include="WayPoint.h">
       <Filter>Header Files\Strategy\Gps</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV10.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="WdtUtils.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Shell.h">
+    <ClInclude Include="__vm\.REV11.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapSelector.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ExtInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Shell.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,11 +197,11 @@
     <ClCompile Include="WdtUtils.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Shell.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MapSelector.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ExtInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Shell.cpp">
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

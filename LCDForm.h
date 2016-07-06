@@ -28,7 +28,7 @@ public:
 	virtual void onEvent(Genie& genie, genieFrame& evt){}	//Override for control events
 	virtual void onEnter(Genie& genie){}	//Override for exec function on form activation
 	virtual void onExit(Genie& genie){}		//Override for exec function on form deactivation
-	virtual int getFormIndex();		//Get form index in ViSi
+	virtual int getFormIndex() = 0;		//Get form index in ViSi
 
 	
 };

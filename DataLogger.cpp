@@ -55,23 +55,23 @@ void DataLoggerClass::update(){
 					);
 				}
 				else{
-					logFile.print(" ");
+					logFile.print(' ');
 				}
 
-				logFile.print(",");
+				logFile.print(',');
 			}
 			logFile.println();
 			logFile.close();
 
 			channelsBuffer.invalidAllData();
 			
-			//Restart log timer
 			Log.i(DL_TAG) << F("Logged") << Endl;
 		}
 		else{
 			Log.e(DL_TAG) << F("Error opening log file!") << Endl;
 		}
 
+		//Restart log timer
 		logTimer.start();
 	}
 }

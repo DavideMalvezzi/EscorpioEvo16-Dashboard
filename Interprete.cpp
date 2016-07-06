@@ -4,201 +4,140 @@
 #include "ConsoleForm.h"
 
 void Interprete::init(){
-	kfirstlap = TFirstLap[TrackData[0]]/TrackData[4]/100.0;
-	klap = TLap[TrackData[0]]/TrackData[5]/100.0;
-	klastlap = TLastLap[TrackData[1]]/TrackData[6]/100.0;
+	const TrackData& trackData = strategySettings.getTrackData();
+	LapProfile& firstLap = strategySettings.getFirstLap();
+	LapProfile& generalLap = strategySettings.getGeneralLap();
+	LapProfile& lastLap = strategySettings.getLastLap();
 
-	// Correzione dei profili con i dati settings
-	unsigned int i;
-	for (i=0; i<TrackData[0]; i++) TFirstLap[i] = TFirstLap[i]/kfirstlap;
-	for (i=0; i<TrackData[0]; i++) SFirstLap[i] = SFirstLap[i]*kfirstlap;
+	float kFirstLap = firstLap.time[trackData.trackLenght] / trackData.firstLapTime / 100.0;
+	float kLap = generalLap.time[trackData.trackLenght] / trackData.generalLapTime / 100.0;
+	float kLastLap = lastLap.time[trackData.trackFinish] / trackData.lastLapTime / 100.0;
 
-	for (i=0; i<TrackData[0]; i++) TLap[i] = TLap[i]/klap;
-	for (i=0; i<TrackData[0]; i++) SLap[i] = SLap[i]*klap;
+	//Profile correction
+	for (int i = 0; i < trackData.trackLenght; i++){
+		firstLap.space[i] *= kFirstLap;
+		firstLap.time[i] /= kFirstLap;
 
-	for (i=0; i<TrackData[1]; i++) TLastLap[i] = TLastLap[i]/klastlap;
-	for (i=0; i<TrackData[1]; i++) SLastLap[i] = SLastLap[i]*klastlap;
+		generalLap.space[i] *= kLap;
+		generalLap.time[i] /= kLap;
+	}
+
+	for (int i = 0; i < trackData.trackFinish; i++){
+		lastLap.space[i] *= kLastLap;
+		lastLap.time[i] /= kLastLap;
+	}
 
 	output = 0;
-	GAP = 0;
+	gapTime = 0;
 }
 
 // laps, relpos in m*10e-2, reltime in s*10e-2, speed in km/h *10e-2  
-unsigned char Interprete::step(unsigned char FullLaps, unsigned long RelativePosition, unsigned long RelativeTime, unsigned short Speed)
-{
-	unsigned char strat = output;
-	//********** Seleziono il profilo giusto ***********//
-	unsigned short *Sprofile, *Tprofile;
-	if (FullLaps==0)
-	{
-		Sprofile = SFirstLap;
-		Tprofile = TFirstLap;
-	} else if (FullLaps==(TrackData[2]-1))
-	{
-		Sprofile = SLastLap;
-		Tprofile = TLastLap;
-	} else
-	{
-		Sprofile = SLap;
-		Tprofile = TLap;
-	}
-	//*********************************************//
+byte Interprete::step(byte currentLap, unsigned long relPosition, unsigned long relTime, unsigned short speed){
+	byte stratOutput = output;
+	LapProfile& firstLap = strategySettings.getFirstLap();
+	LapProfile& generalLap = strategySettings.getGeneralLap();
+	LapProfile& lastLap = strategySettings.getLastLap();
+	const TrackData& trackData = strategySettings.getTrackData();
 
-	// Interpolazione lineare
-	long i;
-	for (i=0; i<TrackData[0]; i++)
-		if((i*100)>RelativePosition) break;
-	float coeff = ((i*100)-RelativePosition)/(100.0);
-	float ProfileCurrentSpeed = (Sprofile[i]*coeff + (Sprofile[i-1]*(1-coeff)));
+	unsigned long raceLenght = ((trackData.raceLaps - 1) * trackData.trackLenght + trackData.trackFinish) * 100;
+	unsigned long raceTime = trackData.firstLapTime * 100 + (trackData.raceLaps - 2) * trackData.generalLapTime * 100 + trackData.lastLapTime * 100;
 
-	/*
-	for (i=0; i<TrackData[0]; i++)
-			if((Tprofile[i])>RelativeTime) break;
-	coeff = ((Tprofile[i])-RelativeTime)/(Tprofile[i]-Tprofile[i-1])*100.0;
-	float Steorico = ((i*coeff + ((i-1)*(1-coeff))) + (FullLaps*TrackData[0]))*100;
-	*/
 	
+	//Select lap profile
+	unsigned short* spaceProfile;
+	unsigned short* timeProfile;
+
+	if (currentLap == 0){
+		spaceProfile = strategySettings.getFirstLap().space;
+		timeProfile = strategySettings.getFirstLap().time;
+	}
+	else if (currentLap == trackData.raceLaps - 1){
+		spaceProfile = strategySettings.getLastLap().space;
+		timeProfile = strategySettings.getLastLap().time;
+	} 
+	else{
+		spaceProfile = strategySettings.getGeneralLap().space;
+		timeProfile = strategySettings.getGeneralLap().time;
+	}
+
+	//Linear interpolation
+	long i = ceil((float)relPosition / 100.0);
+	float coeff = ((i * 100.0) - relPosition) / 100.0;
+	float profileSpeed = spaceProfile[i] * coeff + (spaceProfile[i - 1] * (1.0 - coeff));
+
 	//Determinazione Steorico
-	float Steorico;
-	if (RelativeTime>TrackData[4]*100) //TFirstLap[TrackData[0]-1]) 
-	{
-		RelativeTime-= TrackData[4]*100; //TFirstLap[TrackData[0]-1];
-		int lp;
-		for(lp=0; lp<(TrackData[2]-2); lp++)
-		{
-			if (RelativeTime > TrackData[5]*100) //TLap[TrackData[0]-1])
-			{
-				RelativeTime-= TrackData[5]*100;//TLap[TrackData[0]-1];
-			} else break;
+	int lp = 0;
+	float theoricSpace;
+
+	if (relTime > trackData.firstLapTime * 100){
+		relTime -= trackData.firstLapTime * 100; 
+		
+		while (lp < trackData.raceLaps - 2 && relTime > trackData.generalLapTime * 200){
+			relTime -= trackData.generalLapTime * 100;
+			lp++;
 		}
-		if (lp>=(TrackData[2]-2))
-		{
-			// Ultimo giro
-			for (i=0; i<TrackData[0]; i++)
-				if((TLastLap[i])>RelativeTime) break;
-			coeff = ((TLastLap[i])-RelativeTime)/((float)(TLastLap[i]-TLastLap[i-1]));
-			Steorico = (((i-1)*coeff + (i*(1-coeff))) + ((1+lp)*TrackData[0]))*100;
+
+		if (lp >= trackData.raceLaps - 2){
+			//Last lap
+			i = 0; 
+			while (i < trackData.trackLenght && lastLap.time[i] <= relTime)i++;
+
+			coeff = ((float)(lastLap.time[i] - relTime)) / ((float)(lastLap.time[i] - lastLap.time[i - 1]));
+			theoricSpace = (((i - 1) * coeff + (i * (1.0 - coeff))) + ((1.0 + lp) * trackData.trackLenght)) * 100.0;
 		}
-		else
-		{
+		else{
 			//Giro tipo
-			for (i=0; i<TrackData[0]; i++)
-				if((TLap[i])>RelativeTime) break;
-			coeff = ((TLap[i])-RelativeTime)/((float)(TLap[i]-TLap[i-1]));
-			Steorico = (((i-1)*coeff + (i*(1-coeff))) + ((1+lp)*TrackData[0]))*100;
+			i = 0;
+			while (i < trackData.trackLenght && timeProfile[i] <= relTime)i++;
+
+			coeff = ((float)(timeProfile[i] - relTime)) / ((float)(timeProfile[i] - timeProfile[i - 1]));
+			theoricSpace = (((i - 1) * coeff + (i * (1.0 - coeff))) + ((1.0 + lp)*trackData.trackLenght)) * 100.0;
 		}
 	}
-	else
-	{
-		for (i=0; i<TrackData[0]; i++)
-			if((TFirstLap[i])>RelativeTime) break;
-		coeff = ((TFirstLap[i])-RelativeTime)/((float)(TFirstLap[i]-TFirstLap[i-1]));
-		Steorico = (((i-1)*coeff + (i*(1-coeff))))*100;
+	else {
+		i = 0;
+		while (i < trackData.trackLenght && firstLap.time[i] <= relTime)i++;
+
+		coeff = ((float)(firstLap.time[i] - relTime)) / ((float)(firstLap.time[i] - firstLap.time[i - 1]));
+		theoricSpace = (((i - 1.0) * coeff + (i * (1.0 - coeff)))) * 100.0;
 	}
 
 	// Aggiustamento con coefficiente k
-	unsigned long RaceLenght = ((TrackData[2]-1)*TrackData[0]+TrackData[1])*100;
-	if ((RaceLenght-Steorico)<0)
-			Steorico = RaceLenght;
-	float Smancante = (RaceLenght-(RelativePosition+(FullLaps*TrackData[0]*100)));
-	float SmancanteTeorico = (RaceLenght-Steorico);
-	k = Smancante / SmancanteTeorico;
-	ProfileCurrentSpeed = ProfileCurrentSpeed*k;
+	if (raceLenght < theoricSpace){
+		theoricSpace = raceLenght;
+	}
 
-	unsigned long RaceTime = (TrackData[4]*100 + (TrackData[2]-2)*TrackData[5]*100 + TrackData[6]*100);
+	float spaceLeft = raceLenght - (relPosition + (currentLap * trackData.trackLenght * 100));
+	float theoricSpaceLeft = raceLenght - theoricSpace;
+	float k = spaceLeft / theoricSpaceLeft;
+	profileSpeed *= k;
 
 
-	/*
-	float NeededAcc = 1;//(ProfileSpeed[i]-CurrentSpeed)/(ProfileTime[i]-CurrentTime); 
-	float OptimalAcc = 0;
-
-#define hysteresisON 1.1
-#define hysteresisONcruise 1.02
-#define hysteresisOFF 1.05
-		if (strat == 1)
-		{
-			if(Speed<=ProfileCurrentSpeed*hysteresisON) 
-			{
-				if ((NeededAcc) < (OptimalAcc*0.3))
-					strat = 2;
-				else
-					strat=1;
+#define hysteresisON (0.4 * 360)
+#define hysteresisOFF (0.4 * 360)
+		if (stratOutput != 0){
+			if (speed >= profileSpeed + hysteresisON){
+				stratOutput = 0;
 			}
-			else
-				strat = 0;
-		}
-		else if (strat == 0)
-		{
-			if(Speed*hysteresisOFF<=ProfileCurrentSpeed) 
-			{
-					strat = 1;
+			else{
+				stratOutput = 1;
 			}
-			else
-				strat = 0;
 		}
-		else if (strat == 2)
-		{
-			if(Speed<=ProfileCurrentSpeed*hysteresisONcruise) 
-			{
-				strat = 2;
+		else{
+			if (speed + hysteresisOFF <= profileSpeed){
+				stratOutput = 1;
 			}
-			else
-				strat = 0;
-		}
-
-		*/
-	/*
-#define hysteresisON 1.05
-#define hysteresisOFF 1.08
-		if (strat != 0)
-		{
-			if(Speed<=ProfileCurrentSpeed*hysteresisON) 
-				strat=1;
-			else
-				strat = 0;
-		}
-		else if (strat == 0)
-		{
-			if(Speed*hysteresisOFF<=ProfileCurrentSpeed) 
-					strat = 1;
-			else
-				strat = 0;
-		}
-		*/
-#define hysteresisON 0.4*360
-#define hysteresisOFF 0.4*360
-		if (strat != 0)
-		{
-			if(Speed>=(ProfileCurrentSpeed+hysteresisON)) 
-				strat=0;
-			else
-				strat = 1;
-		}
-		else
-		{
-			if((Speed+hysteresisOFF)<=ProfileCurrentSpeed) 
-				strat = 1;
-			else
-				strat = 0;
+			else{
+				stratOutput = 0;
+			}
 		}
 		
 
-		// Stima del ritardo/anticipo
-		/*
-		float Telpased = 0;
-		if (FullLaps==0) Telpased = RelativeTime;
-		else Telpased = TrackData[4]*100 + (FullLaps-1)*TrackData[5]*100 + RelativeTime;
-		float AVGSpeedToEnd = (float)Smancante/(float)(RaceTime-Telpased); //in m/s 
-		*/
-		//Test: salvo la velocità media da qui alla fine
-		//GAP = (long)((Steorico-(RaceLenght-Smancante))/(AVGSpeedToEnd*100) *1000);
-		//GAP =((Steorico-(RaceLenght-Smancante)));
-		GAP = (long)((Steorico-(RaceLenght-Smancante))/(RaceLenght/RaceTime*100) *1000);
-
-		//GAP = (long)((Steorico-(RaceLenght-Smancante))/Speed*1000);
-		output = strat;
-		return strat;
+		gapTime = (long)((theoricSpace - (raceLenght - spaceLeft)) / (raceLenght / raceTime * 100) * 1000);
 		
+		output = stratOutput;
+
+		return stratOutput;
 }
 
 Interprete strategy;
