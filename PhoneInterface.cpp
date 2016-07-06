@@ -14,7 +14,7 @@ void PhoneInterfaceClass::init(){
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
-		ASSERT(false, cfg.getErrorMsg());
+		Log.assert(false, cfg.getErrorMsg());
 	}
 
 	//Call not active

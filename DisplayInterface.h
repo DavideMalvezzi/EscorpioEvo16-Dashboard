@@ -20,6 +20,8 @@
 #include "MainForm.h"
 #include "MapsForm.h"
 
+#define LCD_TAG		F("LCD")	
+
 #define LCDSerial		Serial1
 #define LCD_SERIAL_BAUD	115200
 #define REFRESH_RATEO	5

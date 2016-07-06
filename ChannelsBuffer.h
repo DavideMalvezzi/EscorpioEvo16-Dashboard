@@ -15,6 +15,9 @@
 
 #include "Channel.h"
 #include "ChannelsConfig.h"
+#include "Logger.h"
+
+#define CHBUF_TAG	F("CHBUF")
 
 
 class ChannelsBufferClass {

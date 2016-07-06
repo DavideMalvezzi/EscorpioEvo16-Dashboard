@@ -21,12 +21,13 @@ boolean ChannelsConfigClass::init(){
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
-		ASSERT(false, cfg.getErrorMsg());
+		Log.assert(false, cfg.getErrorMsg());
 	}
 
 }
 
 void ChannelsConfigClass::debug(){
+	/*
 	Channel* c;
 
 	LOGLN(F("========== Channels loaded config: =========="));
@@ -36,6 +37,7 @@ void ChannelsConfigClass::debug(){
 		LOG(c->ID); LOG("  "); LOG(c->name); LOG("  "); LOG((char)c->type); LOG("  "); LOGLN((int)c->size);
 	}
 	LOGLN(F("========================================"));
+	*/
 }
 
 Channel* ChannelsConfigClass::getChannelByID(unsigned short id){

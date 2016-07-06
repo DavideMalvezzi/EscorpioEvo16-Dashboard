@@ -21,14 +21,14 @@ void MapsFormClass::onEnter(Genie& genie){
 	//Load motor cfgs
 	if (motorCfg.getPropertyCount() == 0){
 		if (motorCfg.loadFromFile(MOTOR_CFG_FILE) != FILE_VALID){
-			LOGLN(motorCfg.getErrorMsg());
+			Log.e(LCD_TAG) << motorCfg.getErrorMsg() << Endl;
 		}
 	}
 
 	//Load mapsets cfgs
 	if (mapCfg.getPropertyCount() == 0){
 		if (mapCfg.loadFromFile(MAPS_CFG_FILE) != FILE_VALID){
-			LOGLN(mapCfg.getErrorMsg());
+			Log.e(LCD_TAG) << mapCfg.getErrorMsg() << Endl;
 		}
 	}
 
@@ -126,36 +126,46 @@ void MapsFormClass::getMotorData(){
 
 			for (int i = 0; i < Motor::ATTR_COUNT; i++){
 				value.remove(0, value.length());
-				value += motorCfg.getProperty(i).getName();
-				value += " = ";
 			
 				switch (i){
 					case Motor::Name:
+						value += F("NAME = ");
 						value += m.name;
 						break;
 
 					case Motor::DefaultMap:
+						value += F("DEF_MAP = ");
 						value += (int)m.defaultMap;
 						break;
 
 					case Motor::Friction:
+						value += F("FRICTION = ");
 						value += m.friction;
 						break;
 
 					case Motor::FrictionGrad:
+						value += F("FRICTION_GRAD = ");
 						value += String(m.frictionGrad, 6);
 						break;
 
 					case Motor::SpeedConst:
+						value += F("SPEED_CONST = ");
 						value += m.speedConst;
 						break;
 
 					case Motor::SpeedTorqueGrad:
+						value += F("SPEED_TORQUE_GRAD = ");
 						value += String(m.speedTorqueGrad, 3);
 						break;
 
 					case Motor::TorqueConst:
+						value += F("TORQUE_CONST = ");
 						value += m.torqueConst;
+						break;
+
+					case Motor::GearTrain:
+						value += F("GEAR_TRAIN = ");
+						value += m.gearTrain;
 						break;
 				}
 
@@ -533,6 +543,30 @@ void MapsFormClass::loadGetMapSetValues(){
 				//LOGLN(mapSet[mapIndex].a2);
 				break;
 
+			case MotorMap::SyncTrh:
+				e += F("SYNC_ITRH = ");
+				e += mapSet[mapIndex].syncTrh;
+				//LOGLN(mapSet[mapIndex].syncTrh);
+				break;
+
+			case MotorMap::FlatLev:
+				e += F("FLAT_LEV = ");
+				e += mapSet[mapIndex].flatLev;
+				//LOGLN(mapSet[mapIndex].flatLev);
+				break;
+
+			case MotorMap::MaxSpeed:
+				e += F("MAX_SPEED = ");
+				e += mapSet[mapIndex].flatLev;
+				//LOGLN(mapSet[mapIndex].maxSpeed);
+				break;
+
+			case MotorMap::FlatOut:
+				e += F("FLAT_OUT = ");
+				e += mapSet[mapIndex].flatOut;
+				//LOGLN((int)mapSet[mapIndex].flatOut);
+				break;
+
 			case MotorMap::UseSyncRect:
 				e += F("SYNC_RECT = ");
 				e += mapSet[mapIndex].useSyncRect;
@@ -545,29 +579,12 @@ void MapsFormClass::loadGetMapSetValues(){
 				//LOGLN((int)mapSet[mapIndex].useSyncSafe);
 				break;
 
-			case MotorMap::SyncTrh:
-				e += F("SYNC_ITRH = ");
-				e += mapSet[mapIndex].syncTrh;
-				//LOGLN(mapSet[mapIndex].syncTrh);
-				break;
-
 			case MotorMap::UseEnergyRecovery:
 				e += F("EN_RECOVERY = ");
 				e += mapSet[mapIndex].useEnergyRecovery;
 				//LOGLN((int)mapSet[mapIndex].useEnergyRecovery);
 				break;
-
-			case MotorMap::FlatOut:
-				e += F("FLAT_OUT = ");
-				e += mapSet[mapIndex].flatOut;
-				//LOGLN((int)mapSet[mapIndex].flatOut);
-				break;
-
-			case MotorMap::FlatLev:
-				e += F("FLAT_LEV = ");
-				e += mapSet[mapIndex].flatLev;
-				//LOGLN(mapSet[mapIndex].flatLev);
-				break;
+			
 		}
 		detailList.addElement(e);
 

@@ -13,6 +13,7 @@
 #include <Configuration.h>
 #include <ConsoleForm.h>
 
+#define PHONE_TAG	F("PHN")
 
 #define BLSerial		Serial2
 #define BL_SERIAL_BAUD	9600

@@ -75,6 +75,8 @@ public:
 };
 	
 //Can debug
+#define CAN_TAG		F("CAN")
+
 #define DebugSerial				SerialUSB
 #define CAN_SERIAL_TIMEOUT		5000
 #define CAN_SERIAL_BAUD			115200

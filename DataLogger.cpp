@@ -13,7 +13,7 @@ void DataLoggerClass::init(){
 	else {
 		//Error on loading, searching a backup
 		consoleForm.println(F("No valid Datalogger cfg file found"));
-		LOGLN(F("No valid Datalogger cfg file found"));
+		Log.e(DL_TAG) << F("No valid Datalogger cfg file found") << Endl;
 
 		if (cfg.loadFromBackup() == FILE_VALID){
 			//Update cfg
@@ -24,9 +24,10 @@ void DataLoggerClass::init(){
 		else{
 			//No valid backup, load default values
 			consoleForm.println(F("No valid backup found"));
+			Log.e(DL_TAG) << F("No valid backup found") << Endl;
+
 			consoleForm.println(F("Loading Datalogger default config"));
-			LOGLN(F("No valid backup found"));
-			LOGLN(F("Loading Datalogger default config"));
+			Log.e(DL_TAG) << F("Loading Datalogger default config") << Endl;
 
 			logFileName = LOG_FILE_FOLDER;
 			logFileName += DEFAULT_LOG_NAME;
@@ -65,10 +66,10 @@ void DataLoggerClass::update(){
 			channelsBuffer.invalidAllData();
 			
 			//Restart log timer
-			LOGLN(F("Logged"));
+			Log.i(DL_TAG) << F("Logged") << Endl;
 		}
 		else{
-			LOGLN(F("Error opening log file!"));
+			Log.e(DL_TAG) << F("Error opening log file!") << Endl;
 		}
 
 		logTimer.start();
@@ -95,9 +96,9 @@ void DataLoggerClass::createNewLogFile(){
 	//Check if the file is opened correctly
 	while (!logFile){
 		consoleForm.println(F("Error creating log file! Trying again..."));
-		LOGLN(F("Error creating log file! Trying again..."));
-		delay(1000);
+		Log.e(DL_TAG) << F("Error creating log file! Trying again...") << Endl;
 
+		delay(1000);
 		logFile = SD.open(logFileName, O_WRITE | O_CREAT);
 	} 
 

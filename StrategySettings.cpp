@@ -26,11 +26,12 @@ void StrategySettingsClass::loadGPSSettings(){
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
-		ASSERT(false, cfg.getErrorMsg());
+		Log.assert(false, cfg.getErrorMsg());
 	}
 }
 
 void StrategySettingsClass::debugGPSSettings(){
+	/*
 	WayPoint w;
 
 	LOGLN("========== GPS loaded config: ==========");
@@ -45,6 +46,7 @@ void StrategySettingsClass::debugGPSSettings(){
 		LOGLN(w.IsReference());
 	}
 	LOGLN("========================================");
+	*/
 }
 
 void StrategySettingsClass::loadStrategy(){
@@ -62,21 +64,20 @@ void StrategySettingsClass::loadStrategy(){
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
-		ASSERT(false, cfg.getErrorMsg());
+		Log.assert(false, cfg.getErrorMsg());
 	}
 
 	loadLapProfile(STRATEGY_FIRSTLAP_FILE, FirstProfile, PROFILE_ROW, TrackData[TRACK_LENGHT] + 1);
-	LOGLN(F("First lap profile OK"));
 	consoleForm.println(F("First lap profile OK"));
+	Log.i(STRAT_TAG) << F("First lap profile OK") << Endl;
 
 	loadLapProfile(STRATEGY_LAP_FILE, Profile, PROFILE_ROW, TrackData[TRACK_LENGHT] + 1);
-	LOGLN(F("General lap profile OK"));
 	consoleForm.println(F("General lap profile OK"));
+	Log.i(STRAT_TAG) << F("General lap profile OK") << Endl;
 
 	loadLapProfile(STRATEGY_LASTLAP_FILE, LastProfile, PROFILE_ROW, TrackData[TRACK_LENGHT] + 1);
-	LOGLN(F("Last lap profile OK"));
 	consoleForm.println(F("Last lap profile OK"));
-
+	Log.i(STRAT_TAG) << F("Last lap profile OK") << Endl;
 }
 
 void StrategySettingsClass::loadLapProfile(char* filePath, unsigned short profile[][PROFILE_COL], int row, int col){
@@ -93,7 +94,7 @@ void StrategySettingsClass::loadLapProfile(char* filePath, unsigned short profil
 	}
 	else{
 		consoleForm.println(String(filePath) + F(" file not found!"));
-		ASSERT(false, String(filePath) + F(" file not found!"));
+		Log.assert(false, String(filePath) + F(" file not found!"));
 	}
 }
 

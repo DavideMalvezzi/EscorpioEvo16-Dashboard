@@ -25,6 +25,7 @@ void ChannelsBufferClass::init(){
 }
 
 void ChannelsBufferClass::debug(){
+	/*
 	LOGLN(F("=========== Channels data buffer: ==========="));
 	for (int i = 0; i < buffer.getCapacity(); i++){
 		LOG(channelsConfig.getChannelByIndex(i)->name);
@@ -32,6 +33,7 @@ void ChannelsBufferClass::debug(){
 		buffer[i].debug();
 	}
 	LOGLN(F("========================================"));
+	*/
 }
 
 String ChannelsBufferClass::getValueAsString(unsigned short id){
@@ -64,7 +66,7 @@ String ChannelsBufferClass::getValueAsString(unsigned short id){
 
 #ifdef WARNING
 			default:
-				LOG(F("WARNING: Unknown conversion type channel ")); LOG(id); LOG(F(" to type ")); LOGLN((int)c->type);
+				Log.e(CHBUF_TAG) << F("in getValueAsString\t Unknown conversion type channel ") << id << F(" to type ") << c->type << Endl;
 #endif
 		}
 	}
@@ -89,10 +91,10 @@ void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short
 
 #ifdef WARNING
 		if (size < channelsConfig.getChannelByIndex(index)->size){
-			LOG(F("WARNING: ChannelsBuffer::setValue	Received size < expected size for channel ")); LOGLN(id);
+			Log.w(CHBUF_TAG) << F("in setValue\t Received size < expected size for channel ") << id << Endl;
 		}
 		else if (size > channelsConfig.getChannelByIndex(index)->size){
-			LOG(F("WARNING: ChannelsBuffer::setValue	Received size > expected size for channel ")); LOGLN(id);
+			Log.w(CHBUF_TAG) << F("in setValue\t Received size > expected size for channel ") << id << Endl;
 		}
 #endif
 		if (size <= channelsConfig.getChannelByIndex(index)->size){
@@ -104,7 +106,7 @@ void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short
 	}
 	else {
 #ifdef WARNING
-		LOG(F("WARNING: ChannelsBuffer::setValue  unknow packet id = ")); LOGLN(id);
+		Log.w(CHBUF_TAG) << F("WARNING: ChannelsBuffer::setValue  unknow packet id = ") << id << Endl;
 #endif
 	}
 	

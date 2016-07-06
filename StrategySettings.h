@@ -14,6 +14,8 @@
 #include "WayPoint.h"
 #include "Vector.h"
 
+#define STRAT_TAG	F("STRAT")
+
 #define GPS_CONFIG_FILE "Gps.cfg"
 #define WAYPOINT	6
 #define WAY_LAT		0

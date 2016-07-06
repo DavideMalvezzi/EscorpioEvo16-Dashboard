@@ -20,7 +20,7 @@
 
 //Motor related
 #define MOTOR_CFG_FILE		"MOTOR.CFG"
-#define MOTOR_TYPES			F("s8cfffff")
+#define MOTOR_TYPES			F("s8cffffff")
 #pragma pack(push, 1)
 typedef struct Motor{
 	char name[8];
@@ -30,6 +30,7 @@ typedef struct Motor{
 	float speedTorqueGrad;
 	float friction;
 	float frictionGrad;
+	float gearTrain;
 
 	enum Attr : byte{
 		Name,
@@ -39,6 +40,7 @@ typedef struct Motor{
 		SpeedTorqueGrad,
 		Friction,
 		FrictionGrad,
+		GearTrain,
 		ATTR_COUNT
 	};
 }Motor;
@@ -46,7 +48,7 @@ typedef struct Motor{
 
 //Map set related
 #define MAPS_CFG_FILE		"MAPSET.CFG"
-#define MAPS_TYPES			F("s8fffffbbbb")
+#define MAPS_TYPES			F("s8ffffffbbbb")
 #define MAPS_PER_SET		4
 #pragma pack(push, 1)
 typedef struct MotorMap{
@@ -56,6 +58,7 @@ typedef struct MotorMap{
 	float a2;
 	float syncTrh;
 	float flatLev;
+	float maxSpeed;
 	boolean flatOut;
 	boolean useSyncRect;
 	boolean useSyncSafe;
@@ -68,6 +71,7 @@ typedef struct MotorMap{
 		A2,
 		SyncTrh,
 		FlatLev,
+		MaxSpeed,
 		FlatOut,
 		UseSyncRect,
 		UseSyncSafe,

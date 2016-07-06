@@ -4,6 +4,8 @@
  Author:	Davide Malvezzi
 */
 
+#include "MapSelector.h"
+#include "Logger.h"
 #include "Channel.h"
 #include "ConsoleForm.h"
 #include "DebugForm.h"
@@ -19,9 +21,10 @@
 #include "MainForm.h"
 #include "MapsForm.h"
 #include "PhoneInterface.h"
-#include "StrategySettings.h"
-#include "variant.h"		//Hacked: activated WDT in variant.cpp
-#include "WheelSensor.h"
+#include "Shell.h"
+#include "StrategySettings.h"	
+#include "WdtUtils.h"		//Hacked: activated WDT in variant.cpp
+#include "WheelSensor.h"	
 
 #include <BitArray.h>
 #include <Button.h>
@@ -37,6 +40,7 @@
 #include <Utils.h>
 #include <Vector.h>
 
+//Hw settings
 #define WDT_TIMEOUT	10000
 #define SERIAL_BAUD	115200
 #define SD_SS_PIN	28
@@ -47,6 +51,7 @@
 //TODO: put inside strategy
 #define STRATEGY_STEP_PERIOD	500
 Timer strategyTimer;
+///////////////////////////
 
 //Test stuff
 boolean ledStatus;
@@ -64,13 +69,21 @@ void updateStrategy();
 //Events
 void onCanPacketReceived(CAN_FRAME& frame);
 void onGpsDataReceived(GpsData& gps);
-//WDT
-void enableWDT(uint32_t timeout);
 
+//Code flag
 #define INIT_DEBUG	
 #define LOOP_DEBUG	
 #define USE_WDT		
-#define SW_REV		F("9")
+//#define ONLY_SHELL
+#define STRAT_ON
+
+//Log tag
+#define INIT_TAG	F("INIT")
+#define LOOP_TAG	F("LOOP")
+#define BTN_TAG		F("BTN")
+
+//SW info
+#define SW_REV		F("10")
 #define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
 
 
@@ -79,48 +92,50 @@ void setup() {
 #ifdef INIT_DEBUG
 	t.start();
 #endif
-	
+
 	//Serial, SPI, digital pin
 	initPorts();
-	
+
+#ifndef ONLY_SHELL
 	//Display
 	displayInterface.init();
 	consoleForm.println(SW_INFO);
 	consoleForm.println(F("Display OK"));
-	LOGLN(SW_INFO);
-	LOGLN(F("Display OK"));
+	Log.i(INIT_TAG) << SW_INFO << Endl;
+	Log.i(LCD_TAG) << F("Display OK") << Endl;
 
 	//Can, Channels
 	initDataLogger();
 	consoleForm.println(F("Datalogger OK"));
-	LOGLN(F("Datalogger OK"));
+	Log.i(DL_TAG) << F("Datalogger OK") << Endl;
 
 	//WheelSensor, Strategy
+#ifdef STRAT_ON
 	initStategy();
 	consoleForm.println(F("Strategy OK"));
-	LOGLN(F("Strategy OK"));
-
+	Log.i(STRAT_TAG) << F("Strategy OK") << Endl;
+#endif
 	//Phone
 	phoneInterface.init();
 	phoneInterface.setGpsDataHandler(&onGpsDataReceived);
 	consoleForm.println(F("Phone OK"));
-	LOGLN(F("Phone OK"));
+	Log.i(PHONE_TAG) << F("Phone OK") << Endl;
 
 	//Physical buttons
 	initButtons();
 	consoleForm.println(F("Buttons OK"));
-	LOGLN(F("Buttons OK"));
+	Log.i(BTN_TAG) << F("Buttons OK") << Endl;
 
 	//Notify init completed
 	consoleForm.println(F("Dashboard init OK"));
-	LOGLN(F("Dashboard init OK"));
+	Log.i(INIT_TAG) << F("Dashboard init OK") << Endl;
 
 	//Go to the main form
 	displayInterface.setCurrentForm(&mainForm);
-
+#endif
 	//Init time
 #ifdef INIT_DEBUG
-	LOG(F("Time needed to init: ")); LOGLN(t.elapsedTime());
+	Log.i(INIT_TAG) << F("Time needed to init: ") << t.elapsedTime() << Endl;
 #endif
 
 	//Init test stuff
@@ -136,14 +151,15 @@ void setup() {
 #ifdef USE_WDT
 	enableWDT(WDT_TIMEOUT);
 #else
-	WDT_Disable(WDT);
+	disableWDT();
 #endif
+
 }
 
 void loop() {
 	//Reset Watchdog
 #ifdef USE_WDT
-	WDT_Restart(WDT);
+	resetWDT();
 #endif
 
 	//Test execution time
@@ -151,7 +167,7 @@ void loop() {
 	t.start();
 #endif
 	//////////////////////
-
+#ifndef ONLY_SHELL
 	//Read all packet and update debug if necessary
 	canInterface.update();
 
@@ -159,7 +175,9 @@ void loop() {
 	phoneInterface.update();
 
 	//Strategy update
+#ifdef STRAT_ON
 	updateStrategy();
+#endif
 
 	//Datalogger update
 	dataLogger.update();
@@ -169,15 +187,19 @@ void loop() {
 
 	//Buttons update
 	Button::update();
-
+#endif
+	//Shell update
+	shell.update();
+	
 	//Test execution time
+#ifdef LOOP_DEBUG
 	avgExecutionTime += t.elapsedTime();
 	loops++;
-#ifdef LOOP_DEBUG
+
 	if (sec.hasFinished()){
-		LOG("Loop call: "); LOG(loops); 
-		LOG("       avgExTime: "); LOG((float)avgExecutionTime * 1000 / loops); LOG(" us ");
-		LOG("       freeMem: "); LOGLN(freeMemory());
+		Log.i(LOOP_TAG) << F("Loop call: ") << loops
+						<< F("\t avgExecTime: ") << (float)avgExecutionTime / loops * 1000 << F(" us ")
+						<< F("\t freeMem: ") << freeMemory() << Endl;
 
 		ledStatus = !ledStatus;
 		digitalWrite(YELLOW_LED, ledStatus);
@@ -199,6 +221,9 @@ void initPorts(){
 	pinMode(YELLOW_LED, OUTPUT);
 	digitalWrite(RED_LED, LOW);
 	digitalWrite(YELLOW_LED, LOW);
+
+	Log.init(&Serial);
+	shell.init(&Serial);
 }
 
 void initDataLogger(){
@@ -254,12 +279,9 @@ void updateStrategy(){
 
 //Events functions
 void onCanPacketReceived(CAN_FRAME& frame){
-	/*
-	LOGLN("Received");
-	LOGLN(frame.id);
-	LOGLN(frame.length);
-	LOG_ARR(frame.data.bytes, frame.length, HEX);
-	*/
+
+	//Log.i(CAN_TAG) << F("Received ") << frame.id << " " << frame.length << " " << Hex << Log.array<byte>(frame.data.bytes, frame.length) << Endl;
+
 	channelsBuffer.setValue(frame.id, frame.data.bytes, frame.length);
 
 	switch (frame.id){
@@ -269,6 +291,7 @@ void onCanPacketReceived(CAN_FRAME& frame){
 	}
 
 }
+
 
 void onGpsDataReceived(GpsData& gps){
 	byte i = 0;
@@ -288,21 +311,21 @@ void onGpsDataReceived(GpsData& gps){
 //Buttons events
 void onResetButtonPress(void* data){
 #ifdef LOOP_DEBUG
-	LOGLN(F("WHEEL_SENSOR_RESET_BUTTON_PRESSED"));
+	Log.i(BTN_TAG) << F("Wheel sensor reset button pressed") << Endl;
 #endif
 	wheelSensor.reset();
 }
 
 void onCallButtonPress(void* data){
 #ifdef LOOP_DEBUG
-	LOGLN(F("CALL_BUTTON_PRESSED"));
+	Log.i(BTN_TAG) << F("Call button pressed") << Endl;
 #endif
 	phoneInterface.call();
 }
 
 void onChangeFormButtonPress(void* data){
 #ifdef LOOP_DEBUG
-	LOGLN(F("FORM CHANGE_BUTTON_PRESSED"));
+	Log.i(BTN_TAG) << F("Change form button pressed") << Endl;
 #endif
 
 	if (displayInterface.getCurrentForm() == &mainForm){
@@ -313,16 +336,3 @@ void onChangeFormButtonPress(void* data){
 	}
 }
 
-//WDT
-void enableWDT(uint32_t timeout){
-	//this assumes the slow clock is running at 32.768 kHz watchdog frequency is therefore 32768 / 128 = 256 Hz 
-	timeout = timeout * 256 / 1000;
-	if (timeout == 0)
-		timeout = 1;
-	else if (timeout > 0xFFF)
-		timeout = 0xFFF;
-	//	timeout = WDT_MR_WDRSTEN | WDT_MR_WDRPROC | WDT_MR_WDV(timeout) | WDT_MR_WDD(timeout);
-	timeout = WDT_MR_WDRSTEN | WDT_MR_WDV(timeout) | WDT_MR_WDD(timeout);
-
-	WDT_Enable(WDT, timeout);
-}

@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\DisplayForms">
-      <UniqueIdentifier>{2867a2d9-c1be-4008-ad79-0ad007ee0216}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Datalogger">
       <UniqueIdentifier>{5ab3816f-067d-4952-9ee9-024fde9fca6c}</UniqueIdentifier>
     </Filter>
@@ -27,9 +24,6 @@
     </Filter>
     <Filter Include="Source Files\Strategy">
       <UniqueIdentifier>{650757b1-52ed-41bb-8b41-3eda135f7cde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\DisplayForms\Widgets">
-      <UniqueIdentifier>{59c88470-a7de-4573-ab93-2141a3294009}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\ExtInterfaces">
       <UniqueIdentifier>{7cc272b9-8bef-4e81-8690-33feaa552c70}</UniqueIdentifier>
@@ -46,14 +40,26 @@
     <Filter Include="Header Files\Display\Forms">
       <UniqueIdentifier>{f6f9b719-0fa7-4506-91cb-ce65932f89d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\DisplayForms\Forms">
-      <UniqueIdentifier>{420005d9-b449-48cc-be6f-042cd2e6c433}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Strategy\Gps">
       <UniqueIdentifier>{2168ac20-7f4a-4552-9643-09bba5eb4719}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Strategy\Gps">
       <UniqueIdentifier>{7b2fd2c6-8861-4af3-902d-1761ef814e2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Display">
+      <UniqueIdentifier>{2867a2d9-c1be-4008-ad79-0ad007ee0216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Display\Widgets">
+      <UniqueIdentifier>{59c88470-a7de-4573-ab93-2141a3294009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Display\Forms">
+      <UniqueIdentifier>{420005d9-b449-48cc-be6f-042cd2e6c433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{73bb7c6e-2d83-4856-99ba-6b40da0b5958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{0b281ebb-42cf-4643-a09e-4e4f88a5dd69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -117,7 +123,19 @@
     <ClInclude Include="WayPoint.h">
       <Filter>Header Files\Strategy\Gps</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV9.vsarduino.h">
+    <ClInclude Include="__vm\.REV10.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="WdtUtils.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Shell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapSelector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -138,10 +156,10 @@
       <Filter>Source Files\Strategy</Filter>
     </ClCompile>
     <ClCompile Include="DisplayInterface.cpp">
-      <Filter>Source Files\DisplayForms</Filter>
+      <Filter>Source Files\Display</Filter>
     </ClCompile>
     <ClCompile Include="LCDStringList.cpp">
-      <Filter>Source Files\DisplayForms\Widgets</Filter>
+      <Filter>Source Files\Display\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="CanInterface.cpp">
       <Filter>Source Files\ExtInterfaces</Filter>
@@ -153,25 +171,37 @@
       <Filter>Source Files\Datalogger</Filter>
     </ClCompile>
     <ClCompile Include="ConsoleForm.cpp">
-      <Filter>Source Files\DisplayForms\Forms</Filter>
+      <Filter>Source Files\Display\Forms</Filter>
     </ClCompile>
     <ClCompile Include="DebugForm.cpp">
-      <Filter>Source Files\DisplayForms\Forms</Filter>
+      <Filter>Source Files\Display\Forms</Filter>
     </ClCompile>
     <ClCompile Include="MainForm.cpp">
-      <Filter>Source Files\DisplayForms\Forms</Filter>
+      <Filter>Source Files\Display\Forms</Filter>
     </ClCompile>
     <ClCompile Include="MapsForm.cpp">
-      <Filter>Source Files\DisplayForms\Forms</Filter>
+      <Filter>Source Files\Display\Forms</Filter>
     </ClCompile>
     <ClCompile Include="LCDStringMsg.cpp">
-      <Filter>Source Files\DisplayForms\Widgets</Filter>
+      <Filter>Source Files\Display\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="EarthDistance.cpp">
       <Filter>Source Files\Strategy\Gps</Filter>
     </ClCompile>
     <ClCompile Include="WayPoint.cpp">
       <Filter>Source Files\Strategy\Gps</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="WdtUtils.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Shell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapSelector.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

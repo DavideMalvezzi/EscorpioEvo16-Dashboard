@@ -16,6 +16,9 @@
 #include "ChannelsBuffer.h"
 #include "ChannelsConfig.h"
 #include "ConsoleForm.h"
+#include "Logger.h"
+
+#define DL_TAG	F("DL")
 
 #define LOG_FILE_FOLDER		F("DataLog/")
 #define DL_CFG_FILE			"DATALOG.CFG"
