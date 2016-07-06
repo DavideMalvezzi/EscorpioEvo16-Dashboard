@@ -21,9 +21,6 @@ void Interprete::init(){
 
 	output = 0;
 	GAP = 0;
-
-	LOGLN("STRATEGY_INIT");
-	consoleForm.println("STRATEGY_INIT");
 }
 
 // laps, relpos in m*10e-2, reltime in s*10e-2, speed in km/h *10e-2  

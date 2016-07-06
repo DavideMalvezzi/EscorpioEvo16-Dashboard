@@ -10,11 +10,12 @@
 #include "EarthDistance.h"
 
 //GPS
+/*
 #define CAN_LAT			0x60
 #define CAN_LON			0x61
 #define CAN_GPSVALID	0x68
 #define CAN_WAYPOINT	0x205 
-
+*/
 
 class WayPoint {
 

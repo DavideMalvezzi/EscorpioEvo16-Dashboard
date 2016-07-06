@@ -1,19 +1,16 @@
 
 #include "MainForm.h"
-#include "ChannelsBuffer.h"
-#include "PhoneInterface.h"
-#include "Interprete.h"
-#include "StrategySettings.h"
-#include "WheelSensor.h"
-
 
 void MainFormClass::init(Genie &genie){
+	//Nothing to do here, for now
 
 }
 
 void MainFormClass::update(Genie &genie){
+	/*
 	//UPDATE CONSUMPTION
-	genie.WriteObject(GENIE_OBJ_LED_DIGITS, 0, wheelSensor.getEnergy());
+
+	updateWidget(genie, GENIE_OBJ_LED_DIGITS, 0, wheelSensor.getEnergy());
 	
 	//UPDATE CALL STATUS
 	genie.WriteObject(GENIE_OBJ_USER_LED, 1, phoneInterface.isCallActive()); 
@@ -39,7 +36,7 @@ void MainFormClass::update(Genie &genie){
 	genie.WriteObject(GENIE_OBJ_LED_DIGITS, 6, wheelSensor.getLap());
 
 	//UPDATE BAR
-	int pwrVal = channelsBuffer.getValueAs<float>(CAN_DC) * 100 / 255;
+	int pwrVal = channelsBuffer.getValueAs<float>(CanID::MOTOR_DUTY_CICLE) * 100 / 255;
 	genie.WriteObject(GENIE_OBJ_GAUGE, 0, pwrVal);
 
 	//UPDATE CURRENT LAP TIME
@@ -53,6 +50,7 @@ void MainFormClass::update(Genie &genie){
 	//UPDATE STRATEGY GAP
 	String gapVal = String(strategy.getGap() / 1000);   
 	genie.WriteStr(0, (char*)gapVal.c_str());
+	*/
 }
 
 MainFormClass mainForm;

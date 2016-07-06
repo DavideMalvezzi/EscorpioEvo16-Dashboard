@@ -9,19 +9,19 @@
 	#include "WProgram.h"
 #endif
 
+#include "CanInterface.h"
+#include "ChannelsBuffer.h"
 #include "DisplayInterface.h"
+#include "LCDForm.h"
+#include "WayPoint.h"
 
-#define CAN_BAT		0x410	//Battery voltage
-#define CAN_MAP		0x091	//Engine map selected
-#define CAN_BMS		0x400	//BMS status
-#define CAN_CELL0	0x401	//Cell 0 voltage (le successive di conseguenza)
 
-class DebugFormClass : public DisplayForm{
+class DebugFormClass : public LCDForm{
 
 public:
 	void init(Genie &genie);
 	void update(Genie &genie);
-	int getFormIndex(){ return 1; }
+	int getFormIndex(){ return 2; }
 
 private:
 

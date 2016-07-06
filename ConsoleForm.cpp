@@ -1,6 +1,7 @@
 
 #include "ConsoleForm.h"
 
+
 void ConsoleFormClass::init(Genie &genie){
 	this->genie = &genie;
 	text.reserve(TEXT_BUFFER_SIZE);
@@ -25,6 +26,8 @@ void ConsoleFormClass::clear(){
 
 void ConsoleFormClass::addText(String str){
 	int index = text.indexOf("\n");
+	//Remove first lines until there is enough space for the new text
+	//Create a sort of scroll-up effect, like real shell
 	if (str.length() < TEXT_BUFFER_SIZE){
 		while (text.length() + str.length() >= TEXT_BUFFER_SIZE){
 			text.remove(0, index == -1 ? text.length() : index);

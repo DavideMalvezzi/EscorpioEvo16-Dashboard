@@ -9,29 +9,25 @@
 	#include "WProgram.h"
 #endif
 
+#include <Button.h>
 #include <genieArduino.h>
 #include <Timer.h>
 #include <Vector.h>
 
+#include "ConsoleForm.h"
+#include "DebugForm.h"
+#include "LCDForm.h"
+#include "MainForm.h"
+#include "MapsForm.h"
+
 #define LCDSerial		Serial1
-#define LCD_SERIAL_BAUD	9600
+#define LCD_SERIAL_BAUD	115200
 #define REFRESH_RATEO	10
 
 #define RESET_PIN				6
-#define MAX_FORM_NUMBER			3
 #define CHANGE_FORM_BUTTON_PIN	3
 
-
-class DisplayForm{
-
-public:
-	virtual void init(Genie& genie) = 0;
-	virtual void update(Genie& genie) = 0;
-	virtual void onEvent(Genie& genie, genieFrame& evt){}
-	virtual void onEnter(Genie& genie){}
-	virtual void onExit(Genie& genie){}
-	virtual int getFormIndex();
-};
+#define MAX_FORM_NUMBER			3
 
 class DisplayInterfaceClass{
 
@@ -43,12 +39,11 @@ public:
 	friend void onChangeFormButtonPress(void* data = NULL);
 	friend void onEvent();
 
-
 private:
 	short currentForm;
 	Genie genie;
 	Timer refreshTimer;
-	Vector<DisplayForm*> forms;
+	Vector<LCDForm*> forms;
 
 };
 

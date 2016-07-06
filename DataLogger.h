@@ -12,13 +12,13 @@
 #include <Configuration.h>
 #include <Timer.h>
 
+#include "CANInterface.h"
+#include "ChannelsBuffer.h"
+#include "ChannelsConfig.h"
+#include "ConsoleForm.h"
+
 #define LOG_FILE_FOLDER		"DataLog/"
 #define DL_CFG_FILE			"DataLog.cfg"
-#define SAMPLE_PER_SECOND	0
-#define LOG_FILE_NAME		1
-#define LOG_FILE_FORMAT		2
-#define LOG_FILE_NUM		3
-
 
 class DataLoggerClass {
 
@@ -27,6 +27,13 @@ public:
 	void update();
 
 private:
+	enum Attr : byte {
+		SAMPLE_PER_SECOND,
+		LOG_FILE_NAME,
+		LOG_FILE_FORMAT,		
+		LOG_FILE_NUM	
+	};
+
 	String logFileName;
 	Timer logTimer;
 

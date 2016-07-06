@@ -1,35 +1,19 @@
-#include "CanInterface.h"
-#include "ChannelsBuffer.h"
-#include "ConsoleForm.h" 
 
-//#define DEBUG_CAN	1
+#include "CanInterface.h"
+
 
 void CanInterfaceClass::init(int canSpeed, unsigned short minID, unsigned short maxID){
 	Can0.begin(canSpeed);
 	Can0.watchForRange(minID, maxID);
-
-	LOGLN("CAN_INTERFACE_INIT");
-	consoleForm.println("CAN_INTERFACE_INIT");
-}
-
-void CanInterfaceClass::readAll(){
-	while (Can0.available()){
-		Can0.read(frame);
-		channelsBuffer.setValue(frame.id, frame.data.bytes, frame.length);
-
-#ifdef DEBUG_CAN
-		LOG("Read "); LOG(frame.id); 
-		LOG(" size "); LOG(frame.length); 
-		LOG(" data "); LOG_ARR(frame.data.bytes, frame.length, HEX);
-#endif
-	}
 }
 
 CAN_FRAME& CanInterfaceClass::read(){
+	//Return next available can frame
 	if (Can0.available()){
 		Can0.read(frame);
 	}
 	else{
+		//Invalid frame if nothing available
 		frame.id = 0;
 		frame.length = 0;
 	}
@@ -37,6 +21,7 @@ CAN_FRAME& CanInterfaceClass::read(){
 }
 
 void CanInterfaceClass::send(unsigned short id, byte* data, byte size){
+	//Send frame over can
 	frame.id = id;
 	frame.length = size;
 	memcpy(frame.data.bytes, data, size);

@@ -13,7 +13,9 @@
 #include <ByteBuffer.h>
 #include <Vector.h>
 
+#include "Channel.h"
 #include "ChannelsConfig.h"
+
 
 class ChannelsBufferClass {
 
@@ -22,17 +24,19 @@ public:
 	void debug();
 
 	template <typename T>
-	T getValueAs(unsigned short id){
+	T getValueAs(unsigned short id, bool clearUpdatedFlag = false){
 		int index = channelsConfig.getChannelIndex(id);
 		if (index != -1){
-			updateFlags.clearBit(index);
+			if (clearUpdatedFlag){
+				updateFlags.clearBit(index);
+			}
 			return buffer[index].as<T>();
 		}
 		return NAN;
 	}
 
 	ByteBuffer getValueAsByteArray(unsigned short id);
-	String getValueAsString(unsigned short id);
+	String getValueAsString(unsigned short id, bool clearUpdatedFlag = false);
 	bool isValueUpdated(unsigned short id);
 
 	void setValue(unsigned short id, byte* data, unsigned short size);

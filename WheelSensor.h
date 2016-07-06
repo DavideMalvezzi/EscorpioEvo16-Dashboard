@@ -45,6 +45,7 @@ public:
 	float getRelativeSpace() { return RelativeSpace; }
 	uint32_t getRelativeMillis() { return TimeMillis-LastFinishTime; }
 	uint32_t getLastRelativeMillis() { return LastRelativeMillis; }
+	void reset();
 
 };
 

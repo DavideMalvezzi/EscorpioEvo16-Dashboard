@@ -4,6 +4,7 @@
  Author:	Davide Malvezzi
 */
 
+#include "Channel.h"
 #include "ConsoleForm.h"
 #include "DebugForm.h"
 #include "CanInterface.h"
@@ -12,14 +13,16 @@
 #include "DataLogger.h"
 #include "DisplayInterface.h"
 #include "Interprete.h"
+#include "LCDForm.h"
+#include "LCDStringList.h"
+#include "LCDStringMsg.h"
 #include "MainForm.h"
 #include "MapsForm.h"
 #include "PhoneInterface.h"
 #include "StrategySettings.h"
-#include "variant.h"
+#include "variant.h"	//TODO: activate WDT in variant.cpp
 #include "WheelSensor.h"
 
-#include <ArduinoJson.h>
 #include <BitArray.h>
 #include <Button.h>
 #include <ByteBuffer.h>
@@ -49,152 +52,108 @@ int loops;
 unsigned long avgExecutionTime;
 Timer t, sec;
 
+//Inits
+void initPorts();
+void initDataLogger();
+void initStategy();
+void initButtons();
+//Updates
+void updateDataLogger();
+void updateStrategy();
+
+#define INIT_DEBUG	1
+#define LOOP_DEBUG	1
 
 void setup() {
-	INIT_SERIAL(Serial, SERIAL_BAUD);
-	INIT_SD(SD, SD_SS_PIN);
-
-	pinMode(RED_LED, OUTPUT);
-	pinMode(YELLOW_LED, OUTPUT);
-	digitalWrite(RED_LED, LOW);
-	digitalWrite(YELLOW_LED, LOW);
+	//Serial, SPI, digital pin
+	initPorts();
 
 	//Display
 	displayInterface.init();
+#ifdef INIT_DEBUG
+	LOGLN(F("DISPLAY_INIT"));
+	consoleForm.println(F("DISPLAY_INIT"));
+#endif
 
-	//Can
-	canInterface.init(CAN_BPS_125K);
+	//Can, Channels
+	initDataLogger();
+#ifdef INIT_DEBUG
+	LOGLN(F("DATALOGGER SETTINGS"));
+	LOGLN(F("DATALOGGER_INIT"));
+	//channelsConfig.debug(); 	//Print channels list
+	consoleForm.println(F("DATALOGGER_INIT"));
+#endif
 
-	//Datalogger
-	LOGLN("DATALOGGER SETTINGS");
-	channelsConfig.init();
-	//channelsConfig.debug();	//Print channels list
-	channelsBuffer.init();
-	dataLogger.init();
+	//WheelSensor, Strategy
+	//initStategy();
+#ifdef INIT_DEBUG
+	LOGLN(F("STRATEGY_INIT"));
+	consoleForm.println(F("STRATEGY_INIT"));
+#endif
 
-	
-	//WheelSensor
-	wheelSensor.init();
-	onResetButtonPress();
-	/*
-	//Strategy
-	LOGLN("STRATEGY SETTINGS")
-	strategySettings.init();
-	//strategySettings.debugGPSSettings();
-
-	strategy.setTFirstProfile(strategySettings.FirstProfile[0]);
-	strategy.setSFirstProfile(strategySettings.FirstProfile[1]);
-	strategy.setTProfile(strategySettings.Profile[0]);
-	strategy.setSProfile(strategySettings.Profile[1]);
-	strategy.setTLastProfile(strategySettings.LastProfile[0]);
-	strategy.setSLastProfile(strategySettings.LastProfile[1]);
-	strategy.setTrackData(strategySettings.TrackData);
-	strategy.init();
-	strategyTimer.setDuration(STRATEGY_STEP_PERIOD).start();
-	*/
 	//Phone
 	phoneInterface.init();
+#ifdef INIT_DEBUG
+	LOGLN(F("PHONE_INTERFACE_INIT"));
+	consoleForm.println(F("PHONE_INTERFACE_INIT"));
+#endif
 
-	/*
-	SdFile root = SD.getRoot();
-	String path;
-	
-	root.ls();
+	//Physical buttons
+	initButtons();
+#ifdef INIT_DEBUG
+	LOGLN(F("BUTTONS_INIT"));
+	consoleForm.println(F("BUTTONS_INIT"));
+#endif
 
-	
-	root.rewind();
-	path = root.getNextFilePath();
-	while (path.length()){
-		Serial.println(path);
-		path = root.getNextFilePath();
-	}
-	*/
+	//Notify init completed
+#ifdef INIT_DEBUG
+	LOGLN(F("INIT_COMPLETED"));
+	consoleForm.println(F("INIT_COMPLETED"));
+#endif
 
+	//Advance to the main form
+	onChangeFormButtonPress();	
 
-	Button::setMaxNumber(BUTTON_NUM);
-	//Reverse logic rising edge = release falling edge = pressed
-	Button::add(RESET_BUTTON_PIN, NULL, &onResetButtonPress);
-	Button::add(CALL_BUTTON_PIN, NULL, &onCallButtonPress);
-	Button::add(CHANGE_FORM_BUTTON_PIN, NULL, &onChangeFormButtonPress);
-
-	LOGLN("INIT_COMPLETED");
-	consoleForm.println("INIT_COMPLETED");
-
-	onChangeFormButtonPress();	//Advance to main form
-
+	//TODO: remove
+	//Init test stuff
 	sec.setDuration(1000).start();
 	avgExecutionTime = 0;
 	loops = 0;
 
-	WDT_Disable(WDT);
+	//TODO: enable
+	//Watchdog timer
+	//WDT_Disable(WDT);
 }
 
 void loop() {
-	WDT_Restart(WDT);
+	//Reset Watchdog
+	//WDT_Restart(WDT);
 
+	//Test execution time
 	t.start();
+	/////////////////////
 
-	//Can update
-	//canInterface.readAll();
+	//Read data from Can and save on SD
+	updateDataLogger();
 
-	//Wheelsensor update
-	
-	if (channelsBuffer.isValueUpdated(CAN_PWR)){
-		wheelSensor.setPower(channelsBuffer.getValueAs<float>(CAN_PWR));
-		LOGLN("WHEEL_SENSOR_UPDATED_POWER");
-	}
-	/*
+	//Update WheelSensor, WayPoints and Strategy
+	//TODO: uncomment
+	//updateStrategy();
 
-	//Waypoint check
-	if (channelsBuffer.isValueUpdated(CAN_GPSVALID)){
-		if (channelsBuffer.getValueAs<bool>(CAN_GPSVALID)){
-			int i = 0;
-			double lat = channelsBuffer.getValueAs<float>(CAN_LAT);
-			double lon = channelsBuffer.getValueAs<float>(CAN_LON);
-			while (i < strategySettings.getWayPointsNum() && !strategySettings.getWayPoint(i).ProcessNewPoint(lat, lon))i++;
-
-			if (i < strategySettings.getWayPointsNum()){
-				wheelSensor.processWayPoint(i);
-				LOGLN("WAY_POINT_FOUND");
-				channelsBuffer.setValue(CAN_WAYPOINT, (byte*)&i, 1);
-			}
-		}
-	}
-	
-
-	//Strategy update
-	//TODO: step each 500ms and save values in channel buffer
-	
-	if (strategyTimer.hasFinished()){
-		LOGLN("Step");
-		strategy.step(
-			wheelSensor.getLap(),
-			wheelSensor.getRelativeSpace() * 100,
-			wheelSensor.getRelativeMillis() / 10,
-			wheelSensor.getSpeed() * 360
-		);
-		strategyTimer.start();
-	}
-	
-
-
-	//TODO: on update save values inside channel buffer
 	//Phone update
 	phoneInterface.update();
-	*/
+
+	//Buttons update
+	Button::update();
+
 	//Display update
 	displayInterface.update();
 
-	//Datalogger update
-	//dataLogger.update();
 
-	Button::update();
-
-	//Execution time
+	//Test execution time
 	avgExecutionTime += t.elapsedTime();
 	loops++;
 
-	/*
 	if (sec.hasFinished()){
 		LOG("Loop call: "); LOG(loops); 
 		LOG("       avgTime: "); LOG((float)avgExecutionTime / loops);
@@ -203,59 +162,129 @@ void loop() {
 		loops = 0;
 		sec.start();
 	}
-	*/
 	
+	//////////////////////
+}
+
+//Inits functions
+void initPorts(){
+	//Init ports
+	INIT_SERIAL(Serial, SERIAL_BAUD);
+	INIT_SD(SD, SD_SS_PIN);
+
+	pinMode(RED_LED, OUTPUT);
+	pinMode(YELLOW_LED, OUTPUT);
+	digitalWrite(RED_LED, LOW);
+	digitalWrite(YELLOW_LED, LOW);
+}
+
+void initDataLogger(){
+	//Can
+	canInterface.init(CAN_BPS_125K);
+
+	//Datalogger
+	if (!channelsConfig.init()){
+		consoleForm.println(F("Channels configuration file not found!"));
+		ASSERT(false, F("Channels configuration file not found!"));
+	}
+	channelsBuffer.init();
+	dataLogger.init();
+}
+
+void initStategy(){
+	//WheelSensor
+	wheelSensor.init(); //Reset is called in the init
+
+	//Strategy
+	strategySettings.init();
+	strategy.setTFirstProfile(strategySettings.FirstProfile[0]);
+	strategy.setSFirstProfile(strategySettings.FirstProfile[1]);
+	strategy.setTProfile(strategySettings.Profile[0]);
+	strategy.setSProfile(strategySettings.Profile[1]);
+	strategy.setTLastProfile(strategySettings.LastProfile[0]);
+	strategy.setSLastProfile(strategySettings.LastProfile[1]);
+	strategy.setTrackData(strategySettings.TrackData);
+	strategy.init();
+
+	strategyTimer.setDuration(STRATEGY_STEP_PERIOD).start();
+}
+
+void initButtons(){
+	//Reverse logic rising edge = release falling edge = pressed
+	Button::setMaxNumber(BUTTON_NUM);
+	Button::add(RESET_BUTTON_PIN, NULL, &onResetButtonPress);
+	Button::add(CALL_BUTTON_PIN, NULL, &onCallButtonPress);
+	Button::add(CHANGE_FORM_BUTTON_PIN, NULL, &onChangeFormButtonPress);
+}
+
+//Update functions
+void updateDataLogger(){
+	CAN_FRAME frame;
+
+	//Can update
+	frame = canInterface.read();
+	while (frame.length != 0){
+		channelsBuffer.setValue(frame.id, frame.data.bytes, frame.length);
+		frame = canInterface.read();
+	}
+	
+	//Datalogger update
+	dataLogger.update();
+}
+
+void updateStrategy(){
+	//Wheelsensor update
+	if (channelsBuffer.isValueUpdated(CanID::MOTOR_POWER)){
+		//true -> clear updated flag so it is not updated while a new while is received
+		wheelSensor.setPower(channelsBuffer.getValueAs<float>(CanID::MOTOR_POWER, true));
+	}
+
+	//Waypoint check
+	if (channelsBuffer.isValueUpdated(CanID::GPS_VALID)){
+		//true -> set updated flag to false, so while a new value is not received skip the control
+		if (channelsBuffer.getValueAs<bool>(CanID::GPS_VALID, true)){
+			byte i = 0;
+			double lat = channelsBuffer.getValueAs<float>(CanID::GPS_LATITUDE);
+			double lon = channelsBuffer.getValueAs<float>(CanID::GPS_LONGITUDE);
+
+			//Look if inside a waypoint 
+			while (i < strategySettings.getWayPointsNum() 
+				&& !strategySettings.getWayPoint(i).ProcessNewPoint(lat, lon))i++;
+
+			//If found -> process
+			if (i < strategySettings.getWayPointsNum()){
+				wheelSensor.processWayPoint(i);
+				channelsBuffer.setValue(CanID::GPS_WAYPOINT, &i, sizeof(byte));
+			}
+		}
+	}
+
+	//Strategy update
+	if (strategyTimer.hasFinished()){
+		strategy.step(
+			wheelSensor.getLap(),
+			wheelSensor.getRelativeSpace() * 100,
+			wheelSensor.getRelativeMillis() / 10,
+			wheelSensor.getSpeed() * 360
+		);
+		strategyTimer.start();
+	}
 }
 
 //Buttons events
 void onResetButtonPress(void* data){
-	wheelSensor.Speed = 0;
-	wheelSensor.RelativeSpace = 0;
-	wheelSensor.FullLaps = 0;
-	wheelSensor.AvgSpeed = 0;
-	wheelSensor.Space = 0;
-	wheelSensor.TimeMillis = 0;
-	wheelSensor.LastFinishTime = 0;
-	wheelSensor.LastRelativeMillis = 0;
-	wheelSensor.Energy = 0;
 	LOGLN("WHEEL_SENSOR_RESET_BUTTON_PRESSED");
+	wheelSensor.reset();
 }
 
 void onCallButtonPress(void* data){
-	if (!phoneInterface.isCallActive()){
-		BLSerial.println(START_CALL_CMD);
-	}
-	else{
-		BLSerial.println(END_CALL_CMD);
-	}
-	phoneInterface.callActive = !phoneInterface.callActive;
 	LOGLN("CALL_BUTTON_PRESSED");
+	phoneInterface.call();
 }
 
 void onChangeFormButtonPress(void* data){
-	displayInterface.nextForm();
 	LOGLN("FORM CHANGE_BUTTON_PRESSED");
+	displayInterface.nextForm();
 }
 
 
-
-
-
-#ifdef __arm__
-// should use uinstd.h to define sbrk but Due causes a conflict
-extern "C" char* sbrk(int incr);
-#else  // __ARM__
-extern char *__brkval;
-#endif  // __arm__
-
-int freeMemory() {
-	char top;
-#ifdef __arm__
-	return &top - reinterpret_cast<char*>(sbrk(0));
-#elif defined(CORE_TEENSY) || (ARDUINO > 103 && ARDUINO != 151)
-	return &top - __brkval;
-
-#else  // __arm__
-	return __brkval ? &top - __brkval : &top - __malloc_heap_start;
-#endif  // __arm__
-}

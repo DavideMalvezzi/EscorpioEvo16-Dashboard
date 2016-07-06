@@ -16,9 +16,6 @@
     <Filter Include="Source Files\DisplayForms">
       <UniqueIdentifier>{2867a2d9-c1be-4008-ad79-0ad007ee0216}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\DisplayForms">
-      <UniqueIdentifier>{09212841-78d8-40b4-8003-4b7456b9705f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Datalogger">
       <UniqueIdentifier>{5ab3816f-067d-4952-9ee9-024fde9fca6c}</UniqueIdentifier>
     </Filter>
@@ -31,23 +28,32 @@
     <Filter Include="Source Files\Strategy">
       <UniqueIdentifier>{650757b1-52ed-41bb-8b41-3eda135f7cde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\DisplayForms\Widgets">
+      <UniqueIdentifier>{59c88470-a7de-4573-ab93-2141a3294009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ExtInterfaces">
+      <UniqueIdentifier>{7cc272b9-8bef-4e81-8690-33feaa552c70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ExtInterfaces">
+      <UniqueIdentifier>{c47893c9-bbed-44bc-8367-cd6869f6e33a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Display">
+      <UniqueIdentifier>{09212841-78d8-40b4-8003-4b7456b9705f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Display\Widgets">
+      <UniqueIdentifier>{3f7bdde8-3d76-4b21-b1bf-646f7a07a2b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Display\Forms">
+      <UniqueIdentifier>{f6f9b719-0fa7-4506-91cb-ce65932f89d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DisplayForms\Forms">
+      <UniqueIdentifier>{420005d9-b449-48cc-be6f-042cd2e6c433}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DashBoard.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CanInterface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PhoneInterface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainForm.h">
-      <Filter>Header Files\DisplayForms</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugForm.h">
-      <Filter>Header Files\DisplayForms</Filter>
-    </ClInclude>
     <ClInclude Include="ChannelsBuffer.h">
       <Filter>Header Files\Datalogger</Filter>
     </ClInclude>
@@ -73,38 +79,47 @@
       <Filter>Header Files\Strategy</Filter>
     </ClInclude>
     <ClInclude Include="DisplayInterface.h">
-      <Filter>Header Files\DisplayForms</Filter>
+      <Filter>Header Files\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.REV6 (Test).vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LCDStringList.h">
+      <Filter>Header Files\Display\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="CanInterface.h">
+      <Filter>Header Files\ExtInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneInterface.h">
+      <Filter>Header Files\ExtInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Channel.h">
+      <Filter>Header Files\Datalogger</Filter>
+    </ClInclude>
+    <ClInclude Include="LCDForm.h">
+      <Filter>Header Files\Display\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleForm.h">
-      <Filter>Header Files\DisplayForms</Filter>
+      <Filter>Header Files\Display\Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugForm.h">
+      <Filter>Header Files\Display\Forms</Filter>
+    </ClInclude>
+    <ClInclude Include="MainForm.h">
+      <Filter>Header Files\Display\Forms</Filter>
     </ClInclude>
     <ClInclude Include="MapsForm.h">
-      <Filter>Header Files\DisplayForms</Filter>
+      <Filter>Header Files\Display\Forms</Filter>
     </ClInclude>
-    <ClInclude Include="Visual Micro\.REV4 (Modifica driver loader multimap da testare).vsarduino.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="LCDStringMsg.h">
+      <Filter>Header Files\Display\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CanInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PhoneInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainForm.cpp">
-      <Filter>Source Files\DisplayForms</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugForm.cpp">
-      <Filter>Source Files\DisplayForms</Filter>
-    </ClCompile>
     <ClCompile Include="ChannelsBuffer.cpp">
       <Filter>Source Files\Datalogger</Filter>
     </ClCompile>
     <ClCompile Include="ChannelsConfig.cpp">
-      <Filter>Source Files\Datalogger</Filter>
-    </ClCompile>
-    <ClCompile Include="DataLogger.cpp">
       <Filter>Source Files\Datalogger</Filter>
     </ClCompile>
     <ClCompile Include="WheelSensor.cpp">
@@ -125,11 +140,32 @@
     <ClCompile Include="DisplayInterface.cpp">
       <Filter>Source Files\DisplayForms</Filter>
     </ClCompile>
+    <ClCompile Include="LCDStringList.cpp">
+      <Filter>Source Files\DisplayForms\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="CanInterface.cpp">
+      <Filter>Source Files\ExtInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneInterface.cpp">
+      <Filter>Source Files\ExtInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="DataLogger.cpp">
+      <Filter>Source Files\Datalogger</Filter>
+    </ClCompile>
     <ClCompile Include="ConsoleForm.cpp">
-      <Filter>Source Files\DisplayForms</Filter>
+      <Filter>Source Files\DisplayForms\Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugForm.cpp">
+      <Filter>Source Files\DisplayForms\Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="MainForm.cpp">
+      <Filter>Source Files\DisplayForms\Forms</Filter>
     </ClCompile>
     <ClCompile Include="MapsForm.cpp">
-      <Filter>Source Files\DisplayForms</Filter>
+      <Filter>Source Files\DisplayForms\Forms</Filter>
+    </ClCompile>
+    <ClCompile Include="LCDStringMsg.cpp">
+      <Filter>Source Files\DisplayForms\Widgets</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

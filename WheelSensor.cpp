@@ -170,9 +170,19 @@ void WheelSensorClass::init(){
 	startTimer(TC2, 0, TC6_IRQn); //TC2 channel 0, the IRQ for that channel
 	Timer5.attachInterrupt(Timer5_Handler).setFrequency(1000).start();
 
-	LOGLN("WHEEL_SENSOR_INIT");
-	consoleForm.println("WHEEL_SENSOR_INIT");
+	reset();
 }
 
+void WheelSensorClass::reset(){
+	this->Speed = 0;
+	this->RelativeSpace = 0;
+	this->FullLaps = 0;
+	this->AvgSpeed = 0;
+	this->Space = 0;
+	this->TimeMillis = 0;
+	this->LastFinishTime = 0;
+	this->LastRelativeMillis = 0;
+	this->Energy = 0;
+}
 
 WheelSensorClass wheelSensor;

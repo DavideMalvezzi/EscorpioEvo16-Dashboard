@@ -1,489 +1,569 @@
 
 #include "MapsForm.h"
 
+//Form
 void MapsFormClass::init(Genie& genie){
-	leftList.reserve(LIST_BUFFER_SIZE);
-	rightList.reserve(LIST_BUFFER_SIZE);
-	statusString.reserve(16);
-	motorCfg.initWithFile(MOTOR_CFG_FILE);
-	mapCfg.initWithFile(MAPS_CFG_FILE);
+	//Init string-list objs
+	propList.init(PROP_TEXT_LIST, LIST_BUFFER_SIZE, &genie);
+	detailList.init(DETAIL_TEXT_LIST, LIST_BUFFER_SIZE, &genie);
+	valueList.init(VALUE_TEXT_LIST, LIST_BUFFER_SIZE, &genie); 
+	statusMsg.init(STATUS_STRING, &genie);
 
-	currentState = GETTING_DATA_STATE;
+	//Load motor cfgs
+	if (!motorCfg.loadFromFile(MOTOR_CFG_FILE)){
+		consoleForm.println(F("Error loading motor config file!"));
+		ASSERT(false, F("Error loading motor config file!"));
+	}
+
+	//Load mapsets cfgs
+	if (!mapCfg.loadFromFile(MAPS_CFG_FILE)){
+		consoleForm.println(F("Error loading map config file!"));
+		ASSERT(false, F("Error loading map config file!"));
+	}
 }
-
+//OK
 void MapsFormClass::update(Genie& genie){
-
+	//Nothing to do here
 }
-
+//OK
 void MapsFormClass::onEnter(Genie& genie){
-	genie.WriteObject(GENIE_OBJ_STRINGS, LEFT_TEXT_LIST, 0);
-	genie.WriteObject(GENIE_OBJ_STRINGS, RIGHT_TEXT_LIST, 0);
-	genie.WriteObject(GENIE_OBJ_STRINGS, STATUS_STRING, 0);
-
+	clearAll();
 }
-
+//OK
 void MapsFormClass::onEvent(Genie& genie, genieFrame& evt){
+	//Button press handler
 	if (evt.reportObject.cmd == GENIE_REPORT_EVENT){
 		if (evt.reportObject.object == GENIE_OBJ_WINBUTTON){
 			switch (evt.reportObject.index){
-			case GET_DATA_BUTTON:
-				onGetDataButtonPressed(genie);
-				break;
-			case LOAD_MOT_BUTTON:
-				onLoadMotorButtonPressed(genie);
-				break;
-			case LOAD_MAP_BUTTON:
-				onLoadMapButtonPressed(genie);
-				break;
-			case OK_BUTTON:
-				onOkButtonPressed(genie);
-				break;
-			case UP_BUTTON:
-				onUpButtonPressed(genie);
-				break;
-			case DOWN_BUTTON:
-				onDownButtonPressed(genie);
-				break;
+				case GET_MOTOR_BUTTON:
+					getMotorData();
+					break;
+				case GET_MAPSET_BUTTON:
+					getMapSetData();
+					break;
+				case LOAD_MOT_BUTTON:
+					onLoadMotorButtonPressed(genie);
+					break;
+				case LOAD_MAP_BUTTON:
+					onLoadMapButtonPressed(genie);
+					break;
+				case OK_BUTTON:
+					onOkButtonPressed(genie);
+					break;
+				case UP_BUTTON:
+					onUpButtonPressed(genie);
+					break;
+				case DOWN_BUTTON:
+					onDownButtonPressed(genie);
+					break;
+				case ENTER_BUTTON:
+					onEnterButtonPressed(genie);
+					break;
+				case EXIT_BUTTON:
+					onExitButtonPressed(genie);
+					break;
 			}
 		}
 	}
 
 }
+//OK
+void MapsFormClass::clearAll(){
+	currentState = NOTHING_LOADED;
 
-void MapsFormClass::onGetDataButtonPressed(Genie &genie){
-	currentState = GETTING_DATA_STATE;
-	clearString(genie, leftList, LEFT_TEXT_LIST);
-	clearString(genie, rightList, RIGHT_TEXT_LIST);
-	clearString(genie, statusString, STATUS_STRING);
+	//Give focus to the string-list
+	propList.clear();
+	detailList.clear();
+	valueList.clear();
+	statusMsg.clear();
 
-	canInterface.send(CAN_DRIVER_CMD, (byte*)GET_DATA_CMD, sizeof(GET_DATA_CMD));
+	propList.repaint();
+	detailList.repaint();
+	valueList.repaint();
+	statusMsg.repaint();
 
-	if (getMotorData()){
-		if (getMapData()){
-			genie.WriteStr(LEFT_TEXT_LIST, (char*)leftList.c_str());
-			genie.WriteStr(RIGHT_TEXT_LIST, (char*)rightList.c_str());
-		}
-	}
-	genie.WriteStr(STATUS_STRING, (char*)statusString.c_str());
+	workingList = &propList;
 
 }
 
-bool MapsFormClass::getMotorData(){
-	CAN_FRAME frame;
+
+
+//OK
+void MapsFormClass::getMotorData(){
+	Motor m;
+	String value;
+	StreamResult sResult;
+
+	//Start the stream
+	sResult = waitForStreamOverCan(CAN_DRIVER_CMD, GET_MOTOR_DATA_CMD, (byte*)&m, sizeof(Motor));
+	//Clear display
+	clearAll();
+
+	//Print result
+	switch (sResult){
+		case SUCCES:
+			currentState = GETTING_MOTOR_STATE;
+			statusMsg.setMessage("Successful transfer!");
+			workingList = &detailList;
+
+			for (int i = 0; i < Motor::ATTR_COUNT; i++){
+				value.remove(0, value.length());
+				value += motorCfg.getProperty(i).getName();
+				value += " = ";
+			
+				switch (i){
+					case Motor::Name:
+						value += m.name;
+						break;
+
+					case Motor::DefaultMap:
+						value += (int)m.defaultMap;
+						break;
+
+					case Motor::Friction:
+						value += m.friction;
+						break;
+
+					case Motor::FrictionGrad:
+						value += String(m.frictionGrad, 6);
+						break;
+
+					case Motor::SpeedConst:
+						value += m.speedConst;
+						break;
+
+					case Motor::SpeedTorqueGrad:
+						value += String(m.speedTorqueGrad, 3);
+						break;
+
+					case Motor::TorqueConst:
+						value += m.torqueConst;
+						break;
+				}
+
+				detailList.addElement(value);
+			}
+
+			detailList.repaint();
+			break;
+
+		case ERROR:
+			currentState = NOTHING_LOADED;
+			statusMsg.setMessage("Error on transfer!");
+			break;
+
+		case TIMEOUT:
+			currentState = NOTHING_LOADED;
+			statusMsg.setMessage("Transfer timed out!");
+			break;
+
+		case WRONG_ACK:
+			currentState = NOTHING_LOADED;
+			statusMsg.setMessage("Wrong ack!");
+			break;
+	}
+
+}
+//OK
+void MapsFormClass::getMapSetData(){
+	MotorMap mapSet[MAPS_PER_SET];
+	String value;
+	StreamResult sResult;
+
+	//Start the stream
+	sResult = waitForStreamOverCan(CAN_DRIVER_CMD, GET_MAPSET_DATA_CMD, (byte*)&mapSet, sizeof(MotorMap) * MAPS_PER_SET);
+	//Clear the display
+	clearAll();
+
+	//Print result
+	switch (sResult){
+		case SUCCES:
+			currentState = GETTING_MAPSET_STATE;
+			statusMsg.setMessage("Successful transfer!");
+			workingList = &detailList;
+			//TODO: print
+			detailList.repaint();
+			break;
+
+		case ERROR:
+			currentState = NOTHING_LOADED;
+			statusMsg.setMessage("Error on transfer!");
+			break;
+
+		case TIMEOUT:
+			currentState = NOTHING_LOADED;
+			statusMsg.setMessage("Transfer timed out!");
+			break;
+		case WRONG_ACK:
+			currentState = NOTHING_LOADED;
+			statusMsg.setMessage("Wrong ack!");
+			break;
+
+	}
+
+}
+
+
+
+//Set
+//OK
+StreamResult MapsFormClass::setMotorData(){
 	Motor motor;
-	Timer timeOut;
-	int memIndex;
+	//Load struct from cfg
+	motorCfg.toStruct((byte*)&motor, MOTOR_TYPES, propList.getCurrentElement() * Motor::ATTR_COUNT);
+	//Stream
+	return streamOverCan(CAN_DRIVER_CMD, SET_MOT_DATA_CMD, (byte*)&motor, sizeof(Motor));
 
-	timeOut.setDuration(CMD_TIMEOUT).start();
+}
+//OK
+StreamResult MapsFormClass::setMapData(){
+	MotorMap mapset[MAPS_PER_SET];
 
-	memIndex = 0;
-	while (!timeOut.hasFinished() && memIndex < sizeof(Motor)){
-		frame = canInterface.read();
-		if (frame.id == CAN_DRIVER_CMD){
-			if (strcmp((char*)frame.data.bytes, INVALID_RX_CMD) == 0){
-				statusString.concat(F("Invalid\nconfig"));
-				return false;
-			}
-			memcpy(
-				(byte*)(&motor) + memIndex,
-				frame.data.bytes,
-				memIndex + frame.length > sizeof(Motor) ? sizeof(Motor)-memIndex : frame.length
-				);
-			memIndex += frame.length;
+	//Load selected mapset
+	Configuration maps;
+	maps.loadFromProperty(mapCfg.getProperty(propList.getCurrentElement()));
+
+	if (maps.getPropertyCount() / MotorMap::ATTR_COUNT == MAPS_PER_SET){
+		//Load struct from cfg
+		for (int i = 0; i < MAPS_PER_SET; i++){
+			maps.toStruct((byte*)&mapset[i], MAPS_TYPES, i * MotorMap::ATTR_COUNT);
 		}
+
+		//Stream
+		return streamOverCan(CAN_DRIVER_CMD, SET_MAP_DATA_CMD, (byte*)mapset, sizeof(MotorMap) * MAPS_PER_SET);
 	}
 
-	if (memIndex < sizeof(Motor)){
-		statusString.concat(F("Receive\ntimed\nout"));
-		return false;
-	}
-	else if (motor.ack != getAck((byte*)&motor, sizeof(Motor)-1)){
-		statusString.concat(F("Wrong\nmotor\nack"));
-		LOGLN(motor.ack);
-		LOGLN(getAck((byte*)&motor, sizeof(Motor)-1));
-		return false;
-	}
-	else{
-		leftList.concat(motor.name);
-
-		rightList.concat(motorCfg.getPropertyName(1));
-		rightList.concat('=');
-		rightList.concat(String(motor.torqueConst, 6));
-		rightList.concat("\n");
-
-		rightList.concat(motorCfg.getPropertyName(2));
-		rightList.concat('=');
-		rightList.concat(String(motor.speedConst, 6));
-		rightList.concat("\n");
-
-		rightList.concat(motorCfg.getPropertyName(3));
-		rightList.concat('=');
-		rightList.concat(String(motor.speedTorqueGrad, 6));
-		rightList.concat("\n");
-
-		rightList.concat(motorCfg.getPropertyName(4));
-		rightList.concat('=');
-		rightList.concat(String(motor.friction, 6));
-		rightList.concat("\n");
-
-		rightList.concat(motorCfg.getPropertyName(5));
-		rightList.concat('=');
-		rightList.concat(String(motor.frictionGrad, 6));
-		rightList.concat("\n");
-
-		//statusString.concat(F("Params\nRetrieve\nSuccess"));
-
-	}
-
-	return true;
+	return ABORT;
 }
 
-bool MapsFormClass::getMapData(){
-	CAN_FRAME frame;
-	MotorMap map;
-	Timer timeOut;
-	int memIndex;
 
-	timeOut.setDuration(CMD_TIMEOUT).start();
 
-	memIndex = 0;
-	while (!timeOut.hasFinished() && memIndex < sizeof(MotorMap)){
-		frame = canInterface.read();
-		if (frame.id == CAN_DRIVER_CMD){
-			if (strcmp((char*)frame.data.bytes, INVALID_RX_CMD) == 0){
-				statusString.concat(F("Invalid\nconfig"));
-				return false;
-			}
-			memcpy(
-				(byte*)(&map) + memIndex,
-				frame.data.bytes,
-				memIndex + frame.length > sizeof(MotorMap) ? sizeof(MotorMap)-memIndex : frame.length
-				);
-			memIndex += frame.length;
-		}
-	}
-
-	if (memIndex < sizeof(MotorMap)){
-		statusString.concat(F("Receive\ntimed\nout"));
-		return false;
-	}
-	else if (map.ack != getAck((byte*)&map, sizeof(MotorMap)-1)){
-		statusString.concat(F("Wrong\nmap\nack"));
-		return false;
-	}
-	else{
-
-		for (int i = 0; i < motorCfg.getPropertiesCount() / 4; i++){
-			leftList.concat('\n');
-		}
-		leftList.concat(map.name);
-
-		rightList.concat('\n');
-
-		rightList.concat(mapCfg.getPropertyName(1));
-		rightList.concat('=');
-		rightList.concat(String(map.a0, 6));
-		rightList.concat("\n");
-
-		rightList.concat(mapCfg.getPropertyName(2));
-		rightList.concat('=');
-		rightList.concat(String(map.a1, 6));
-		rightList.concat("\n");
-
-		rightList.concat(mapCfg.getPropertyName(3));
-		rightList.concat('=');
-		rightList.concat(String(map.a2, 6));
-		rightList.concat("\n");
-
-		rightList.concat(mapCfg.getPropertyName(4));
-		rightList.concat('=');
-		rightList.concat(map.useSyncRect);
-		rightList.concat("\n");
-
-		rightList.concat(mapCfg.getPropertyName(5));
-		rightList.concat('=');
-		rightList.concat(map.useSyncSafe);
-		rightList.concat("\n");
-
-		rightList.concat(mapCfg.getPropertyName(6));
-		rightList.concat('=');
-		rightList.concat(String(map.syncTrh, 6));
-		rightList.concat("\n");
-
-		rightList.concat(mapCfg.getPropertyName(7));
-		rightList.concat('=');
-		rightList.concat(map.useEnergyRecovery);
-		rightList.concat("\n");
-
-		rightList.concat(mapCfg.getPropertyName(8));
-		rightList.concat('=');
-		rightList.concat(map.flatOut);
-		rightList.concat("\n");
-
-		rightList.concat(mapCfg.getPropertyName(9));
-		rightList.concat('=');
-		rightList.concat(String(map.flatLev, 6));
-		rightList.concat("\n");
-
-		statusString.concat(F("Params\nretrieve\nsuccess"));
-	}
-
-	return true;
-}
-
+//OK
 void MapsFormClass::onLoadMotorButtonPressed(Genie& genie){
-	currentState = LOADING_MOT_STATE;
-
-	if (motorCfg.getPropertiesCount() > 0){
-		currentListIndex = 0;
-		clearString(genie, leftList, LEFT_TEXT_LIST);
-
-		for (int i = 0; i < motorCfg.getPropertiesCount() / MOTOR; i++){
-			if (i == currentListIndex){
-				leftList.concat('>');
-			}
-			else{
-				leftList.concat(" ");
-			}
-
-			leftList.concat(motorCfg.getProperty(i * MOTOR));
-			leftList.concat('\n');
-		}
-		leftList.remove(leftList.length() - 1); //remove last \n
-
-		genie.WriteStr(LEFT_TEXT_LIST, (char*)leftList.c_str());
-		showConfig(genie);
-	}
-
+	clearAll();
+	loadMotorProperties();
 }
-
+//OK
 void MapsFormClass::onLoadMapButtonPressed(Genie& genie){
-	currentState = LOADING_MAP_STATE;
-
-	if (mapCfg.getPropertiesCount() > 0){
-		currentListIndex = 0;
-		clearString(genie, leftList, LEFT_TEXT_LIST);
-
-		for (int i = 0; i < mapCfg.getPropertiesCount() / MAP; i++){
-			if (i == currentListIndex){
-				leftList.concat('>');
-			}
-			else{
-				leftList.concat(" ");
-			}
-
-			leftList.concat(mapCfg.getProperty(i * MAP));
-			leftList.concat('\n');
-		}
-		leftList.remove(leftList.length() - 1); //remove last \n
-
-		genie.WriteStr(LEFT_TEXT_LIST, (char*)leftList.c_str());
-		showConfig(genie);
-	}
-
+	clearAll();
+	loadMapSetProperties();
 }
-
-void MapsFormClass::onDownButtonPressed(Genie& genie){
-	int current, index;
-
-	if (currentState == LOADING_MAP_STATE || currentState == LOADING_MOT_STATE){
-
-		current = leftList.indexOf('>');
-		leftList.setCharAt(current, 0x20);
-
-		index = leftList.indexOf('\n', current);
-
-		if (index > 0){
-			leftList.setCharAt(index + 1, '>');
-			currentListIndex++;
-		}
-		else{
-			leftList.setCharAt(current, '>');
-		}
-
-		genie.WriteStr(LEFT_TEXT_LIST, (char*)leftList.c_str());
-		showConfig(genie);
-	}
-}
-
+//OK
 void MapsFormClass::onUpButtonPressed(Genie& genie){
-	int current, index = 0;
-
-	if (currentState == LOADING_MAP_STATE || currentState == LOADING_MOT_STATE){
-
-		current = leftList.indexOf('>');
-		leftList.setCharAt(current, 0x20);
-
-		for (int i = 0; i < currentListIndex - 1; i++){
-			index = leftList.indexOf('\n', index);
-		}
-
-		if (index > 0){
-			leftList.setCharAt(index + 1, '>');
-			currentListIndex--;
-		}
-		else{
-			currentListIndex = 0;
-			leftList.setCharAt(0, '>');
-		}
-
-		genie.WriteStr(LEFT_TEXT_LIST, (char*)leftList.c_str());
-		showConfig(genie);
-	}
+	workingList->up();
 }
+//OK
+void MapsFormClass::onDownButtonPressed(Genie& genie){
+	workingList->down();
+}
+//OK
+void MapsFormClass::onEnterButtonPressed(Genie& genie){
+	switch (currentState){
+		case LOADING_MOT_STATE_PROP:
+			loadMotorDetails();
+			workingList->repaint();
+			break;
 
+		case LOADING_MAP_STATE_PROP:
+			loadMapSetDetails();
+			workingList->repaint();
+			break;	
+
+		case LOADING_MAP_STATE_DETAIL:
+			loadMapSetValues();
+			workingList->repaint();
+			break;
+	}	
+}
+//OK
+void MapsFormClass::onExitButtonPressed(Genie& genie){
+	switch (currentState){
+		case LOADING_MOT_STATE_DETAIL:
+			//Clear current list
+			workingList->clear();
+			//Change working list
+			workingList = &propList;
+			//Change state
+			currentState = LOADING_MOT_STATE_PROP;
+			break;
+
+		case LOADING_MAP_STATE_DETAIL:
+			//Clear current list
+			workingList->clear();
+			//Change working list
+			workingList = &propList;
+			//Change state
+			currentState = LOADING_MAP_STATE_PROP;
+			break;
+
+		case LOADING_MAP_STATE_VALUE:
+			//Clear current list
+			workingList->clear();
+			//Change working list
+			workingList = &detailList;
+			//Change state
+			currentState = LOADING_MAP_STATE_DETAIL;
+			break;
+	}
+	
+}
+//OK
 void MapsFormClass::onOkButtonPressed(Genie& genie){
-	clearString(genie, statusString, STATUS_STRING);
+	StreamResult sResult;
 
-	if (currentState == LOADING_MAP_STATE){
-		setMapData();
-	}
-	else if (currentState == LOADING_MOT_STATE){
-		setMotorData();
+	statusMsg.clear();
+	
+	switch (currentState){
+		case LOADING_MOT_STATE_PROP:
+		case LOADING_MOT_STATE_DETAIL:
+			sResult = setMotorData();
+			break;
+
+		case LOADING_MAP_STATE_PROP:
+		case LOADING_MAP_STATE_DETAIL:
+		case LOADING_MAP_STATE_VALUE:
+			sResult = setMapData();
+			break;
+
+		default:
+			return;
 	}
 
-	genie.WriteStr(STATUS_STRING, (char*)statusString.c_str());
+	switch (sResult){
+		case SUCCES:
+			statusMsg.setMessage("Successful transfer!");
+			break;
+
+		case ERROR:
+			statusMsg.setMessage("Error on transfer!");
+			break;
+
+		case TIMEOUT:
+			statusMsg.setMessage("Transfer timed out!");
+			break;
+
+		case ABORT:
+			statusMsg.setMessage("Map number not match!");
+			break;
+	}
 }
 
-void MapsFormClass::setMotorData(){
+
+//Show	
+//OK
+void MapsFormClass::loadMotorProperties(){
+	//Set new state
+	currentState = LOADING_MOT_STATE_PROP;
+
+	//If there are props
+	if (motorCfg.getPropertyCount() > 0){
+		//Clear list
+		propList.clear();
+		//Load motors names
+		for (int i = Motor::Name; i < motorCfg.getPropertyCount(); i += Motor::ATTR_COUNT){
+			propList.addElement(motorCfg.getProperty(i).asString());
+		}
+		//Repaint
+		propList.repaint();
+	}
+
+}
+//OK
+void MapsFormClass::loadMotorDetails(){
+	//Clear detail list
+	detailList.clear();
+	//Load current motor prop's detail
+	for (int i = Motor::Name + 1; i < Motor::ATTR_COUNT; i++){
+		//Add element
+		detailList.addElement(
+			motorCfg.getProperty(
+				propList.getCurrentElement() * Motor::ATTR_COUNT + i
+			).getName() +
+			" = " +
+			motorCfg.getProperty(
+				propList.getCurrentElement() * Motor::ATTR_COUNT + i
+			).asString()
+		);
+	}
+
+	//Change working list
+	workingList = &detailList;
+	//Change state
+	currentState = LOADING_MOT_STATE_DETAIL;
+}
+//OK
+void MapsFormClass::loadMapSetProperties(){
+	//Set new state
+	currentState = LOADING_MAP_STATE_PROP;
+
+	//If there are props
+	if (mapCfg.getPropertyCount() > 0){
+		//Clear list
+		propList.clear();
+		//Load mapset's names
+		for (int i = 0; i < mapCfg.getPropertyCount(); i++){
+			propList.addElement(mapCfg.getProperty(i).getName());
+		}
+		//Repaint
+		propList.repaint();
+	}
+}
+//OK
+void MapsFormClass::loadMapSetDetails(){
+	//Clear detail list
+	detailList.clear();
+
+	//Load selected mapset
+	Configuration mapset;
+	mapset.loadFromProperty(mapCfg.getProperty(propList.getCurrentElement()));
+	
+	//Load current map prop's names
+	for (int i = MotorMap::Name; i < mapset.getPropertyCount(); i += MotorMap::ATTR_COUNT){
+		detailList.addElement(mapset.getProperty(i).asString());
+	}
+
+	//Change working list
+	workingList = &detailList;
+	//Change state
+	currentState = LOADING_MAP_STATE_DETAIL;
+}
+//OK
+void MapsFormClass::loadMapSetValues(){
+	//Clear detail list
+	valueList.clear();
+
+	//Load selected mapset
+	Configuration mapset;
+	mapset.loadFromProperty(mapCfg.getProperty(propList.getCurrentElement()));
+
+	//Load current map prop's values
+	for (int i = MotorMap::Name + 1; i < MotorMap::ATTR_COUNT; i++){
+		valueList.addElement(
+			mapset.getProperty(
+				detailList.getCurrentElement() * MotorMap::ATTR_COUNT + i
+			).getName() +
+			" = " +
+			mapset.getProperty(
+				detailList.getCurrentElement() * MotorMap::ATTR_COUNT + i
+			).asString()
+		);
+	}
+
+	//Change working list
+	workingList = &valueList;
+	//Change state
+	currentState = LOADING_MAP_STATE_VALUE;
+}
+
+
+//Rx/Tx
+StreamResult MapsFormClass::streamOverCan(unsigned short canID, const char* openStreamCmd, byte* buffer, int size){
+	byte ack;
 	int r, q;
 	Timer timeOut;
 	CAN_FRAME frame;
-	Motor motor;
 
-	memcpy(motor.name, motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_NAME).c_str(), sizeof(motor.name));
-	motor.defaulMap = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_DEF_MAP).toInt();
-	motor.friction = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_FRICTION).toFloat();
-	motor.frictionGrad = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_FRICTION_GRAD).toFloat();
-	motor.speedConst = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_SPEED_CONST).toFloat();
-	motor.speedTorqueGrad = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_SPD_TORQUE_GRAD).toFloat();
-	motor.torqueConst = motorCfg.getProperty(MOTOR * currentListIndex + MOTOR_TORQUE_CONST).toFloat();
-	motor.ack = getAck((byte*)&motor, sizeof(Motor)-1);
+	//Open the stream over can
+	canInterface.send(canID, (byte*)openStreamCmd, strlen(openStreamCmd));
 
+	//Needed packets to send
+	q = size / 8;
+	r = size % 8;
+	ack = getAck(buffer, size);
 
-	canInterface.send(CAN_DRIVER_CMD, (byte*)SET_MOT_DATA_CMD, sizeof(SET_MOT_DATA_CMD));
+	LOGLN(size);
+	LOG_ARR(buffer, size, HEX);
 
-	q = sizeof(Motor) / 8;
-	r = sizeof(Motor) % 8;
-
+	//Send packets
 	for (int i = 0; i < q; i++){
-		canInterface.send(CAN_DRIVER_CMD, (byte*)(&motor) + 8 * i, 8);
+		canInterface.send(canID, buffer + 8 * i, 8);
+		delay(PACKET_DELAY);
 	}
 
+	//Send remaining bytes
 	if (r != 0){
-		canInterface.send(CAN_DRIVER_CMD, (byte*)(&motor) + 8 * q, r);
+		canInterface.send(canID, buffer + 8 * q, r);
+		delay(PACKET_DELAY);
 	}
 
+	//Send ack
+	canInterface.send(canID, &ack, 1);
+
+	//Init timeout timer
 	timeOut.setDuration(CMD_TIMEOUT).start();
 
 	while (!timeOut.hasFinished()){
+		//Read all response frame
 		frame = canInterface.read();
-		if (frame.id == CAN_DRIVER_CMD){
-			if (strcmp((char*)frame.data.bytes, OK_RX_CMD) == 0){
-				statusString.concat(F("Data\nloading\ncompleted"));
-				return;
+		//If the packet has the stream id
+		if (frame.id == canID){
+			//if response is OK
+			if (strcmp((const char*)frame.data.bytes, OK_CMD) == 0){
+				return SUCCES;
 			}
-			else if (strcmp((char*)frame.data.bytes, ERROR_RX_CMD) == 0){
-				statusString.concat(F("Data\nloading\nfailed"));
-				return;
+			//if response is ERROR
+			else if (strcmp((const char*)frame.data.bytes, ERROR_CMD) == 0){
+				return ERROR;
 			}
 		}
 	}
 
-	statusString.concat(F("Response\ntimed\nout"));
+	return TIMEOUT;
 }
-
-void MapsFormClass::setMapData(){
-	byte cmd[sizeof(SET_MOT_DATA_CMD)];
-	int r, q;
+//OK
+StreamResult MapsFormClass::waitForStreamOverCan(unsigned short canID, const char* openStreamCmd, byte* buffer, int expectedBytes){
+	byte ack;
+	int memIndex;
 	Timer timeOut;
 	CAN_FRAME frame;
-	MotorMap map;
 
-	//Set cmd with 
-	memcpy(cmd, SET_MAP_DATA_CMD, sizeof(SET_MAP_DATA_CMD));
-	cmd[sizeof(SET_MAP_DATA_CMD)-1] = 0;
+	//Open the stream over can
+	canInterface.send(canID, (byte*)openStreamCmd, strlen(openStreamCmd));
 
-	memcpy(map.name, mapCfg.getProperty(MAP * currentListIndex + MAP_NAME).c_str(), sizeof(map.name));
-	map.a0 = mapCfg.getProperty(MAP * currentListIndex + MAP_A0).toFloat();
-	map.a1 = mapCfg.getProperty(MAP * currentListIndex + MAP_A1).toFloat();
-	map.a2 = mapCfg.getProperty(MAP * currentListIndex + MAP_A2).toFloat();
-	map.flatLev = mapCfg.getProperty(MAP * currentListIndex + MAP_FLAT_LEV).toFloat();
-	map.flatOut = mapCfg.getProperty(MAP * currentListIndex + MAP_FLAT_OUT).toInt();
-	map.syncTrh = mapCfg.getProperty(MAP * currentListIndex + MAP_SYNC_TRH).toFloat();
-	map.useEnergyRecovery = mapCfg.getProperty(MAP * currentListIndex + MAP_EN_RECOVERY).toInt();
-	map.useSyncRect = mapCfg.getProperty(MAP * currentListIndex + MAP_SYNC_RECT).toInt();
-	map.useSyncSafe = mapCfg.getProperty(MAP * currentListIndex + MAP_SYNC_SAFE).toInt();
-	map.ack = getAck((byte*)&map, sizeof(MotorMap)-1);
-
-	canInterface.send(CAN_DRIVER_CMD, cmd, sizeof(cmd));
-
-	q = sizeof(MotorMap) / 8;
-	r = sizeof(MotorMap) % 8;
-
-	for (int i = 0; i < q; i++){
-		canInterface.send(CAN_DRIVER_CMD, (byte*)(&map) + 8 * i, 8);
-	}
-
-	if (r != 0){
-		canInterface.send(CAN_DRIVER_CMD, (byte*)(&map) + 8 * q, r);
-	}
-
+	//Set timeout timer
 	timeOut.setDuration(CMD_TIMEOUT).start();
 
+	memIndex = 0;
+	//Wait for can packet
+	while (!timeOut.hasFinished() && memIndex < expectedBytes){
+		frame = canInterface.read();
+		//Read responses
+		if (frame.id == CAN_DRIVER_CMD){
+			//On error
+			if (strcmp((const char*)frame.data.bytes, ERROR_CMD) == 0){
+				return ERROR;
+			}
+			//Save in buffer the data
+			memcpy(
+				buffer + memIndex,
+				frame.data.bytes,
+				memIndex + frame.length > expectedBytes ? expectedBytes - memIndex : frame.length	//Buffer over-run check
+			);
+			memIndex += frame.length;
+		}
+	}
+
+	//Timeout
+	if (memIndex < expectedBytes){
+		return TIMEOUT;
+	} 
+	//Wait for ack
 	while (!timeOut.hasFinished()){
 		frame = canInterface.read();
-		if (frame.id == CAN_DRIVER_CMD){
-			if (strcmp((char*)frame.data.bytes, OK_RX_CMD) == 0){
-				statusString.concat(F("Data\nloading\ncompleted"));
-				return;
+		if (frame.id == CAN_DRIVER_CMD && frame.length == 1){
+			ack = frame.data.bytes[0];
+			if (ack != getAck(buffer, expectedBytes)){
+				//LOGLN((int)ack);
+				//LOGLN((int)getAck(buffer, expectedBytes))
+				return WRONG_ACK;
 			}
-			else if (strcmp((char*)frame.data.bytes, ERROR_RX_CMD) == 0){
-				statusString.concat(F("Data\nloading\nfailed"));
-				return;
-			}
+			return SUCCES;
 		}
 	}
 
-	statusString.concat(F("Response\ntimed\nout"));
+	return TIMEOUT;
 }
-
-void MapsFormClass::showConfig(Genie& genie){
-	clearString(genie, rightList, RIGHT_TEXT_LIST);
-
-	if (currentState == LOADING_MOT_STATE){
-		for (int i = 1; i < MOTOR; i++){
-			rightList.concat(motorCfg.getPropertyName(currentListIndex * MOTOR + i));
-			rightList.concat(" = ");
-			rightList.concat(motorCfg.getProperty(currentListIndex * MOTOR + i));
-			rightList.concat('\n');
-		}
-	}
-	else if (currentState == LOADING_MAP_STATE){
-		for (int i = 1; i < MAP; i++){
-			rightList.concat(mapCfg.getPropertyName(currentListIndex * MAP + i));
-			rightList.concat(" = ");
-			rightList.concat(mapCfg.getProperty(currentListIndex * MAP + i));
-			rightList.concat('\n');
-		}
-	}
-
-	genie.WriteStr(RIGHT_TEXT_LIST, (char*)rightList.c_str());
-
-}
-
-void MapsFormClass::clearString(Genie &genie, String& list, int index){
-	for (int i = 0; i < list.length(); i++){
-		if (list.charAt(i) != '\n'){
-			list.setCharAt(i, 0x20);
-		}
-	}
-
-	genie.WriteStr(index, (char*)list.c_str());
-
-	list.remove(0, list.length());
-}
-
+//OK
 byte MapsFormClass::getAck(byte* data, int size){
 	byte ack = 0;
 	for (int i = 0; i < size; i++){

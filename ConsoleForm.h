@@ -9,15 +9,16 @@
 	#include "WProgram.h"
 #endif
 
-#include "DisplayInterface.h"
 
 #define TEXT_BUFFER_SIZE	256
 #define TEXT_COLS			58
 #define TEXT_ROWS			22
-#define CONSOLE_STR			2
+#define CONSOLE_STR			0
 
+#include "DisplayInterface.h"
+#include "LCDForm.h"
 
-class ConsoleFormClass : public DisplayForm{
+class ConsoleFormClass : public LCDForm{
 
 public:
 	void init(Genie &genie);
@@ -25,7 +26,7 @@ public:
 	void print(String str);
 	void println(String str);
 	void clear();
-	int getFormIndex(){ return 2; }
+	int getFormIndex(){ return 0; }
 
 private:
 	Genie* genie;

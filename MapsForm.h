@@ -11,74 +11,43 @@
 
 #include "CanInterface.h"
 #include "Configuration.h"
+#include "ConsoleForm.h"
 #include "DisplayInterface.h"
+#include "LCDForm.h"
+#include "LCDStringList.h"
+#include "LCDStringMsg.h"
 #include "Timer.h"
 
+//Motor related
 #define MOTOR_CFG_FILE		"MOTOR.CFG"
-#define MOTOR					7
-#define MOTOR_NAME				0
-#define MOTOR_DEF_MAP			1
-#define MOTOR_TORQUE_CONST		2
-#define MOTOR_SPEED_CONST		3
-#define MOTOR_SPD_TORQUE_GRAD	4
-#define MOTOR_FRICTION			5
-#define MOTOR_FRICTION_GRAD		6
-
-#define MAPS_CFG_FILE		"MAPS.CFG"
-#define MAP					10
-#define MAP_NAME			0
-#define MAP_A0				1
-#define MAP_A1				2
-#define MAP_A2				3
-#define MAP_SYNC_RECT		4
-#define MAP_SYNC_SAFE		5
-#define MAP_SYNC_TRH		6
-#define MAP_EN_RECOVERY		7
-#define MAP_FLAT_OUT		8
-#define MAP_FLAT_LEV		9
-
-#define GET_DATA_BUTTON		0
-#define LOAD_MOT_BUTTON		1
-#define LOAD_MAP_BUTTON		2
-#define OK_BUTTON			3
-#define UP_BUTTON			4
-#define DOWN_BUTTON			5
-
-#define LEFT_TEXT_LIST		3
-#define RIGHT_TEXT_LIST		4
-#define STATUS_STRING		5
-
-#define	LIST_BUFFER_SIZE	128
-#define TEXT_LIST_COLS		15
-#define TEXT_LIST_ROWS		21
-
-#define GETTING_DATA_STATE	0
-#define LOADING_MOT_STATE	1
-#define LOADING_MAP_STATE	2
-
-#define CMD_TIMEOUT			10000
-
-#define CAN_DRIVER_CMD		0x80
-#define GET_DATA_CMD		"GET"
-#define SET_MOT_DATA_CMD	"SETMOT"
-#define SET_MAP_DATA_CMD	"SETMAP"
-#define INVALID_RX_CMD		"INV"
-#define ERROR_RX_CMD		"ERR"
-#define OK_RX_CMD			"OK"
-
+#define MOTOR_TYPES			F("s8cfffff")
 #pragma pack(push, 1)
 typedef struct Motor{
 	char name[8];
-	char defaulMap;
+	char defaultMap;
 	float torqueConst;
 	float speedConst;
 	float speedTorqueGrad;
 	float friction;
 	float frictionGrad;
-	byte ack;
+
+	enum Attr : byte{
+		Name,
+		DefaultMap,
+		TorqueConst,
+		SpeedConst,
+		SpeedTorqueGrad,
+		Friction,
+		FrictionGrad,
+		ATTR_COUNT
+	};
 }Motor;
 #pragma pack(pop)
 
+//Map set related
+#define MAPS_CFG_FILE		"MAPS.CFG"
+#define MAPS_TYPES			F("s8fffffbbbb")
+#define MAPS_PER_SET		4
 #pragma pack(push, 1)
 typedef struct MotorMap{
 	char name[8];
@@ -91,12 +60,76 @@ typedef struct MotorMap{
 	boolean useSyncRect;
 	boolean useSyncSafe;
 	boolean useEnergyRecovery;
-	byte ack;
+
+	enum Attr : byte{
+		Name,
+		A0,
+		A1,
+		A2,
+		SyncTrh,
+		FlatLev,
+		FlatOut,
+		UseSyncRect,
+		UseSyncSafe,
+		UseEnergyRecovery,
+		ATTR_COUNT
+	};
 }MotorMap;
 #pragma pack(pop)
 
+//Button indexs
+#define GET_MOTOR_BUTTON	0
+#define GET_MAPSET_BUTTON	1
+#define LOAD_MOT_BUTTON		2
+#define LOAD_MAP_BUTTON		3
+#define UP_BUTTON			4
+#define DOWN_BUTTON			5
+#define ENTER_BUTTON		6
+#define EXIT_BUTTON			7
+#define OK_BUTTON			8
 
-class MapsFormClass : public DisplayForm{
+
+//String-list indexs
+#define PROP_TEXT_LIST		4
+#define DETAIL_TEXT_LIST	5
+#define VALUE_TEXT_LIST		6
+#define STATUS_STRING		7
+
+//String-list props
+#define	LIST_BUFFER_SIZE	128
+
+//View state
+enum ViewState : byte{
+	NOTHING_LOADED,
+	GETTING_MOTOR_STATE,
+	GETTING_MAPSET_STATE,
+	LOADING_MOT_STATE_PROP,
+	LOADING_MOT_STATE_DETAIL,
+	LOADING_MAP_STATE_PROP,
+	LOADING_MAP_STATE_DETAIL,
+	LOADING_MAP_STATE_VALUE
+};
+
+//Can cmd related
+#define CAN_DRIVER_CMD		0x80
+#define CMD_TIMEOUT			3000
+#define GET_MOTOR_DATA_CMD	"GETMOT"
+#define GET_MAPSET_DATA_CMD	"GETMAP"
+#define SET_MOT_DATA_CMD	"SETMOT"
+#define SET_MAP_DATA_CMD	"SETMAP"
+#define ERROR_CMD			"ERR"
+#define OK_CMD				"OK"
+
+#define PACKET_DELAY	50
+enum StreamResult{
+	SUCCES,
+	ERROR,
+	TIMEOUT,
+	WRONG_ACK,
+	ABORT
+};
+
+class MapsFormClass : public LCDForm{
 
 public:
 	void init(Genie& genie);
@@ -106,29 +139,44 @@ public:
 	int getFormIndex(){ return 3; }
 
 private:
-	char currentListIndex, currentState;
-	String leftList, rightList, statusString;
 	Configuration motorCfg, mapCfg;
+	LCDStringList* workingList;
+	LCDStringList propList, detailList, valueList;
+	LCDStringMsg statusMsg;
+	ViewState currentState;
 
-	void onGetDataButtonPressed(Genie& genie);
-	bool getMotorData();
-	bool getMapData();
 
+	//Get
+	void getMotorData();
+	void getMapSetData();
+
+	//Set
+	StreamResult setMotorData();
+	StreamResult setMapData();
+
+	//Buttons
 	void onLoadMotorButtonPressed(Genie& genie);
 	void onLoadMapButtonPressed(Genie& genie);
-
-	void onOkButtonPressed(Genie& genie);
-	void setMotorData();
-	void setMapData();
-
 	void onUpButtonPressed(Genie& genie);
 	void onDownButtonPressed(Genie& genie);
+	void onEnterButtonPressed(Genie& genie);
+	void onExitButtonPressed(Genie& genie);
+	void onOkButtonPressed(Genie& genie);
 
+	//Show
+	void loadMotorProperties();
+	void loadMotorDetails();
+
+	void loadMapSetProperties();
+	void loadMapSetDetails();
+	void loadMapSetValues();
+
+	void clearAll();
+
+	//Rx/Tx
+	StreamResult streamOverCan(unsigned short canID, const char* openStreamCmd, byte* buffer, int size);
+	StreamResult waitForStreamOverCan(unsigned short canID, const char* openStreamCmd, byte* buffer, int expectedBytes);
 	byte getAck(byte* data, int size);
-
-	void showConfig(Genie& genie);
-
-	void clearString(Genie& genie, String& list, int index);
 
 };
 

@@ -12,19 +12,17 @@ void StrategySettingsClass::loadGPSSettings(){
 	float lat, lon, radius, time, space;
 	int isReference;
 
-	if (cfg.initWithFile(GPS_CONFIG_FILE)){
-		gpsWayPoint.resize(cfg.getPropertiesCount() / WAYPOINT);
+	if (cfg.loadFromFile(GPS_CONFIG_FILE)){
+		gpsWayPoint.resize(cfg.getPropertyCount() / WAYPOINT);
 		for (int i = 0; i<gpsWayPoint.getCapacity(); i++){
-			lat = cfg[WAYPOINT * i + WAY_LAT].toFloat();
-			lon = cfg[WAYPOINT * i + WAY_LON].toFloat();
-			radius = cfg[WAYPOINT * i + WAY_RAD].toFloat();
-			space = cfg[WAYPOINT * i + WAY_DIST].toFloat();
-			time = cfg[WAYPOINT * i + WAY_TIME].toFloat();
-			isReference = cfg[WAYPOINT * i + WAY_REF].toInt();
+			lat = cfg[WAYPOINT * i + WAY_LAT].asFloat();
+			lon = cfg[WAYPOINT * i + WAY_LON].asFloat();
+			radius = cfg[WAYPOINT * i + WAY_RAD].asFloat();
+			space = cfg[WAYPOINT * i + WAY_DIST].asFloat();
+			time = cfg[WAYPOINT * i + WAY_TIME].asFloat();
+			isReference = cfg[WAYPOINT * i + WAY_REF].asInt();
 			gpsWayPoint[i].init(lat, lon, radius, time, space, (isReference == 0) ? false : true);
 		}
-		LOGLN("GPS_WAYPOINTS_LOADED");
-		consoleForm.println("GPS_WAYPOINTS_LOADED");
 	}
 	else{
 		consoleForm.println("GPS configuration file not found!");
@@ -53,12 +51,12 @@ void StrategySettingsClass::loadStrategy(){
 	Configuration cfg;
 	Valid = true;
 
-	if (cfg.initWithFile(STRATEGY_CONFIG_FILE)){	
+	if (cfg.loadFromFile(STRATEGY_CONFIG_FILE)){	
 
 		LOGLN("========== Track loaded config: ==========")
 		for (int i = 0; i < TRACK_SETTINGS; i++){
-			TrackData[i] = cfg.getProperty(i).toInt();
-			LOG(cfg.getPropertyName(i)); LOG(" = "); LOGLN(TrackData[i]);
+			TrackData[i] = cfg.getProperty(i).asInt();
+			LOG(cfg.getProperty(i).getName()); LOG(" = "); LOGLN(TrackData[i]);
 		}
 		LOGLN("========================================");
 	}

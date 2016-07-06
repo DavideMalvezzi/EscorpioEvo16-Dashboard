@@ -1,0 +1,512 @@
+==============================================================
+==============================================================
+4DGL Compiler 2.8.0.3 -- Copyright 2004-2015 4D Labs
+** C:\Users\Davide\Desktop\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS
+compiled Sun Dec 27 23:37:19 2015
+
+==============================================================
+==============================================================
+
+
+No Ref for file
+[LINKING]
+function 13, main, address 1229
+(main entry point)
+stack usage 112 + 4
+function 'main' requires no arguments
+function 'main' has no return value
+
+[LINKING]
+function 12, DoGFXObjects, address 2915
+stack usage 0 + 4
+!Empty Function
+[LINKING]
+function 11, UpdateObjects, address 2916
+stack usage 4 + 4
+function 'UpdateObjects' requires 1 argument
+function 'UpdateObjects' has no return value
+
+[LINKING]
+function 10, ActivateForm, address 3547
+stack usage 6 + 4
+function 'ActivateForm' requires 1 argument
+function 'ActivateForm' has no return value
+
+[LINKING]
+function 9, ledDigitsDisplay, address 3893
+stack usage 12 + 4
+function 'ledDigitsDisplay' requires 3 argument
+function 'ledDigitsDisplay' has no return value
+
+[LINKING]
+function 8, TurnOffButtons, address 4207
+stack usage 6 + 4
+function 'TurnOffButtons' requires 1 argument
+function 'TurnOffButtons' has no return value
+
+[LINKING]
+function 7, WriteObject, address 4330
+stack usage 8 + 4
+function 'WriteObject' requires 3 argument
+function 'WriteObject' has no return value
+
+[LINKING]
+function 6, ReadObject, address 4751
+stack usage 6 + 4
+function 'ReadObject' requires 2 argument
+function 'ReadObject' has no return value
+
+[LINKING]
+function 5, SendReport, address 4937
+stack usage 0 + 4
+function 'SendReport' requires 4 argument
+function 'SendReport' has no return value
+
+[LINKING]
+function 4, seroutOcs, address 4987
+stack usage 0 + 4
+function 'seroutOcs' requires no arguments
+function 'seroutOcs' has no return value
+
+[LINKING]
+function 3, nak0, address 5004
+stack usage 0 + 4
+function 'nak0' requires no arguments
+function 'nak0' has no return value
+
+[LINKING]
+function 2, seroutCS, address 5020
+stack usage 0 + 4
+function 'seroutCS' requires 1 argument
+function 'seroutCS' has no return value
+
+[LINKING]
+function 1, PrintStrings, address 5039
+stack usage 14 + 4
+function 'PrintStrings' requires 3 argument
+function 'PrintStrings' has no return value
+
+[RESERVED WORDS]
+#inherit
+#LISTCODE
+#MODE
+#STACK
+#OPTIMIZE_ON
+#OPTIMIZE_OFF
+byte
+word
+dword
+float
+private
+#IF
+#IFNOT
+#ELSE
+#ENDIF
+#CONST
+#constant
+#USE
+USING
+func
+endfunc
+var
+#STOP
+#DATA
+#ASM
+#END
+#platform
+EXISTS
+#ERROR
+#MESSAGE
+#NOTICE
+sizeof
+argcount
+if
+else
+endif
+while
+wend
+repeat
+until
+forever
+return
+break
+continue
+for
+next
+switch
+case
+default
+endswitch
+print
+goto
+gosub
+endsub
+mcall
+lookup8
+lookup16
+
+[MACRO]
+
+[CONSTANTS]
+__MAXMEM                          00003840      14400  (usage 1)
+__MAXPROG                         00003840      14400  (usage 1)
+ACK                               00000006          6  (usage 12)
+BACKGROUND_COLOUR                 00000011         17  (usage 3)
+BLACK                             00000000          0  (usage 12)
+CMDLenMAX                         00000105        261  (usage 12)
+ColorBGimage                      00000020         32  (usage 9)
+COM1                              0000F808      63496  (usage 3)
+FONT3                             00000002          2  (usage 3)
+GREEN                             00000400       1024  (usage 3)
+I_ENABLED                         00008000      32768  (usage 6)
+I_STAYONTOP                       00000100        256  (usage 3)
+I_TOUCH_DISABLE                   00000020         32  (usage 6)
+iForm0                            00000000          0  (usage 3)
+iGauge0                           00000005          5  (usage 3)
+iLeddigits0                       00000001          1  (usage 3)
+iLeddigits1                       00000003          3  (usage 3)
+iLeddigits2                       0000000B         11  (usage 3)
+iLeddigits3                       0000000D         13  (usage 3)
+iLeddigits4                       00000016         22  (usage 3)
+iLeddigits5                       00000018         24  (usage 3)
+iLeddigits6                       0000001C         28  (usage 3)
+iLeddigits7                       00000020         32  (usage 3)
+IMAGE_FLAGS                       00000006          6  (usage 3)
+IMAGE_INDEX                       00000009          9  (usage 45)
+IMAGE_TAG                         0000000C         12  (usage 9)
+IMAGE_TAG2                        0000000D         13  (usage 9)
+IMAGE_XPOS                        00000002          2  (usage 6)
+IPDatasize                        00000016         22  (usage 3)
+iSpectrum0                        0000001A         26  (usage 3)
+iStatictext0                      00000006          6  (usage 3)
+iStatictext1                      00000007          7  (usage 3)
+iStatictext10                     0000001E         30  (usage 3)
+iStatictext11                     0000001F         31  (usage 3)
+iStatictext12                     00000022         34  (usage 3)
+iStatictext13                     00000023         35  (usage 3)
+iStatictext2                      00000008          8  (usage 3)
+iStatictext3                      00000009          9  (usage 3)
+iStatictext4                      0000000A         10  (usage 3)
+iStatictext5                      0000000F         15  (usage 3)
+iStatictext6                      00000010         16  (usage 3)
+iStatictext7                      00000011         17  (usage 3)
+iStatictext8                      00000014         20  (usage 3)
+iStatictext9                      00000015         21  (usage 3)
+iUserled0                         00000012         18  (usage 3)
+iUserled1                         00000013         19  (usage 3)
+iWinbutton0                       00000024         36  (usage 3)
+iWinbutton1                       00000025         37  (usage 3)
+iWinbutton2                       00000026         38  (usage 3)
+iWinbutton3                       00000027         39  (usage 3)
+iWinbutton4                       00000028         40  (usage 3)
+iWinbutton5                       00000029         41  (usage 3)
+iWinbutton6                       0000002A         42  (usage 3)
+iWinbutton7                       0000002B         43  (usage 3)
+iWinbutton8                       0000002C         44  (usage 3)
+LANDSCAPE                         00000000          0  (usage 3)
+MAROON                            00008000      32768  (usage 3)
+MaxTotObjects                     00000021         33  (usage 6)
+NAK                               00000015         21  (usage 3)
+NAVY                              00000010         16  (usage 3)
+nInputs                           00000012         18  (usage 3)
+nStrings                          00000008          8  (usage 3)
+OFF                               00000000          0  (usage 3)
+Ofs_Digits_Digits                 00000002          2  (usage 9)
+Ofs_Digits_LeadingBlanks          00000008          8  (usage 3)
+Ofs_Digits_Left                   00000000          0  (usage 3)
+Ofs_Digits_MinDigits              00000004          4  (usage 3)
+Ofs_Digits_Widthdigit             00000006          6  (usage 3)
+Ofs_IPD_DOWN                      00000010         16  (usage 6)
+Ofs_IPD_OBJVIDX                   00000014         20  (usage 9)
+Ofs_IPD_P1                        00000002          2  (usage 15)
+Ofs_IPD_P2                        00000004          4  (usage 48)
+Ofs_IPD_P3                        00000006          6  (usage 9)
+Ofs_IPD_P4                        00000008          8  (usage 3)
+Ofs_IPD_P5                        0000000A         10  (usage 9)
+Ofs_IPD_P6                        0000000C         12  (usage 18)
+Ofs_IPD_RELEASE                   00000012         18  (usage 9)
+Ofs_String_Ansi                   00000016         22  (usage 3)
+Ofs_String_BGColor                00000010         16  (usage 6)
+Ofs_String_FGColor                0000000E         14  (usage 3)
+Ofs_String_FontAttribs            00000012         18  (usage 3)
+Ofs_String_Form                   00000018         24  (usage 3)
+Ofs_String_Size                   00000004          4  (usage 3)
+Ofs_String_StartH                 00000000          0  (usage 3)
+Ofs_String_StartL                 00000002          2  (usage 3)
+Ofs_String_Transparent            00000014         20  (usage 3)
+Ofs_String_x1                     00000006          6  (usage 12)
+Ofs_String_x2                     0000000A         10  (usage 9)
+Ofs_String_y1                     00000008          8  (usage 12)
+Ofs_String_y2                     0000000C         12  (usage 9)
+OLIVE                             00008400      33792  (usage 3)
+ON                                00000001          1  (usage 3)
+OT_ACTIVATE                       00000067        103  (usage 3)
+OT_MAGIC                          0000006C        108  (usage 3)
+OT_NEXTFRAME                      00000068        104  (usage 3)
+OT_NEXTSTRING                     0000006A        106  (usage 3)
+OT_PREVFRAME                      00000069        105  (usage 3)
+OT_PREVSTRING                     0000006B        107  (usage 3)
+OT_REPORT                         00000064        100  (usage 30)
+OT_SETANOTHER                     00000066        102  (usage 3)
+OT_SETCONST                       00000065        101  (usage 3)
+PICASO                            00000001          1  (usage 3)
+READ_OBJ                          00000000          0  (usage 3)
+REPORT_EVENT                      00000007          7  (usage 3)
+REPORT_OBJ                        00000005          5  (usage 3)
+Strings0Size                      00000001          1  (usage 3)
+Strings0StartH                    00000000          0  (usage 3)
+Strings0StartL                    00000000          0  (usage 3)
+Strings1Size                      00000006          6  (usage 3)
+Strings1StartH                    00000000          0  (usage 3)
+Strings1StartL                    00000200        512  (usage 3)
+Strings2Size                      00000007          7  (usage 3)
+Strings2StartH                    00000000          0  (usage 3)
+Strings2StartL                    00000400       1024  (usage 3)
+Strings3Size                      00000007          7  (usage 3)
+Strings3StartH                    00000000          0  (usage 3)
+Strings3StartL                    00000600       1536  (usage 3)
+Strings4Size                      00000001          1  (usage 3)
+Strings4StartH                    00000000          0  (usage 3)
+Strings4StartL                    00000800       2048  (usage 3)
+Strings5Size                      00000001          1  (usage 3)
+Strings5StartH                    00000000          0  (usage 3)
+Strings5StartL                    00000A00       2560  (usage 3)
+Strings6Size                      00000001          1  (usage 3)
+Strings6StartH                    00000000          0  (usage 3)
+Strings6StartL                    00000C00       3072  (usage 3)
+Strings7Size                      00000001          1  (usage 3)
+Strings7StartH                    00000000          0  (usage 3)
+Strings7StartL                    00000E00       3584  (usage 3)
+t4Dbutton                         0000001E         30  (usage 15)
+tAngularmeter                     00000007          7  (usage 3)
+tAniButton                        0000001F         31  (usage 6)
+tColorPicker                      00000020         32  (usage 3)
+tCoolgauge                        00000008          8  (usage 3)
+tCustomdigits                     00000009          9  (usage 6)
+tDipSwitch                        00000000          0  (usage 3)
+tForm                             0000000A         10  (usage 15)
+tGauge                            0000000B         11  (usage 3)
+tGSlider                          00000004          4  (usage 3)
+tImage                            0000000C         12  (usage 3)
+tKeyboard                         0000000D         13  (usage 3)
+tKnob                             00000001          1  (usage 3)
+tLed                              0000000E         14  (usage 3)
+tLeddigits                        0000000F         15  (usage 12)
+tMeter                            00000010         16  (usage 3)
+TOUCH_ENABLE                      00000000          0  (usage 3)
+TOUCH_GETX                        00000001          1  (usage 3)
+TOUCH_GETY                        00000002          2  (usage 3)
+TOUCH_MOVING                      00000003          3  (usage 3)
+TOUCH_PRESSED                     00000001          1  (usage 9)
+TOUCH_RELEASED                    00000002          2  (usage 18)
+TOUCH_STATUS                      00000000          0  (usage 3)
+tPinInput                         0000001D         29  (usage 6)
+tPinOutput                        0000001C         28  (usage 6)
+TRANSPARENT                       00000000          0  (usage 3)
+tRockerSwitch                     00000002          2  (usage 3)
+tRotarySwitch                     00000003          3  (usage 3)
+tSounds                           00000016         22  (usage 6)
+tSpectrum                         00000018         24  (usage 6)
+tStaticText                       00000015         21  (usage 3)
+tStrings                          00000011         17  (usage 18)
+tTank                             0000001A         26  (usage 3)
+tThermometer                      00000012         18  (usage 3)
+tTimer                            00000017         23  (usage 6)
+tTrackbar                         00000005          5  (usage 3)
+tUserButton                       00000021         33  (usage 9)
+tUserImages                       0000001B         27  (usage 3)
+tUserled                          00000013         19  (usage 3)
+tVideo                            00000014         20  (usage 3)
+tWinButton                        00000006          6  (usage 45)
+WHITE                             0000FFFF      65535  (usage 15)
+WRITE_CONTRAST                    00000004          4  (usage 3)
+WRITE_OBJ                         00000001          1  (usage 3)
+WRITE_STR                         00000002          2  (usage 6)
+WRITE_STRU                        00000003          3  (usage 6)
+YELLOW                            0000FFE0      65504  (usage 9)
+
+[PmmC FUNCTIONS]
+com1_Count                        FFFFFF7C        -132  args=0 r=1  (usage 3)
+com1_Init                         FFFFFF7E        -130  args=3 r=0  (usage 3)
+com1_TXbuffer                     FFFFFF78        -136  args=3 r=0  (usage 3)
+com_SetBaud                       FFFFFF72        -142  args=2 r=1  (usage 3)
+file_GetC                         FFFFFF0E        -242  args=1 r=1  (usage 3)
+file_GetW                         FFFFFF0C        -244  args=1 r=1  (usage 3)
+file_LoadImageControl             FFFFFF04        -252  args=3 r=1  (usage 18)
+file_Mount                        FFFFFF03        -253  args=0 r=1  (usage 6)
+file_Open                         FFFFFF19        -231  args=2 r=1  (usage 3)
+file_Seek                         FFFFFF16        -234  args=3 r=1  (usage 3)
+gfx_Clipping                      FFFFFFA2         -94  args=1 r=0  (usage 6)
+gfx_ClipWindow                    FFFFFFB5         -75  args=4 r=0  (usage 3)
+gfx_Cls                           FFFFFFCD         -51  args=0 r=0  (usage 6)
+gfx_Contrast                      FFFFFF9C        -100  args=1 r=1  (usage 3)
+gfx_MoveTo                        FFFFFFCC         -52  args=2 r=0  (usage 3)
+gfx_RectangleFilled               FFFFFFC4         -60  args=5 r=0  (usage 6)
+gfx_ScreenMode                    FFFFFF9E         -98  args=1 r=1  (usage 3)
+gfx_Set                           FFFFFFCE         -50  args=2 r=0  (usage 3)
+img_ClearAttributes               FFFFFF45        -187  args=3 r=1  (usage 3)
+img_Disable                       FFFFFF4C        -180  args=2 r=1  (usage 6)
+img_GetWord                       FFFFFF48        -184  args=3 r=1  (usage 45)
+img_SetAttributes                 FFFFFF46        -186  args=3 r=1  (usage 6)
+img_SetWord                       FFFFFF49        -183  args=4 r=1  (usage 27)
+img_Show                          FFFFFF47        -185  args=2 r=1  (usage 21)
+img_Touched                       FFFFFF44        -188  args=2 r=1  (usage 3)
+OVF                               FFFFFFEB         -21  args=0 r=1  (usage 3)
+pause                             FFFFFFFA          -6  args=1 r=0  (usage 6)
+putch                             FFFFFFFE          -2  args=1 r=0  (usage 6)
+putstr                            FFFFFFF7          -9  args=1 r=1  (usage 6)
+serin1                            FFFFFF74        -140  args=0 r=1  (usage 3)
+serout1                           FFFFFF73        -141  args=1 r=0  (usage 21)
+sys_EventsResume                  FFFFFF3C        -196  args=0 r=0  (usage 3)
+touch_Get                         FFFFFF37        -201  args=1 r=1  (usage 9)
+touch_Set                         FFFFFF38        -200  args=1 r=0  (usage 3)
+txt_Attributes                    FFFFFFDA         -38  args=1 r=1  (usage 3)
+txt_BGcolour                      FFFFFFE6         -26  args=1 r=1  (usage 3)
+txt_FGcolour                      FFFFFFE7         -25  args=1 r=1  (usage 3)
+txt_FontID                        FFFFFFE5         -27  args=1 r=1  (usage 3)
+txt_Opacity                       FFFFFFDF         -33  args=1 r=1  (usage 3)
+uadd_3232                         FFFFFEDE        -290  args=3 r=1  (usage 3)
+umul_1616                         FFFFFEDF        -289  args=3 r=1  (usage 3)
+
+[USER FUNCTIONS]
+ActivateForm                      00000DDB  args=1 r=0  (usage 9)
+DoGFXObjects                      00000B63  args=0 r=0  (usage 6)
+ledDigitsDisplay                  00000F35  args=3 r=0  (usage 6)
+nak0                              0000138C  args=0 r=0  (usage 24)
+PrintStrings                      000013AF  args=3 r=0  (usage 9)
+ReadObject                        0000128F  args=2 r=0  (usage 3)
+SendReport                        00001349  args=4 r=0  (usage 6)
+seroutCS                          0000139C  args=1 r=0  (usage 15)
+seroutOcs                         0000137B  args=0 r=0  (usage 3)
+TurnOffButtons                    0000106F  args=1 r=0  (usage 6)
+UpdateObjects                     00000B64  args=1 r=0  (usage 3)
+WriteObject                       000010EA  args=3 r=0  (usage 24)
+
+[GLOBAL VARIABLES]
+cmd                                  191  word[261]   (usage 84)
+comRX                                 60  word[131]   (usage 3)
+CurInputData                          58  word       (usage 24)
+CurrentForm                           53  word       (usage 42)
+hFonts                                 2  word[8]   (usage 33)
+hndl                                   1  word       (usage 114)
+hstrings                              18  word       (usage 12)
+InputCS                              452  word       (usage 21)
+InputType                             56  word       (usage 24)
+oObjects                              19  word[34]   (usage 108)
+OutputCS                             453  word       (usage 9)
+pInputIndex                           59  word       (usage 15)
+stringsCV                             10  word[8]   (usage 27)
+TouchState                            57  word       (usage 24)
+TouchXpos                             54  word       (usage 12)
+TouchYpos                             55  word       (usage 9)
+
+[PRIVATE VARIABLES]
+
+[DATA]
+0007: 00 00 01 00 1A 00 24 00 01 00 1A 00 24 00 2D 00     ......$.....$.-.
+0017: FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF     ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+0027: FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF     ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+0037: FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF     ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+0047: FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF     ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+0057: FF FF FF FF FF FF FF FF 00 00 2C 00 58 00 84 00     ÿÿÿÿÿÿÿÿ..,.X.„.
+0067: B0 00 DC 00 08 01 34 01 60 01 06 00 01 00 FF FF     °.Ü...4.`.....ÿÿ
+0077: FF FF FF FF FF FF FF FF FF FF 00 00 16 00 02 00     ÿÿÿÿÿÿÿÿÿÿ......
+0087: 64 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     d...............
+0097: 00 00 00 00 00 00 06 00 01 00 FF FF FF FF FF FF     ..........ÿÿÿÿÿÿ
+00A7: FF FF FF FF FF FF 00 00 42 00 04 00 64 00 00 00     ÿÿÿÿÿÿ..B...d...
+00B7: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00C7: 01 00 06 00 01 00 FF FF FF FF FF FF FF FF FF FF     ......ÿÿÿÿÿÿÿÿÿÿ
+00D7: FF FF 00 00 6E 00 06 00 64 00 00 00 00 00 00 00     ÿÿ..n...d.......
+00E7: 00 00 00 00 00 00 00 00 00 00 00 00 02 00 06 00     ................
+00F7: 01 00 FF FF FF FF FF FF FF FF FF FF FF FF 00 00     ..ÿÿÿÿÿÿÿÿÿÿÿÿ..
+0107: 9A 00 08 00 64 00 00 00 00 00 00 00 00 00 00 00     š...d...........
+0117: 00 00 00 00 00 00 00 00 03 00 06 00 01 00 FF FF     ..............ÿÿ
+0127: FF FF FF FF FF FF FF FF FF FF 00 00 C6 00 0A 00     ÿÿÿÿÿÿÿÿÿÿ..Æ...
+0137: 64 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     d...............
+0147: 00 00 00 00 04 00 06 00 01 00 FF FF FF FF FF FF     ..........ÿÿÿÿÿÿ
+0157: FF FF FF FF FF FF 00 00 F2 00 0C 00 64 00 00 00     ÿÿÿÿÿÿ..ò...d...
+0167: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+0177: 05 00 06 00 01 00 FF FF FF FF FF FF FF FF FF FF     ......ÿÿÿÿÿÿÿÿÿÿ
+0187: FF FF 00 00 1E 01 0E 00 64 00 00 00 00 00 00 00     ÿÿ......d.......
+0197: 00 00 00 00 00 00 00 00 00 00 00 00 06 00 06 00     ................
+01A7: 01 00 FF FF FF FF FF FF FF FF FF FF FF FF 00 00     ..ÿÿÿÿÿÿÿÿÿÿÿÿ..
+01B7: 4A 01 10 00 64 00 00 00 00 00 00 00 00 00 00 00     J...d...........
+01C7: 00 00 00 00 00 00 00 00 07 00 06 00 01 00 FF FF     ..............ÿÿ
+01D7: FF FF FF FF FF FF FF FF FF FF 00 00 76 01 12 00     ÿÿÿÿÿÿÿÿÿÿ..v...
+01E7: 64 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     d...............
+01F7: 00 00 00 00 08 00 00 00 00 00 01 00 00 00 02 00     ................
+0207: DF 01 0F 01 FF FF 00 00 00 00 00 00 01 00 00 00     ß...ÿÿ..........
+0217: 00 00 00 02 06 00 A6 00 D4 00 2D 01 F7 00 E0 FF     ......¦.Ô.-.÷.àÿ
+0227: 00 00 00 00 01 00 01 00 01 00 00 00 00 04 07 00     ................
+0237: 14 00 DC 00 A4 00 FF 00 E0 FF 00 00 00 00 01 00     ..Ü.¤.ÿ.àÿ......
+0247: 01 00 01 00 00 00 00 06 07 00 20 00 1C 00 98 00     .......... ...˜.
+0257: 3C 00 E0 FF 00 00 00 00 01 00 01 00 02 00 00 00     <.àÿ............
+0267: 00 08 01 00 04 00 2C 00 69 00 0B 01 FF FF 00 04     ......,.i...ÿÿ..
+0277: 00 00 01 00 01 00 03 00 00 00 00 0A 01 00 6D 00     ..............m.
+0287: 2C 00 0C 01 0B 01 FF FF 10 00 00 00 01 00 01 00     ,.....ÿÿ........
+0297: 03 00 00 00 00 0C 01 00 11 01 2C 00 B0 01 0B 01     ..........,.°...
+02A7: FF FF 00 84 00 00 01 00 01 00 03 00 00 00 00 0E     ÿÿ.„............
+02B7: 01 00 3E 01 0E 00 D9 01 1F 00 FF FF 00 80 00 00     ..>...Ù...ÿÿ.€..
+02C7: 01 00 01 00 03 00 00 00 00 00 00 00 00 00 00 00     ................
+02D7: 00 00 09 00 24 00 25 00 26 00 27 00 28 00 29 00     ....$.%.&.'.(.).
+02E7: 2A 00 2B 00 2C 00 00 00 00 00 00 00 04 00 00 00     *.+.,...........
+02F7: FF FF FF FF FF FF 01 00 05 00 00 00 00 00 00 00     ÿÿÿÿÿÿ..........
+0307: 08 00 01 00 03 00 0B 00 0D 00 16 00 18 00 1C 00     ................
+0317: 20 00 00 00 08 00 FD 81 17 82 31 82 4B 82 65 82      .....ý.‚1‚K‚e‚
+0327: 7F 82 99 82 B3 82 00 00 02 00 12 00 13 00 00 00     ‚™‚³‚..........
+0337: 0E 00 06 00 07 00 08 00 09 00 0A 00 0F 00 10 00     ................
+0347: 11 00 14 00 15 00 1E 00 1F 00 22 00 23 00 01 00     ..........".#...
+0357: 1A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+0367: 00 00 00 00 00 00 00 00 20 00 00 00 00 00 00 00     ........ .......
+0377: FF FF FF FF 08 00 04 00 03 00 32 00 00 00 10 01     ÿÿÿÿ......2.....
+0387: 04 00 03 00 32 00 00 00 B0 00 03 00 02 00 2A 00     ....2...°.....*.
+0397: 00 00 D2 00 02 00 01 00 1C 00 00 00 42 01 03 00     ..Ò.........B...
+03A7: 02 00 2A 00 00 00 20 00 03 00 02 00 2A 00 00 00     ..*... .....*...
+03B7: 1C 00 04 00 03 00 1E 00 00 00 1E 01 01 00 01 00     ................
+03C7: 1E 00 00 00 0D 00 0F 00 00 00 00 00 00 00 00 00     ................
+03D7: 00 00 00 00 00 00 00 00 4D 6F 75 6E 74 69 6E 67     ........Mounting
+03E7: 2E 2E 2E 0A 00 44 72 69 76 65 20 6E 6F 74 20 6D     .....Drive not m
+03F7: 6F 75 6E 74 65 64 2E 2E 2E 00 44 41 53 48 42 4F     ounted....DASHBO
+0407: 7E 31 2E 64 61 74 00 44 41 53 48 42 4F 7E 31 2E     ~1.dat.DASHBO~1.
+0417: 67 63 69 00 44 41 53 48 42 4F 7E 31 2E 64 30 31     gci.DASHBO~1.d01
+0427: 00 44 41 53 48 42 4F 7E 31 2E 67 30 31 00 44 41     .DASHBO~1.g01.DA
+0437: 53 48 42 4F 7E 31 2E 64 30 32 00 44 41 53 48 42     SHBO~1.d02.DASHB
+0447: 4F 7E 31 2E 67 30 32 00 44 41 53 48 42 4F 7E 31     O~1.g02.DASHBO~1
+0457: 2E 64 30 33 00 44 41 53 48 42 4F 7E 31 2E 67 30     .d03.DASHBO~1.g0
+0467: 33 00 44 41 53 48 42 4F 7E 31 2E 64 30 34 00 44     3.DASHBO~1.d04.D
+0477: 41 53 48 42 4F 7E 31 2E 67 30 34 00 44 41 53 48     ASHBO~1.g04.DASH
+0487: 42 4F 7E 31 2E 64 30 35 00 44 41 53 48 42 4F 7E     BO~1.d05.DASHBO~
+0497: 31 2E 67 30 35 00 44 41 53 48 42 4F 7E 31 2E 74     1.g05.DASHBO~1.t
+04A7: 78 66 00 A4 0A A4 0A A4 0A A4 0A A4 0A A4 0A A4     xf.¤.¤.¤.¤.¤.¤.¤
+04B7: 0A A4 0A 62 0B 62 0B A4 0A 3E 11 56 11              .¤.b.b.¤.>.V.
+
+[__MAXPROG]
+14400
+[__MAXMEM]
+14400
+
+[PROGRAM]
+main
+[CODESIZE]
+5513
+[MEMSIZE]
+453
+[ARGCOUNT]
+0
+[RETURNS]
+NO
+[STACKSIZE]
+0 (AUTO)
+[STACK_ESTIMATE]
+220   (nb:- worst case estimate)
+[MODE]
+0
+
+[PROJECT]
+C:\Users\Davide\Desktop\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCD.4DGenieS
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\uLCD-43PT.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\PicasoFunctions.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\VisualConst.inc
+C:\Users\Davide\Desktop\DashBoardLCD\DashBoardLCD.4DWork\DashBoardLCDConst.inc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\CLPrintStrings.inc

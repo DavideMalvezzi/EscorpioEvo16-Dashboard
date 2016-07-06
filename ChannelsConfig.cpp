@@ -1,37 +1,38 @@
-#include "ChannelsConfig.h"
-#include "ConsoleForm.h"
 
-void ChannelsConfigClass::init(){
+#include "ChannelsConfig.h"
+
+boolean ChannelsConfigClass::init(){
 	Configuration cfg;
 	Channel* c;
-	if (cfg.initWithFile(CHANNELS_CFG_FILE)){
-		channels.resize(cfg.getPropertiesCount() / CHANNEL);
-		for (int i = 0; i < channels.getCapacity(); i++){
+	//Load cfg file
+	if (cfg.loadFromFile(CHANNELS_CFG_FILE)){
+		//Resize channel vector
+		channels.resize(cfg.getPropertyCount() / Channel::ATTR_COUNT);
+		//Load cfg data
+		for (int i = 0; i < cfg.getPropertyCount(); i += Channel::ATTR_COUNT){
 			c = new Channel;
-			c->ID = cfg[CHANNEL * i + CH_ID].toInt();
-			c->name = cfg[CHANNEL * i + CH_NAME];
-			c->size = cfg[CHANNEL * i + CH_SIZE].toInt();
-			c->type = cfg[CHANNEL * i + CH_TYPE].charAt(0);
+			c->ID = cfg[i + Channel::CanID].asInt();
+			c->name = cfg[i + Channel::Name].asString();
+			c->size = cfg[i + Channel::Size].asInt();
+			c->type = cfg[i + Channel::Type].asChar();
 			channels.append(c);
 		}
-	}
-	else{
-		consoleForm.println("Channels configuration file not found!");
-		ASSERT(false, "Channels configuration file not found!");
+		return true;
 	}
 
+	return false;
 }
 
 void ChannelsConfigClass::debug(){
 	Channel* c;
 
-	LOGLN("========== Channels loaded config: ==========");
-	LOG("Channels: "); LOGLN(channels.getSize());
+	LOGLN(F("========== Channels loaded config: =========="));
+	LOG(F("Channels: ")); LOGLN(channels.getSize());
 	for (int i = 0; i < channels.getSize(); i++){
 		c = channels[i];
 		LOG(c->ID); LOG("  "); LOG(c->name); LOG("  "); LOG((char)c->type); LOG("  "); LOGLN((int)c->size);
 	}
-	LOGLN("========================================");
+	LOGLN(F("========================================"));
 }
 
 Channel* ChannelsConfigClass::getChannelByID(unsigned short id){
@@ -39,6 +40,7 @@ Channel* ChannelsConfigClass::getChannelByID(unsigned short id){
 }
 
 int ChannelsConfigClass::getChannelIndex(unsigned short id){
+	//Binary search channel's index by canID
 	int s = 0, d = channels.getSize() - 1;
 	int p;
 	

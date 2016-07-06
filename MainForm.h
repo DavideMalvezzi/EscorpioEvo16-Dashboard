@@ -9,19 +9,22 @@
 	#include "WProgram.h"
 #endif
 
+#include "CanInterface.h"
+#include "ChannelsBuffer.h"
 #include "DisplayInterface.h"
+#include "Interprete.h"
+#include "LCDForm.h"
+#include "PhoneInterface.h"
+#include "StrategySettings.h"
+#include "WheelSensor.h"
 
-#define CAN_PWR			0x0A2	//Power
-#define CAN_DC			0x0A5
-#define CAN_RADIO		0x209  // flag
-#define CAN_RADIO_REQ	0x20C  // flag
 
-class MainFormClass : public DisplayForm{
+class MainFormClass : public LCDForm{
 
 public:
 	void init(Genie &genie);
 	void update(Genie &genie);
-	int getFormIndex(){ return 0; }
+	int getFormIndex(){ return 1; }
 
 private:
 
