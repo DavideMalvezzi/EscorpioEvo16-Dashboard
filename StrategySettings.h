@@ -25,7 +25,7 @@
 #define WAY_TIME	4
 #define WAY_REF		5
 
-#define STRATEGY_CONFIG_FILE "Strategy//Config.txt"
+#define STRATEGY_CONFIG_FILE "Strategy//STRATEGY.CFG"
 #define TRACK_SETTINGS	7
 #define TRACK_LENGHT	0
 #define TRACK_FINISH	1

@@ -22,7 +22,8 @@
 #include "MapsForm.h"
 
 #define LCD_TAG			F("LCD")	
-#define REFRESH_RATEO	5
+#define REFRESH_RATEO	3
+#define MAX_UPDATE_TIME	1500
 
 class DisplayInterfaceClass{
 
@@ -37,6 +38,7 @@ public:
 	friend void onEvent();
 
 private:
+	boolean enabled;
 	Genie genie;
 	Timer refreshTimer;
 	LCDForm* currentForm;

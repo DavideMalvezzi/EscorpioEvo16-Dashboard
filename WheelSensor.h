@@ -31,6 +31,8 @@ private:
 	volatile float Energy;
 	volatile float power;
 	volatile uint32_t speedtmr;
+	volatile float lastGap;
+	volatile bool gapIsValid;
 
 public:
 	friend void TC6_Handler();
@@ -42,6 +44,8 @@ public:
 	void setPower (float pwr) { power = pwr; }
 	float getSpeed() { return Speed; }
 	float getSpace() { return Space; }
+	float getLastGap() { gapIsValid = false; return lastGap; }
+	bool isGapValid(){ return gapIsValid; }
 	uint32_t getTimeMillis() { return TimeMillis; }
 	float getAvgSpeed() { return AvgSpeed; }
 	float getEnergy() { return Energy; }

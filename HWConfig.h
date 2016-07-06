@@ -58,7 +58,7 @@
 #define SD_SS_PIN					23
 
 //Sensors
-#define STEER_SENSOR				A2
+#define STEER_SENSOR_PIN			A2
 #define AN_1						A3
 #define AN_2						A4
 

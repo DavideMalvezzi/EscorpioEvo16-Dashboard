@@ -17,7 +17,7 @@ void Timer5_Handler ()
 		wheelSensor.TimeMillis++;
 		wheelSensor.Energy += wheelSensor.power/1000.0;
 
-		if (millis()>wheelSensor.speedtmr+2000) // Azzero la velocità se sono fermo
+		if (millis() > wheelSensor.speedtmr + 2000) // Azzero la velocità se sono fermo
 			wheelSensor.Speed = 0;
 	}
 }
@@ -44,13 +44,13 @@ void TC6_Handler()
  if(inputcaptureB) {
    const uint32_t rb = TC2->TC_CHANNEL[0].TC_RB;
    float gap = (float)(rb-prevrb)/42000000; // gap in sec
-   //Serial.print("GAP = ");
-   //Serial.println((float)(rb-prevrb)/42000);
-   prevrb = rb;
 
+   prevrb = rb;
    // Entro qui se si verifica un fronte sul sensore
    if ( gap >= 0.05) // Ignoro impulsi minori di 50ms (100km/h)
    {
+	wheelSensor.lastGap = gap;
+	wheelSensor.gapIsValid = true;
 	wheelSensor.Space += WHEEL_CFR;           // Incremento lo spazio totale
 	wheelSensor.RelativeSpace += WHEEL_CFR;   // Incremento lo spazio relativo
 	// Gestisco i giri non da gps
@@ -67,7 +67,7 @@ void TC6_Handler()
 	else
 		wheelSensor.AvgSpeed = 0;
 
-	wheelSensor.Speed = WHEEL_CFR/gap;  // Aggiorno la velocità istantanea
+	wheelSensor.Speed = WHEEL_CFR / gap;  // Aggiorno la velocità istantanea
 	wheelSensor.speedtmr = millis();
 	
    }
@@ -179,6 +179,7 @@ void WheelSensorClass::reset(){
 	this->LastFinishTime = 0;
 	this->LastRelativeMillis = 0;
 	this->Energy = 0;
+	this->gapIsValid = false;
 }
 
 void WheelSensorClass::update(){
@@ -194,7 +195,6 @@ void WheelSensorClass::update(){
 	channelsBuffer.setValue<unsigned long>(CanID::LAST_TIME, getLastRelativeMillis());
 
 	channelsBuffer.setValue<float>(CanID::ENERGY, getEnergy());
-
 }
 
 WheelSensorClass wheelSensor;

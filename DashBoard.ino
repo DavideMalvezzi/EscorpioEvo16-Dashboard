@@ -4,6 +4,7 @@
  Author:	Davide Malvezzi
 */
 
+#include "SteerSensor.h"
 #include "BMSInterface.h"
 #include "Channel.h"
 #include "ConsoleForm.h"
@@ -60,6 +61,7 @@ void onGpsDataReceived(GpsData& gps);
 #define STRAT_ON
 #define PHONE_ON
 #define TLM_ON
+#define LOOP_DEBUG
 //#define SHELL_ON
 
 //Log tag
@@ -68,7 +70,7 @@ void onGpsDataReceived(GpsData& gps);
 #define BTN_TAG		F("BTN")
 
 //SW info
-#define SW_REV		F("13")
+#define SW_REV		F("14")
 #define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
 ///////////////////////////
 
@@ -159,6 +161,8 @@ void setup() {
 	#endif
 }
 
+//bool print = false;
+
 void loop() {
 	//Reset Watchdog
 	#ifdef WDT_ON
@@ -177,6 +181,9 @@ void loop() {
 	//Check map selector config
 	mapSelector.update();
 
+	//Read from sensors
+	steerSensor.update();
+
 	//Buttons update
 	Button::update();
 
@@ -189,6 +196,19 @@ void loop() {
 		//Strategy update
 		strategy.update();
 	#endif
+	
+	/* Test sensore di velocità
+	if (print){
+		Log.e("MOT") << "Gap is " << wheelSensor.getLastGap() << Endl;
+	}
+	else if (wheelSensor.isGapValid()){
+		Log.e("MOT") << "Speed is " << wheelSensor.getSpeed() * 3.6 << Endl;
+		Log.e("MOT") << "Gap is " << wheelSensor.getLastGap() << Endl;
+		if (wheelSensor.getSpeed() * 3.6 >= 28){
+			print = true;
+		}
+	}
+	*/
 
 	#ifdef TLM_ON
 		//Log telemetry's data
@@ -251,6 +271,12 @@ void initPorts(){
 	canInterface.init(CAN_SPEED);
 	canInterface.setCanEventCallBack(&onCanPacketReceived);
 
+	//Sensor
+	//SteerSensor
+	steerSensor.init();
+	//WheelSensor
+	wheelSensor.init(); //Reset is called in the init
+
 	//Utils
 	Log.init(&LOG_SERIAL);
 	#ifdef SHELL_ON
@@ -271,9 +297,6 @@ boolean initDataLogger(){
 }
 
 boolean initStategy(){
-	//WheelSensor
-	wheelSensor.init(); //Reset is called in the init
-
 	//Strategy
 	if (strategySettings.init()){
 		//strategySettings.debugGPSSettings();
@@ -306,7 +329,7 @@ void onCanPacketReceived(CAN_FRAME& frame){
 			break;
 
 		//Don't take the status from channelBuffer because in the case the DashBoard is in safe mode channelBuffer might be not available
-		//and so no state is passed to the BMS class, instead pass the raw packet that is still available as the CAN is
+		//and so no state is passed to the BMS class, instead pass the raw packet that is as available as the CAN is
 		case CanID::BMS_STATUS:
 			BMS.onStateChanged((const char*)frame.data.bytes);
 			break;

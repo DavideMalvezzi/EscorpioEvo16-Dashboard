@@ -61,6 +61,12 @@
     <Filter Include="Source Files\Utils">
       <UniqueIdentifier>{0b281ebb-42cf-4643-a09e-4e4f88a5dd69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ExtInterfaces\Sensor">
+      <UniqueIdentifier>{d53613c9-f010-45d6-8d25-ed50e6516cdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ExtInterfaces\Sensor">
+      <UniqueIdentifier>{52406e19-1dd0-47b5-882b-7f80614d3edb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DashBoard.ino" />
@@ -74,9 +80,6 @@
     </ClInclude>
     <ClInclude Include="DataLogger.h">
       <Filter>Header Files\Datalogger</Filter>
-    </ClInclude>
-    <ClInclude Include="WheelSensor.h">
-      <Filter>Header Files\Strategy</Filter>
     </ClInclude>
     <ClInclude Include="StrategySettings.h">
       <Filter>Header Files\Strategy</Filter>
@@ -141,11 +144,17 @@
     <ClInclude Include="HWConfig.h">
       <Filter>Header Files\ExtInterfaces</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV13.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TelemetryInterface.h">
       <Filter>Header Files\ExtInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.REV14.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SteerSensor.h">
+      <Filter>Header Files\ExtInterfaces\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="WheelSensor.h">
+      <Filter>Header Files\ExtInterfaces\Sensor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +163,6 @@
     </ClCompile>
     <ClCompile Include="ChannelsConfig.cpp">
       <Filter>Source Files\Datalogger</Filter>
-    </ClCompile>
-    <ClCompile Include="WheelSensor.cpp">
-      <Filter>Source Files\Strategy</Filter>
     </ClCompile>
     <ClCompile Include="Interprete.cpp">
       <Filter>Source Files\Strategy</Filter>
@@ -214,6 +220,12 @@
     </ClCompile>
     <ClCompile Include="TelemetryInterface.cpp">
       <Filter>Source Files\ExtInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="SteerSensor.cpp">
+      <Filter>Source Files\ExtInterfaces\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="WheelSensor.cpp">
+      <Filter>Source Files\ExtInterfaces\Sensor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

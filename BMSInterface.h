@@ -25,6 +25,7 @@
 #define ERROR_STATE		"ERROR"
 
 #define BMS_LED_DUR		100
+#define BMS_STATE_TTL	1000
 
 
 class BMSInterface{
@@ -51,7 +52,7 @@ public:
 private:
 	byte ledStatus;
 	BMSState state;
-	Timer ledTimer;
+	Timer ledTimer, lastStateUpdate;
 };
 
 extern BMSInterface BMS;

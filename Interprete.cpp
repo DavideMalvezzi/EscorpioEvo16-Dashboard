@@ -34,6 +34,7 @@ void Interprete::init(){
 
 void Interprete::update(){
 	if (strategyTimer.hasFinished()){
+
 		if (strategySettings.isValid()){
 
 			if (!channelsBuffer.isValueUpdated(CanID::MOTOR_POWER)){

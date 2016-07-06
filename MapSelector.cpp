@@ -5,6 +5,8 @@ void MapSelectorClass::init(){
 	pinMode(SEL1_PIN, INPUT);
 	pinMode(SEL2_PIN, INPUT);
 
+	currentMap = INVALID_MAP;
+
 	sel1CurrState = LOW;
 	sel1PrevState = LOW;
 	sel2CurrState = LOW;
@@ -23,10 +25,8 @@ void MapSelectorClass::update(){
 	updateMap();
 
 	if (sendTimer.hasFinished()){
-		if(currentMap != INVALID_MAP){
-			canInterface.send(CanID::DRIVER_SET_MAP_CMD, &currentMap, sizeof(byte));
-			Log.i(MAPSEL_TAG) << F("Send map: ") << (int)currentMap << Endl;
-		}
+		canInterface.send(CanID::DRIVER_SET_MAP_CMD, &currentMap, sizeof(byte));
+		Log.i(MAPSEL_TAG) << F("Send map: ") << (int)currentMap << Endl;
 		sendTimer.start();
 	}
 }
@@ -58,7 +58,7 @@ void MapSelectorClass::updateMap(){
 			break;
 	}
 
-	if (newMap != currentMap && newMap != 0){
+	if (newMap != currentMap && newMap != INVALID_MAP){
 		currentMap = newMap;
 		canInterface.send(CanID::DRIVER_SET_MAP_CMD, &currentMap, sizeof(byte));
 		Log.i(MAPSEL_TAG) << F("New map: ") << (int)currentMap << Endl;

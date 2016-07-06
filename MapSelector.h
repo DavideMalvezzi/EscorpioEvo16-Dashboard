@@ -17,7 +17,8 @@
 #define CURR_MAP_TTL	500
 #define READ_TIMEOUT	75
 
-#define INVALID_MAP		0
+#define INVALID_MAP		-1
+#define DEFAULT_MAP		0
 #define MAP1			((LOW << 1) | HIGH)
 #define MAP2			((HIGH << 1) | HIGH)
 #define MAP3			((HIGH << 1) | LOW)

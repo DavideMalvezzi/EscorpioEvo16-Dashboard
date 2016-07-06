@@ -21,7 +21,13 @@ void DebugFormClass::update(Genie &genie){
 	}
 	
 	//Driver
-	updateWidget(genie, GENIE_OBJ_LED_DIGITS, DRIVER_MAP_DIGIT, channelsBuffer.getValueAs<byte>(CanID::MOTOR_MAP));
+	byte map = channelsBuffer.getValueAs<byte>(CanID::MOTOR_MAP);
+	if (map != INVALID_MAP){
+		updateWidget(genie, GENIE_OBJ_LED_DIGITS, DRIVER_MAP_DIGIT, map);
+	}
+	else{
+		Log.e(MAPSEL_TAG) << F("Current map is invalid") << Endl;
+	}
 
 }
 

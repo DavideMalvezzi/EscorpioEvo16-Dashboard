@@ -64,6 +64,9 @@ void StrategySettingsClass::loadStrategy(){
 	Configuration cfg;
 
 	if (cfg.loadFromFile(STRATEGY_CONFIG_FILE) == FILE_VALID){	
+
+		valid = true;
+
 		//Load track data
 		trackData.trackLenght = cfg.getProperty(TRACK_LENGHT).asInt();
 		trackData.trackFinish= cfg.getProperty(TRACK_FINISH).asInt();
@@ -75,20 +78,42 @@ void StrategySettingsClass::loadStrategy(){
 		trackData.generalLapTime = cfg.getProperty(T_LAP).asInt();
 		trackData.lastLapTime = cfg.getProperty(T_LAST_LAP).asInt();
 
-		//Load lap
-		loadLapProfile(STRATEGY_FIRSTLAP_FILE, firstLap, trackData.trackLenght + 1);
-		consoleForm.println(F("First lap profile OK"));
-		Log.i(STRAT_TAG) << F("First lap profile OK") << Endl;
+		//Load first lap
+		if (trackData.firstLapTime != 0){
+			loadLapProfile(STRATEGY_FIRSTLAP_FILE, firstLap, trackData.trackLenght + 1);
+			consoleForm.println(F("First lap profile OK"));
+			Log.i(STRAT_TAG) << F("First lap profile OK") << Endl;
+		}
+		else{
+			consoleForm.println(F("First lap profile SKIP"));
+			Log.w(STRAT_TAG) << F("First lap profile SKIP") << Endl;
+			valid = false;
+		}
 
-		loadLapProfile(STRATEGY_FIRSTLAP_FILE, generalLap, trackData.trackLenght + 1);
-		consoleForm.println(F("General lap profile OK"));
-		Log.i(STRAT_TAG) << F("General lap profile OK") << Endl;
+		//Load general lap
+		if (trackData.generalLapTime != 0){
+			loadLapProfile(STRATEGY_FIRSTLAP_FILE, generalLap, trackData.trackLenght + 1);
+			consoleForm.println(F("General lap profile OK"));
+			Log.i(STRAT_TAG) << F("General lap profile OK") << Endl;
+		}
+		else{
+			consoleForm.println(F("General lap profile SKIP"));
+			Log.w(STRAT_TAG) << F("General lap profile SKIP") << Endl;
+			valid = false;
+		}
 
-		loadLapProfile(STRATEGY_FIRSTLAP_FILE, lastLap, trackData.trackLenght + 1);
-		consoleForm.println(F("Last lap profile OK"));
-		Log.i(STRAT_TAG) << F("Last lap profile OK") << Endl;
+		//Load last lap
+		if (trackData.lastLapTime != 0){
+			loadLapProfile(STRATEGY_FIRSTLAP_FILE, lastLap, trackData.trackLenght + 1);
+			consoleForm.println(F("Last lap profile OK"));
+			Log.i(STRAT_TAG) << F("Last lap profile OK") << Endl;
+		}
+		else{
+			consoleForm.println(F("Last lap profile SKIP"));
+			Log.w(STRAT_TAG) << F("Last lap profile SKIP") << Endl;
+			valid = false;
+		}
 
-		valid = true;
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
@@ -127,7 +152,7 @@ void StrategySettingsClass::loadLapProfile(const char* filePath, LapProfile& pro
 	}
 	else{
 		consoleForm.println(String(filePath) + F(" file not found!"));
-		Log.e(STRAT_TAG) << filePath << F(" error on opening!") << Endl;
+		Log.e(STRAT_TAG) << filePath << F(" file not found!") << Endl;
 
 		valid = false;
 	}

@@ -37,6 +37,8 @@ void DisplayInterfaceClass::init(){
 
 	//Refresh rateo for the update method
 	refreshTimer.setDuration(1000 / REFRESH_RATEO).start();
+
+	enabled = true;
 }
 
 
@@ -45,12 +47,22 @@ void DisplayInterfaceClass::update(){
 	genie.DoEvents();
 
 	//If it's refresh time then update current form
-	if (refreshTimer.hasFinished()){
+	if (enabled && refreshTimer.hasFinished()){
 		if (currentForm != NULL){
 			currentForm->update(genie);
 		}
+
+		//If the refresh time is high disable the future updates. Probably the screen froze or shut down
+		if (refreshTimer.elapsedTime() > MAX_UPDATE_TIME){
+			enabled = false;
+			Log.w(LCD_TAG) << F("Disabled LCD updates") << Endl;
+		}
+		
 		refreshTimer.start();
+
 	}
+
+
 }
 
 void DisplayInterfaceClass::setCurrentForm(LCDForm* currentForm){
@@ -66,6 +78,8 @@ void DisplayInterfaceClass::setCurrentForm(LCDForm* currentForm){
 		genie.WriteObject(GENIE_OBJ_FORM, currentForm->getFormIndex(), 1);
 		//Invoke new current form onEnter method
 		currentForm->onEnter(genie);
+		//Restart refresh timer
+		refreshTimer.start();
 	}
 }
 
