@@ -13,14 +13,14 @@ void BMSInterface::init(){
 void BMSInterface::update(){
 
 	if (lastStateUpdate.hasFinished()){
-		Log.w(BMS_TAG) << "State TTL finished" << Endl;
+		Log.w(BMS_TAG) << F("State TTL finished") << Endl;
 
 		state = Unknown;
 		lastStateUpdate.start();
 	}
 
 	if (ledTimer.hasFinished()){
-		Log.i(BMS_TAG) << "State is " << state << Endl;
+		Log.i(BMS_TAG) << F("State is ") << state << Endl;
 
 		switch (state){
 
@@ -45,7 +45,7 @@ void BMSInterface::update(){
 
 			default:
 				digitalWrite(BMS_BUTTON_LED, LOW);
-				Log.w(BMS_TAG) << "Unknown state" << Endl;
+				Log.w(BMS_TAG) << F("Unknown state") << Endl;
 				break;
 		}
 

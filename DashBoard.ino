@@ -70,7 +70,7 @@ void onGpsDataReceived(GpsData& gps);
 #define BTN_TAG		F("BTN")
 
 //SW info
-#define SW_REV		F("14")
+#define SW_REV		F("15")
 #define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
 ///////////////////////////
 
@@ -183,6 +183,9 @@ void loop() {
 
 	//Read from sensors
 	steerSensor.update();
+
+	//Update the values on ChannelBuffer
+	wheelSensor.update();
 
 	//Buttons update
 	Button::update();
@@ -364,6 +367,7 @@ void onResetButtonPress(void* data){
 #ifdef LOOP_DEBUG
 	Log.i(BTN_TAG) << F("Wheel sensor reset button pressed") << Endl;
 #endif
+
 	wheelSensor.reset();
 }
 

@@ -53,10 +53,12 @@ void DisplayInterfaceClass::update(){
 		}
 
 		//If the refresh time is high disable the future updates. Probably the screen froze or shut down
+		/*
 		if (refreshTimer.elapsedTime() > MAX_UPDATE_TIME){
 			enabled = false;
 			Log.w(LCD_TAG) << F("Disabled LCD updates") << Endl;
 		}
+		*/
 		
 		refreshTimer.start();
 

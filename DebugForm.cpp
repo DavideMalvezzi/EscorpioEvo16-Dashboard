@@ -9,9 +9,15 @@ void DebugFormClass::init(Genie &genie){
 void DebugFormClass::update(Genie &genie){
 
 	//BMS
-	if (channelsBuffer.isValueUpdated(CanID::BMS_STATUS)){
-		updateString(genie, BMS_STATUS_STRING, channelsBuffer.getValueAsString(CanID::BMS_STATUS));
+	if (BMS.getState() != BMSInterface::Unknown){
+		if (channelsBuffer.isValueUpdated(CanID::BMS_STATUS)){
+			updateString(genie, BMS_STATUS_STRING, channelsBuffer.getValueAsString(CanID::BMS_STATUS));
+		}
 	}
+	else{
+		updateString(genie, BMS_STATUS_STRING, F("---"));
+	}
+	
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, BATTERY_V_DIGITS, channelsBuffer.getValueAs<float>(CanID::PACK_VOLTAGE) * 100.0);
 
 	byte cell;

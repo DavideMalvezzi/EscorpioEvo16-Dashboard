@@ -166,6 +166,8 @@ void WheelSensorClass::init(){
 	startTimer(TC2, 0, TC6_IRQn); //TC2 channel 0, the IRQ for that channel
 	Timer5.attachInterrupt(Timer5_Handler).setFrequency(1000).start();
 
+	updateTimer.setDuration(WHEEL_SENSOR_UPDATE_TIME).start();
+
 	reset();
 }
 
@@ -183,18 +185,22 @@ void WheelSensorClass::reset(){
 }
 
 void WheelSensorClass::update(){
-	channelsBuffer.setValue<byte>(CanID::LAP, getLap());
-	channelsBuffer.setValue<float>(CanID::REL_SPACE, getRelativeSpace());
-	channelsBuffer.setValue<float>(CanID::DISTANCE, getSpace());
+	if (updateTimer.hasFinished()){
+		channelsBuffer.setValue<byte>(CanID::LAP, getLap());
+		channelsBuffer.setValue<float>(CanID::REL_SPACE, getRelativeSpace());
+		channelsBuffer.setValue<float>(CanID::DISTANCE, getSpace());
 
-	channelsBuffer.setValue<float>(CanID::IST_VEL, getSpeed());
-	channelsBuffer.setValue<float>(CanID::AVG_VEL, getAvgSpeed());
+		channelsBuffer.setValue<float>(CanID::IST_VEL, getSpeed());
+		channelsBuffer.setValue<float>(CanID::AVG_VEL, getAvgSpeed());
 
-	channelsBuffer.setValue<unsigned long>(CanID::REL_TIME, getRelativeMillis());
-	channelsBuffer.setValue<unsigned long>(CanID::LEFT_TIME, getLeftMillis());
-	channelsBuffer.setValue<unsigned long>(CanID::LAST_TIME, getLastRelativeMillis());
+		channelsBuffer.setValue<uint32_t>(CanID::REL_TIME, getRelativeMillis());
+		channelsBuffer.setValue<uint32_t>(CanID::LEFT_TIME, getLeftMillis());
+		channelsBuffer.setValue<uint32_t>(CanID::LAST_TIME, getLastRelativeMillis());
 
-	channelsBuffer.setValue<float>(CanID::ENERGY, getEnergy());
+		channelsBuffer.setValue<float>(CanID::ENERGY, getEnergy());
+
+		updateTimer.start();
+	}
 }
 
 WheelSensorClass wheelSensor;

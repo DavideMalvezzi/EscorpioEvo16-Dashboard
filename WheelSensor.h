@@ -15,6 +15,7 @@
 #include "WayPoint.h"
 
 #define WHEEL_CFR			1.496   // wheel cfr in m
+#define WHEEL_SENSOR_UPDATE_TIME	500
 
 class WheelSensorClass {
 	
@@ -33,6 +34,8 @@ private:
 	volatile uint32_t speedtmr;
 	volatile float lastGap;
 	volatile bool gapIsValid;
+
+	Timer updateTimer;
 
 public:
 	friend void TC6_Handler();

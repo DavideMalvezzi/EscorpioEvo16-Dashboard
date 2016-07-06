@@ -147,14 +147,14 @@
     <ClInclude Include="TelemetryInterface.h">
       <Filter>Header Files\ExtInterfaces</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV14.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SteerSensor.h">
       <Filter>Header Files\ExtInterfaces\Sensor</Filter>
     </ClInclude>
     <ClInclude Include="WheelSensor.h">
       <Filter>Header Files\ExtInterfaces\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.REV15.vsarduino.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

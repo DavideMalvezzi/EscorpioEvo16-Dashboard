@@ -53,10 +53,6 @@ void Interprete::update(){
 			channelsBuffer.setValue<byte>(CanID::GAS, getStrategyOutput());
 			channelsBuffer.setValue<int>(CanID::GAP, getGap());
 		}
-
-		//Update values in ChannelBuffer		
-		wheelSensor.update();
-
 		strategyTimer.start();
 	}
 }
