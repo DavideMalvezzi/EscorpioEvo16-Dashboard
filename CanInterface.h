@@ -13,11 +13,15 @@
 #include <Timer.h>
 
 #include "ChannelsBuffer.h"
+#include "HWConfig.h"
 
 //Class containing an enum with all the CanID constants hard-coded
 class CanID{
 public:
 	enum IDs : unsigned short {
+		//BMS
+		BMS_CMD = 0x40,			//BMS command
+
 		//Phone
 		DATE = 0x60,			//Date dd/mm/yy
 		TIME = 0x61,			//Time hh:MM:ss
@@ -76,10 +80,8 @@ public:
 	
 //Can debug
 #define CAN_TAG		F("CAN")
-
-#define DebugSerial				SerialUSB
 #define CAN_SERIAL_TIMEOUT		5000
-#define CAN_SERIAL_BAUD			115200
+
 #define CAD_MSG_HEADER			"CAD"	//CAN Analyzer Data
 #define CAN_MSG_HEADER			"CAN"	//SEND + CHANNEL + SIZE + DATA
 #define DEBUG_RX_BUFFER_SIZE	32

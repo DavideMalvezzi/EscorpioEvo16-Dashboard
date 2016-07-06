@@ -15,14 +15,14 @@ void onEvent(){
 }
 
 void DisplayInterfaceClass::init(){
-	INIT_SERIAL(LCDSerial, LCD_SERIAL_BAUD);
-	genie.Begin(LCDSerial);
+	INIT_SERIAL(LCD_SERIAL, LCD_SERIAL_BAUD);
+	genie.Begin(LCD_SERIAL);
 
 	//Reset the LCD
-	pinMode(RESET_PIN, OUTPUT); 
-	digitalWrite(RESET_PIN, LOW);  
+	pinMode(LCD_RESET_PIN, OUTPUT); 
+	digitalWrite(LCD_RESET_PIN, LOW);
 	delay(100);
-	digitalWrite(RESET_PIN, HIGH); 
+	digitalWrite(LCD_RESET_PIN, HIGH);
 	delay(3500);
 
 	//Attach event handler method

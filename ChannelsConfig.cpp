@@ -18,12 +18,16 @@ boolean ChannelsConfigClass::init(){
 			c->type = cfg[i + Channel::Type].asChar();
 			channels.append(c);
 		}
+
+		valid = true;
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
-		Log.assert(false, cfg.getErrorMsg());
+		Log.e(CHBUF_TAG) << cfg.getErrorMsg() << Endl;
+		valid = false;
 	}
 
+	return valid;
 }
 
 void ChannelsConfigClass::debug(){

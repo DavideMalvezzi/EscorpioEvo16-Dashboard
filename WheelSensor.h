@@ -11,7 +11,6 @@
 #include "WayPoint.h"
 
 #define WHEEL_CFR			1.496   // wheel cfr in m
-#define RESET_BUTTON_PIN	4
 
 class WheelSensorClass {
 	

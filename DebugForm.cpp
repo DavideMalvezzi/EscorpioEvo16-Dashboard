@@ -9,7 +9,9 @@ void DebugFormClass::init(Genie &genie){
 void DebugFormClass::update(Genie &genie){
 
 	//BMS
-	updateString(genie, BMS_STATUS_STRING, channelsBuffer.getValueAsString(CanID::BMS_STATUS));
+	if (channelsBuffer.isValueUpdated(CanID::BMS_STATUS)){
+		updateString(genie, BMS_STATUS_STRING, channelsBuffer.getValueAsString(CanID::BMS_STATUS));
+	}
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, BATTERY_V_DIGITS, channelsBuffer.getValueAs<float>(CanID::PACK_VOLTAGE) * 100.0);
 
 	byte cell;
@@ -26,25 +28,26 @@ void DebugFormClass::update(Genie &genie){
 void DebugFormClass::onEvent(Genie& genie, genieFrame& evt){
 	switch (evt.reportObject.index){
 		
-		case DEBUG_ON_SERIAL_BUTTON:
-			INIT_SERIAL(DebugSerial, CAN_SERIAL_BAUD);
-			canInterface.setCanDebugSerialPort(&DebugSerial);
-			updateWidget(genie, GENIE_OBJ_USER_LED, DEBUG_ACTIVE_LED, HIGH);
+		case CAN_ON_SERIAL_BUTTON:
+			INIT_SERIAL(CAN_DEBUG_SERIAL, CAN_SERIAL_BAUD);
+			canInterface.setCanDebugSerialPort(&CAN_DEBUG_SERIAL);
 		break;
 
-		case DEBUG_ON_BLUETOOTH_BUTTON:
-			INIT_SERIAL(BLSerial, CAN_SERIAL_BAUD);
-			canInterface.setCanDebugSerialPort(&BLSerial);
-			updateWidget(genie, GENIE_OBJ_USER_LED, DEBUG_ACTIVE_LED, HIGH);
+		case CAN_ON_BLUETOOTH_BUTTON:
+			INIT_SERIAL(BL_SERIAL, CAN_SERIAL_BAUD);
+			canInterface.setCanDebugSerialPort(&BL_SERIAL);
 			break;
 
-		case DEBUG_STOP_BUTTON:
+		case CAN_STOP_BUTTON:
 			canInterface.setCanDebugSerialPort(NULL);
-			updateWidget(genie, GENIE_OBJ_USER_LED, DEBUG_ACTIVE_LED, LOW);
 			break;
 
 		case DRIVER_SETTING_BUTTON:
 			displayInterface.setCurrentForm(&mapsForm);
+			break;
+
+		case BMS_DEBUG_BUTTON:
+			BMS.setDebugMode();
 			break;
 	}
 

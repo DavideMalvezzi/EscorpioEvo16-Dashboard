@@ -37,13 +37,14 @@ void ChannelsBufferClass::debug(){
 }
 
 String ChannelsBufferClass::getValueAsString(unsigned short id){
-	int index = channelsConfig.getChannelIndex(id);
-	//If channel's config found
-	if (index != -1){
-		Channel* c = channelsConfig.getChannelByIndex(index);
+	if (channelsConfig.isValid()){
+		int index = channelsConfig.getChannelIndex(id);
+		//If channel's config found
+		if (index != -1){
+			Channel* c = channelsConfig.getChannelByIndex(index);
 
-		//Convert to arduino String obj
-		switch (c->type){
+			//Convert to arduino String obj
+			switch (c->type){
 			case Channel::BIT_FLAG:
 				return buffer[index].toBinString();
 
@@ -68,54 +69,59 @@ String ChannelsBufferClass::getValueAsString(unsigned short id){
 			default:
 				Log.e(CHBUF_TAG) << F("in getValueAsString\t Unknown conversion type channel ") << id << F(" to type ") << c->type << Endl;
 #endif
+			}
 		}
 	}
-
 	//Error
 	return F("nil");
 }
 
 ByteBuffer ChannelsBufferClass::getValueAsByteArray(unsigned short id){
-	int index = channelsConfig.getChannelIndex(id);
-	//Return a copy 
-	if (index != -1){
-		ByteBuffer& b = buffer[index];
-		return ByteBuffer(b.data(), b.getSize());
+	if (channelsConfig.isValid()){
+		int index = channelsConfig.getChannelIndex(id);
+		//Return a copy 
+		if (index != -1){
+			ByteBuffer& b = buffer[index];
+			return ByteBuffer(b.data(), b.getSize());
+		}
 	}
 	return ByteBuffer();
 }
 
 void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short size){
-	int index = channelsConfig.getChannelIndex(id);
-	if (index != -1){
+	if (channelsConfig.isValid()){
+		int index = channelsConfig.getChannelIndex(id);
+		if (index != -1){
 
 #ifdef WARNING
-		if (size < channelsConfig.getChannelByIndex(index)->size){
-			Log.w(CHBUF_TAG) << F("in setValue\t Received size < expected size for channel ") << id << Endl;
-		}
-		else if (size > channelsConfig.getChannelByIndex(index)->size){
-			Log.w(CHBUF_TAG) << F("in setValue\t Received size > expected size for channel ") << id << Endl;
-		}
+			if (size < channelsConfig.getChannelByIndex(index)->size){
+				Log.w(CHBUF_TAG) << F("in setValue\t Received size < expected size for channel ") << id << Endl;
+			}
+			else if (size > channelsConfig.getChannelByIndex(index)->size){
+				Log.w(CHBUF_TAG) << F("in setValue\t Received size > expected size for channel ") << id << Endl;
+			}
 #endif
-		if (size <= channelsConfig.getChannelByIndex(index)->size){
-			buffer[index].clear();
-			buffer[index].append(data, size);
-			updateFlags.setBit(index);
+			if (size <= channelsConfig.getChannelByIndex(index)->size){
+				buffer[index].clear();
+				buffer[index].append(data, size);
+				updateFlags.setBit(index);
+			}
+
 		}
-		
-	}
-	else {
+		else {
 #ifdef WARNING
-		Log.w(CHBUF_TAG) << F("WARNING: ChannelsBuffer::setValue  unknow packet id = ") << id << Endl;
+			Log.w(CHBUF_TAG) << F("ChannelsBuffer::setValue  unknow packet id = ") << id << Endl;
 #endif
+		}
 	}
-	
 }
 
 bool ChannelsBufferClass::isValueUpdated(unsigned short id){
-	int index = channelsConfig.getChannelIndex(id);
-	if (index != -1){
-		return updateFlags.getBit(index);
+	if (channelsConfig.isValid()){
+		int index = channelsConfig.getChannelIndex(id);
+		if (index != -1){
+			return updateFlags.getBit(index);
+		}
 	}
 	return false;
 }

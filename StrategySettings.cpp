@@ -2,9 +2,10 @@
 #include "StrategySettings.h"
 #include "ConsoleForm.h"
 
-void StrategySettingsClass::init(){
+boolean StrategySettingsClass::init(){
 	loadStrategy();
 	loadGPSSettings();
+	return valid;
 }
 
 void StrategySettingsClass::loadGPSSettings(){
@@ -26,7 +27,7 @@ void StrategySettingsClass::loadGPSSettings(){
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
-		Log.assert(false, cfg.getErrorMsg());
+		Log.e(STRAT_TAG) << cfg.getErrorMsg() << Endl;
 	}
 }
 
@@ -87,10 +88,13 @@ void StrategySettingsClass::loadStrategy(){
 		consoleForm.println(F("Last lap profile OK"));
 		Log.i(STRAT_TAG) << F("Last lap profile OK") << Endl;
 
+		valid = true;
 	}
 	else{
 		consoleForm.println(cfg.getErrorMsg());
-		Log.assert(false, cfg.getErrorMsg());
+		Log.e(STRAT_TAG) << cfg.getErrorMsg() << Endl;
+
+		valid = false;
 	}
 
 }
@@ -115,13 +119,17 @@ void StrategySettingsClass::loadLapProfile(const char* filePath, LapProfile& pro
 		}
 		else{
 			consoleForm.println(String(filePath) + F(" error on opening!"));
-			Log.assert(false, String(filePath) + F(" error on opening!"));
+			Log.e(STRAT_TAG) << filePath << F(" error on opening!") << Endl;
+
+			valid = false;
 		}
 
 	}
 	else{
 		consoleForm.println(String(filePath) + F(" file not found!"));
-		Log.assert(false, String(filePath) + F(" file not found!"));
+		Log.e(STRAT_TAG) << filePath << F(" error on opening!") << Endl;
+
+		valid = false;
 	}
 }
 

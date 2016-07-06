@@ -3,8 +3,8 @@
 
 
 void MainFormClass::init(Genie &genie){
-	//Nothing to do here, for now
-
+	prevMap = INVALID_MAP;
+	changedMapTimer.setDuration(MAP_SELECTOR_TTL);
 }
 
 void MainFormClass::update(Genie &genie){
@@ -24,6 +24,27 @@ void MainFormClass::update(Genie &genie){
 	updateString(genie, 2, String((float)(millis() % 99999) / 100, 2));
 	*/
 
+	if (changedMapTimer.hasFinished()){
+		updateWidget(genie, GENIE_OBJ_USERIMAGES, MAP_SELECTOR_IMG, 0);
+		updateWidgetsValues(genie);
+	}
+	else if (changedMapTimer.isRunning()){
+		updateWidget(genie, GENIE_OBJ_USERIMAGES, MAP_SELECTOR_IMG, prevMap);
+	}
+	else{	
+		updateWidgetsValues(genie);
+	}
+
+}
+
+void MainFormClass::setNewCurrentMap(byte map){
+	if (prevMap != map){
+		prevMap = map;
+		changedMapTimer.start();
+	}
+}
+
+void MainFormClass::updateWidgetsValues(Genie& genie){
 	unsigned short dc = (float)channelsBuffer.getValueAs<byte>(CanID::MOTOR_DUTY_CICLE) / 255.0 * 100.0;
 	updateWidget(genie, GENIE_OBJ_GAUGE, DUTY_CICLE_BAR, dc);
 
@@ -39,24 +60,20 @@ void MainFormClass::update(Genie &genie){
 	updateWidget(genie, GENIE_OBJ_USER_LED, RADIO_LED, phoneInterface.isCallActive());
 	updateWidget(genie, GENIE_OBJ_USER_LED, GAS_LED, strategy.getStrategyOutput());
 
-	String gap;
-	if (strategy.getGap() >= 0){
-		gap += '+';
-	}
-	else{
-		gap += '-';
-	}
-
+	String gap = strategy.getGap() >= 0 ? "+" : "-" ;
 	gap += strategy.getGap();
 
 	updateString(genie, GAP_STRING, gap);
 	updateString(genie, CONSUMPTION_STRING, String(wheelSensor.getEnergy() / 1000.0, 3));
 
+	if (!channelsConfig.isValid() || !strategySettings.isValid()){
+		updateString(genie, SAFE_MODE_STRING, F("Safe Mode"));
+	}
 }
-
 
 unsigned short MainFormClass::convertMillisToMinSec(unsigned long time){
 	time /= 1000;
-	return (time / 60) * 10 + (time % 60);// / 10;
+	return (time / 60) * 100 + (time % 60);
 }
+
 MainFormClass mainForm;

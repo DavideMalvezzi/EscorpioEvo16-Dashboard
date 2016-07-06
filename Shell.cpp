@@ -37,7 +37,7 @@ void ShellClass::update(){
 
 	if (serialPort->available()){
 
-		while (serialPort->available()){
+		while (serialPort->available() && rxBuffer.getSize() < rxBuffer.getCapacity()){
 			rxBuffer.append(serialPort->read());
 		}
 
@@ -48,7 +48,7 @@ void ShellClass::update(){
 
 			if (findCmd(line, &cmd) != -1){
 				(this->*cmd.cmdFun)(line);
-				LOGLN("Cmd executed");
+				//Log.e(SHELL_TAG) << ("Cmd executed") << Endl;
 			}
 			else{
 				Log.e(SHELL_TAG) << F("Command not found") << Endl;

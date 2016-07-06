@@ -4,7 +4,7 @@
 
 void PhoneInterfaceClass::init(){
 	//Init
-	INIT_SERIAL(BLSerial, BL_SERIAL_BAUD);
+	INIT_SERIAL(BL_SERIAL, BL_SERIAL_BAUD);
 	rxBuffer.resize(PHONE_RX_BUFFER_SIZE);
 	
 	//Load cfg
@@ -13,8 +13,9 @@ void PhoneInterfaceClass::init(){
 		phoneToCall = cfg.getProperty(PHONE_NUM).asString();
 	}
 	else{
+		phoneToCall = DEFAULT_PHONE_NUM;
 		consoleForm.println(cfg.getErrorMsg());
-		Log.assert(false, cfg.getErrorMsg());
+		Log.e(PHONE_TAG) << cfg.getErrorMsg() << Endl;
 	}
 
 	//Call not active
@@ -27,9 +28,9 @@ void PhoneInterfaceClass::init(){
 
 void PhoneInterfaceClass::update(){
 	//Read all bytes on serial
-	if (BLSerial.available()){
-		while (BLSerial.available() && rxBuffer.getSize() < rxBuffer.getCapacity()){
-			rxBuffer.append(BLSerial.read());
+	if (BL_SERIAL.available()){
+		while (BL_SERIAL.available() && rxBuffer.getSize() < rxBuffer.getCapacity()){
+			rxBuffer.append(BL_SERIAL.read());
 		}
 
 		if (parsePacket(INFO_PACKET, (byte*)&info, sizeof(InfoData))){
@@ -64,9 +65,9 @@ void PhoneInterfaceClass::update(){
 }
 
 void PhoneInterfaceClass::call(){
-	BLSerial.print(CALL_CMD);
-	BLSerial.print(phoneToCall);
-	BLSerial.print('\n');
+	BL_SERIAL.print(CALL_CMD);
+	BL_SERIAL.print(phoneToCall);
+	BL_SERIAL.print('\n');
 }
 
 boolean PhoneInterfaceClass::parsePacket(const char* header, byte* buffer, int size){

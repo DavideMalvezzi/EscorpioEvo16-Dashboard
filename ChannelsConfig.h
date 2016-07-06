@@ -25,8 +25,10 @@ public:
 	Channel* getChannelByIndex(int index);
 	int getChannelIndex(unsigned short id);
 	int getChannelCount(){ return channels.getSize(); }
+	boolean isValid(){ return valid; }
 
 private:
+	boolean valid;
 	Vector<Channel*> channels;
 
 };

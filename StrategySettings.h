@@ -16,7 +16,7 @@
 
 #define STRAT_TAG	F("STRAT")
 
-#define GPS_CONFIG_FILE "Gps.cfg"
+#define GPS_CONFIG_FILE "GPS.CFG"
 #define WAYPOINT	6
 #define WAY_LAT		0
 #define WAY_LON		1
@@ -61,9 +61,10 @@ class StrategySettingsClass {
  	
 public:
 
-	void init();
+	boolean init();
 	void debugGPSSettings();
 	void debugTrackSettings();
+	boolean isValid(){ return valid; }
 
 	WayPoint& getWayPoint(int index){ return gpsWayPoint[index]; }
 	int getWayPointsNum(){ return gpsWayPoint.getCapacity(); }
@@ -74,6 +75,7 @@ public:
 	LapProfile& getLastLap(){ return lastLap; }
 
 private:
+	boolean valid;
 	TrackData trackData;
 	LapProfile firstLap, lastLap, generalLap;
 

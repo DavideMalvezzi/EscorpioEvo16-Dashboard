@@ -40,7 +40,7 @@ void DataLoggerClass::init(){
 
 void DataLoggerClass::update(){
 	//If it's time to log!
-	if (logTimer.hasFinished()){
+	if (logTimer.hasFinished() && channelsConfig.isValid()){
 		Channel* channel;
 		//Open file
 		File logFile = SD.open(logFileName, O_WRITE);

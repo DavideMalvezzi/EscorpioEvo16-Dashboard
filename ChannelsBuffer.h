@@ -28,9 +28,11 @@ public:
 
 	template <typename T>
 	T getValueAs(unsigned short id){
-		int index = channelsConfig.getChannelIndex(id);
-		if (index != -1){
-			return buffer[index].as<T>();
+		if (channelsConfig.isValid()){
+			int index = channelsConfig.getChannelIndex(id);
+			if (index != -1){
+				return buffer[index].as<T>();
+			}
 		}
 		return NAN;
 	}

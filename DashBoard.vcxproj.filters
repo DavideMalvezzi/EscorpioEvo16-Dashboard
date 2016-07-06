@@ -129,14 +129,20 @@
     <ClInclude Include="WdtUtils.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV11.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MapSelector.h">
       <Filter>Header Files\ExtInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="Shell.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.REV12.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BMSInterface.h">
+      <Filter>Header Files\ExtInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="HWConfig.h">
+      <Filter>Header Files\ExtInterfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="Shell.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="BMSInterface.cpp">
+      <Filter>Source Files\ExtInterfaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

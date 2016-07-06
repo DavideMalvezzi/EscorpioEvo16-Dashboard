@@ -4,8 +4,7 @@
  Author:	Davide Malvezzi
 */
 
-#include "MapSelector.h"
-#include "Logger.h"
+#include "BMSInterface.h"
 #include "Channel.h"
 #include "ConsoleForm.h"
 #include "DebugForm.h"
@@ -14,12 +13,15 @@
 #include "ChannelsConfig.h"
 #include "DataLogger.h"
 #include "DisplayInterface.h"
+#include "HWConfig.h"
 #include "Interprete.h"
 #include "LCDForm.h"
 #include "LCDStringList.h"
 #include "LCDStringMsg.h"
+#include "Logger.h"
 #include "MainForm.h"
 #include "MapsForm.h"
+#include "MapSelector.h"
 #include "PhoneInterface.h"
 #include "Shell.h"
 #include "StrategySettings.h"	
@@ -41,15 +43,35 @@
 #include <Vector.h>
 
 
-//Hw settings
-#define WDT_TIMEOUT	10000
-#define SERIAL_BAUD	115200
-#define SD_SS_PIN	28
-#define BUTTON_NUM	3
-#define RED_LED		34
-#define YELLOW_LED  32
+//Inits
+void initPorts();
+boolean initDataLogger();
+boolean initStategy();
+void initButtons();
+//Updates
+void updateStrategy();
+//Events
+void onCanPacketReceived(CAN_FRAME& frame);
+void onGpsDataReceived(GpsData& gps);
 
-//TODO: put inside strategy
+//Code flag
+#define WDT_ON		
+#define LCD_ON
+#define DL_ON
+#define STRAT_ON
+#define PHONE_ON
+//#define SHELL_ON
+
+//Log tag
+#define INIT_TAG	F("INIT")
+#define LOOP_TAG	F("LOOP")
+#define BTN_TAG		F("BTN")
+
+//SW info
+#define SW_REV		F("12")
+#define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
+
+//Strategy stuff
 #define STRATEGY_STEP_PERIOD	500
 Timer strategyTimer;
 ///////////////////////////
@@ -59,222 +81,219 @@ boolean ledStatus;
 int loops;
 unsigned long avgExecutionTime;
 Timer t, sec;
+///////////////////////////
 
-//Inits
-void initPorts();
-void initDataLogger();
-void initStategy();
-void initButtons();
-//Updates
-void updateStrategy();
-//Events
-void onCanPacketReceived(CAN_FRAME& frame);
-void onGpsDataReceived(GpsData& gps);
-
-//Code flag
-#define INIT_DEBUG	
-#define LOOP_DEBUG	
-#define USE_WDT		
-//#define ONLY_SHELL
-#define STRAT_ON
-#define LCD_ON
-
-//Log tag
-#define INIT_TAG	F("INIT")
-#define LOOP_TAG	F("LOOP")
-#define BTN_TAG		F("BTN")
-
-//SW info
-#define SW_REV		F("11")
-#define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
-
-byte cmap = 0;
 
 void setup() {
 	//Start timer to count init time
-#ifdef INIT_DEBUG
 	t.start();
-#endif
 
-	//Serial, SPI, digital pin
+	//Serial, SD, digital pin, BMS, mapSelector, CAN
 	initPorts();
 
-#ifndef ONLY_SHELL
 	//Display
-	displayInterface.init();
-	consoleForm.println(SW_INFO);
-	consoleForm.println(F("Display OK"));
-	Log.i(INIT_TAG) << SW_INFO << Endl;
-	Log.i(LCD_TAG) << F("Display OK") << t.elapsedTime() << Endl;
+	#ifdef LCD_ON
+		displayInterface.init();
+		consoleForm.println(SW_INFO);
+		Log.i(INIT_TAG) << SW_INFO << Endl;
+	#endif
 
-	//Can, Channels
-	initDataLogger();
-	consoleForm.println(F("Datalogger OK"));
-	Log.i(DL_TAG) << F("Datalogger OK") << t.elapsedTime() << Endl;
+	//Channels, Datalogger
+	#ifdef DL_ON
+		if (initDataLogger()){
+			consoleForm.println(F("Datalogger OK"));
+			Log.i(DL_TAG) << F("Datalogger OK ") << t.elapsedTime() << Endl;
+		}
+		else{
+			consoleForm.println(F("Datalogger FAIL"));
+			Log.i(DL_TAG) << F("Datalogger FAIL") << Endl;
+		}
+	#endif
 
 	//WheelSensor, Strategy
-#ifdef STRAT_ON
-	initStategy();
-	consoleForm.println(F("Strategy OK"));
-	Log.i(STRAT_TAG) << F("Strategy OK") << t.elapsedTime() << Endl;
-#endif
+	#ifdef STRAT_ON
+		if (initStategy()){
+			consoleForm.println(F("Strategy OK"));
+			Log.i(STRAT_TAG) << F("Strategy OK ") << t.elapsedTime() << Endl;
+		}
+		else{
+			consoleForm.println(F("Strategy FAIL"));
+			Log.i(STRAT_TAG) << F("Strategy FAIL") << t.elapsedTime() << Endl;
+		}
+	#endif
+
 	//Phone
-	phoneInterface.init();
-	phoneInterface.setGpsDataHandler(&onGpsDataReceived);
-	consoleForm.println(F("Phone OK"));
-	Log.i(PHONE_TAG) << F("Phone OK") << t.elapsedTime() << Endl;
+	#ifdef PHONE_ON
+		phoneInterface.init();
+		phoneInterface.setGpsDataHandler(&onGpsDataReceived);
+		consoleForm.println(F("Phone OK"));
+		Log.i(PHONE_TAG) << F("Phone OK ") << t.elapsedTime() << Endl;
+	#endif
 
 	//Physical buttons
 	initButtons();
 	consoleForm.println(F("Buttons OK"));
-	Log.i(BTN_TAG) << F("Buttons OK") << t.elapsedTime() << Endl;
+	Log.i(BTN_TAG) << F("Buttons OK ") << t.elapsedTime() << Endl;
 	
 	//Notify init completed
 	consoleForm.println(F("Dashboard init OK"));
-	Log.i(INIT_TAG) << F("Dashboard init OK") << t.elapsedTime() << Endl;
+	Log.i(INIT_TAG) << F("Dashboard init OK ") << t.elapsedTime() << Endl;
 
 	//Go to the main form
 	displayInterface.setCurrentForm(&mainForm);
-#endif
+
 	//Init time
-#ifdef INIT_DEBUG
 	Log.i(INIT_TAG) << F("Time needed to init: ") << t.elapsedTime() << Endl;
-#endif
 
 	//Init test stuff
-#ifdef LOOP_DEBUG
 	ledStatus = LOW;
 	sec.setDuration(1000).start();
 	avgExecutionTime = 0;
 	loops = 0;
-#endif
-
+	
 	//Enable WDT
-	//WARNING: To enable the WDT it's needed to remove WDT_Disable in file variant.cpp
-#ifdef USE_WDT
-	enableWDT(WDT_TIMEOUT);
-#else
-	disableWDT();
-#endif
+	#ifdef WDT_ON
+		//WARNING: To enable the WDT it's needed to remove WDT_Disable in file variant.cpp
+		enableWDT(WDT_TIMEOUT);
+	#else
+		disableWDT();
+	#endif
 
 }
 
 void loop() {
 	//Reset Watchdog
-#ifdef USE_WDT
-	resetWDT();
-#endif
+	#ifdef WDT_ON
+		resetWDT();
+	#endif
 
 	//Test execution time
-#ifdef LOOP_DEBUG
 	t.start();
-#endif
-	//////////////////////
-#ifndef ONLY_SHELL
+	
 	//Read all packet and update debug if necessary
 	canInterface.update();
 
-	//Phone update
-	phoneInterface.update();
+	//Update BMS led button
+	BMS.update();
 
-	//Strategy update
-#ifdef STRAT_ON
-	updateStrategy();
-#endif
+	//Check map selector config
+	mapSelector.update();
 
-	//Datalogger update
-	dataLogger.update();
+	#ifdef PHONE_ON
+		//Check for in-coming packet from the phone
+		phoneInterface.update();
+	#endif
 
-	//Display update
-#ifdef LCD_ON
-	displayInterface.update();
-#endif
+	#ifdef STRAT_ON
+		//Strategy update
+		updateStrategy();
+	#endif
+
+	#ifdef DL_ON
+		//Log data on SD
+		dataLogger.update();
+	#endif
+
+	#ifdef LCD_ON
+		//Display update
+		displayInterface.update();
+	#endif
 
 	//Buttons update
 	Button::update();
-#endif
-	//Shell update
-	shell.update();
-	
+
+	#ifdef SHELL_ON
+		//Shell update
+		shell.update();
+	#endif
+
 	//Test execution time
-#ifdef LOOP_DEBUG
 	avgExecutionTime += t.elapsedTime();
 	loops++;
 
 	if (sec.hasFinished()){
-		Log.i(LOOP_TAG) << F("Loop calls: ") << loops
-						<< F("\t avgExecTime: ") << (float)avgExecutionTime / loops * 1000 << F(" us ")
-						<< F("\t freeMem: ") << freeMemory() << Endl;
-
 		ledStatus = !ledStatus;
 		digitalWrite(YELLOW_LED, ledStatus);
 
+		Log.i(LOOP_TAG) << F("Loop calls: ") << loops
+						<< F("\t avgExecTime: ") << (float)avgExecutionTime / loops * 1000 << F(" us ")
+						<< F("\t freeMem: ") << freeMemory() << Endl;
 		avgExecutionTime = 0;
 		loops = 0;
 		sec.start();
 	}
-#endif
 	//////////////////////
 }
 
 //Inits functions
 void initPorts(){
-	INIT_SERIAL(Serial, SERIAL_BAUD);
+	INIT_SERIAL(LOG_SERIAL, LOG_SERIAL_BAUD);
 	INIT_SD(SD, SD_SS_PIN);
 
 	pinMode(RED_LED, OUTPUT);
 	pinMode(YELLOW_LED, OUTPUT);
+	pinMode(GREEN_LED, INPUT);
+
 	digitalWrite(RED_LED, LOW);
 	digitalWrite(YELLOW_LED, LOW);
 
-	Log.init(&Serial);
-	shell.init(&Serial);
-}
+	//Controls
+	mapSelector.init();
+	BMS.init();
 
-void initDataLogger(){
 	//Can
-	canInterface.init(CAN_BPS_125K);
+	canInterface.init(CAN_SPEED);
 	canInterface.setCanEventCallBack(&onCanPacketReceived);
 
-	//Datalogger
-	channelsConfig.init();
-	channelsBuffer.init();
-	dataLogger.init();
+	//Utils
+	shell.init(&LOG_SERIAL);
+	Log.init(&LOG_SERIAL);
 }
 
-void initStategy(){
+boolean initDataLogger(){
+	//Datalogger
+	if (channelsConfig.init()){
+		channelsBuffer.init();
+		dataLogger.init();
+		return true;
+	}
+
+	return false;
+}
+
+boolean initStategy(){
 	//WheelSensor
 	wheelSensor.init(); //Reset is called in the init
 
 	//Strategy
-	strategySettings.init();
-	//strategySettings.debugGPSSettings();
-	//strategySettings.debugTrackSettings();
-	
-	strategy.init();
+	if (strategySettings.init()){
+		//strategySettings.debugGPSSettings();
+		//strategySettings.debugTrackSettings();
+		strategy.init();
+		strategyTimer.setDuration(STRATEGY_STEP_PERIOD).start();
+		return true;
+	}
 
-	strategyTimer.setDuration(STRATEGY_STEP_PERIOD).start();
+	return false;
 }
 
 void initButtons(){
 	//Reverse logic		rising edge = release, falling edge = pressed
 	Button::setMaxNumber(BUTTON_NUM);
-	Button::add(RESET_BUTTON_PIN, NULL, &onResetButtonPress);
-	Button::add(CALL_BUTTON_PIN, NULL, &onCallButtonPress);
-	Button::add(CHANGE_FORM_BUTTON_PIN, NULL, &onChangeFormButtonPress);
+	Button::add(BMS_BUTTON_PIN,				NULL, &onStartButtonPressed		);
+	Button::add(BL_CALL_BUTTON_PIN,			NULL, &onCallButtonPress		);
+	Button::add(WHEEL_RESET_BUTTON_PIN,		NULL, &onResetButtonPress		);
+	Button::add(LCD_CHANGE_FORM_BUTTON_PIN, NULL, &onChangeFormButtonPress	);	
 }
 
 //Update functions
 void updateStrategy(){
 	//Strategy update
-	if (strategyTimer.hasFinished()){
+	if (strategyTimer.hasFinished() && strategySettings.isValid()){
 
 		if (!channelsBuffer.isValueUpdated(CanID::MOTOR_POWER)){
 			wheelSensor.setPower(0);
 		}
-
-		byte currentMap = cmap + 1;
-		canInterface.send(CanID::DRIVER_SET_MAP_CMD, &currentMap, 1);
 
 		strategy.step(
 			wheelSensor.getLap(),
@@ -291,7 +310,6 @@ void updateStrategy(){
 
 //Events functions
 void onCanPacketReceived(CAN_FRAME& frame){
-
 	//Log.i(CAN_TAG) << F("Received ") << frame.id << " " << frame.length << " " << Hex << Log.array<byte>(frame.data.bytes, frame.length) << Endl;
 
 	channelsBuffer.setValue(frame.id, frame.data.bytes, frame.length);
@@ -299,6 +317,16 @@ void onCanPacketReceived(CAN_FRAME& frame){
 	switch (frame.id){
 		case CanID::MOTOR_POWER:
 			wheelSensor.setPower(channelsBuffer.getValueAs<float>(CanID::MOTOR_POWER));
+			break;
+
+		//Don't take the status from channelBuffer because in the case the DashBoard is in safe mode channelBuffer might be not available
+		//and so no state is passed to the BMS class, instead pass the raw packet that is still available as the CAN is
+		case CanID::BMS_STATUS:
+			BMS.onStateChanged((const char*)frame.data.bytes);
+			break;
+
+		case CanID::MOTOR_MAP:
+			mainForm.setNewCurrentMap(channelsBuffer.getValueAs<byte>(CanID::MOTOR_MAP));
 			break;
 	}
 
@@ -317,7 +345,7 @@ void onGpsDataReceived(GpsData& gps){
 		channelsBuffer.setValue(CanID::GPS_WAYPOINT, &i, sizeof(byte));
 	}
 
-	//Log.i("GPS") << gps.latitude << " " << gps.longitude << " " << gps.altitude << " " << gps.speed << " " << gps.accuracy << Endl;
+	Log.i("GPS") << gps.latitude << " " << gps.longitude << " " << gps.altitude << " " << gps.speed << " " << gps.accuracy << Endl;
 }
 
 //Buttons events
@@ -326,16 +354,14 @@ void onResetButtonPress(void* data){
 	Log.i(BTN_TAG) << F("Wheel sensor reset button pressed") << Endl;
 #endif
 	wheelSensor.reset();
-
-	cmap = (cmap + 1) % 4;
 }
 
 void onCallButtonPress(void* data){
 #ifdef LOOP_DEBUG
 	Log.i(BTN_TAG) << F("Call button pressed") << Endl;
 #endif
+
 	phoneInterface.call();
-	
 }
 
 void onChangeFormButtonPress(void* data){
@@ -351,3 +377,10 @@ void onChangeFormButtonPress(void* data){
 	}
 }
 
+void onStartButtonPressed(void* data){
+#ifdef LOOP_DEBUG
+	Log.i(BTN_TAG) << F("BMS start button pressed") << Endl;
+#endif
+
+	BMS.start();
+}

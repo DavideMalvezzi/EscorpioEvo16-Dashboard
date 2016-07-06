@@ -114,14 +114,12 @@ void CanInterfaceClass::parseSerialDebugCmd(){
 
 			if (rxBuffer.getSize() >= index + size){
 				send((CanID::IDs)id, &rxBuffer[index], size);
-
+				
 				//test
-				/*
 				frame.id = id;
 				frame.length = size;
 				memcpy(frame.data.bytes, &rxBuffer[index], size);
 				canEvent(frame);
-				*/
 				//////////////
 
 				rxBuffer.remove(0, index + size);

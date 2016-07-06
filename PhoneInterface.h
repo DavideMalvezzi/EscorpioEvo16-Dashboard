@@ -13,14 +13,11 @@
 #include <Configuration.h>
 #include <ConsoleForm.h>
 
+#include "HWConfig.h"
+
 #define PHONE_TAG	F("PHN")
-
-#define BLSerial		Serial2
-#define BL_SERIAL_BAUD	9600
-#define PHONE_RX_BUFFER_SIZE	128
-
 #define PHONE_CFG_FILE	"PHONE.CFG"
-#define CALL_BUTTON_PIN	2
+#define PHONE_RX_BUFFER_SIZE	128
 
 #define INFO_PACKET	"INF"
 #define GPS_PACKET	"GPS"
@@ -28,6 +25,7 @@
 #define CALL_PACKET	"CALL"
 
 #define CALL_CMD	"TEL:"
+#define DEFAULT_PHONE_NUM F("+393663154577")
 
 #pragma pack(push, 1)
 typedef struct InfoData{
@@ -41,8 +39,8 @@ typedef struct GpsData{
 	double latitude;
 	double longitude;
 	double altitude;
-	double speed;
 	double accuracy;
+	double speed;
 }GpsData;
 #pragma pack(pop)
 
