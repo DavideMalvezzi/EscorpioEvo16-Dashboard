@@ -1,4 +1,4 @@
-// File generated 27/12/2015 23:37:11
+// File generated 03/01/2016 19:48:54
 // Warning! This is a generated file, any manual changes will be
 // lost during the next generation.
 
@@ -9,7 +9,7 @@
 #constant  Strings2Count    1
 #constant  Strings2Size     7
 #constant  Strings3Count    1
-#constant  Strings3Size     7
+#constant  Strings3Size     9
 #constant  Strings4Count    0
 #constant  Strings4Size     1
 #constant  Strings5Count    0
@@ -47,24 +47,32 @@
     iLeddigits5     // offset 0x34A200
     iiLeddigits5    // offset 0x34DC00
     iSpectrum0      // offset 0x359400
-    iiSpectrum0     // offset 0x363C00
-    iLeddigits6     // offset 0x3BA200
-    iiLeddigits6    // offset 0x3BC200
-    iStatictext10   // offset 0x3C1000
-    iStatictext11   // offset 0x3C1E00
-    iLeddigits7     // offset 0x3C3000
-    iiLeddigits7    // offset 0x3C3A00
-    iStatictext12   // offset 0x3C8E00
-    iStatictext13   // offset 0x3C9A00
-    iWinbutton0     // offset 0x3CA800
-    iWinbutton1     // offset 0x3CCA00
-    iWinbutton2     // offset 0x3CEA00
-    iWinbutton3     // offset 0x3D1C00
-    iWinbutton4     // offset 0x3D4E00
-    iWinbutton5     // offset 0x3D6400
-    iWinbutton6     // offset 0x3D7A00
-    iWinbutton7     // offset 0x3D9000
-    iWinbutton8     // offset 0x3DA600
+    iiSpectrum0     // offset 0x368400
+    iLeddigits6     // offset 0x3EDA00
+    iiLeddigits6    // offset 0x3EF800
+    iStatictext10   // offset 0x3F4400
+    iStatictext11   // offset 0x3F5400
+    iLeddigits7     // offset 0x3F6000
+    iiLeddigits7    // offset 0x3F6A00
+    iStatictext12   // offset 0x3FBE00
+    iStatictext13   // offset 0x3FC600
+    iWinbutton0     // offset 0x3FCC00
+    iWinbutton1     // offset 0x400000
+    iWinbutton2     // offset 0x403400
+    iStatictext14   // offset 0x406800
+    iStatictext15   // offset 0x407000
+    iStatictext16   // offset 0x407800
+    iStatictext17   // offset 0x408A00
+    iUserled2       // offset 0x409200
+    iWinbutton3     // offset 0x40A400
+    iWinbutton4     // offset 0x40C600
+    iWinbutton5     // offset 0x40E600
+    iWinbutton6     // offset 0x411800
+    iWinbutton7     // offset 0x414A00
+    iWinbutton8     // offset 0x416000
+    iWinbutton9     // offset 0x417600
+    iWinbutton10    // offset 0x418C00
+    iWinbutton11    // offset 0x41A200
 #END
 
 #constant  Strings0StartH   0x0

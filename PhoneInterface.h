@@ -16,10 +16,10 @@
 
 #define BLSerial		Serial2
 #define BL_SERIAL_BAUD	9600
-#define RX_BUFFER_SIZE	128
+#define PHONE_RX_BUFFER_SIZE	128
 
-#define CALL_BUTTON_PIN		2
 #define PHONE_CFG_FILE	"PHONE.CFG"
+#define CALL_BUTTON_PIN	2
 
 #define INFO_PACKET	"INF"
 #define GPS_PACKET	"GPS"
@@ -70,7 +70,6 @@ private:
 	enum Attr : byte{
 		PHONE_NUM
 	};
-
 
 	boolean callActive;
 	String phoneToCall;

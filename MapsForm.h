@@ -45,7 +45,7 @@ typedef struct Motor{
 #pragma pack(pop)
 
 //Map set related
-#define MAPS_CFG_FILE		"MAPS.CFG"
+#define MAPS_CFG_FILE		"MAPSET.CFG"
 #define MAPS_TYPES			F("s8fffffbbbb")
 #define MAPS_PER_SET		4
 #pragma pack(push, 1)
@@ -78,56 +78,43 @@ typedef struct MotorMap{
 #pragma pack(pop)
 
 //Button indexs
-#define GET_MOTOR_BUTTON	0
-#define GET_MAPSET_BUTTON	1
-#define LOAD_MOT_BUTTON		2
-#define LOAD_MAP_BUTTON		3
-#define UP_BUTTON			4
-#define DOWN_BUTTON			5
-#define ENTER_BUTTON		6
-#define EXIT_BUTTON			7
-#define OK_BUTTON			8
+#define GET_MOTOR_BUTTON	3
+#define GET_MAPSET_BUTTON	4
+#define LOAD_MOT_BUTTON		5
+#define LOAD_MAP_BUTTON		6
+#define UP_BUTTON			7
+#define DOWN_BUTTON			8
+#define ENTER_BUTTON		9
+#define EXIT_BUTTON			10
+#define OK_BUTTON			11
 
-
-//String-list indexs
+//String-list
 #define PROP_TEXT_LIST		4
 #define DETAIL_TEXT_LIST	5
 #define VALUE_TEXT_LIST		6
 #define STATUS_STRING		7
-
-//String-list props
 #define	LIST_BUFFER_SIZE	128
 
 //View state
 enum ViewState : byte{
 	NOTHING_LOADED,
+
 	GETTING_MOTOR_STATE,
 	GETTING_MAPSET_STATE,
+
 	LOADING_MOT_STATE_PROP,
 	LOADING_MOT_STATE_DETAIL,
+
 	LOADING_MAP_STATE_PROP,
 	LOADING_MAP_STATE_DETAIL,
 	LOADING_MAP_STATE_VALUE
 };
 
-//Can cmd related
-#define CAN_DRIVER_CMD		0x80
-#define CMD_TIMEOUT			3000
+//Tx/Rx related
 #define GET_MOTOR_DATA_CMD	"GETMOT"
 #define GET_MAPSET_DATA_CMD	"GETMAP"
 #define SET_MOT_DATA_CMD	"SETMOT"
 #define SET_MAP_DATA_CMD	"SETMAP"
-#define ERROR_CMD			"ERR"
-#define OK_CMD				"OK"
-
-#define PACKET_DELAY	50
-enum StreamResult{
-	SUCCES,
-	ERROR,
-	TIMEOUT,
-	WRONG_ACK,
-	ABORT
-};
 
 class MapsFormClass : public LCDForm{
 
@@ -140,19 +127,19 @@ public:
 
 private:
 	Configuration motorCfg, mapCfg;
+	MotorMap mapSet[MAPS_PER_SET];
 	LCDStringList* workingList;
 	LCDStringList propList, detailList, valueList;
 	LCDStringMsg statusMsg;
 	ViewState currentState;
-
 
 	//Get
 	void getMotorData();
 	void getMapSetData();
 
 	//Set
-	StreamResult setMotorData();
-	StreamResult setMapData();
+	CanStreamResult setMotorData();
+	CanStreamResult setMapData();
 
 	//Buttons
 	void onLoadMotorButtonPressed(Genie& genie);
@@ -170,13 +157,9 @@ private:
 	void loadMapSetProperties();
 	void loadMapSetDetails();
 	void loadMapSetValues();
+	void loadGetMapSetValues();
 
 	void clearAll();
-
-	//Rx/Tx
-	StreamResult streamOverCan(unsigned short canID, const char* openStreamCmd, byte* buffer, int size);
-	StreamResult waitForStreamOverCan(unsigned short canID, const char* openStreamCmd, byte* buffer, int expectedBytes);
-	byte getAck(byte* data, int size);
 
 };
 

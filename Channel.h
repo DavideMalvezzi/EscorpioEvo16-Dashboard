@@ -13,11 +13,11 @@ class Channel{
 
 public:
 	enum DataTypes : char{
-		BIT_FLAG = 'B',
+		BIT_FLAG =	'B',
 		U_INTEGER = 'U',
-		INTEGER = 'I',
-		DECIMAL = 'D',
-		STRING = 'S'
+		INTEGER =	'I',
+		DECIMAL =	'D',
+		STRING =	'S'
 	};
 
 	enum Attr : byte{

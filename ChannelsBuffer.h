@@ -47,8 +47,8 @@ private:
 	BitArray updateFlags;
 	Vector<ByteBuffer> buffer;
 
-	unsigned long long int convertMemToUint(Channel* channel, byte* data);
-	signed long long int convertMemToInt(Channel* channel, byte* data);
+	String uintToString(Channel* channel, byte* data);
+	String intToString(Channel* channel, byte* data);
 
 };
 

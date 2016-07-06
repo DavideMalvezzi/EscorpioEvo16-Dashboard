@@ -87,15 +87,15 @@ void MapsFormClass::clearAll(){
 }
 
 
-
+//Get
 //OK
 void MapsFormClass::getMotorData(){
 	Motor m;
 	String value;
-	StreamResult sResult;
+	CanStreamResult sResult;
 
 	//Start the stream
-	sResult = waitForStreamOverCan(CAN_DRIVER_CMD, GET_MOTOR_DATA_CMD, (byte*)&m, sizeof(Motor));
+	sResult = canInterface.waitForStreamOverCan(CanID::MOTOR_DRIVER_CMD, GET_MOTOR_DATA_CMD, (byte*)&m, sizeof(Motor));
 	//Clear display
 	clearAll();
 
@@ -166,12 +166,11 @@ void MapsFormClass::getMotorData(){
 }
 //OK
 void MapsFormClass::getMapSetData(){
-	MotorMap mapSet[MAPS_PER_SET];
 	String value;
-	StreamResult sResult;
+	CanStreamResult sResult;
 
 	//Start the stream
-	sResult = waitForStreamOverCan(CAN_DRIVER_CMD, GET_MAPSET_DATA_CMD, (byte*)&mapSet, sizeof(MotorMap) * MAPS_PER_SET);
+	sResult = canInterface.waitForStreamOverCan(CanID::MOTOR_DRIVER_CMD, GET_MAPSET_DATA_CMD, (byte*)&mapSet, sizeof(MotorMap)* MAPS_PER_SET);
 	//Clear the display
 	clearAll();
 
@@ -180,9 +179,11 @@ void MapsFormClass::getMapSetData(){
 		case SUCCES:
 			currentState = GETTING_MAPSET_STATE;
 			statusMsg.setMessage("Successful transfer!");
-			workingList = &detailList;
-			//TODO: print
-			detailList.repaint();
+			workingList = &propList;
+			for (int i = 0; i < MAPS_PER_SET; i++){
+				propList.addElement(mapSet[i].name);
+			}
+			propList.repaint();
 			break;
 
 		case ERROR:
@@ -194,6 +195,7 @@ void MapsFormClass::getMapSetData(){
 			currentState = NOTHING_LOADED;
 			statusMsg.setMessage("Transfer timed out!");
 			break;
+
 		case WRONG_ACK:
 			currentState = NOTHING_LOADED;
 			statusMsg.setMessage("Wrong ack!");
@@ -204,20 +206,18 @@ void MapsFormClass::getMapSetData(){
 }
 
 
-
 //Set
 //OK
-StreamResult MapsFormClass::setMotorData(){
+CanStreamResult MapsFormClass::setMotorData(){
 	Motor motor;
 	//Load struct from cfg
 	motorCfg.toStruct((byte*)&motor, MOTOR_TYPES, propList.getCurrentElement() * Motor::ATTR_COUNT);
 	//Stream
-	return streamOverCan(CAN_DRIVER_CMD, SET_MOT_DATA_CMD, (byte*)&motor, sizeof(Motor));
+	return canInterface.streamOverCan(CanID::MOTOR_DRIVER_CMD, SET_MOT_DATA_CMD, (byte*)&motor, sizeof(Motor));
 
 }
 //OK
-StreamResult MapsFormClass::setMapData(){
-	MotorMap mapset[MAPS_PER_SET];
+CanStreamResult MapsFormClass::setMapData(){
 
 	//Load selected mapset
 	Configuration maps;
@@ -226,18 +226,30 @@ StreamResult MapsFormClass::setMapData(){
 	if (maps.getPropertyCount() / MotorMap::ATTR_COUNT == MAPS_PER_SET){
 		//Load struct from cfg
 		for (int i = 0; i < MAPS_PER_SET; i++){
-			maps.toStruct((byte*)&mapset[i], MAPS_TYPES, i * MotorMap::ATTR_COUNT);
+			maps.toStruct((byte*)&mapSet[i], MAPS_TYPES, i * MotorMap::ATTR_COUNT);
+			/*
+			LOGLN(mapSet[i].name);
+			LOGLN(mapSet[i].a0);
+			LOGLN(mapSet[i].a1);
+			LOGLN(mapSet[i].a2);
+			LOGLN(mapSet[i].useSyncRect);
+			LOGLN(mapSet[i].useSyncSafe);
+			LOGLN(mapSet[i].syncTrh);
+			LOGLN(mapSet[i].useEnergyRecovery);
+			LOGLN(mapSet[i].flatOut);
+			LOGLN(mapSet[i].flatLev);
+			*/
 		}
 
 		//Stream
-		return streamOverCan(CAN_DRIVER_CMD, SET_MAP_DATA_CMD, (byte*)mapset, sizeof(MotorMap) * MAPS_PER_SET);
+		return canInterface.streamOverCan(CanID::MOTOR_DRIVER_CMD, SET_MAP_DATA_CMD, (byte*)mapSet, sizeof(MotorMap)* MAPS_PER_SET);
 	}
 
 	return ABORT;
 }
 
 
-
+//Event
 //OK
 void MapsFormClass::onLoadMotorButtonPressed(Genie& genie){
 	clearAll();
@@ -273,6 +285,11 @@ void MapsFormClass::onEnterButtonPressed(Genie& genie){
 			loadMapSetValues();
 			workingList->repaint();
 			break;
+
+		case GETTING_MAPSET_STATE:
+			loadGetMapSetValues();
+			workingList->repaint();
+			break;
 	}	
 }
 //OK
@@ -304,12 +321,20 @@ void MapsFormClass::onExitButtonPressed(Genie& genie){
 			//Change state
 			currentState = LOADING_MAP_STATE_DETAIL;
 			break;
+
+		case GETTING_MAPSET_STATE:
+			//If showing something in detailList go back else do nothing
+			if (workingList == &detailList){
+				workingList->clear();
+				workingList = &propList;
+			}
+			break;
 	}
 	
 }
 //OK
 void MapsFormClass::onOkButtonPressed(Genie& genie){
-	StreamResult sResult;
+	CanStreamResult sResult;
 
 	statusMsg.clear();
 	
@@ -454,122 +479,80 @@ void MapsFormClass::loadMapSetValues(){
 	//Change state
 	currentState = LOADING_MAP_STATE_VALUE;
 }
-
-
-//Rx/Tx
-StreamResult MapsFormClass::streamOverCan(unsigned short canID, const char* openStreamCmd, byte* buffer, int size){
-	byte ack;
-	int r, q;
-	Timer timeOut;
-	CAN_FRAME frame;
-
-	//Open the stream over can
-	canInterface.send(canID, (byte*)openStreamCmd, strlen(openStreamCmd));
-
-	//Needed packets to send
-	q = size / 8;
-	r = size % 8;
-	ack = getAck(buffer, size);
-
-	LOGLN(size);
-	LOG_ARR(buffer, size, HEX);
-
-	//Send packets
-	for (int i = 0; i < q; i++){
-		canInterface.send(canID, buffer + 8 * i, 8);
-		delay(PACKET_DELAY);
-	}
-
-	//Send remaining bytes
-	if (r != 0){
-		canInterface.send(canID, buffer + 8 * q, r);
-		delay(PACKET_DELAY);
-	}
-
-	//Send ack
-	canInterface.send(canID, &ack, 1);
-
-	//Init timeout timer
-	timeOut.setDuration(CMD_TIMEOUT).start();
-
-	while (!timeOut.hasFinished()){
-		//Read all response frame
-		frame = canInterface.read();
-		//If the packet has the stream id
-		if (frame.id == canID){
-			//if response is OK
-			if (strcmp((const char*)frame.data.bytes, OK_CMD) == 0){
-				return SUCCES;
-			}
-			//if response is ERROR
-			else if (strcmp((const char*)frame.data.bytes, ERROR_CMD) == 0){
-				return ERROR;
-			}
-		}
-	}
-
-	return TIMEOUT;
-}
 //OK
-StreamResult MapsFormClass::waitForStreamOverCan(unsigned short canID, const char* openStreamCmd, byte* buffer, int expectedBytes){
-	byte ack;
-	int memIndex;
-	Timer timeOut;
-	CAN_FRAME frame;
+void MapsFormClass::loadGetMapSetValues(){
+	int mapIndex = propList.getCurrentElement();
+	String e;
+	//Load current map prop's values
+	for (int i = MotorMap::Name; i < MotorMap::ATTR_COUNT; i++){
+		e.remove(0, e.length());
+		switch (i){
+			case MotorMap::Name:
+				e += F("NAME = ");
+				e += mapSet[mapIndex].name;
+				//LOGLN(mapSet[mapIndex].name);
+				break;
 
-	//Open the stream over can
-	canInterface.send(canID, (byte*)openStreamCmd, strlen(openStreamCmd));
+			case MotorMap::A0:
+				e += F("A0 = ");
+				e += mapSet[mapIndex].a0;
+				//LOGLN(mapSet[mapIndex].a0);
+				break;
 
-	//Set timeout timer
-	timeOut.setDuration(CMD_TIMEOUT).start();
+			case MotorMap::A1:
+				e += F("A1 = ");
+				e += mapSet[mapIndex].a1;
+				//LOGLN(mapSet[mapIndex].a1);
+				break;
 
-	memIndex = 0;
-	//Wait for can packet
-	while (!timeOut.hasFinished() && memIndex < expectedBytes){
-		frame = canInterface.read();
-		//Read responses
-		if (frame.id == CAN_DRIVER_CMD){
-			//On error
-			if (strcmp((const char*)frame.data.bytes, ERROR_CMD) == 0){
-				return ERROR;
-			}
-			//Save in buffer the data
-			memcpy(
-				buffer + memIndex,
-				frame.data.bytes,
-				memIndex + frame.length > expectedBytes ? expectedBytes - memIndex : frame.length	//Buffer over-run check
-			);
-			memIndex += frame.length;
+			case MotorMap::A2:
+				e += F("A2 = ");
+				e += mapSet[mapIndex].a2;
+				//LOGLN(mapSet[mapIndex].a2);
+				break;
+
+			case MotorMap::UseSyncRect:
+				e += F("SYNC_RECT = ");
+				e += mapSet[mapIndex].useSyncRect;
+				//LOGLN((int)mapSet[mapIndex].useSyncRect);
+				break;
+
+			case MotorMap::UseSyncSafe:
+				e += F("SYNC_SAFE = ");
+				e += mapSet[mapIndex].useSyncSafe;
+				//LOGLN((int)mapSet[mapIndex].useSyncSafe);
+				break;
+
+			case MotorMap::SyncTrh:
+				e += F("SYNC_ITRH = ");
+				e += mapSet[mapIndex].syncTrh;
+				//LOGLN(mapSet[mapIndex].syncTrh);
+				break;
+
+			case MotorMap::UseEnergyRecovery:
+				e += F("EN_RECOVERY = ");
+				e += mapSet[mapIndex].useEnergyRecovery;
+				//LOGLN((int)mapSet[mapIndex].useEnergyRecovery);
+				break;
+
+			case MotorMap::FlatOut:
+				e += F("FLAT_OUT = ");
+				e += mapSet[mapIndex].flatOut;
+				//LOGLN((int)mapSet[mapIndex].flatOut);
+				break;
+
+			case MotorMap::FlatLev:
+				e += F("FLAT_LEV = ");
+				e += mapSet[mapIndex].flatLev;
+				//LOGLN(mapSet[mapIndex].flatLev);
+				break;
 		}
+		detailList.addElement(e);
+
 	}
 
-	//Timeout
-	if (memIndex < expectedBytes){
-		return TIMEOUT;
-	} 
-	//Wait for ack
-	while (!timeOut.hasFinished()){
-		frame = canInterface.read();
-		if (frame.id == CAN_DRIVER_CMD && frame.length == 1){
-			ack = frame.data.bytes[0];
-			if (ack != getAck(buffer, expectedBytes)){
-				//LOGLN((int)ack);
-				//LOGLN((int)getAck(buffer, expectedBytes))
-				return WRONG_ACK;
-			}
-			return SUCCES;
-		}
-	}
-
-	return TIMEOUT;
-}
-//OK
-byte MapsFormClass::getAck(byte* data, int size){
-	byte ack = 0;
-	for (int i = 0; i < size; i++){
-		ack ^= data[i];
-	}
-	return ack;
+	//Change working list
+	workingList = &detailList;
 }
 
 

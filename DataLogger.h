@@ -18,7 +18,7 @@
 #include "ConsoleForm.h"
 
 #define LOG_FILE_FOLDER		"DataLog/"
-#define DL_CFG_FILE			"DataLog.cfg"
+#define DL_CFG_FILE			"DATALOG.CFG"
 
 class DataLoggerClass {
 

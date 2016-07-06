@@ -49,6 +49,12 @@
     <Filter Include="Source Files\DisplayForms\Forms">
       <UniqueIdentifier>{420005d9-b449-48cc-be6f-042cd2e6c433}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Strategy\Gps">
+      <UniqueIdentifier>{2168ac20-7f4a-4552-9643-09bba5eb4719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Strategy\Gps">
+      <UniqueIdentifier>{7b2fd2c6-8861-4af3-902d-1761ef814e2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DashBoard.ino" />
@@ -69,20 +75,11 @@
     <ClInclude Include="StrategySettings.h">
       <Filter>Header Files\Strategy</Filter>
     </ClInclude>
-    <ClInclude Include="WayPoint.h">
-      <Filter>Header Files\Strategy</Filter>
-    </ClInclude>
-    <ClInclude Include="EarthDistance.h">
-      <Filter>Header Files\Strategy</Filter>
-    </ClInclude>
     <ClInclude Include="Interprete.h">
       <Filter>Header Files\Strategy</Filter>
     </ClInclude>
     <ClInclude Include="DisplayInterface.h">
       <Filter>Header Files\Display</Filter>
-    </ClInclude>
-    <ClInclude Include="__vm\.REV6 (Test).vsarduino.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LCDStringList.h">
       <Filter>Header Files\Display\Widgets</Filter>
@@ -114,6 +111,15 @@
     <ClInclude Include="LCDStringMsg.h">
       <Filter>Header Files\Display\Widgets</Filter>
     </ClInclude>
+    <ClInclude Include="__vm\.REV7 (In test).vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthDistance.h">
+      <Filter>Header Files\Strategy\Gps</Filter>
+    </ClInclude>
+    <ClInclude Include="WayPoint.h">
+      <Filter>Header Files\Strategy\Gps</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChannelsBuffer.cpp">
@@ -125,16 +131,10 @@
     <ClCompile Include="WheelSensor.cpp">
       <Filter>Source Files\Strategy</Filter>
     </ClCompile>
-    <ClCompile Include="EarthDistance.cpp">
-      <Filter>Source Files\Strategy</Filter>
-    </ClCompile>
     <ClCompile Include="Interprete.cpp">
       <Filter>Source Files\Strategy</Filter>
     </ClCompile>
     <ClCompile Include="StrategySettings.cpp">
-      <Filter>Source Files\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="WayPoint.cpp">
       <Filter>Source Files\Strategy</Filter>
     </ClCompile>
     <ClCompile Include="DisplayInterface.cpp">
@@ -166,6 +166,12 @@
     </ClCompile>
     <ClCompile Include="LCDStringMsg.cpp">
       <Filter>Source Files\DisplayForms\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthDistance.cpp">
+      <Filter>Source Files\Strategy\Gps</Filter>
+    </ClCompile>
+    <ClCompile Include="WayPoint.cpp">
+      <Filter>Source Files\Strategy\Gps</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

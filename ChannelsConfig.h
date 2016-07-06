@@ -13,7 +13,7 @@
 #include "Configuration.h"
 #include "Vector.h"
 
-#define CHANNELS_CFG_FILE	"Channels.cfg"
+#define CHANNELS_CFG_FILE	"CHANNELS.CFG"
 
 class ChannelsConfigClass {
 

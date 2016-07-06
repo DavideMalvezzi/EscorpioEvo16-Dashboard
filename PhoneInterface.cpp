@@ -5,7 +5,7 @@
 void PhoneInterfaceClass::init(){
 	//Init
 	INIT_SERIAL(BLSerial, BL_SERIAL_BAUD);
-	rxBuffer.resize(RX_BUFFER_SIZE);
+	rxBuffer.resize(PHONE_RX_BUFFER_SIZE);
 
 	
 	Configuration cfg;

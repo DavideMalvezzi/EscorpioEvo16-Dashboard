@@ -40,6 +40,7 @@ void DataLoggerClass::update(){
 
 		//Restart log timer
 		logTimer.start();
+		LOGLN("LOG");
 	}
 }
 

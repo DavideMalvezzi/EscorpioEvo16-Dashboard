@@ -1,9 +1,10 @@
 
 #include "ChannelsConfig.h"
+#include "ConsoleForm.h"
 
 boolean ChannelsConfigClass::init(){
-	Configuration cfg;
 	Channel* c;
+	Configuration cfg;
 	//Load cfg file
 	if (cfg.loadFromFile(CHANNELS_CFG_FILE)){
 		//Resize channel vector
@@ -17,10 +18,12 @@ boolean ChannelsConfigClass::init(){
 			c->type = cfg[i + Channel::Type].asChar();
 			channels.append(c);
 		}
-		return true;
+	}
+	else{
+		consoleForm.println(F("Channels configuration file not found!"));
+		ASSERT(false, F("Channels configuration file not found!"));
 	}
 
-	return false;
 }
 
 void ChannelsConfigClass::debug(){
@@ -63,7 +66,7 @@ int ChannelsConfigClass::getChannelIndex(unsigned short id){
 
 
 Channel* ChannelsConfigClass::getChannelByIndex(int index){
-	if (index != -1){
+	if (index != -1 && index < channels.getSize()){
 		return channels[index];
 	}
 	return NULL;

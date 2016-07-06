@@ -183,10 +183,7 @@ void initDataLogger(){
 	canInterface.init(CAN_BPS_125K);
 
 	//Datalogger
-	if (!channelsConfig.init()){
-		consoleForm.println(F("Channels configuration file not found!"));
-		ASSERT(false, F("Channels configuration file not found!"));
-	}
+	channelsConfig.init();
 	channelsBuffer.init();
 	dataLogger.init();
 }
@@ -210,7 +207,8 @@ void initStategy(){
 }
 
 void initButtons(){
-	//Reverse logic rising edge = release falling edge = pressed
+	//Reverse logic 
+	//rising edge = release, falling edge = pressed
 	Button::setMaxNumber(BUTTON_NUM);
 	Button::add(RESET_BUTTON_PIN, NULL, &onResetButtonPress);
 	Button::add(CALL_BUTTON_PIN, NULL, &onCallButtonPress);
@@ -221,11 +219,12 @@ void initButtons(){
 void updateDataLogger(){
 	CAN_FRAME frame;
 
-	//Can update
-	frame = canInterface.read();
-	while (frame.length != 0){
-		channelsBuffer.setValue(frame.id, frame.data.bytes, frame.length);
+	//Update debug if necessary
+	canInterface.update();	
+	//Read all packets and put in channelsBuffer
+	while (canInterface.available()){
 		frame = canInterface.read();
+		channelsBuffer.setValue(frame.id, frame.data.bytes, frame.length);
 	}
 	
 	//Datalogger update
@@ -273,17 +272,17 @@ void updateStrategy(){
 
 //Buttons events
 void onResetButtonPress(void* data){
-	LOGLN("WHEEL_SENSOR_RESET_BUTTON_PRESSED");
+	LOGLN(F("WHEEL_SENSOR_RESET_BUTTON_PRESSED"));
 	wheelSensor.reset();
 }
 
 void onCallButtonPress(void* data){
-	LOGLN("CALL_BUTTON_PRESSED");
+	LOGLN(F("CALL_BUTTON_PRESSED"));
 	phoneInterface.call();
 }
 
 void onChangeFormButtonPress(void* data){
-	LOGLN("FORM CHANGE_BUTTON_PRESSED");
+	LOGLN(F("FORM CHANGE_BUTTON_PRESSED"));
 	displayInterface.nextForm();
 }
 

@@ -541,16 +541,16 @@ Spectrum
     Name                         Spectrum0
     Alias                        Spectrum0
     BarSpacing                   1
-    BarWidth                     14
+    BarWidth                     17
     Bevel.BorderColor            clBtnFace
     Bevel.BorderWidth            0
     Bevel.InnerColor             BLACK
     Bevel.InnerHighlight         clBtnHighlight
     Bevel.InnerOutline           None
     Bevel.InnerShadow            clBtnShadow
-    Bevel.InnerSpace             1
+    Bevel.InnerSpace             0
     Bevel.InnerStyle             Lowered
-    Bevel.Innerwidth             2
+    Bevel.Innerwidth             1
     Bevel.OuterColor             clBtnFace
     Bevel.OuterHighlight         clBtnHighlight
     Bevel.OuterOutline           Outer
@@ -561,8 +561,8 @@ Spectrum
     Bevel.Visible                Yes
     Color                        BLACK
     Columns                      10
-    Height                       136
-    Left                         8
+    Height                       165
+    Left                         4
     Maxvalue                     100
     Minvalue                     0
     Palette1.High                RED
@@ -574,9 +574,9 @@ Spectrum
     Percent1                     71
     Percent2                     12
     Spacing                      1
-    TickHeight                   1
-    Top                          136
-    Width                        159
+    TickHeight                   3
+    Top                          106
+    Width                        185
 end
 LedDigits
     Name                         Leddigits6
@@ -586,12 +586,12 @@ LedDigits
     Digits                       4
     Height                       33
     LeadingZero                  Yes
-    Left                         28
+    Left                         76
     OutlineColor                 BLACK
     Palette.High                 clLime
     Palette.Low                  0x005100
-    Top                          80
-    Width                        120
+    Top                          54
+    Width                        115
     OnChanged                    ''
     OnTouchMoving                ''
     OnTouchPressed               ''
@@ -601,25 +601,25 @@ StaticText
     Name                         Statictext10
     Alias                        Statictext10
     AutoSize                     Yes
-    Caption                      'Cells Voltage'
+    Caption                      'Cells Voltage:'
     Color                        BLACK
     Font.Color                   WHITE
     Font.Effects                 []
     Font.Name                    Tahoma
     Font.Size                    12
     Font.Style                   []
-    Height                       19
-    Left                         44
-    Top                          116
+    Height                       20
+    Left                         4
+    Top                          86
     Transparent                  Yes
-    Width                        91
+    Width                        102
     WordWrap                     Yes
 end
 StaticText
     Name                         Statictext11
     Alias                        Statictext11
     AutoSize                     Yes
-    Caption                      'Battery Voltage'
+    Caption                      'Battery V:'
     Color                        BLACK
     Font.Color                   WHITE
     Font.Effects                 []
@@ -627,10 +627,10 @@ StaticText
     Font.Size                    12
     Font.Style                   []
     Height                       19
-    Left                         36
+    Left                         4
     Top                          60
     Transparent                  Yes
-    Width                        110
+    Width                        70
     WordWrap                     Yes
 end
 LedDigits
@@ -641,11 +641,11 @@ LedDigits
     Digits                       1
     Height                       35
     LeadingZero                  Yes
-    Left                         286
+    Left                         232
     OutlineColor                 BLACK
     Palette.High                 clLime
     Palette.Low                  0x005100
-    Top                          20
+    Top                          28
     Width                        30
     OnChanged                    ''
     OnTouchMoving                ''
@@ -655,30 +655,30 @@ end
 Strings
     Name                         Strings3
     Alias                        Strings2
-    Alignment                    Center
+    Alignment                    Left
     BGcolor                      BLACK
-    Height                       33
+    Height                       35
     FGcolor                      YELLOW
     Font.Bold                    No
     Font.CharSet                 ANSI
     Font.Italic                  No
     Font.Name                    'Estrangelo Edessa'
     Font.Opaque                  Yes
-    Font.Size                    41
+    Font.Size                    35
     Font.Strikethrough           No
     Font.Underline               No
-    Left                         32
-    Strings                      +99.99\n
+    Left                         56
+    Strings                      abcdefgh\n
     StringsStyle                 Message
-    Top                          28
-    Width                        121
+    Top                          20
+    Width                        138
     OnChanged                    ''
 end
 StaticText
     Name                         Statictext12
     Alias                        Statictext12
     AutoSize                     Yes
-    Caption                      'BMS Status'
+    Caption                      Status:
     Color                        BLACK
     Font.Color                   WHITE
     Font.Effects                 []
@@ -686,29 +686,278 @@ StaticText
     Font.Size                    12
     Font.Style                   []
     Height                       19
-    Left                         51
-    Top                          10
+    Left                         4
+    Top                          28
     Transparent                  Yes
-    Width                        78
+    Width                        49
     WordWrap                     Yes
 end
 StaticText
     Name                         Statictext13
     Alias                        Statictext13
     AutoSize                     Yes
-    Caption                      'Engine Map'
+    Caption                      Map:
     Color                        BLACK
     Font.Color                   WHITE
     Font.Effects                 []
     Font.Name                    Tahoma
     Font.Size                    12
     Font.Style                   []
-    Height                       21
-    Left                         188
-    Top                          26
+    Height                       19
+    Left                         196
+    Top                          36
     Transparent                  Yes
-    Width                        84
+    Width                        35
     WordWrap                     Yes
+end
+WinButton
+    Name                         Winbutton0
+    Alias                        blCanDebug
+    Appearance.Alignment         Left
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           -2
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      Bluetooth
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    8
+    Font.Style                   []
+    Height                       35
+    Left                         380
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      bluetooth.png
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          92
+    Width                        95
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton1
+    Alias                        serialCanDebug
+    Appearance.Alignment         Left
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      Serial
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    8
+    Font.Style                   []
+    Height                       35
+    Left                         380
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      serial.png
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          54
+    Width                        95
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton2
+    Alias                        stopCanDebugButton
+    Appearance.Alignment         Left
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      Stop
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    8
+    Font.Style                   []
+    Height                       35
+    Left                         380
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      stop.png
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          130
+    Width                        95
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+StaticText
+    Name                         Statictext14
+    Alias                        Statictext14
+    AutoSize                     Yes
+    Caption                      CAN
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    15
+    Font.Style                   []
+    Height                       24
+    Left                         380
+    Top                          4
+    Transparent                  Yes
+    Width                        37
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext15
+    Alias                        Statictext15
+    AutoSize                     Yes
+    Caption                      BMS
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    15
+    Font.Style                   []
+    Height                       24
+    Left                         4
+    Top                          4
+    Transparent                  Yes
+    Width                        38
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext16
+    Alias                        Statictext16
+    AutoSize                     Yes
+    Caption                      'Motor Driver'
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    15
+    Font.Style                   []
+    Height                       20
+    Left                         196
+    Top                          4
+    Transparent                  Yes
+    Width                        115
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext17
+    Alias                        Statictext17
+    AutoSize                     Yes
+    Caption                      Debug:
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    12
+    Font.Style                   []
+    Height                       19
+    Left                         380
+    Top                          28
+    Transparent                  Yes
+    Width                        52
+    WordWrap                     Yes
+end
+UserLed
+    Name                         Userled2
+    Alias                        canDebugActiveLed
+    Active                       No
+    Bevel.BorderColor            clBtnFace
+    Bevel.BorderWidth            0
+    Bevel.InnerColor             clBtnFace
+    Bevel.InnerHighlight         clLime
+    Bevel.InnerOutline           None
+    Bevel.InnerShadow            0x005100
+    Bevel.InnerSpace             1
+    Bevel.InnerStyle             None
+    Bevel.Innerwidth             1
+    Bevel.OuterColor             clBtnFace
+    Bevel.OuterHighlight         clBtnHighlight
+    Bevel.OuterOutline           Outer
+    Bevel.OuterShadow            clBtnShadow
+    Bevel.OuterSpace             0
+    Bevel.OuterStyle             Raised
+    Bevel.Outerwidth             1
+    Bevel.Visible                Yes
+    Height                       25
+    Left                         432
+    OutlineColor                 BLACK
+    OutlineWidth                 0
+    PaletteEx.High1              LIME
+    PaletteEx.High2              BLACK
+    PaletteEx.Low1               0x005100
+    PaletteEx.Low2               BLACK
+    Top                          26
+    Width                        42
+    OnChanged                    ''
 end
 Form
     Name                         Form3
@@ -728,7 +977,7 @@ Form
     OnTouchReleased              ''
 end
 WinButton
-    Name                         Winbutton0
+    Name                         Winbutton3
     Alias                        GetMotorButton
     Appearance.Alignment         Center
     Appearance.Layout            Left
@@ -776,7 +1025,7 @@ WinButton
     OnTouchReleased              ''
 end
 WinButton
-    Name                         Winbutton1
+    Name                         Winbutton4
     Alias                        GetMapButton
     Appearance.Alignment         Center
     Appearance.Layout            Left
@@ -794,7 +1043,7 @@ WinButton
     Font.Size                    8
     Font.Style                   []
     Height                       35
-    Left                         68
+    Left                         66
     Matrix                       -1
     Momentary                    Yes
     Picture                      (None)
@@ -824,7 +1073,7 @@ WinButton
     OnTouchReleased              ''
 end
 WinButton
-    Name                         Winbutton2
+    Name                         Winbutton5
     Alias                        LoadMotorButton
     Appearance.Alignment         Center
     Appearance.Layout            Left
@@ -842,7 +1091,7 @@ WinButton
     Font.Size                    8
     Font.Style                   []
     Height                       35
-    Left                         128
+    Left                         126
     Matrix                       -1
     Momentary                    Yes
     Picture                      (None)
@@ -872,7 +1121,7 @@ WinButton
     OnTouchReleased              ''
 end
 WinButton
-    Name                         Winbutton3
+    Name                         Winbutton6
     Alias                        LoadMapButton
     Appearance.Alignment         Center
     Appearance.Layout            Left
@@ -890,7 +1139,7 @@ WinButton
     Font.Size                    8
     Font.Style                   []
     Height                       35
-    Left                         222
+    Left                         220
     Matrix                       -1
     Momentary                    Yes
     Picture                      (None)
@@ -931,7 +1180,7 @@ Strings
     Font.Italic                  No
     Font.Name                    Arial
     Font.Opaque                  Yes
-    Font.Size                    19
+    Font.Size                    18
     Font.Strikethrough           No
     Font.Underline               No
     Left                         4
@@ -1000,15 +1249,15 @@ Strings
     Font.Size                    18
     Font.Strikethrough           No
     Font.Underline               No
-    Left                         318
+    Left                         314
     Strings                      ''
     StringsStyle                 Message
     Top                          14
-    Width                        156
+    Width                        162
     OnChanged                    ''
 end
 WinButton
-    Name                         Winbutton4
+    Name                         Winbutton7
     Alias                        upButton
     Appearance.Alignment         Center
     Appearance.Layout            Left
@@ -1056,7 +1305,7 @@ WinButton
     OnTouchReleased              ''
 end
 WinButton
-    Name                         Winbutton5
+    Name                         Winbutton8
     Alias                        downButton
     Appearance.Alignment         Center
     Appearance.Layout            Left
@@ -1104,7 +1353,7 @@ WinButton
     OnTouchReleased              ''
 end
 WinButton
-    Name                         Winbutton6
+    Name                         Winbutton9
     Alias                        enterButton
     Appearance.Alignment         Center
     Appearance.Layout            Left
@@ -1152,7 +1401,7 @@ WinButton
     OnTouchReleased              ''
 end
 WinButton
-    Name                         Winbutton7
+    Name                         Winbutton10
     Alias                        exitButton
     Appearance.Alignment         Center
     Appearance.Layout            Left
@@ -1200,7 +1449,7 @@ WinButton
     OnTouchReleased              ''
 end
 WinButton
-    Name                         Winbutton8
+    Name                         Winbutton11
     Alias                        okButton
     Appearance.Alignment         Center
     Appearance.Layout            Left
