@@ -64,6 +64,7 @@ public:
 		GAP = 0x209,
 		ENERGY = 0x20A,
 		GAS = 0x20B,
+		TIME_MILLIS = 0x20C,
 
 		//Bms
 		BMS_STATUS = 0x400,			//BMS status
@@ -75,6 +76,11 @@ public:
 		//PACK_CURRENT = 0x413,
 		//TEMP_1 = 0x414,
 		//TEMP_2 = 0x415,
+
+		STEER_SNS = 0x501,
+		STEER_ANGLE = 0x502,
+		STEER_RADINV = 0x503
+
 
 	};
 };

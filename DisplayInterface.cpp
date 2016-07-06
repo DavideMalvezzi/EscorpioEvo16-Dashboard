@@ -80,6 +80,8 @@ void DisplayInterfaceClass::setCurrentForm(LCDForm* currentForm){
 		genie.WriteObject(GENIE_OBJ_FORM, currentForm->getFormIndex(), 1);
 		//Invoke new current form onEnter method
 		currentForm->onEnter(genie);
+		//Update new current form
+		currentForm->update(genie);
 		//Restart refresh timer
 		refreshTimer.start();
 	}

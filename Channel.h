@@ -9,6 +9,10 @@
 	#include "WProgram.h"
 #endif
 
+#include <Timer.h>
+
+#define CH_BUFFER_TTL	1500
+
 class Channel{
 
 public:
@@ -28,9 +32,27 @@ public:
 		ATTR_COUNT
 	};
 
-	byte size, type;
+	Channel();
+
+	void setSize(byte size);
+	void setID(unsigned short ID);
+	void setDataType(DataTypes type);
+	void setName(String name);
+
+	byte getSize();
+	unsigned short getID();
+	DataTypes getDataType();
+	String getName();
+
+	void resetTTLTimer();
+	bool hasTTLFinished();
+
+private:
+	byte size;
 	unsigned short ID;
+	DataTypes type;
 	String name;
+	Timer ttlTimer;
 };
 
 #endif

@@ -27,6 +27,17 @@ public:
 	void debug();
 
 	template <typename T>
+	T getValueAs(unsigned short id, T defaultValue){
+		if (channelsConfig.isValid()){
+			int index = channelsConfig.getChannelIndex(id);
+			if (index != -1 && !channelsConfig.getChannelByIndex(index)->hasTTLFinished()){
+				return buffer[index].as<T>();
+			}
+		}
+		return defaultValue;
+	}
+
+	template <typename T>
 	T getValueAs(unsigned short id){
 		if (channelsConfig.isValid()){
 			int index = channelsConfig.getChannelIndex(id);
@@ -40,8 +51,7 @@ public:
 	ByteBuffer getValueAsByteArray(unsigned short id);
 	String getValueAsString(unsigned short id);
 
-	bool isValueUpdated(unsigned short id);
-	void invalidAllData();
+	boolean isValueUpdated(unsigned short id);
 
 	void setValue(unsigned short id, byte* data, unsigned short size);
 	template <typename T>
@@ -55,7 +65,6 @@ public:
 
 private:
 	unsigned short bufferSize;
-	BitArray updateFlags;
 	Vector<ByteBuffer> buffer;
 
 	String uintToString(Channel* channel, byte* data);

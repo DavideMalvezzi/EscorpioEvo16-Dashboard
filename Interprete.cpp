@@ -33,14 +33,8 @@ void Interprete::init(){
 }
 
 void Interprete::update(){
-	if (strategyTimer.hasFinished()){
-
-		if (strategySettings.isValid()){
-
-			if (!channelsBuffer.isValueUpdated(CanID::MOTOR_POWER)){
-				wheelSensor.setPower(0);
-			}
-
+	if (strategySettings.isValid()){
+		if (strategyTimer.hasFinished()){
 			//Step strategy
 			step(
 				wheelSensor.getLap(),

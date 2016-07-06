@@ -27,6 +27,8 @@ bool WayPoint::processNewPoint (float lat, float lon)
 	newpoint.LON = lon;
 	float distance = DistanceInMeters(CentralPoint, newpoint);
 
+	Log.e("WAY") << "Distance is " << distance << Endl;
+
 	if(distance<=Radius)
 	{ // il punto si trova nella circonferenza
 		if (pointSignal == 0)

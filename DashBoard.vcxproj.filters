@@ -153,8 +153,11 @@
     <ClInclude Include="WheelSensor.h">
       <Filter>Header Files\ExtInterfaces\Sensor</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV15.vsarduino.h">
+    <ClInclude Include="__vm\.REV16.vsarduino.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GpsInterface.h">
+      <Filter>Header Files\Strategy\Gps</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +229,12 @@
     </ClCompile>
     <ClCompile Include="WheelSensor.cpp">
       <Filter>Source Files\ExtInterfaces\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="Channel.cpp">
+      <Filter>Source Files\Datalogger</Filter>
+    </ClCompile>
+    <ClCompile Include="GpsInterface.cpp">
+      <Filter>Source Files\Strategy\Gps</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

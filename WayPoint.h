@@ -8,6 +8,7 @@
 #endif
 
 #include "EarthDistance.h"
+#include "Logger.h"
 
 class WayPoint {
 

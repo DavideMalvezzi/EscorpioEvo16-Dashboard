@@ -4,6 +4,7 @@
  Author:	Davide Malvezzi
 */
 
+#include "GpsInterface.h"
 #include "SteerSensor.h"
 #include "BMSInterface.h"
 #include "Channel.h"
@@ -20,6 +21,7 @@
 #include "LCDStringList.h"
 #include "LCDStringMsg.h"
 #include "Logger.h"
+#include "GpsInterface.h"
 #include "MainForm.h"
 #include "MapsForm.h"
 #include "MapSelector.h"
@@ -61,6 +63,7 @@ void onGpsDataReceived(GpsData& gps);
 #define STRAT_ON
 #define PHONE_ON
 #define TLM_ON
+#define GPS_ON
 #define LOOP_DEBUG
 //#define SHELL_ON
 
@@ -70,7 +73,7 @@ void onGpsDataReceived(GpsData& gps);
 #define BTN_TAG		F("BTN")
 
 //SW info
-#define SW_REV		F("15")
+#define SW_REV		F("16")
 #define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
 ///////////////////////////
 
@@ -107,11 +110,11 @@ void setup() {
 		}
 		else{
 			consoleForm.println(F("Datalogger FAIL"));
-			Log.i(DL_TAG) << F("Datalogger FAIL") << Endl;
+			Log.e(DL_TAG) << F("Datalogger FAIL") << Endl;
 		}
 	#endif
 
-	//WheelSensor, Strategy
+	//Strategy
 	#ifdef STRAT_ON
 		if (initStategy()){
 			consoleForm.println(F("Strategy OK"));
@@ -119,9 +122,24 @@ void setup() {
 		}
 		else{
 			consoleForm.println(F("Strategy FAIL"));
-			Log.i(STRAT_TAG) << F("Strategy FAIL") << Endl;
+			Log.e(STRAT_TAG) << F("Strategy FAIL") << Endl;
 		}
 	#endif
+
+	//GPS
+	#ifdef GPS_ON
+		//Strategy
+		if (gps.init()){
+			gps.debugSettings();
+			consoleForm.println(F("Gps OK"));
+			Log.i(GPS_TAG) << F("Gps OK ") << t.elapsedTime() << Endl;
+		}
+		else{
+			consoleForm.println(F("Gps FAIL"));
+			Log.e(GPS_TAG) << F("Gps FAIL ") << Endl;
+		}
+	#endif
+
 
 	//Phone
 	#ifdef PHONE_ON
@@ -265,6 +283,8 @@ void initPorts(){
 	digitalWrite(RED_LED, LOW);
 	digitalWrite(YELLOW_LED, LOW);
 
+	analogReadResolution(12);
+
 	//Controls
 	mapSelector.init();
 	BMS.init();
@@ -274,14 +294,15 @@ void initPorts(){
 	canInterface.init(CAN_SPEED);
 	canInterface.setCanEventCallBack(&onCanPacketReceived);
 
-	//Sensor
 	//SteerSensor
 	steerSensor.init();
+
 	//WheelSensor
 	wheelSensor.init(); //Reset is called in the init
 
 	//Utils
 	Log.init(&LOG_SERIAL);
+
 	#ifdef SHELL_ON
 		shell.init(&LOG_SERIAL);
 	#endif
@@ -316,8 +337,11 @@ void initButtons(){
 	Button::setMaxNumber(BUTTON_NUM);
 	Button::add(BMS_BUTTON_PIN,				NULL, &onStartButtonPressed		);
 	Button::add(BL_CALL_BUTTON_PIN,			NULL, &onCallButtonPress		);
-	Button::add(WHEEL_RESET_BUTTON_PIN,		NULL, &onResetButtonPress		);
 	Button::add(LCD_CHANGE_FORM_BUTTON_PIN, NULL, &onChangeFormButtonPress	);	
+
+	//Need to check the press time, so connect to the rising edge
+	Button::add(WHEEL_RESET_BUTTON_PIN, NULL, &onResetButtonPress);
+
 }
 
 //Events functions
@@ -344,22 +368,24 @@ void onCanPacketReceived(CAN_FRAME& frame){
 
 }
 
-void onGpsDataReceived(const GpsData& gps){
+void onGpsDataReceived(const GpsData& gpsData){
 	byte i = 0;
 
-	if (strategySettings.isValid()){
+	if (gps.isValid()){
 		//Look if inside a waypoint 
-		while (i < strategySettings.getWayPointsNum() && 
-			!strategySettings.getWayPoint(i).processNewPoint(gps.latitude, gps.longitude))i++;
+		while (i < gps.getWayPointsCount() && 
+			!gps.getWayPoint(i).processNewPoint(gpsData.latitude, gpsData.longitude))i++;
 
 		//If found -> process
-		if (i < strategySettings.getWayPointsNum()){
+		if (i < gps.getWayPointsCount()){
 			wheelSensor.processWayPoint(i);
-			channelsBuffer.setValue<byte>(CanID::GPS_WAYPOINT, i);
+			channelsBuffer.setValue<byte>(CanID::GPS_WAYPOINT, i+1);
 		}
 	}
+	else{
+		Log.w(GPS_TAG) << F("Gps waypoint not loaded") << Endl;
+	}
 
-	//Log.i("GPS") << gps.latitude << " " << gps.longitude << " " << gps.altitude << " " << gps.speed << " " << gps.accuracy << Endl;
 }
 
 //Buttons events

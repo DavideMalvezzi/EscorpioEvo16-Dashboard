@@ -49,12 +49,9 @@ void DataLoggerClass::update(){
 			if (logFile){
 				for (int i = 0; i < channelsConfig.getChannelCount(); i++){
 					channel = channelsConfig.getChannelByIndex(i);
-
-					if (channelsBuffer.isValueUpdated(channel->ID)){
-						//Log << "Log" << channel->ID <<  Endl;
-					
+					if (channelsBuffer.isValueUpdated(channel->getID())){
 						logFile.print(
-							channelsBuffer.getValueAsString(channel->ID)
+							channelsBuffer.getValueAsString(channel->getID())
 						);
 					}
 					else{
@@ -65,8 +62,6 @@ void DataLoggerClass::update(){
 				}
 				logFile.println();
 				logFile.close();
-
-				channelsBuffer.invalidAllData();
 			
 				Log.i(DL_TAG) << F("Logged") << Endl;
 			}
@@ -111,9 +106,9 @@ void DataLoggerClass::createNewLogFile(){
 
 	for (int i = 0; i < channelsConfig.getChannelCount(); i++){
 		c = channelsConfig.getChannelByIndex(i);
-		logFile.print(c->name);
+		logFile.print(c->getName());
 		logFile.print(F(" (0x"));
-		logFile.print(c->ID, HEX);
+		logFile.print(c->getID(), HEX);
 		logFile.print(F("),"));
 	}
 	logFile.println();

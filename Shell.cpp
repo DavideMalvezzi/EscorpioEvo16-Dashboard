@@ -101,7 +101,7 @@ void ShellClass::channelListCmd(String& params){
 
 	for (int i = 0; i < channelsConfig.getChannelCount(); i++){
 		c = channelsConfig.getChannelByIndex(i);
-		Log.i(SHELL_TAG) << F("0x") << Hex << c->ID << "\t" << c->name << "\t" << c->size << "\t" << (char)c->type << Endl;
+		Log.i(SHELL_TAG) << F("0x") << Hex << c->getID() << "\t" << c->getName() << "\t" << c->getSize() << "\t" << (char)c->getDataType() << Endl;
 	}
 }
 
@@ -113,7 +113,7 @@ void ShellClass::channelValueCmd(String& params){
 		Log.e(SHELL_TAG) << F("Channel not found") << Endl;
 	}
 	else{
-		Log.i(SHELL_TAG) << c->name << "\t" << channelsBuffer.getValueAsString(id) << "\t" << channelsBuffer.getValueAsByteArray(id).toHexString() << Endl;
+		Log.i(SHELL_TAG) << c->getID() << "\t" << channelsBuffer.getValueAsString(id) << "\t" << channelsBuffer.getValueAsByteArray(id).toHexString() << Endl;
 	}
 }
 

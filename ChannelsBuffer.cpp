@@ -11,15 +11,11 @@ void ChannelsBufferClass::init(){
 	//Create the "matrix" to cointain byte-array data
 	for (int i = 0; i < size; i++){
 		c = channelsConfig.getChannelByIndex(i);
-		buffer[i].resize(c->size);
+		buffer[i].resize(c->getSize());
 		buffer[i].clear();
 
-		bufferSize += c->size;
+		bufferSize += c->getSize();
 	}
-
-	//Resize the updated bit flags
-	updateFlags.resize(size);
-	updateFlags.fill(0);
 }
 
 void ChannelsBufferClass::debug(){
@@ -42,14 +38,14 @@ String ChannelsBufferClass::getValueAsString(unsigned short id){
 			Channel* c = channelsConfig.getChannelByIndex(index);
 
 			//Convert to arduino String obj
-			switch (c->type){
+			switch (c->getDataType()){
 				case Channel::BIT_FLAG:
-					return buffer[index].toBinString();
+					return buffer[index].toBinString(MSBFIRST);
 
 				case Channel::DECIMAL:
 					//If size <= is float
 					//Need this difference because conversion is a copy 'n paste of memory
-					if (c->size <= 4){
+					if (c->getSize() <= 4){
 						return String(buffer[index].as<float>(), 6);
 					}
 					
@@ -65,7 +61,7 @@ String ChannelsBufferClass::getValueAsString(unsigned short id){
 					return buffer[index].toString();
 
 				default:
-					Log.e(CHBUF_TAG) << F("in getValueAsString\t Unknown conversion type channel ") << id << F(" to type ") << c->type << Endl;
+					Log.e(CHBUF_TAG) << F("in getValueAsString\t Unknown conversion type channel ") << id << F(" to type ") << c->getDataType() << Endl;
 			}
 		}
 	}
@@ -90,17 +86,19 @@ void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short
 		int index = channelsConfig.getChannelIndex(id);
 		if (index != -1){
 
-			if (size < channelsConfig.getChannelByIndex(index)->size){
-				Log.w(CHBUF_TAG) << F("in setValue\t Received size < expected size for channel ") << id << Endl;
+			if (size < channelsConfig.getChannelByIndex(index)->getSize()){
+				Log.w(CHBUF_TAG) << F("In setValue\t Received size < expected size for channel ") << id << Endl;
 			}
-			else if (size > channelsConfig.getChannelByIndex(index)->size){
-				Log.w(CHBUF_TAG) << F("in setValue\t Received size > expected size for channel ") << id << Endl;
+			else if (size > channelsConfig.getChannelByIndex(index)->getSize()){
+				Log.w(CHBUF_TAG) << F("In setValue\t Received size > expected size for channel ") << id << Endl;
 			}
 			
-			if (size <= channelsConfig.getChannelByIndex(index)->size){
+			if (size <= channelsConfig.getChannelByIndex(index)->getSize()){
+				//Clear and save data
 				buffer[index].clear();
 				buffer[index].append(data, size);
-				updateFlags.setBit(index);
+				//Reset ttl timer
+				channelsConfig.getChannelByIndex(index)->resetTTLTimer();
 			}
 
 		}
@@ -110,18 +108,14 @@ void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short
 	}
 }
 
-bool ChannelsBufferClass::isValueUpdated(unsigned short id){
+boolean ChannelsBufferClass::isValueUpdated(unsigned short id){
 	if (channelsConfig.isValid()){
 		int index = channelsConfig.getChannelIndex(id);
 		if (index != -1){
-			return updateFlags.getBit(index);
+			return !channelsConfig.getChannelByIndex(index)->hasTTLFinished();
 		}
 	}
 	return false;
-}
-
-void ChannelsBufferClass::invalidAllData(){
-	updateFlags.fill(0);
 }
 
 
@@ -132,11 +126,11 @@ String ChannelsBufferClass::uintToString(Channel* channel, byte* data){
 	String value;
 
 
-	for (int i = 0; i < channel->size; i++){
+	for (int i = 0; i < channel->getSize(); i++){
 		mem[i] = data[i];
 	}
 
-	for (int i = channel->size; i < sizeof(long long int); i++){
+	for (int i = channel->getSize(); i < sizeof(long long int); i++){
 		mem[i] = 0x00;
 	}
 
@@ -151,17 +145,17 @@ String ChannelsBufferClass::intToString(Channel* channel, byte* data){
 	char temp[21]; //64 bit signed integer max digit number + \0
 	String value;
 
-	for (int i = 0; i < channel->size; i++){
+	for (int i = 0; i < channel->getSize(); i++){
 		mem[i] = data[i];
 	}
 
-	if (mem[channel->size - 1] & (1 << 7)){
-		for (int i = channel->size; i < sizeof(long long int); i++){
+	if (mem[channel->getSize() - 1] & (1 << 7)){
+		for (int i = channel->getSize(); i < sizeof(long long int); i++){
 			mem[i] = 0xFF;
 		}
 	}
 	else{
-		for (int i = channel->size; i < sizeof(long long int); i++){
+		for (int i = channel->getSize(); i < sizeof(long long int); i++){
 			mem[i] = 0x00;
 		}
 	}
@@ -173,10 +167,12 @@ String ChannelsBufferClass::intToString(Channel* channel, byte* data){
 }
 
 void ChannelsBufferClass::sendOnStream(UARTClass* stream){
+	unsigned short ID;
 	Channel* c;
 	for (int i = 0; i < channelsConfig.getChannelCount(); i++){
 		c = channelsConfig.getChannelByIndex(i);
-		stream->write((byte*)&c->ID, sizeof(c->ID));
+		ID = c->getID();
+		stream->write((byte*)&ID, sizeof(ID));
 		stream->write(buffer[i].data(), buffer[i].getCapacity());
 	}
 }

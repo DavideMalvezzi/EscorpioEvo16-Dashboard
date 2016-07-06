@@ -54,7 +54,7 @@ void TC6_Handler()
 	wheelSensor.Space += WHEEL_CFR;           // Incremento lo spazio totale
 	wheelSensor.RelativeSpace += WHEEL_CFR;   // Incremento lo spazio relativo
 	// Gestisco i giri non da gps
-	if (wheelSensor.RelativeSpace >= (float)strategySettings.getTrackData().trackLenght)
+	if (!gps.isValid() && wheelSensor.RelativeSpace >= (float)strategySettings.getTrackData().trackLenght)
 	{ // Se ho superato il giro
 		wheelSensor.RelativeSpace = 0.0;
 		wheelSensor.LastRelativeMillis = wheelSensor.getRelativeMillis(); // Salvo il tempo precedente
@@ -78,7 +78,8 @@ void TC6_Handler()
 
 void WheelSensorClass::processWayPoint (unsigned char WayPointIndex)
 {
-	if (strategySettings.getWayPoint(WayPointIndex).isReference()) // se si tratta di un waypoint di riferimento
+	// se si tratta di un waypoint di riferimento
+	if (gps.isValid() && gps.getWayPoint(WayPointIndex).isReference()) 
 	{
 		if(WayPointIndex == 0) // start waypoint: è lo 0-esimo
 		{
@@ -86,7 +87,7 @@ void WheelSensorClass::processWayPoint (unsigned char WayPointIndex)
 			// aver percorso un giro, non devo considerarlo alla partenza
 			if (Space>200) // Devo aver percorso almeno 200 metri!
 			{
-				RelativeSpace = strategySettings.getWayPoint(WayPointIndex).getSpaceReference();
+				RelativeSpace = gps.getWayPoint(WayPointIndex).getSpaceReference();
 				LastRelativeMillis = getRelativeMillis(); // Salvo il tempo precedente
 				LastFinishTime = TimeMillis; // Salvo l'istante di inizio giro
 				FullLaps++;
@@ -95,7 +96,7 @@ void WheelSensorClass::processWayPoint (unsigned char WayPointIndex)
 		else
 		{
 			// Normalissimo waypoint di riferimento
-			RelativeSpace = strategySettings.getWayPoint(WayPointIndex).getSpaceReference();
+			RelativeSpace = gps.getWayPoint(WayPointIndex).getSpaceReference();
 		}
 	}
 }
@@ -172,16 +173,16 @@ void WheelSensorClass::init(){
 }
 
 void WheelSensorClass::reset(){
-	this->Speed = 0;
-	this->RelativeSpace = 0;
-	this->FullLaps = 0;
-	this->AvgSpeed = 0;
-	this->Space = 0;
-	this->TimeMillis = 0;
-	this->LastFinishTime = 0;
-	this->LastRelativeMillis = 0;
-	this->Energy = 0;
-	this->gapIsValid = false;
+		this->Speed = 0;
+		this->RelativeSpace = 0;
+		this->FullLaps = 1;
+		this->AvgSpeed = 0;
+		this->Space = 0;
+		this->TimeMillis = 0;
+		this->LastFinishTime = 0;
+		this->LastRelativeMillis = 0;
+		this->Energy = 0;
+		this->gapIsValid = false;
 }
 
 void WheelSensorClass::update(){
@@ -193,11 +194,16 @@ void WheelSensorClass::update(){
 		channelsBuffer.setValue<float>(CanID::IST_VEL, getSpeed());
 		channelsBuffer.setValue<float>(CanID::AVG_VEL, getAvgSpeed());
 
+		channelsBuffer.setValue<uint32_t>(CanID::TIME_MILLIS, getTimeMillis());
 		channelsBuffer.setValue<uint32_t>(CanID::REL_TIME, getRelativeMillis());
 		channelsBuffer.setValue<uint32_t>(CanID::LEFT_TIME, getLeftMillis());
 		channelsBuffer.setValue<uint32_t>(CanID::LAST_TIME, getLastRelativeMillis());
 
 		channelsBuffer.setValue<float>(CanID::ENERGY, getEnergy());
+
+		if (!channelsBuffer.isValueUpdated(CanID::MOTOR_POWER)){
+			power = 0;
+		}
 
 		updateTimer.start();
 	}

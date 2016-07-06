@@ -9,32 +9,29 @@ void DebugFormClass::init(Genie &genie){
 void DebugFormClass::update(Genie &genie){
 
 	//BMS
-	if (BMS.getState() != BMSInterface::Unknown){
-		if (channelsBuffer.isValueUpdated(CanID::BMS_STATUS)){
-			updateString(genie, BMS_STATUS_STRING, channelsBuffer.getValueAsString(CanID::BMS_STATUS));
-		}
+	if (channelsBuffer.isValueUpdated(CanID::BMS_STATUS)){
+		updateString(genie, BMS_STATUS_STRING, channelsBuffer.getValueAsString(CanID::BMS_STATUS));
 	}
 	else{
 		updateString(genie, BMS_STATUS_STRING, F("---"));
 	}
 	
-	updateWidget(genie, GENIE_OBJ_LED_DIGITS, BATTERY_V_DIGITS, channelsBuffer.getValueAs<float>(CanID::PACK_VOLTAGE) * 100.0);
+	updateWidget(genie, GENIE_OBJ_LED_DIGITS, BATTERY_V_DIGITS, channelsBuffer.getValueAs<float>(CanID::PACK_VOLTAGE, 0) * 100.0);
 
 	byte cell;
 	for (int i = 0; i < CELLS_BARS_NUM; i++){
-		cell = channelsBuffer.getValueAs<float>(CanID::BATTERY_CELL_0 + i) / CELLS_MAX_VOLT * 100.0;
+		cell = channelsBuffer.getValueAs<float>(CanID::BATTERY_CELL_0 + i, 0) / CELLS_MAX_VOLT * 100.0;
 		updateWidget(genie, GENIE_OBJ_SPECTRUM, CELLS_BARS, ((i << 8) | cell));
 	}
 	
 	//Driver
-	byte map = channelsBuffer.getValueAs<byte>(CanID::MOTOR_MAP);
+	byte map = channelsBuffer.getValueAs<byte>(CanID::MOTOR_MAP, INVALID_MAP);
 	if (map != INVALID_MAP){
 		updateWidget(genie, GENIE_OBJ_LED_DIGITS, DRIVER_MAP_DIGIT, map);
 	}
 	else{
 		Log.e(MAPSEL_TAG) << F("Current map is invalid") << Endl;
 	}
-
 }
 
 void DebugFormClass::onEvent(Genie& genie, genieFrame& evt){
@@ -53,8 +50,8 @@ void DebugFormClass::onEvent(Genie& genie, genieFrame& evt){
 
 		case CAN_STOP_BUTTON:
 			INIT_SERIAL(BL_SERIAL, BL_SERIAL_BAUD);
-			telemetryInterface.setLogSerial(&BL_SERIAL);
 			canInterface.setCanDebugSerial(NULL);
+			telemetryInterface.setLogSerial(&BL_SERIAL);
 			break;
 
 		case DRIVER_SETTING_BUTTON:

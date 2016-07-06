@@ -131,6 +131,7 @@ void MapsFormClass::getMotorData(){
 					case Motor::Name:
 						value += F("NAME = ");
 						value += m.name;
+						value += '\0';
 						break;
 
 					case Motor::DefaultMap:

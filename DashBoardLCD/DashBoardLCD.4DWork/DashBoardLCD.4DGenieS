@@ -1,6 +1,6 @@
 #platform "uLCD-43PT"
 
-// generated 28/03/2016 17:36:38
+// generated 09/06/2016 17:01:01
 
 
 #inherit "4DGL_16bitColours.fnc"
@@ -164,8 +164,8 @@
                 tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 638, 28,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13
     word iStrings0  Strings0StartH, Strings0StartL, Strings0Size, 0, 2, 479, 271, LIME, BLACK, 0, 0, 1, 0 
-    word iStrings1  Strings1StartH, Strings1StartL, Strings1Size, 180, 216, 291, 263, YELLOW, BLACK, 0, 0, 1, 1 
-    word iStrings2  Strings2StartH, Strings2StartL, Strings2Size, 20, 224, 174, 259, YELLOW, BLACK, 0, 0, 1, 1 
+    word iStrings1  Strings1StartH, Strings1StartL, Strings1Size, 180, 214, 291, 261, YELLOW, BLACK, 0, 0, 1, 1 
+    word iStrings2  Strings2StartH, Strings2StartL, Strings2Size, 20, 226, 174, 261, YELLOW, BLACK, 0, 0, 1, 1 
     word iStrings3  Strings3StartH, Strings3StartL, Strings3Size, 92, 4, 229, 38, YELLOW, BLACK, 0, 1, 1, 2 
     word iStrings4  Strings4StartH, Strings4StartL, Strings4Size, 4, 45, 105, 268, WHITE, GREEN, 0, 1, 1, 3 
     word iStrings5  Strings5StartH, Strings5StartL, Strings5Size, 109, 45, 268, 268, WHITE, NAVY, 0, 1, 1, 3 

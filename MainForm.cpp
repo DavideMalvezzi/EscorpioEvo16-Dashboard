@@ -46,7 +46,8 @@ void MainFormClass::setNewCurrentMap(byte map){
 }
 
 void MainFormClass::updateWidgetsValues(Genie& genie){
-	unsigned short dc = (float)channelsBuffer.getValueAs<byte>(CanID::MOTOR_DUTY_CICLE) / 255.0 * 100.0;
+	unsigned short dc = (float)channelsBuffer.getValueAs<byte>(CanID::MOTOR_DUTY_CICLE, 0) / 255.0 * 100.0;
+
 	updateWidget(genie, GENIE_OBJ_GAUGE, DUTY_CICLE_BAR, dc);
 
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, IST_SPEED_DIGITS, wheelSensor.getSpeed() * 3.6 * 100);
@@ -65,7 +66,7 @@ void MainFormClass::updateWidgetsValues(Genie& genie){
 	updateString(genie, GAP_STRING, getGapString());
 	updateString(genie, CONSUMPTION_STRING, String(wheelSensor.getEnergy() / 1000.0, 2));
 
-	if (!channelsConfig.isValid() || !strategySettings.isValid()){
+	if (!channelsConfig.isValid() /* || !strategySettings.isValid() */){
 		updateString(genie, SAFE_MODE_STRING, F("Safe Mode"));
 	}
 }

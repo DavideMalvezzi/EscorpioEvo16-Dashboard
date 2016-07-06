@@ -12,10 +12,11 @@ boolean ChannelsConfigClass::init(){
 		//Load cfg data
 		for (int i = 0; i < cfg.getPropertyCount(); i += Channel::ATTR_COUNT){
 			c = new Channel;
-			c->ID = cfg[i + Channel::CanID].asInt();
-			c->name = cfg[i + Channel::Name].asString();
-			c->size = cfg[i + Channel::Size].asInt();
-			c->type = cfg[i + Channel::Type].asChar();
+			c->setID(cfg[i + Channel::CanID].asInt());
+			c->setName(cfg[i + Channel::Name].asString());
+			c->setSize(cfg[i + Channel::Size].asInt());
+			c->setDataType(static_cast<Channel::DataTypes>(cfg[i + Channel::Type].asChar()));
+
 			channels.append(c);
 		}
 
@@ -38,7 +39,7 @@ void ChannelsConfigClass::debug(){
 	Log << F("Channels: ") << channels.getSize() << Endl;
 	for (int i = 0; i < channels.getSize(); i++){
 		c = channels[i];
-		Log << c->ID << "  " << c->name << "  " << (char)c->type << "  " << (int)c->size << Endl;
+		Log << c->getID() << "  " << c->getName() << "  " << (char)c->getDataType() << "  " << (int)c->getSize() << Endl;
 	}
 	Log << F("========================================");
 }
@@ -55,10 +56,10 @@ int ChannelsConfigClass::getChannelIndex(unsigned short id){
 	while (s <= d){
 		p = (s + d) / 2;
 
-		if (channels[p]->ID == id){
+		if (channels[p]->getID() == id){
 			return p;
 		}
-		else if (id > channels[p]->ID){
+		else if (id > channels[p]->getID()){
 			s = p + 1;
 		}
 		else{

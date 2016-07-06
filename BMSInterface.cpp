@@ -11,7 +11,6 @@ void BMSInterface::init(){
 }
 
 void BMSInterface::update(){
-
 	if (lastStateUpdate.hasFinished()){
 		Log.w(BMS_TAG) << F("State TTL finished") << Endl;
 

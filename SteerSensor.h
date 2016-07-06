@@ -11,6 +11,8 @@
 
 #include <Timer.h>
 
+#include "CanInterface.h"
+#include "ChannelsBuffer.h"
 #include "HWConfig.h"
 #include "Logger.h"
 
@@ -18,6 +20,13 @@
 
 #define STEER_SENSOR_READ_TIME	200
 #define	STEER_SENSOR_SAMPLES	10
+
+#define STEER_V_OFFSET     (1.68965075)         // Da determinare con la posizione centrale dello sterzo
+#define STEER_V_TO_DIST    (-45.298)
+#define STEER_D_TO_DEG_C1  (-0.8648)
+#define STEER_D_TO_DEG_C2  (-0.0015)
+#define ESCORPIO_WHEELBASE (1.60)    
+#define ESCORPIO_TRACK     (0.52)
 
 #define   RefAngle    10.0
 #define   RefDist     0.017
@@ -39,7 +48,7 @@ public:
 
 private:
 	short steerValue;
-	float steerAvg, steerAngle;
+	float steerAvg;
 	Timer readTimer;
 };
 

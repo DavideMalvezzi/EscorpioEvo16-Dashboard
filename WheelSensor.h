@@ -9,13 +9,15 @@
 
 #include <DueTimer.h>
 
-#include "ChannelsBuffer.h"
 #include "CanInterface.h"
+#include "ChannelsBuffer.h"
+#include "GpsInterface.h"
 #include "StrategySettings.h"
 #include "WayPoint.h"
 
 #define WHEEL_CFR			1.496   // wheel cfr in m
 #define WHEEL_SENSOR_UPDATE_TIME	500
+#define WHEEL_SENSOR_RESET_TIME		5000
 
 class WheelSensorClass {
 	
@@ -56,7 +58,7 @@ public:
 	float getRelativeSpace() { return RelativeSpace; }
 	uint32_t getRelativeMillis() { return TimeMillis-LastFinishTime; }
 	uint32_t getLastRelativeMillis() { return LastRelativeMillis; }
-	uint32_t getLeftMillis(){ return strategySettings.getTrackData().raceTime * 1000 - getRelativeMillis(); }
+	uint32_t getLeftMillis(){ return strategySettings.getTrackData().raceTime * 1000 - getTimeMillis(); }
 	void reset();
 	void update();
 
