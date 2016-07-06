@@ -1,0 +1,13 @@
+linked : 13    main 03E6
+linked : 12    DoGFXObjects 0A6E
+linked : 11    UpdateObjects 0A6F
+linked : 10    ActivateForm 0CE6
+linked : 9     ledDigitsDisplay 0E40
+linked : 8     TurnOffButtons 0F7A
+linked : 7     WriteObject 0FF5
+linked : 6     ReadObject 119A
+linked : 5     SendReport 1254
+linked : 4     seroutOcs 1286
+linked : 3     nak0 1297
+linked : 2     seroutCS 12A7
+linked : 1     PrintStrings 12BA

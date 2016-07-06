@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\DisplayForms">
+      <UniqueIdentifier>{2867a2d9-c1be-4008-ad79-0ad007ee0216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DisplayForms">
+      <UniqueIdentifier>{09212841-78d8-40b4-8003-4b7456b9705f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Datalogger">
+      <UniqueIdentifier>{5ab3816f-067d-4952-9ee9-024fde9fca6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Datalogger">
+      <UniqueIdentifier>{7f1fbdd8-c4eb-4d55-a3c4-22ab356c738a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Strategy">
+      <UniqueIdentifier>{60c10cfa-b02b-40d1-8b64-c319c138a5de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Strategy">
+      <UniqueIdentifier>{650757b1-52ed-41bb-8b41-3eda135f7cde}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DashBoard.ino" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CanInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainForm.h">
+      <Filter>Header Files\DisplayForms</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugForm.h">
+      <Filter>Header Files\DisplayForms</Filter>
+    </ClInclude>
+    <ClInclude Include="ChannelsBuffer.h">
+      <Filter>Header Files\Datalogger</Filter>
+    </ClInclude>
+    <ClInclude Include="ChannelsConfig.h">
+      <Filter>Header Files\Datalogger</Filter>
+    </ClInclude>
+    <ClInclude Include="DataLogger.h">
+      <Filter>Header Files\Datalogger</Filter>
+    </ClInclude>
+    <ClInclude Include="WheelSensor.h">
+      <Filter>Header Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="StrategySettings.h">
+      <Filter>Header Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="WayPoint.h">
+      <Filter>Header Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthDistance.h">
+      <Filter>Header Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Interprete.h">
+      <Filter>Header Files\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayInterface.h">
+      <Filter>Header Files\DisplayForms</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleForm.h">
+      <Filter>Header Files\DisplayForms</Filter>
+    </ClInclude>
+    <ClInclude Include="MapsForm.h">
+      <Filter>Header Files\DisplayForms</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.REV3.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CanInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainForm.cpp">
+      <Filter>Source Files\DisplayForms</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugForm.cpp">
+      <Filter>Source Files\DisplayForms</Filter>
+    </ClCompile>
+    <ClCompile Include="ChannelsBuffer.cpp">
+      <Filter>Source Files\Datalogger</Filter>
+    </ClCompile>
+    <ClCompile Include="ChannelsConfig.cpp">
+      <Filter>Source Files\Datalogger</Filter>
+    </ClCompile>
+    <ClCompile Include="DataLogger.cpp">
+      <Filter>Source Files\Datalogger</Filter>
+    </ClCompile>
+    <ClCompile Include="WheelSensor.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthDistance.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="Interprete.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="StrategySettings.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="WayPoint.cpp">
+      <Filter>Source Files\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayInterface.cpp">
+      <Filter>Source Files\DisplayForms</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleForm.cpp">
+      <Filter>Source Files\DisplayForms</Filter>
+    </ClCompile>
+    <ClCompile Include="MapsForm.cpp">
+      <Filter>Source Files\DisplayForms</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
