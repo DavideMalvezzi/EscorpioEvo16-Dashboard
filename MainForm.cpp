@@ -26,6 +26,7 @@ void MainFormClass::update(Genie &genie){
 
 	if (changedMapTimer.hasFinished()){
 		updateWidget(genie, GENIE_OBJ_USERIMAGES, MAP_SELECTOR_IMG, 0);
+		updateWidget(genie, GENIE_OBJ_STATIC_TEXT, LEFT_TIME_LABEL, 0);
 		updateWidgetsValues(genie);
 	}
 	else if (changedMapTimer.isRunning()){
@@ -60,11 +61,9 @@ void MainFormClass::updateWidgetsValues(Genie& genie){
 	updateWidget(genie, GENIE_OBJ_USER_LED, RADIO_LED, phoneInterface.isCallActive());
 	updateWidget(genie, GENIE_OBJ_USER_LED, GAS_LED, strategy.getStrategyOutput());
 
-	String gap = strategy.getGap() >= 0 ? "+" : "-" ;
-	gap += strategy.getGap();
 
-	updateString(genie, GAP_STRING, gap);
-	updateString(genie, CONSUMPTION_STRING, String(wheelSensor.getEnergy() / 1000.0, 3));
+	updateString(genie, GAP_STRING, getGapString());
+	updateString(genie, CONSUMPTION_STRING, String(wheelSensor.getEnergy() / 1000.0, 2));
 
 	if (!channelsConfig.isValid() || !strategySettings.isValid()){
 		updateString(genie, SAFE_MODE_STRING, F("Safe Mode"));
@@ -74,6 +73,15 @@ void MainFormClass::updateWidgetsValues(Genie& genie){
 unsigned short MainFormClass::convertMillisToMinSec(unsigned long time){
 	time /= 1000;
 	return (time / 60) * 100 + (time % 60);
+}
+
+String MainFormClass::getGapString(){
+	char sign = strategy.getGap() >= 0 ? '+' : '-';
+	String gap;
+	gap += strategy.getGap();
+	while (gap.length() < 3)gap = '0' + gap;
+	gap = sign + gap;
+	return gap;
 }
 
 MainFormClass mainForm;

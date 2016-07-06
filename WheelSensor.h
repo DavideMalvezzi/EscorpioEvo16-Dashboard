@@ -7,6 +7,10 @@
 	#include "WProgram.h"
 #endif
 
+#include <DueTimer.h>
+
+#include "ChannelsBuffer.h"
+#include "CanInterface.h"
 #include "StrategySettings.h"
 #include "WayPoint.h"
 
@@ -47,6 +51,7 @@ public:
 	uint32_t getLastRelativeMillis() { return LastRelativeMillis; }
 	uint32_t getLeftMillis(){ return strategySettings.getTrackData().raceTime * 1000 - getRelativeMillis(); }
 	void reset();
+	void update();
 
 };
 

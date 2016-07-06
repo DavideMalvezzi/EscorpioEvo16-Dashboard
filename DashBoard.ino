@@ -25,7 +25,7 @@
 #include "PhoneInterface.h"
 #include "Shell.h"
 #include "StrategySettings.h"	
-#include "WdtUtils.h"		//Hacked: activated WDT in variant.cpp
+#include "TelemetryInterface.h"
 #include "WheelSensor.h"	
 
 #include <BitArray.h>
@@ -48,8 +48,7 @@ void initPorts();
 boolean initDataLogger();
 boolean initStategy();
 void initButtons();
-//Updates
-void updateStrategy();
+
 //Events
 void onCanPacketReceived(CAN_FRAME& frame);
 void onGpsDataReceived(GpsData& gps);
@@ -60,6 +59,7 @@ void onGpsDataReceived(GpsData& gps);
 #define DL_ON
 #define STRAT_ON
 #define PHONE_ON
+#define TLM_ON
 //#define SHELL_ON
 
 //Log tag
@@ -68,12 +68,8 @@ void onGpsDataReceived(GpsData& gps);
 #define BTN_TAG		F("BTN")
 
 //SW info
-#define SW_REV		F("12")
+#define SW_REV		F("13")
 #define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
-
-//Strategy stuff
-#define STRATEGY_STEP_PERIOD	500
-Timer strategyTimer;
 ///////////////////////////
 
 //Test stuff
@@ -83,13 +79,16 @@ unsigned long avgExecutionTime;
 Timer t, sec;
 ///////////////////////////
 
+#ifdef WDT_ON
+	void watchdogSetup(){}
+#endif
 
 void setup() {
-	//Start timer to count init time
-	t.start();
-
 	//Serial, SD, digital pin, BMS, mapSelector, CAN
 	initPorts();
+
+	//Start timer to count init time
+	t.start();
 
 	//Display
 	#ifdef LCD_ON
@@ -118,7 +117,7 @@ void setup() {
 		}
 		else{
 			consoleForm.println(F("Strategy FAIL"));
-			Log.i(STRAT_TAG) << F("Strategy FAIL") << t.elapsedTime() << Endl;
+			Log.i(STRAT_TAG) << F("Strategy FAIL") << Endl;
 		}
 	#endif
 
@@ -130,10 +129,11 @@ void setup() {
 		Log.i(PHONE_TAG) << F("Phone OK ") << t.elapsedTime() << Endl;
 	#endif
 
-	//Physical buttons
-	initButtons();
-	consoleForm.println(F("Buttons OK"));
-	Log.i(BTN_TAG) << F("Buttons OK ") << t.elapsedTime() << Endl;
+	#ifdef TLM_ON
+		telemetryInterface.init(&BL_SERIAL);
+		consoleForm.println(F("Telemetry OK"));
+		Log.i(TLM_TAG) << F("Telemetry OK ") << t.elapsedTime() << Endl;
+	#endif
 	
 	//Notify init completed
 	consoleForm.println(F("Dashboard init OK"));
@@ -153,24 +153,22 @@ void setup() {
 	
 	//Enable WDT
 	#ifdef WDT_ON
-		//WARNING: To enable the WDT it's needed to remove WDT_Disable in file variant.cpp
-		enableWDT(WDT_TIMEOUT);
+		watchdogEnable(WDT_TIMEOUT);
 	#else
-		disableWDT();
+		watchdogDisable();
 	#endif
-
 }
 
 void loop() {
 	//Reset Watchdog
 	#ifdef WDT_ON
-		resetWDT();
+		watchdogReset();
 	#endif
 
 	//Test execution time
 	t.start();
 	
-	//Read all packet and update debug if necessary
+	//Read all packets and update debug if necessary
 	canInterface.update();
 
 	//Update BMS led button
@@ -179,6 +177,9 @@ void loop() {
 	//Check map selector config
 	mapSelector.update();
 
+	//Buttons update
+	Button::update();
+
 	#ifdef PHONE_ON
 		//Check for in-coming packet from the phone
 		phoneInterface.update();
@@ -186,7 +187,12 @@ void loop() {
 
 	#ifdef STRAT_ON
 		//Strategy update
-		updateStrategy();
+		strategy.update();
+	#endif
+
+	#ifdef TLM_ON
+		//Log telemetry's data
+		telemetryInterface.update();
 	#endif
 
 	#ifdef DL_ON
@@ -198,9 +204,6 @@ void loop() {
 		//Display update
 		displayInterface.update();
 	#endif
-
-	//Buttons update
-	Button::update();
 
 	#ifdef SHELL_ON
 		//Shell update
@@ -228,11 +231,13 @@ void loop() {
 //Inits functions
 void initPorts(){
 	INIT_SERIAL(LOG_SERIAL, LOG_SERIAL_BAUD);
+	INIT_SERIAL(BL_SERIAL, BL_SERIAL_BAUD);
 	INIT_SD(SD, SD_SS_PIN);
 
 	pinMode(RED_LED, OUTPUT);
 	pinMode(YELLOW_LED, OUTPUT);
 	pinMode(GREEN_LED, INPUT);
+	pinMode(BL_RST_PIN, OUTPUT);
 
 	digitalWrite(RED_LED, LOW);
 	digitalWrite(YELLOW_LED, LOW);
@@ -240,19 +245,23 @@ void initPorts(){
 	//Controls
 	mapSelector.init();
 	BMS.init();
+	initButtons();
 
 	//Can
 	canInterface.init(CAN_SPEED);
 	canInterface.setCanEventCallBack(&onCanPacketReceived);
 
 	//Utils
-	shell.init(&LOG_SERIAL);
 	Log.init(&LOG_SERIAL);
+	#ifdef SHELL_ON
+		shell.init(&LOG_SERIAL);
+	#endif
 }
 
 boolean initDataLogger(){
 	//Datalogger
 	if (channelsConfig.init()){
+		//channelsConfig.debug();
 		channelsBuffer.init();
 		dataLogger.init();
 		return true;
@@ -270,7 +279,6 @@ boolean initStategy(){
 		//strategySettings.debugGPSSettings();
 		//strategySettings.debugTrackSettings();
 		strategy.init();
-		strategyTimer.setDuration(STRATEGY_STEP_PERIOD).start();
 		return true;
 	}
 
@@ -284,28 +292,6 @@ void initButtons(){
 	Button::add(BL_CALL_BUTTON_PIN,			NULL, &onCallButtonPress		);
 	Button::add(WHEEL_RESET_BUTTON_PIN,		NULL, &onResetButtonPress		);
 	Button::add(LCD_CHANGE_FORM_BUTTON_PIN, NULL, &onChangeFormButtonPress	);	
-}
-
-//Update functions
-void updateStrategy(){
-	//Strategy update
-	if (strategyTimer.hasFinished() && strategySettings.isValid()){
-
-		if (!channelsBuffer.isValueUpdated(CanID::MOTOR_POWER)){
-			wheelSensor.setPower(0);
-		}
-
-		strategy.step(
-			wheelSensor.getLap(),
-			wheelSensor.getRelativeSpace() * 100,
-			wheelSensor.getTimeMillis() / 10,
-			wheelSensor.getSpeed() * 360
-		);
-
-		//TODO: save strategy values into channelbuffer
-
-		strategyTimer.start();
-	}
 }
 
 //Events functions
@@ -332,20 +318,22 @@ void onCanPacketReceived(CAN_FRAME& frame){
 
 }
 
-void onGpsDataReceived(GpsData& gps){
+void onGpsDataReceived(const GpsData& gps){
 	byte i = 0;
 
-	//Look if inside a waypoint 
-	while (i < strategySettings.getWayPointsNum() && 
-		!strategySettings.getWayPoint(i).processNewPoint(gps.latitude, gps.longitude))i++;
+	if (strategySettings.isValid()){
+		//Look if inside a waypoint 
+		while (i < strategySettings.getWayPointsNum() && 
+			!strategySettings.getWayPoint(i).processNewPoint(gps.latitude, gps.longitude))i++;
 
-	//If found -> process
-	if (i < strategySettings.getWayPointsNum()){
-		wheelSensor.processWayPoint(i);
-		channelsBuffer.setValue(CanID::GPS_WAYPOINT, &i, sizeof(byte));
+		//If found -> process
+		if (i < strategySettings.getWayPointsNum()){
+			wheelSensor.processWayPoint(i);
+			channelsBuffer.setValue<byte>(CanID::GPS_WAYPOINT, i);
+		}
 	}
 
-	Log.i("GPS") << gps.latitude << " " << gps.longitude << " " << gps.altitude << " " << gps.speed << " " << gps.accuracy << Endl;
+	//Log.i("GPS") << gps.latitude << " " << gps.longitude << " " << gps.altitude << " " << gps.speed << " " << gps.accuracy << Endl;
 }
 
 //Buttons events
@@ -361,7 +349,7 @@ void onCallButtonPress(void* data){
 	Log.i(BTN_TAG) << F("Call button pressed") << Endl;
 #endif
 
-	phoneInterface.call();
+	phoneInterface.startCall();
 }
 
 void onChangeFormButtonPress(void* data){

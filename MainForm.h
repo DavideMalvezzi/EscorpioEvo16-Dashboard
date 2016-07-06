@@ -23,6 +23,7 @@
 #define DUTY_CICLE_BAR		0
 #define IST_SPEED_DIGITS	0
 #define AVG_SPEED_DIGITS	1
+#define LEFT_TIME_LABEL		2
 #define LEFT_TIME_DIGITS	2
 #define LAP_DIGITS			3
 #define LAST_TIME_DIGITS	4
@@ -49,6 +50,7 @@ private:
 
 	void updateWidgetsValues(Genie& genie);
 	unsigned short convertMillisToMinSec(unsigned long time);
+	String getGapString();
 };
 
 extern MainFormClass mainForm;

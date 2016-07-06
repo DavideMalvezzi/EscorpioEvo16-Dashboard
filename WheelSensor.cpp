@@ -1,6 +1,6 @@
+
 #include "WheelSensor.h"
 
-#include <DueTimer.h>
 
 #if defined(ARDUINO) && ARDUINO >= 100
 	#include "Arduino.h"
@@ -9,8 +9,6 @@
 #endif
 
 //Timer event related
-
-
 void Timer5_Handler ()
 {
 	// Each ms
@@ -181,6 +179,22 @@ void WheelSensorClass::reset(){
 	this->LastFinishTime = 0;
 	this->LastRelativeMillis = 0;
 	this->Energy = 0;
+}
+
+void WheelSensorClass::update(){
+	channelsBuffer.setValue<byte>(CanID::LAP, getLap());
+	channelsBuffer.setValue<float>(CanID::REL_SPACE, getRelativeSpace());
+	channelsBuffer.setValue<float>(CanID::DISTANCE, getSpace());
+
+	channelsBuffer.setValue<float>(CanID::IST_VEL, getSpeed());
+	channelsBuffer.setValue<float>(CanID::AVG_VEL, getAvgSpeed());
+
+	channelsBuffer.setValue<unsigned long>(CanID::REL_TIME, getRelativeMillis());
+	channelsBuffer.setValue<unsigned long>(CanID::LEFT_TIME, getLeftMillis());
+	channelsBuffer.setValue<unsigned long>(CanID::LAST_TIME, getLastRelativeMillis());
+
+	channelsBuffer.setValue<float>(CanID::ENERGY, getEnergy());
+
 }
 
 WheelSensorClass wheelSensor;

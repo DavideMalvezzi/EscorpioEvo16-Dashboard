@@ -14,23 +14,25 @@
 #include <ConsoleForm.h>
 
 #include "HWConfig.h"
+#include "Utils.h"
 
-#define PHONE_TAG	F("PHN")
-#define PHONE_CFG_FILE	"PHONE.CFG"
+#define PHONE_TAG				F("PHN")
+#define PHONE_CFG_FILE			"PHONE.CFG"
 #define PHONE_RX_BUFFER_SIZE	128
 
-#define INFO_PACKET	"INF"
-#define GPS_PACKET	"GPS"
-#define ACC_PACKET	"ACC"
-#define CALL_PACKET	"CALL"
+#define INFO_PACKET		"INF"
+#define GPS_PACKET		"GPS"
+#define ACC_PACKET		"ACC"
+#define CALL_PACKET		"CALL"
 
-#define CALL_CMD	"TEL:"
-#define DEFAULT_PHONE_NUM F("+393663154577")
+#define CALL_CMD			"TEL:"
+#define DEFAULT_PHONE_NUM	F("+393663154577")
 
 #pragma pack(push, 1)
 typedef struct InfoData{
 	char date[8];
 	char time[8];
+	byte ack;
 }InfoData;
 #pragma pack(pop)
 
@@ -41,6 +43,7 @@ typedef struct GpsData{
 	double altitude;
 	double accuracy;
 	double speed;
+	byte ack;
 }GpsData;
 #pragma pack(pop)
 
@@ -50,11 +53,19 @@ typedef struct AccData{
 	double x;
 	double y;
 	double z;
+	byte ack;
 }AccData;
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+typedef struct CallData{
+	boolean status;
+	byte ack;
+}CallData;
+#pragma pack(pop)
+
 //Events handler
-typedef void(*GpsDataHandler)(GpsData&);
+typedef void(*GpsDataHandler)(const GpsData&);
 //typedef void(*AccelerometerDataHandler)(AccData&);
 
 
@@ -63,11 +74,11 @@ class PhoneInterfaceClass{
 public:
 	void init();
 	void update();
-	void call();
+	void startCall();
 
 	void setGpsDataHandler(GpsDataHandler);
 
-	boolean isCallActive(){ return callActive; }
+	boolean isCallActive(){ return call.status; }
 
 	friend void onCallButtonPress(void* data);
 
@@ -76,16 +87,16 @@ private:
 		PHONE_NUM
 	};
 
-	boolean callActive;
 	String phoneToCall;
 
 	InfoData info;
 	GpsData gps;
 	AccData acc;
-
-	GpsDataHandler gpsHandler;
+	CallData call;
 
 	ByteBuffer rxBuffer;
+	GpsDataHandler gpsHandler;
+
 
 	boolean parsePacket(const char* header, byte* buffer, int size);
 };

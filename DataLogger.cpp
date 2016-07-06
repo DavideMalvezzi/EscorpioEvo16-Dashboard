@@ -40,35 +40,42 @@ void DataLoggerClass::init(){
 
 void DataLoggerClass::update(){
 	//If it's time to log!
-	if (logTimer.hasFinished() && channelsConfig.isValid()){
-		Channel* channel;
-		//Open file
-		File logFile = SD.open(logFileName, O_WRITE);
-		//Print them all
-		if (logFile){
-			for (int i = 0; i < channelsConfig.getChannelCount(); i++){
-				channel = channelsConfig.getChannelByIndex(i);
+	if (channelsConfig.isValid() && logTimer.hasFinished()){
+		if (SD.exists(logFileName)){
+			Channel* channel;
+			//Open file
+			File logFile = SD.open(logFileName, O_WRITE);
+			//Print them all
+			if (logFile){
+				for (int i = 0; i < channelsConfig.getChannelCount(); i++){
+					channel = channelsConfig.getChannelByIndex(i);
 
-				if (channelsBuffer.isValueUpdated(channel->ID)){
-					logFile.print(
-						channelsBuffer.getValueAsString(channel->ID)
-					);
+					if (channelsBuffer.isValueUpdated(channel->ID)){
+						//Log << "Log" << channel->ID <<  Endl;
+					
+						logFile.print(
+							channelsBuffer.getValueAsString(channel->ID)
+						);
+					}
+					else{
+						logFile.print(' ');
+					}
+
+					logFile.print(',');
 				}
-				else{
-					logFile.print(' ');
-				}
+				logFile.println();
+				logFile.close();
 
-				logFile.print(',');
-			}
-			logFile.println();
-			logFile.close();
-
-			channelsBuffer.invalidAllData();
+				channelsBuffer.invalidAllData();
 			
-			Log.i(DL_TAG) << F("Logged") << Endl;
+				Log.i(DL_TAG) << F("Logged") << Endl;
+			}
+			else{
+				Log.e(DL_TAG) << F("Error opening log file!") << Endl;
+			}
 		}
 		else{
-			Log.e(DL_TAG) << F("Error opening log file!") << Endl;
+			Log.e(DL_TAG) << F("Log file not found!") << Endl;
 		}
 
 		//Restart log timer

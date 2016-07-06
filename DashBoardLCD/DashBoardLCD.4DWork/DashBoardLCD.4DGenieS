@@ -1,6 +1,6 @@
 #platform "uLCD-43PT"
 
-// generated 22/03/2016 20:36:19
+// generated 28/03/2016 17:36:38
 
 
 #inherit "4DGL_16bitColours.fnc"
@@ -211,10 +211,10 @@
     word rKeyboardRoutines -1
     word oLedDigitsn 8, 4, 3, 50, 0,
                 272, 4, 3, 50, 0,
-                174, 3, 2, 44, 0,
+                166, 4, 3, 38, 0,
                 210, 2, 1, 28, 0,
-                320, 3, 2, 44, 0,
-                30, 3, 2, 44, 0,
+                322, 4, 3, 38, 0,
+                10, 4, 3, 38, 0,
                 92, 4, 3, 28, 0,
                 320, 1, 1, 30, 0
     word oSpectrumn 7, 18

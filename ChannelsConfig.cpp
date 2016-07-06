@@ -31,17 +31,16 @@ boolean ChannelsConfigClass::init(){
 }
 
 void ChannelsConfigClass::debug(){
-	/*
+	
 	Channel* c;
 
-	LOGLN(F("========== Channels loaded config: =========="));
-	LOG(F("Channels: ")); LOGLN(channels.getSize());
+	Log << F("========== Channels loaded config: ==========");
+	Log << F("Channels: ") << channels.getSize() << Endl;
 	for (int i = 0; i < channels.getSize(); i++){
 		c = channels[i];
-		LOG(c->ID); LOG("  "); LOG(c->name); LOG("  "); LOG((char)c->type); LOG("  "); LOGLN((int)c->size);
+		Log << c->ID << "  " << c->name << "  " << (char)c->type << "  " << (int)c->size << Endl;
 	}
-	LOGLN(F("========================================"));
-	*/
+	Log << F("========================================");
 }
 
 Channel* ChannelsConfigClass::getChannelByID(unsigned short id){

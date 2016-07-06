@@ -220,8 +220,8 @@ StaticText
     Font.Size                    12
     Font.Style                   []
     Height                       19
-    Left                         48
-    Top                          122
+    Left                         40
+    Top                          126
     Transparent                  Yes
     Width                        88
     WordWrap                     Yes
@@ -238,8 +238,8 @@ StaticText
     Font.Size                    12
     Font.Style                   []
     Height                       19
-    Left                         356
-    Top                          122
+    Left                         360
+    Top                          126
     Transparent                  Yes
     Width                        58
     WordWrap                     Yes
@@ -248,16 +248,16 @@ LedDigits
     Name                         Leddigits2
     Alias                        Leddigits2
     Color                        BLACK
-    Decimals                     1
-    Digits                       3
-    Height                       60
+    Decimals                     2
+    Digits                       4
+    Height                       50
     LeadingZero                  Yes
-    Left                         174
+    Left                         166
     OutlineColor                 BLACK
     Palette.High                 AQUA
     Palette.Low                  0x191900
-    Top                          138
-    Width                        132
+    Top                          140
+    Width                        155
     OnChanged                    ''
     OnTouchMoving                ''
     OnTouchPressed               ''
@@ -331,7 +331,7 @@ StaticText
     Font.Style                   []
     Height                       19
     Left                         222
-    Top                          198
+    Top                          194
     Transparent                  Yes
     Width                        28
     WordWrap                     Yes
@@ -354,7 +354,7 @@ Strings
     Left                         180
     Strings                      +123\n
     StringsStyle                 Message
-    Top                          216
+    Top                          214
     Width                        112
     OnChanged                    ''
 end
@@ -376,7 +376,7 @@ Strings
     Left                         20
     Strings                      999.99\n
     StringsStyle                 Message
-    Top                          224
+    Top                          226
     Width                        155
     OnChanged                    ''
 end
@@ -486,16 +486,16 @@ LedDigits
     Name                         Leddigits4
     Alias                        Leddigits4
     Color                        BLACK
-    Decimals                     1
-    Digits                       3
-    Height                       60
+    Decimals                     2
+    Digits                       4
+    Height                       50
     LeadingZero                  Yes
-    Left                         320
+    Left                         322
     OutlineColor                 BLACK
     Palette.High                 AQUA
     Palette.Low                  0x191900
-    Top                          142
-    Width                        132
+    Top                          146
+    Width                        155
     OnChanged                    ''
     OnTouchMoving                ''
     OnTouchPressed               ''
@@ -505,16 +505,16 @@ LedDigits
     Name                         Leddigits5
     Alias                        Leddigits5
     Color                        BLACK
-    Decimals                     1
-    Digits                       3
-    Height                       60
+    Decimals                     2
+    Digits                       4
+    Height                       50
     LeadingZero                  Yes
-    Left                         30
+    Left                         10
     OutlineColor                 BLACK
     Palette.High                 AQUA
     Palette.Low                  0x191900
-    Top                          142
-    Width                        132
+    Top                          146
+    Width                        155
     OnChanged                    ''
     OnTouchMoving                ''
     OnTouchPressed               ''
@@ -525,7 +525,7 @@ UserImages
     Alias                        Userimages0
     Height                       128
     Images                       frame0.png\nframe1.png\nframe2.png\nframe3.png\nframe4.png
-    Left                         175
+    Left                         174
     Stretch                      No
     Top                          71
     Width                        128

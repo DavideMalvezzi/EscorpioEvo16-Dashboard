@@ -44,10 +44,17 @@ public:
 	void invalidAllData();
 
 	void setValue(unsigned short id, byte* data, unsigned short size);
+	template <typename T>
+	T setValue(unsigned short id, T value){
+		setValue(id, (byte*)&value, sizeof(T));
+	}
+
+	void sendOnStream(UARTClass* stream);
+	unsigned short getBufferSize(){ return bufferSize; }
 
 
 private:
-	short bufferSize;
+	unsigned short bufferSize;
 	BitArray updateFlags;
 	Vector<ByteBuffer> buffer;
 

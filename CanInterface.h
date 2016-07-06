@@ -14,6 +14,7 @@
 
 #include "ChannelsBuffer.h"
 #include "HWConfig.h"
+#include "Utils.h"
 
 //Class containing an enum with all the CanID constants hard-coded
 class CanID{
@@ -51,18 +52,18 @@ public:
 		MOTOR_DUTY_CICLE = 0xA5,	//Duty cicle
 
 		//Strategy
-		//IST_VEL = 0x200,
-		//AVG_VEL = 0x201,
-		//DISTANCE = 0x202,
-		//RACE_TIME = 0x203,
-		//LAP = 0x204,
+		IST_VEL = 0x200,
+		AVG_VEL = 0x201,
+		DISTANCE = 0x202,
+		LEFT_TIME = 0x203,
+		LAP = 0x204,
 		GPS_WAYPOINT = 0x205,
-		//REL_SPACE = 0x206,
-		//REL_TIME = 0x207,
-		//LAST_TIME = 0x208,
-		//GAP = 0x209,
-		//ENERGY = 0x20A,
-		//GAS = 0x20B,
+		REL_SPACE = 0x206,
+		REL_TIME = 0x207,
+		LAST_TIME = 0x208,
+		GAP = 0x209,
+		ENERGY = 0x20A,
+		GAS = 0x20B,
 
 		//Bms
 		BMS_STATUS = 0x400,			//BMS status
@@ -119,10 +120,9 @@ public:
 	//Stream
 	CanStreamResult streamOverCan(CanID::IDs canID, const char* openStreamCmd, byte* buffer, int size);
 	CanStreamResult waitForStreamOverCan(CanID::IDs canID, const char* openStreamCmd, byte* buffer, int expectedBytes);
-	byte getAck(byte* data, int size);
 
 	//Debug
-	void setCanDebugSerialPort(Stream* debugSerial);
+	void setCanDebugSerial(Stream* debugSerial);
 
 
 private:

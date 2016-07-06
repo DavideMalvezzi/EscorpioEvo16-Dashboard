@@ -1,8 +1,6 @@
 
 #include "ChannelsBuffer.h"
 
-#define WARNING
-
 void ChannelsBufferClass::init(){
 	Channel* c;
 	//Resize the buffer
@@ -45,30 +43,29 @@ String ChannelsBufferClass::getValueAsString(unsigned short id){
 
 			//Convert to arduino String obj
 			switch (c->type){
-			case Channel::BIT_FLAG:
-				return buffer[index].toBinString();
+				case Channel::BIT_FLAG:
+					return buffer[index].toBinString();
 
-			case Channel::DECIMAL:
-				//If size <= is float
-				//Need this difference because conversion is a copy 'n paste of memory
-				if (c->size <= 4){
-					return String(buffer[index].as<float>(), 6);
-				}
-				return String(buffer[index].as<double>(), 6);
+				case Channel::DECIMAL:
+					//If size <= is float
+					//Need this difference because conversion is a copy 'n paste of memory
+					if (c->size <= 4){
+						return String(buffer[index].as<float>(), 6);
+					}
+					
+					return String(buffer[index].as<double>(), 10);
 
-			case Channel::INTEGER:
-				return intToString(c, buffer[index].data());
+				case Channel::INTEGER:
+					return intToString(c, buffer[index].data());
 
-			case Channel::U_INTEGER:
-				return uintToString(c, buffer[index].data());
+				case Channel::U_INTEGER:
+					return uintToString(c, buffer[index].data());
 
-			case Channel::STRING:
-				return buffer[index].toString();
+				case Channel::STRING:
+					return buffer[index].toString();
 
-#ifdef WARNING
-			default:
-				Log.e(CHBUF_TAG) << F("in getValueAsString\t Unknown conversion type channel ") << id << F(" to type ") << c->type << Endl;
-#endif
+				default:
+					Log.e(CHBUF_TAG) << F("in getValueAsString\t Unknown conversion type channel ") << id << F(" to type ") << c->type << Endl;
 			}
 		}
 	}
@@ -93,14 +90,13 @@ void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short
 		int index = channelsConfig.getChannelIndex(id);
 		if (index != -1){
 
-#ifdef WARNING
 			if (size < channelsConfig.getChannelByIndex(index)->size){
 				Log.w(CHBUF_TAG) << F("in setValue\t Received size < expected size for channel ") << id << Endl;
 			}
 			else if (size > channelsConfig.getChannelByIndex(index)->size){
 				Log.w(CHBUF_TAG) << F("in setValue\t Received size > expected size for channel ") << id << Endl;
 			}
-#endif
+			
 			if (size <= channelsConfig.getChannelByIndex(index)->size){
 				buffer[index].clear();
 				buffer[index].append(data, size);
@@ -109,9 +105,7 @@ void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short
 
 		}
 		else {
-#ifdef WARNING
 			Log.w(CHBUF_TAG) << F("ChannelsBuffer::setValue  unknow packet id = ") << id << Endl;
-#endif
 		}
 	}
 }
@@ -176,6 +170,15 @@ String ChannelsBufferClass::intToString(Channel* channel, byte* data){
 	value += temp;
 	return value;
 
+}
+
+void ChannelsBufferClass::sendOnStream(UARTClass* stream){
+	Channel* c;
+	for (int i = 0; i < channelsConfig.getChannelCount(); i++){
+		c = channelsConfig.getChannelByIndex(i);
+		stream->write((byte*)&c->ID, sizeof(c->ID));
+		stream->write(buffer[i].data(), buffer[i].getCapacity());
+	}
 }
 
 ChannelsBufferClass channelsBuffer;

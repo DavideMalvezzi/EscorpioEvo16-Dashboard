@@ -29,6 +29,35 @@ void Interprete::init(){
 
 	output = 0;
 	gapTime = 0;
+	strategyTimer.setDuration(STRATEGY_STEP_PERIOD).start();
+}
+
+void Interprete::update(){
+	if (strategyTimer.hasFinished()){
+		if (strategySettings.isValid()){
+
+			if (!channelsBuffer.isValueUpdated(CanID::MOTOR_POWER)){
+				wheelSensor.setPower(0);
+			}
+
+			//Step strategy
+			step(
+				wheelSensor.getLap(),
+				wheelSensor.getRelativeSpace() * 100,
+				wheelSensor.getTimeMillis() / 10,
+				wheelSensor.getSpeed() * 360
+			);
+
+			//Update values in ChannelBuffer	
+			channelsBuffer.setValue<byte>(CanID::GAS, getStrategyOutput());
+			channelsBuffer.setValue<int>(CanID::GAP, getGap());
+		}
+
+		//Update values in ChannelBuffer		
+		wheelSensor.update();
+
+		strategyTimer.start();
+	}
 }
 
 // laps, relpos in m*10e-2, reltime in s*10e-2, speed in km/h *10e-2  

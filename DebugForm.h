@@ -16,6 +16,7 @@
 #include "HWConfig.h"
 #include "LCDForm.h"
 #include "PhoneInterface.h"
+#include "TelemetryInterface.h"
 
 //Widget index
 //Can

@@ -30,16 +30,19 @@ void DebugFormClass::onEvent(Genie& genie, genieFrame& evt){
 		
 		case CAN_ON_SERIAL_BUTTON:
 			INIT_SERIAL(CAN_DEBUG_SERIAL, CAN_SERIAL_BAUD);
-			canInterface.setCanDebugSerialPort(&CAN_DEBUG_SERIAL);
+			canInterface.setCanDebugSerial(&CAN_DEBUG_SERIAL);
 		break;
 
 		case CAN_ON_BLUETOOTH_BUTTON:
 			INIT_SERIAL(BL_SERIAL, CAN_SERIAL_BAUD);
-			canInterface.setCanDebugSerialPort(&BL_SERIAL);
+			canInterface.setCanDebugSerial(&BL_SERIAL);
+			telemetryInterface.setLogSerial(NULL);
 			break;
 
 		case CAN_STOP_BUTTON:
-			canInterface.setCanDebugSerialPort(NULL);
+			INIT_SERIAL(BL_SERIAL, BL_SERIAL_BAUD);
+			telemetryInterface.setLogSerial(&BL_SERIAL);
+			canInterface.setCanDebugSerial(NULL);
 			break;
 
 		case DRIVER_SETTING_BUTTON:

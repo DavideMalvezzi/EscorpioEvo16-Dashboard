@@ -21,7 +21,7 @@
 #include "MainForm.h"
 #include "MapsForm.h"
 
-#define LCD_TAG		F("LCD")	
+#define LCD_TAG			F("LCD")	
 #define REFRESH_RATEO	5
 
 class DisplayInterfaceClass{

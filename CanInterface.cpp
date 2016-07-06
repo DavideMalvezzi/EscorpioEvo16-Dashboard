@@ -20,7 +20,6 @@ void CanInterfaceClass::update(){
 		}
 
 		writePacketOnDebugSerial(frame);
-
 	}
 
 	if (debugSerial != NULL){
@@ -74,7 +73,7 @@ void CanInterfaceClass::removeCanEventCallBack(){
 
 
 //Debug
-void CanInterfaceClass::setCanDebugSerialPort(Stream* debugSerial){
+void CanInterfaceClass::setCanDebugSerial(Stream* debugSerial){
 	//Attach interrupt for Can Debug
 	this->debugSerial = debugSerial;
 }
@@ -211,7 +210,7 @@ CanStreamResult CanInterfaceClass::waitForStreamOverCan(CanID::IDs canID, const 
 				buffer + memIndex,
 				frame.data.bytes,
 				memIndex + frame.length > expectedBytes ? expectedBytes - memIndex : frame.length	//Buffer over-run check
-				);
+			);
 			memIndex += frame.length;
 		}
 	}
@@ -235,14 +234,6 @@ CanStreamResult CanInterfaceClass::waitForStreamOverCan(CanID::IDs canID, const 
 	}
 
 	return TIMEOUT;
-}
-
-byte CanInterfaceClass::getAck(byte* data, int size){
-	byte ack = 0;
-	for (int i = 0; i < size; i++){
-		ack ^= data[i];
-	}
-	return ack;
 }
 
 

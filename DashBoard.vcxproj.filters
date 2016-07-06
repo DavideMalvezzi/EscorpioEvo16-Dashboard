@@ -135,13 +135,16 @@
     <ClInclude Include="Shell.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV12.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BMSInterface.h">
       <Filter>Header Files\ExtInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="HWConfig.h">
+      <Filter>Header Files\ExtInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.REV13.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TelemetryInterface.h">
       <Filter>Header Files\ExtInterfaces</Filter>
     </ClInclude>
   </ItemGroup>
@@ -200,9 +203,6 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="WdtUtils.cpp">
-      <Filter>Source Files\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="MapSelector.cpp">
       <Filter>Source Files\ExtInterfaces</Filter>
     </ClCompile>
@@ -210,6 +210,9 @@
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="BMSInterface.cpp">
+      <Filter>Source Files\ExtInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="TelemetryInterface.cpp">
       <Filter>Source Files\ExtInterfaces</Filter>
     </ClCompile>
   </ItemGroup>
