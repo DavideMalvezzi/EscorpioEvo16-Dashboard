@@ -73,7 +73,7 @@ void onGpsDataReceived(GpsData& gps);
 #define BTN_TAG		F("BTN")
 
 //SW info
-#define SW_REV		F("16")
+#define SW_REV		F("18")
 #define SW_INFO		String(F("Dashboard SW Rev ")) + SW_REV + String(F(" built ")) + F(__DATE__) + String(" ") + F(__TIME__)
 ///////////////////////////
 
@@ -323,8 +323,6 @@ boolean initDataLogger(){
 boolean initStategy(){
 	//Strategy
 	if (strategySettings.init()){
-		//strategySettings.debugGPSSettings();
-		//strategySettings.debugTrackSettings();
 		strategy.init();
 		return true;
 	}
@@ -340,7 +338,7 @@ void initButtons(){
 	Button::add(LCD_CHANGE_FORM_BUTTON_PIN, NULL, &onChangeFormButtonPress	);	
 
 	//Need to check the press time, so connect to the rising edge
-	Button::add(WHEEL_RESET_BUTTON_PIN, NULL, &onResetButtonPress);
+	Button::add(WHEEL_RESET_BUTTON_PIN, &onResetButtonPress, NULL);
 
 }
 
@@ -355,6 +353,10 @@ void onCanPacketReceived(CAN_FRAME& frame){
 			wheelSensor.setPower(channelsBuffer.getValueAs<float>(CanID::MOTOR_POWER));
 			break;
 
+		case CanID::MOTOR_DUTY_CICLE:
+			mainForm.updateCurrentMotorPower(channelsBuffer.getValueAs<byte>(CanID::MOTOR_DUTY_CICLE));
+			break;
+
 		//Don't take the status from channelBuffer because in the case the DashBoard is in safe mode channelBuffer might be not available
 		//and so no state is passed to the BMS class, instead pass the raw packet that is as available as the CAN is
 		case CanID::BMS_STATUS:
@@ -362,8 +364,9 @@ void onCanPacketReceived(CAN_FRAME& frame){
 			break;
 
 		case CanID::MOTOR_MAP:
-			mainForm.setNewCurrentMap(channelsBuffer.getValueAs<byte>(CanID::MOTOR_MAP));
+			mainForm.updateCurrentMap(channelsBuffer.getValueAs<byte>(CanID::MOTOR_MAP));
 			break;
+
 	}
 
 }
@@ -390,11 +393,14 @@ void onGpsDataReceived(const GpsData& gpsData){
 
 //Buttons events
 void onResetButtonPress(void* data){
-#ifdef LOOP_DEBUG
-	Log.i(BTN_TAG) << F("Wheel sensor reset button pressed") << Endl;
-#endif
+	if (Button::getPressTime() > WHEEL_SENSOR_RESET_TIME){
 
-	wheelSensor.reset();
+		#ifdef LOOP_DEBUG
+			Log.i(BTN_TAG) << F("Wheel sensor reset button pressed") << Endl;
+		#endif
+
+		wheelSensor.reset();
+	}
 }
 
 void onCallButtonPress(void* data){

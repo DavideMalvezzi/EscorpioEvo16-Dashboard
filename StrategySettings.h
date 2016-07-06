@@ -62,6 +62,8 @@ public:
 	LapProfile& getGeneralLap(){ return generalLap; }
 	LapProfile& getLastLap(){ return lastLap; }
 
+	float getRaceLenght() { return (trackData.raceLaps - 1)*trackData.trackLenght + trackData.trackFinish; }
+
 private:
 	boolean valid;
 	TrackData trackData;

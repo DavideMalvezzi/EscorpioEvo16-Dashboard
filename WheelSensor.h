@@ -54,11 +54,14 @@ public:
 	uint32_t getTimeMillis() { return TimeMillis; }
 	float getAvgSpeed() { return AvgSpeed; }
 	float getEnergy() { return Energy; }
-	unsigned int getLap() { return FullLaps; }
+	unsigned int getLapNumber() { return FullLaps+1; }
+	unsigned int getFullLaps() { return FullLaps; }
 	float getRelativeSpace() { return RelativeSpace; }
 	uint32_t getRelativeMillis() { return TimeMillis-LastFinishTime; }
 	uint32_t getLastRelativeMillis() { return LastRelativeMillis; }
 	uint32_t getLeftMillis(){ return strategySettings.getTrackData().raceTime * 1000 - getTimeMillis(); }
+	float getCorrectedSpace() { return (FullLaps*strategySettings.getTrackData().trackLenght) + RelativeSpace; }
+	int getGapMillis() { return TimeMillis - getCorrectedSpace() / strategySettings.getRaceLenght() * strategySettings.getTrackData().raceTime * 1000; }
 	void reset();
 	void update();
 

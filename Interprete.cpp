@@ -37,7 +37,7 @@ void Interprete::update(){
 		if (strategyTimer.hasFinished()){
 			//Step strategy
 			step(
-				wheelSensor.getLap(),
+				wheelSensor.getLapNumber(),
 				wheelSensor.getRelativeSpace() * 100,
 				wheelSensor.getTimeMillis() / 10,
 				wheelSensor.getSpeed() * 360

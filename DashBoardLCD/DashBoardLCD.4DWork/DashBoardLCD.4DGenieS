@@ -1,6 +1,6 @@
 #platform "uLCD-43PT"
 
-// generated 09/06/2016 17:01:01
+// generated 22/06/2016 20:46:35
 
 
 #inherit "4DGL_16bitColours.fnc"
@@ -164,7 +164,7 @@
                 tWinButton, 1, -1, -1, -1, -1, -1, -1, 0, 638, 28,
                 OT_REPORT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13
     word iStrings0  Strings0StartH, Strings0StartL, Strings0Size, 0, 2, 479, 271, LIME, BLACK, 0, 0, 1, 0 
-    word iStrings1  Strings1StartH, Strings1StartL, Strings1Size, 180, 214, 291, 261, YELLOW, BLACK, 0, 0, 1, 1 
+    word iStrings1  Strings1StartH, Strings1StartL, Strings1Size, 180, 216, 291, 263, YELLOW, BLACK, 0, 0, 1, 1 
     word iStrings2  Strings2StartH, Strings2StartL, Strings2Size, 20, 226, 174, 261, YELLOW, BLACK, 0, 0, 1, 1 
     word iStrings3  Strings3StartH, Strings3StartL, Strings3Size, 92, 4, 229, 38, YELLOW, BLACK, 0, 1, 1, 2 
     word iStrings4  Strings4StartH, Strings4StartL, Strings4Size, 4, 45, 105, 268, WHITE, GREEN, 0, 1, 1, 3 
@@ -505,7 +505,7 @@ func main()
     gfx_ScreenMode(LANDSCAPE) ;
 
     // open image control
-    hndl := file_LoadImageControl("DASHBO~1.dat", "DASHBO~1.gci", 1);
+    hndl := file_LoadImageControl("DASHBO~2.dat", "DASHBO~2.gci", 1);
 
     // init 'constants'
 // End P3.inc
@@ -544,16 +544,16 @@ func main()
     oObjects[tColorPicker] := oColorPickers ;
     oObjects[tUserButton] := oUserButtons ;
     hFonts[0] := FONT3 ;
-    hFonts[1] := file_LoadImageControl("DASHBO~1.d01", "DASHBO~1.g01", 1)  ;
-    hFonts[3] := file_LoadImageControl("DASHBO~1.d03", "DASHBO~1.g03", 1)  ;
-    hFonts[4] := file_LoadImageControl("DASHBO~1.d04", "DASHBO~1.g04", 1)  ;
-    hFonts[5] := file_LoadImageControl("DASHBO~1.d05", "DASHBO~1.g05", 1)  ;
-    hFonts[8] := file_LoadImageControl("DASHBO~1.d02", "DASHBO~1.g02", 1)  ;
+    hFonts[1] := file_LoadImageControl("DASHBO~2.d01", "DASHBO~2.g01", 1)  ;
+    hFonts[3] := file_LoadImageControl("DASHBO~2.d03", "DASHBO~2.g03", 1)  ;
+    hFonts[4] := file_LoadImageControl("DASHBO~2.d04", "DASHBO~2.g04", 1)  ;
+    hFonts[5] := file_LoadImageControl("DASHBO~2.d05", "DASHBO~2.g05", 1)  ;
+    hFonts[8] := file_LoadImageControl("DASHBO~2.d02", "DASHBO~2.g02", 1)  ;
     hFonts[2] := hFonts[1] ;
     hFonts[6] := hFonts[5] ;
     hFonts[7] := hFonts[4] ;
 // Start P4.inc
-    hstrings := file_Open("DASHBO~1.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
+    hstrings := file_Open("DASHBO~2.txf", 'r') ; // Open handle to access uSD strings, uncomment if required
     // init comms
     com1_Init(comRX,CMDLenMAX,0);
     com_SetBaud(COM1,11520);

@@ -3,8 +3,8 @@
 
 
 void MainFormClass::init(Genie &genie){
-	prevMap = INVALID_MAP;
-	changedMapTimer.setDuration(MAP_SELECTOR_TTL);
+	popUpIndex = POP_UP_HIDE;
+	popUpTimer.setDuration(POP_UP_TTL).start().forceTimeout();
 }
 
 void MainFormClass::update(Genie &genie){
@@ -24,24 +24,40 @@ void MainFormClass::update(Genie &genie){
 	updateString(genie, 2, String((float)(millis() % 99999) / 100, 2));
 	*/
 
-	if (changedMapTimer.hasFinished()){
-		updateWidget(genie, GENIE_OBJ_USERIMAGES, MAP_SELECTOR_IMG, 0);
-		updateWidget(genie, GENIE_OBJ_STATIC_TEXT, LEFT_TIME_LABEL, 0);
+	if (popUpTimer.hasFinished()){
+		if (popUpIndex != POP_UP_HIDE){
+			updateWidget(genie, GENIE_OBJ_USERIMAGES, POP_UP_IMG, POP_UP_HIDE);
+			updateWidget(genie, GENIE_OBJ_STATIC_TEXT, LEFT_TIME_LABEL, 0);
+			popUpIndex = POP_UP_HIDE;
+		}
 		updateWidgetsValues(genie);
 	}
-	else if (changedMapTimer.isRunning()){
-		updateWidget(genie, GENIE_OBJ_USERIMAGES, MAP_SELECTOR_IMG, prevMap);
+	else /*if (popUpTimer.isRunning())*/{
+		updateWidget(genie, GENIE_OBJ_USERIMAGES, POP_UP_IMG, popUpIndex);
 	}
+	/*
 	else{	
 		updateWidgetsValues(genie);
 	}
+	*/
 
 }
 
-void MainFormClass::setNewCurrentMap(byte map){
-	if (prevMap != map){
-		prevMap = map;
-		changedMapTimer.start();
+void MainFormClass::showPopUp(byte index, unsigned long duration){
+	popUpIndex = index;
+	popUpTimer.setDuration(duration).start();
+}
+
+
+void MainFormClass::updateCurrentMap(byte map){
+	if (map != INVALID_MAP && map!=DEFAULT_MAP && popUpIndex != map){
+		showPopUp(map, POP_UP_TTL);
+	}
+}
+
+void MainFormClass::updateCurrentMotorPower(byte power){
+	if (power >= 255){
+		showPopUp(POP_UP_WARN, 2 * POP_UP_TTL);
 	}
 }
 
@@ -53,7 +69,7 @@ void MainFormClass::updateWidgetsValues(Genie& genie){
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, IST_SPEED_DIGITS, wheelSensor.getSpeed() * 3.6 * 100);
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, AVG_SPEED_DIGITS, wheelSensor.getAvgSpeed() * 3.6 * 100);
 
-	updateWidget(genie, GENIE_OBJ_LED_DIGITS, LAP_DIGITS, wheelSensor.getLap());
+	updateWidget(genie, GENIE_OBJ_LED_DIGITS, LAP_DIGITS, wheelSensor.getLapNumber());
 
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, CURR_TIME_DIGITS, convertMillisToMinSec(wheelSensor.getRelativeMillis()));
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, LEFT_TIME_DIGITS, convertMillisToMinSec(wheelSensor.getLeftMillis()));
@@ -77,9 +93,9 @@ unsigned short MainFormClass::convertMillisToMinSec(unsigned long time){
 }
 
 String MainFormClass::getGapString(){
-	char sign = strategy.getGap() >= 0 ? '+' : '-';
+	char sign = wheelSensor.getGapMillis() >= 0 ? '+' : '-';
 	String gap;
-	gap += strategy.getGap();
+	gap += strategy.getGap() / 1000;
 	while (gap.length() < 3)gap = '0' + gap;
 	gap = sign + gap;
 	return gap;

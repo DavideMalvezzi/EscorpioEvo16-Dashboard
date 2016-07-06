@@ -33,8 +33,13 @@
 #define GAP_STRING			1
 #define CONSUMPTION_STRING	2
 #define SAFE_MODE_STRING	8
-#define MAP_SELECTOR_IMG	0
-#define MAP_SELECTOR_TTL	700
+#define POP_UP_IMG			0
+#define POP_UP_TTL			700
+
+#define POP_UP_HIDE			0
+#define POP_UP_MAP			1
+#define POP_UP_WARN			5
+
 
 class MainFormClass : public LCDForm{
 
@@ -42,11 +47,15 @@ public:
 	void init(Genie &genie);
 	void update(Genie &genie);
 	int getFormIndex(){ return 1; }
-	void setNewCurrentMap(byte map);
+
+	void updateCurrentMap(byte map);
+	void updateCurrentMotorPower(byte power);
 
 private:
-	byte prevMap;
-	Timer changedMapTimer;
+	byte popUpIndex;
+	Timer popUpTimer;
+
+	void showPopUp(byte index, unsigned long duration);
 
 	void updateWidgetsValues(Genie& genie);
 	unsigned short convertMillisToMinSec(unsigned long time);

@@ -175,7 +175,7 @@ void WheelSensorClass::init(){
 void WheelSensorClass::reset(){
 		this->Speed = 0;
 		this->RelativeSpace = 0;
-		this->FullLaps = 1;
+		this->FullLaps = 0;
 		this->AvgSpeed = 0;
 		this->Space = 0;
 		this->TimeMillis = 0;
@@ -187,7 +187,7 @@ void WheelSensorClass::reset(){
 
 void WheelSensorClass::update(){
 	if (updateTimer.hasFinished()){
-		channelsBuffer.setValue<byte>(CanID::LAP, getLap());
+		channelsBuffer.setValue<byte>(CanID::LAP, getLapNumber());
 		channelsBuffer.setValue<float>(CanID::REL_SPACE, getRelativeSpace());
 		channelsBuffer.setValue<float>(CanID::DISTANCE, getSpace());
 

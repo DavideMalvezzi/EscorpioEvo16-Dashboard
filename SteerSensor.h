@@ -21,7 +21,7 @@
 #define STEER_SENSOR_READ_TIME	200
 #define	STEER_SENSOR_SAMPLES	10
 
-#define STEER_V_OFFSET     (1.68965075)         // Da determinare con la posizione centrale dello sterzo
+#define STEER_V_OFFSET     (1.695)         // Da determinare con la posizione centrale dello sterzo
 #define STEER_V_TO_DIST    (-45.298)
 #define STEER_D_TO_DEG_C1  (-0.8648)
 #define STEER_D_TO_DEG_C2  (-0.0015)

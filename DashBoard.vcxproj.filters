@@ -153,11 +153,11 @@
     <ClInclude Include="WheelSensor.h">
       <Filter>Header Files\ExtInterfaces\Sensor</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV16.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GpsInterface.h">
       <Filter>Header Files\Strategy\Gps</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.REV18.vsarduino.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

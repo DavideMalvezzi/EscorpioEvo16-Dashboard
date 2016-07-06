@@ -331,7 +331,7 @@ StaticText
     Font.Style                   []
     Height                       19
     Left                         222
-    Top                          194
+    Top                          196
     Transparent                  Yes
     Width                        28
     WordWrap                     Yes
@@ -354,7 +354,7 @@ Strings
     Left                         180
     Strings                      +123\n
     StringsStyle                 Message
-    Top                          214
+    Top                          216
     Width                        112
     OnChanged                    ''
 end
@@ -524,7 +524,7 @@ UserImages
     Name                         Userimages0
     Alias                        Userimages0
     Height                       128
-    Images                       frame0.png\nframe1.png\nframe2.png\nframe3.png\nframe4.png
+    Images                       frame0.png\nframe1.png\nframe2.png\nframe3.png\nframe4.png\nframe5.png
     Left                         174
     Stretch                      No
     Top                          71
