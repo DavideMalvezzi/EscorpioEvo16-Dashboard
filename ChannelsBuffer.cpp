@@ -31,9 +31,11 @@ void ChannelsBufferClass::debug(){
 }
 
 String ChannelsBufferClass::getValueAsString(unsigned short id){
+	//If CFG file was loaded
 	if (channelsConfig.isValid()){
+		//Search the channel
 		int index = channelsConfig.getChannelIndex(id);
-		//If channel's config found
+		//If channel config found
 		if (index != -1){
 			Channel* c = channelsConfig.getChannelByIndex(index);
 
@@ -70,7 +72,9 @@ String ChannelsBufferClass::getValueAsString(unsigned short id){
 }
 
 ByteBuffer ChannelsBufferClass::getValueAsByteArray(unsigned short id){
+	//If CFG file was loaded
 	if (channelsConfig.isValid()){
+		//Search the channel
 		int index = channelsConfig.getChannelIndex(id);
 		//Return a copy 
 		if (index != -1){
@@ -82,10 +86,12 @@ ByteBuffer ChannelsBufferClass::getValueAsByteArray(unsigned short id){
 }
 
 void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short size){
+	//If CFG file was loaded
 	if (channelsConfig.isValid()){
+		//Search the channel
 		int index = channelsConfig.getChannelIndex(id);
 		if (index != -1){
-
+			//If size received is not equal to expected size 
 			if (size < channelsConfig.getChannelByIndex(index)->getSize()){
 				Log.w(CHBUF_TAG) << F("In setValue\t Received size < expected size for channel ") << id << Endl;
 			}
@@ -93,6 +99,7 @@ void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short
 				Log.w(CHBUF_TAG) << F("In setValue\t Received size > expected size for channel ") << id << Endl;
 			}
 			
+			//If size is <= than the expected size can save the value
 			if (size <= channelsConfig.getChannelByIndex(index)->getSize()){
 				//Clear and save data
 				buffer[index].clear();
@@ -109,9 +116,12 @@ void ChannelsBufferClass::setValue(unsigned short id, byte* data, unsigned short
 }
 
 boolean ChannelsBufferClass::isValueUpdated(unsigned short id){
+	//If CFG file was loaded
 	if (channelsConfig.isValid()){
+		//Search the channel
 		int index = channelsConfig.getChannelIndex(id);
 		if (index != -1){
+			//Return channel TTL timer status
 			return !channelsConfig.getChannelByIndex(index)->hasTTLFinished();
 		}
 	}

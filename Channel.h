@@ -11,11 +11,17 @@
 
 #include <Timer.h>
 
+/**
+* Class representing all the information relative to a single CAN packet
+*/
+
+//TTL timer duration
 #define CH_BUFFER_TTL	1500
 
 class Channel{
 
 public:
+	//Data type enum
 	enum DataTypes : char{
 		BIT_FLAG =	'B',
 		U_INTEGER = 'U',
@@ -24,6 +30,7 @@ public:
 		STRING =	'S'
 	};
 
+	//CFG file attributes
 	enum Attr : byte{
 		CanID,
 		Name,
@@ -32,26 +39,40 @@ public:
 		ATTR_COUNT
 	};
 
+
 	Channel();
 
+	//Setters
 	void setSize(byte size);
 	void setID(unsigned short ID);
 	void setDataType(DataTypes type);
 	void setName(String name);
 
+	//Getters
 	byte getSize();
 	unsigned short getID();
 	DataTypes getDataType();
 	String getName();
 
+	//Reset TTL timer
 	void resetTTLTimer();
+	//Check if the TTL timer has finished
 	bool hasTTLFinished();
 
 private:
+	//CAN packet size
 	byte size;
+	
+	//CAN packet ID
 	unsigned short ID;
+	
+	//CAN packet data type
 	DataTypes type;
+	
+	//Associated channel name
 	String name;
+
+	//TTL timer (time-to-live), if has not finished the last channel value is still valid
 	Timer ttlTimer;
 };
 

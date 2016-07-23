@@ -4,18 +4,17 @@
  Author:	Davide Malvezzi
 */
 
-#include "DistanceSensor.h"
-#include "GpsInterface.h"
-#include "SteerSensor.h"
 #include "BMSInterface.h"
 #include "Channel.h"
 #include "ConsoleForm.h"
 #include "DebugForm.h"
+#include "DistanceSensor.h"
 #include "CanInterface.h"
 #include "ChannelsBuffer.h"
 #include "ChannelsConfig.h"
 #include "DataLogger.h"
 #include "DisplayInterface.h"
+#include "GpsInterface.h"
 #include "HWConfig.h"
 #include "Interprete.h"
 #include "LCDForm.h"
@@ -28,6 +27,7 @@
 #include "MapSelector.h"
 #include "PhoneInterface.h"
 #include "Shell.h"
+#include "SteerSensor.h"
 #include "StrategySettings.h"	
 #include "TelemetryInterface.h"
 #include "WheelSensor.h"	

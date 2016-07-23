@@ -156,11 +156,11 @@
     <ClInclude Include="GpsInterface.h">
       <Filter>Header Files\Strategy\Gps</Filter>
     </ClInclude>
-    <ClInclude Include="__vm\.REV20.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DistanceSensor.h">
       <Filter>Header Files\ExtInterfaces\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.EscorpioEvo16-Dashboard.vsarduino.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -240,7 +240,7 @@
       <Filter>Source Files\Strategy\Gps</Filter>
     </ClCompile>
     <ClCompile Include="DistanceSensor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ExtInterfaces\Sensor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
