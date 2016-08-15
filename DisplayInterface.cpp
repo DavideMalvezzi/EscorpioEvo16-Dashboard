@@ -15,6 +15,7 @@ void onEvent(){
 }
 
 void DisplayInterfaceClass::init(){
+	//Init the serial comunication
 	INIT_SERIAL(LCD_SERIAL, LCD_SERIAL_BAUD);
 	genie.Begin(LCD_SERIAL);
 

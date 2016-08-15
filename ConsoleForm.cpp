@@ -9,7 +9,7 @@ void ConsoleFormClass::init(Genie &genie){
 }
 
 void ConsoleFormClass::update(Genie &genie){
-
+	//Nothing to do here
 }
 
 void ConsoleFormClass::print(String str){

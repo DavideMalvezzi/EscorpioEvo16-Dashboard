@@ -9,6 +9,10 @@
 #include "WProgram.h"
 #endif
 
+/**
+* Class representing the form used to load from remote the driver map set
+*/
+
 #include "CanInterface.h"
 #include "Configuration.h"
 #include "ConsoleForm.h"
@@ -19,9 +23,18 @@
 #include "Timer.h"
 
 //Motor related
+
+//Motor cfg file
 #define MOTOR_CFG_FILE		"MOTOR.CFG"
+
+//Motor pattern to convert into struct the cfgs
+//For more info read the description into the Configuration.h library
 #define MOTOR_TYPES			F("s8cffffff")
+
+//Need to remove all the compiler optimization on the struct to enable compatibility with other systems
 #pragma pack(push, 1)
+
+//Struct representing a single motor configuration
 typedef struct Motor{
 	char name[8];
 	char defaultMap;
@@ -32,6 +45,7 @@ typedef struct Motor{
 	float frictionGrad;
 	float gearTrain;
 
+	//Enum representing the cfg files properties
 	enum Attr : byte{
 		Name,
 		DefaultMap,
@@ -47,10 +61,21 @@ typedef struct Motor{
 #pragma pack(pop)
 
 //Map set related
+
+//Mapset cfg file
 #define MAPS_CFG_FILE		"MAPSET.CFG"
+
+//Mapset pattern to convert into struct the cfgs
+//For more info read the description into the Configuration.h library
 #define MAPS_TYPES			F("s8ffffffbbbb")
+
+//Max count of maps per mapset inside the cfg file
 #define MAPS_PER_SET		4
+
+//Need to remove all the compiler optimization on the struct to enable compatibility with other systems
 #pragma pack(push, 1)
+
+//Struct representing a single map configuration inside a mapset
 typedef struct MotorMap{
 	char name[8];
 	float a0;
@@ -64,6 +89,7 @@ typedef struct MotorMap{
 	boolean useSyncSafe;
 	boolean useEnergyRecovery;
 
+	//Enum representing the cfg files properties
 	enum Attr : byte{
 		Name,
 		A0,
@@ -115,7 +141,7 @@ enum ViewState : byte{
 	LOADING_MAP_STATE_VALUE
 };
 
-//Tx/Rx related
+//Tx/Rx command used to get/set the motor and the mapset in the driver
 #define GET_MOTOR_DATA_CMD	"GETMOT"
 #define GET_MAPSET_DATA_CMD	"GETMAP"
 #define SET_MOT_DATA_CMD	"SETMOT"
@@ -124,29 +150,59 @@ enum ViewState : byte{
 class MapsFormClass : public LCDForm{
 
 public:
+	//LCDForm abstract method implementation
 	void init(Genie& genie);
+
+	//LCDForm abstract method implementation
 	void update(Genie& genie);
+	
+	//LCDForm abstract method implementation
+	//
 	void onEnter(Genie& genie);
+	
+	//LCDForm abstract method implementation
+	//Handles the touch screen
 	void onEvent(Genie& genie, genieFrame& evt);
+
+	//LCDForm abstract method implementation
 	int getFormIndex(){ return 3; }
 
 private:
-	Configuration motorCfg, mapCfg;
+	//Cfg file for the motor
+	Configuration motorCfg;
+
+	//Cfg file for the mapset
+	Configuration mapCfg;
+
+	//Loaded mapset
 	MotorMap mapSet[MAPS_PER_SET];
+
+	//Pointer representin which StringList is currently in use
 	LCDStringList* workingList;
+
+	//StringList instances
+	//Each of this instances represent a column where the properties will be listed
 	LCDStringList propList, detailList, valueList;
+
+	//Widget to show messages
 	LCDStringMsg statusMsg;
+
+	//Current state
 	ViewState currentState;
 
-	//Get
+	//Get from the driver the current motor config
 	void getMotorData();
+
+	//Get from the driver the current mapset config
 	void getMapSetData();
 
-	//Set
+	//Set the driver motor config
 	CanStreamResult setMotorData();
+
+	//Set the driver mapset config
 	CanStreamResult setMapData();
 
-	//Buttons
+	//Buttons handler functions
 	void onLoadMotorButtonPressed(Genie& genie);
 	void onLoadMapButtonPressed(Genie& genie);
 	void onUpButtonPressed(Genie& genie);
@@ -155,19 +211,30 @@ private:
 	void onExitButtonPressed(Genie& genie);
 	void onOkButtonPressed(Genie& genie);
 
-	//Show
+	//Show on the string list the motor properties in the first column from the left
 	void loadMotorProperties();
+
+	//Show on the string list the motor details in the second column from the left
 	void loadMotorDetails();
 
+	//Show on the string list the mapset properties in the first column from the left
 	void loadMapSetProperties();
+
+	//Show on the string list the mapset details in the second column from the left
 	void loadMapSetDetails();
+
+	//Show on the string list the mapset values in the third column from the left
 	void loadMapSetValues();
+
+	//Show on the string list the motor properties get from the driver in the second column from the left
 	void loadGetMapSetValues();
 
+	//Clear all the string list
 	void clearAll();
 
 };
 
+//Maps form instance
 extern MapsFormClass mapsForm;
 
 

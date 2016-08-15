@@ -25,15 +25,20 @@ void MainFormClass::update(Genie &genie){
 	updateString(genie, 2, String((float)(millis() % 99999) / 100, 2));
 	*/
 
+	//If the pop up show time has finished
 	if (popUpTimer.hasFinished()){
+		//If the pop up is still visible
 		if (popUpIndex != POP_UP_HIDE){
+			//Hide the pop up
 			updateWidget(genie, GENIE_OBJ_USERIMAGES, POP_UP_IMG, POP_UP_HIDE);
 			updateWidget(genie, GENIE_OBJ_STATIC_TEXT, LEFT_TIME_LABEL, 0);
 			popUpIndex = POP_UP_HIDE;
 		}
+		//Update the widgets values
 		updateWidgetsValues(genie);
 	}
 	else /*if (popUpTimer.isRunning())*/{
+		//Update the widgets values
 		updateWidget(genie, GENIE_OBJ_USERIMAGES, POP_UP_IMG, popUpIndex);
 	}
 	/*
@@ -51,19 +56,23 @@ void MainFormClass::showPopUp(byte index, unsigned long duration){
 
 
 void MainFormClass::updateCurrentMap(byte map){
+	//If map is valid and is not the default map and is different from the previous map
 	if (map != INVALID_MAP && map!=DEFAULT_MAP && prevMap != map){
 		prevMap = map;
+		//Show the map pop up
 		showPopUp(map, POP_UP_TTL);
 	}
 }
 
 void MainFormClass::updateCurrentMotorPower(byte power){
+	//If the power is >= of 255 show the alert pop up
 	if (power >= 255){
 		showPopUp(POP_UP_WARN, 2 * POP_UP_TTL);
 	}
 }
 
 void MainFormClass::updateWidgetsValues(Genie& genie){
+	//Update all the widgets
 	unsigned short dc = (float)channelsBuffer.getValueAs<byte>(CanID::MOTOR_DUTY_CICLE, 0) / 255.0 * 100.0;
 
 	updateWidget(genie, GENIE_OBJ_GAUGE, DUTY_CICLE_BAR, dc);
@@ -85,6 +94,7 @@ void MainFormClass::updateWidgetsValues(Genie& genie){
 	updateString(genie, CONSUMPTION_STRING, String(wheelSensor.getEnergy() / 1000.0, 2));
 	updateWidget(genie, GENIE_OBJ_LED_DIGITS, LAP_SPACE_DIGITS, wheelSensor.getRelativeSpace());
 
+	//If something failed on the loading show "Safe Mode"
 	if (!channelsConfig.isValid() || !strategySettings.isValid()){
 		updateString(genie, SAFE_MODE_STRING, F("Safe Mode"));
 	}

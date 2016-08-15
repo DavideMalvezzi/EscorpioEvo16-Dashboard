@@ -9,6 +9,10 @@
 	#include "WProgram.h"
 #endif
 
+/**
+* Class representing the debug form
+*/
+
 #include "BMSInterface.h"
 #include "CanInterface.h"
 #include "ChannelsBuffer.h"
@@ -18,7 +22,7 @@
 #include "PhoneInterface.h"
 #include "TelemetryInterface.h"
 
-//Widget index
+//Widgets index
 //Can
 #define CAN_ON_BLUETOOTH_BUTTON	0
 #define CAN_ON_SERIAL_BUTTON	1
@@ -37,16 +41,24 @@
 class DebugFormClass : public LCDForm{
 
 public:
+	//LCDForm abstract method implementation
 	void init(Genie &genie);
+
+	//LCDForm abstract method implementation
 	void update(Genie &genie);
+
+	//LCDForm abstract method implementation
+	//Handle the press of the touch screen
 	void onEvent(Genie& genie, genieFrame& evt);
 
+	//LCDForm abstract method implementation
 	int getFormIndex(){ return 2; }
 
 private:
 
 };
 
+//Debug form instance
 extern DebugFormClass debugForm;
 
 

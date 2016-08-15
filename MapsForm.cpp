@@ -18,14 +18,14 @@ void MapsFormClass::onEnter(Genie& genie){
 	//Clear all the strings
 	clearAll();
 	
-	//Load motor cfgs
+	//Load motor cfgs if not already loaded
 	if (motorCfg.getPropertyCount() == 0){
 		if (motorCfg.loadFromFile(MOTOR_CFG_FILE) != FILE_VALID){
 			Log.e(LCD_TAG) << motorCfg.getErrorMsg() << Endl;
 		}
 	}
 
-	//Load mapsets cfgs
+	//Load mapsets cfgs if not already loaded
 	if (mapCfg.getPropertyCount() == 0){
 		if (mapCfg.loadFromFile(MAPS_CFG_FILE) != FILE_VALID){
 			Log.e(LCD_TAG) << mapCfg.getErrorMsg() << Endl;
@@ -38,13 +38,17 @@ void MapsFormClass::onEvent(Genie& genie, genieFrame& evt){
 	//Button press handler
 	if (evt.reportObject.cmd == GENIE_REPORT_EVENT){
 		if (evt.reportObject.object == GENIE_OBJ_WINBUTTON){
+
 			switch (evt.reportObject.index){
+
 				case GET_MOTOR_BUTTON:
 					getMotorData();
 					break;
+
 				case GET_MAPSET_BUTTON:
 					getMapSetData();
 					break;
+
 				case LOAD_MOT_BUTTON:
 					if (motorCfg.getPropertyCount() > 0){
 						onLoadMotorButtonPressed(genie);
@@ -53,6 +57,7 @@ void MapsFormClass::onEvent(Genie& genie, genieFrame& evt){
 						statusMsg.setMessage(F("Invalid motor cfg"));
 					}
 					break;
+
 				case LOAD_MAP_BUTTON:
 					if (mapCfg.getPropertyCount() > 0){
 						onLoadMapButtonPressed(genie);
@@ -61,21 +66,27 @@ void MapsFormClass::onEvent(Genie& genie, genieFrame& evt){
 						statusMsg.setMessage(F("Invalid mapset cfg"));
 					}
 					break;
+
 				case OK_BUTTON:
 					onOkButtonPressed(genie);
 					break;
+
 				case UP_BUTTON:
 					onUpButtonPressed(genie);
 					break;
+
 				case DOWN_BUTTON:
 					onDownButtonPressed(genie);
 					break;
+
 				case ENTER_BUTTON:
 					onEnterButtonPressed(genie);
 					break;
+
 				case EXIT_BUTTON:
 					onExitButtonPressed(genie);
 					break;
+
 				case BACK_BUTTON:
 					displayInterface.setCurrentForm(&debugForm);
 					break;
@@ -113,17 +124,23 @@ void MapsFormClass::getMotorData(){
 
 	//Start the stream
 	statusMsg.setMessage(F("Waiting for response..."));
+	//Send a GET_MOTOR_DATA_CMD request over can bus with id CanID::DRIVER_SETTINGS_CMD
+	//The response will be save inside &m and is expected to be sizeof(Motor) bytes length
+	//sResult will contain the request outcome
 	sResult = canInterface.waitForStreamOverCan(CanID::DRIVER_SETTINGS_CMD, GET_MOTOR_DATA_CMD, (byte*)&m, sizeof(Motor));
 	//Clear display
 	clearAll();
 
 	//Print result
 	switch (sResult){
+		//If the request is successful
 		case SUCCES:
+			//Change state
 			currentState = GETTING_MOTOR_STATE;
 			statusMsg.setMessage(F("Successful transfer!"));
 			workingList = &detailList;
 
+			//Print the response
 			for (int i = 0; i < Motor::ATTR_COUNT; i++){
 				value.remove(0, value.length());
 			
@@ -176,6 +193,7 @@ void MapsFormClass::getMotorData(){
 			detailList.repaint();
 			break;
 
+		//If the request is not successfull
 		case ERROR:
 			currentState = NOTHING_LOADED;
 			statusMsg.setMessage(F("Error on transfer!"));

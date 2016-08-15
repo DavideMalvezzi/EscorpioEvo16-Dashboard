@@ -180,9 +180,12 @@ void ChannelsBufferClass::sendOnStream(UARTClass* stream){
 	unsigned short ID;
 	Channel* c;
 	for (int i = 0; i < channelsConfig.getChannelCount(); i++){
+		//Get the i-nth channel
 		c = channelsConfig.getChannelByIndex(i);
 		ID = c->getID();
+		//Send the can id
 		stream->write((byte*)&ID, sizeof(ID));
+		//Send the data
 		stream->write(buffer[i].data(), buffer[i].getCapacity());
 	}
 }

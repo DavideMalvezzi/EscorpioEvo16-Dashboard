@@ -35,13 +35,16 @@ void DebugFormClass::update(Genie &genie){
 }
 
 void DebugFormClass::onEvent(Genie& genie, genieFrame& evt){
+	//Handles the touch screen button press
 	switch (evt.reportObject.index){
 		
+		//Enable can analyzer via serial port
 		case CAN_ON_SERIAL_BUTTON:
 			INIT_SERIAL(CAN_DEBUG_SERIAL, CAN_SERIAL_BAUD);
 			canInterface.setCanDebugSerial(&CAN_DEBUG_SERIAL);
 		break;
 
+		//Enable can analyzer via bluetooth 
 		case CAN_ON_BLUETOOTH_BUTTON:
 			INIT_SERIAL(BL_SERIAL, CAN_SERIAL_BAUD);
 			canInterface.setCanDebugSerial(&BL_SERIAL);
@@ -54,10 +57,12 @@ void DebugFormClass::onEvent(Genie& genie, genieFrame& evt){
 			telemetryInterface.setLogSerial(&BL_SERIAL);
 			break;
 
+		//Switch to the maps form
 		case DRIVER_SETTING_BUTTON:
 			displayInterface.setCurrentForm(&mapsForm);
 			break;
 
+		//Enable BMS debug mode
 		case BMS_DEBUG_BUTTON:
 			BMS.setDebugMode();
 			break;
