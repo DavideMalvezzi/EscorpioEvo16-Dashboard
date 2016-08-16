@@ -14,22 +14,41 @@
 #include "Logger.h"
 #include "Timer.h"
 
+/**
+* Class representing the telemetry interface with the android app
+*/
+
+//Logger tag
 #define TLM_TAG				F("TLM")
+
+//Telemetry packets header
 #define TLM_CMD				F("TLM")
+
+//Telemetry log time period
 #define TLM_LOG_PERIOD		500
 
 class TelemetryInterfaceClass {
 
  public:
-	 void init(UARTClass* logSerial = NULL);
-	void setLogSerial(UARTClass* logSerial);
+	//Function to call in the setup
+	void init(UARTClass* logSerial = NULL);
+
+	//Function to call in the loop
 	void update();
 
+	//Set the serial port
+	void setLogSerial(UARTClass* logSerial);
+
+
  private:
+	 //Log timer
 	 Timer logTimer;
+
+	 //Serial port pointer
 	 UARTClass* logSerial;
 };
 
+//Telemetry instance
 extern TelemetryInterfaceClass telemetryInterface;
 
 #endif

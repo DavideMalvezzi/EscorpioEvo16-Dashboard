@@ -11,6 +11,10 @@
 
 #define NEW_DASHBOARD
 
+/**
+* Contain all the hardware definitions
+*/
+
 #ifdef NEW_DASHBOARD
 
 //Bluetooth

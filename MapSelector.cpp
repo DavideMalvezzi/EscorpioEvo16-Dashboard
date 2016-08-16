@@ -82,7 +82,5 @@ void MapSelectorClass::checkBounce(byte pin, byte& currState, byte& prevState, T
 
 }
 
-
-
 MapSelectorClass mapSelector;
 

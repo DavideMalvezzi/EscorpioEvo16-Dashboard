@@ -12,16 +12,22 @@ void CanInterfaceClass::init(int canSpeed, unsigned short minID, unsigned short 
 }
 
 void CanInterfaceClass::update(){
+	//If a frame is available
 	if (Can0.available()){
+		//Read
 		Can0.read(frame);
 
+		//If the callback is set 
 		if (canEvent != NULL){
+			//Invoke the callback
 			canEvent(frame);
 		}
 
+		//Send the packet to the can analyzer
 		writePacketOnDebugSerial(frame);
 	}
 
+	//If the can analyzer has sent packet, then read and parse
 	if (debugSerial != NULL){
 		readFromDebugSerial();
 		parseSerialDebugCmd();
@@ -205,7 +211,7 @@ CanStreamResult CanInterfaceClass::waitForStreamOverCan(CanID::IDs canID, const 
 			if (strcmp((const char*)frame.data.bytes, ERROR_CMD) == 0){
 				return ERROR;
 			}
-			//Save in buffer the data
+			//Save data in the buffer 
 			memcpy(
 				buffer + memIndex,
 				frame.data.bytes,
