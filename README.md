@@ -42,9 +42,22 @@ All the waypoints are contained in the GPS.CFG file in the SD. The first waypoin
 ### LCD
 The LCD module allow the user to directly interact with the DashBoard, also thanks to its touch screen.
 The differents LCD screens are called form and are created thanks to the 4D System Workshop editor.
-This module relay on the (Genie library)[https://github.com/4dsystems/ViSi-Genie-Arduino-Library] to send and receive commands and events from the LCD.
+This module relay on the [Genie library](https://github.com/4dsystems/ViSi-Genie-Arduino-Library) to send and receive commands and events from the LCD.
 For the DashBoard we have 4 forms:
 - the Console form is the first to start as boot. All the module are loaded on the setup and the loading success message or errors are reported on the screen by this form.
 - the Main form is the form showed after the boot. It contains all the widget needed by the pilot.
 - the Debug form is a form most used for "debug" the prototype. It shows information relative to the other electronics boards inside the prototype (BMS and motor driver) and allows to enable/disable other modules such as the Can Analyzer and the Motor Maps Loader.
 - the last one is the Maps form that will be discussed int he Motor Maps Loader module.
+
+## Can Analyzer
+The can analyzer module allow to send all the received and sent can bus packet through the Debug serial port or through the bluetooth module. This allows to see all the can bus traffic thanks to the [Can Analyzer PC software](https://github.com/DavideMalvezzi/EscorpioEvo16-CanAnalyzer).
+
+## Motor Maps Loader
+The motor maps loader is a module used to quickly change the motor driver configuration without the need to modify and re-upload its software or see which configuration is currently loaded on the motor driver. 
+This module loads the configuration container inside the MOTOR.CFG and the MAPS.CFG files.
+The first file contains the properties relative to some different motors that can be used by the prototype.
+The second file contains the properties relative to different sets of maps, which one tells to the motor driver how to act.
+All the configurations are sent through the can bus to a specific id used only for this work.
+
+## Other modules
+Other minor modules are used to manage sensors connected to the analog port or manage the BMS and the motor driver.
