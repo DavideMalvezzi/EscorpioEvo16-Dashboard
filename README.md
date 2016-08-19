@@ -40,4 +40,11 @@ First of all is possible to setup a virtual track start position, so it can be p
 All the waypoints are contained in the GPS.CFG file in the SD. The first waypoint is assumed as the track start.
 
 ### LCD
-
+The LCD module allow the user to directly interact with the DashBoard, also thanks to its touch screen.
+The differents LCD screens are called form and are created thanks to the 4D System Workshop editor.
+This module relay on the (Genie library)[https://github.com/4dsystems/ViSi-Genie-Arduino-Library] to send and receive commands and events from the LCD.
+For the DashBoard we have 4 forms:
+- the Console form is the first to start as boot. All the module are loaded on the setup and the loading success message or errors are reported on the screen by this form.
+- the Main form is the form showed after the boot. It contains all the widget needed by the pilot.
+- the Debug form is a form most used for "debug" the prototype. It shows information relative to the other electronics boards inside the prototype (BMS and motor driver) and allows to enable/disable other modules such as the Can Analyzer and the Motor Maps Loader.
+- the last one is the Maps form that will be discussed int he Motor Maps Loader module.
