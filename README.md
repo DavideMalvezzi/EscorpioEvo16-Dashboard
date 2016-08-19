@@ -50,10 +50,10 @@ For the DashBoard we have 4 forms:
 - the last one is the Maps form that will be discussed int he Motor Maps Loader module.
 
 ## Can Analyzer
-The can analyzer module allow to send all the received and sent can bus packet through the Debug serial port or through the bluetooth module. This allows to see all the can bus traffic thanks to the [Can Analyzer PC software](https://github.com/DavideMalvezzi/EscorpioEvo16-CanAnalyzer).
+The can analyzer module allows to send all the received and sent can bus packets through the Debug serial port or through the bluetooth module. This allows to see all the can bus traffic thanks to the [Can Analyzer PC software](https://github.com/DavideMalvezzi/EscorpioEvo16-CanAnalyzer).
 
 ## Motor Maps Loader
-The motor maps loader is a module used to quickly change the motor driver configuration without the need to modify and re-upload its software or see which configuration is currently loaded on the motor driver. 
+The motor maps loader is a module used to quickly change the motor driver configuration without the need to modify and re-upload its firmware or to see which configuration is currently loaded on the motor driver. 
 This module loads the configuration container inside the MOTOR.CFG and the MAPS.CFG files.
 The first file contains the properties relative to some different motors that can be used by the prototype.
 The second file contains the properties relative to different sets of maps, which one tells to the motor driver how to act.
