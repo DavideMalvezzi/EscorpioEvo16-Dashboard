@@ -7,6 +7,11 @@ The 2 boards have:
  - a SD card slot
  - 3 Can Bus port 
  - multiple digital/analog port to connect sensors and buttons
+ 
+All the hardware is placed inside this 3D printed steering wheel
+<p align="center">
+  <img src="https://s3.postimg.org/7muap46ub/cruscotto.png" />
+</p>
 
 ##Modules
 ### Datalogger
