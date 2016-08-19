@@ -34,3 +34,10 @@ The smartphone data consist of:
 - accelometer 
 
 Also is possible to start a call from the phone simply pressing a button on the DashBoard. The called number is setted in the PHONE.CFG file in the SD card. 
+
+Thanks to the GPS position sent from the smartphone is possible to setup some function related to the prototype position on the track.
+First of all is possible to setup a virtual track start position, so it can be possibile to keep trace of track laps time and laps count. The is possible to setup some waypoints on the track and connect to them some correlated functions.
+All the waypoints are contained in the GPS.CFG file in the SD. The first waypoint is assumed as the track start.
+
+### LCD
+
