@@ -23,11 +23,11 @@ In case the second configuration file is missing this module won't work.
 The file created by the datalogger software module is a CSV file and can be easily opened with programs such as Excel.
 
 ### Telemetry
-This module allows to stream the datalogger values to a remote server through internet. This is only possible if the (Online Telemetry App)[https://github.com/DavideMalvezzi/EscorpioEvo16-OnlineTelemetry] is installed on an Android smartphone and placed near the DashBoard.
+This module allows to stream the datalogger values to a remote server through internet. This is only possible if the [Online Telemetry App](https://github.com/DavideMalvezzi/EscorpioEvo16-OnlineTelemetry) is installed on an Android smartphone and placed near the DashBoard.
 The telemetry module will take control of the bluetooth module TX channel and send all the datalogger data to the smartphone.
 
 ### Phone and GPS
-If the DashBoard is connected through bluetooth to the (Online Telemetry App)[https://github.com/DavideMalvezzi/EscorpioEvo16-OnlineTelemetry], it will receive information from the smartphone sensor.
+If the DashBoard is connected through bluetooth to the [Online Telemetry App](https://github.com/DavideMalvezzi/EscorpioEvo16-OnlineTelemetry), it will receive information from the smartphone sensor.
 The smartphone data consist of:
 - date and time
 - gps position
