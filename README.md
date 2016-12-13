@@ -16,7 +16,7 @@ All the hardware is placed inside this 3D printed steering wheel
 
 ##Modules
 ### Datalogger
-One of the many modules of this firmware is to log on the SD all the data received via Can Bus. 
+The Datalogger is one of the many modules of this firmware. Its job is to log on the SD all the data received via Can Bus. 
 To make this modules work is needed to place inside the SD card two configurations file:
 - DATALOG.CFG
 - CHANNELS.CFG
@@ -42,12 +42,12 @@ The smartphone data consist of:
 Also is possible to start a call from the phone simply pressing a button on the DashBoard. The called number is setted in the PHONE.CFG file in the SD card. 
 
 Thanks to the GPS position sent from the smartphone is possible to setup some function related to the prototype position on the track.
-First of all is possible to setup a virtual track start position, so it can be possibile to keep trace of track laps time and laps count. The is possible to setup some waypoints on the track and connect to them some correlated functions.
+First of all is possible to setup a virtual track start position, so it can be possibile to keep trace of laps time and laps count. Then is possible to setup some waypoints on the track and connect to them some correlated functions.
 All the waypoints are contained in the GPS.CFG file in the SD. The first waypoint is assumed as the track start.
 
 ### LCD
 The LCD module allow the user to directly interact with the DashBoard, also thanks to its touch screen.
-The differents LCD screens are called form and are created thanks to the 4D System Workshop editor.
+The LCD screens are called forms and are created thanks to the 4D System Workshop editor.
 This module relay on the [Genie library](https://github.com/4dsystems/ViSi-Genie-Arduino-Library) to send and receive commands and events from the LCD.
 For the DashBoard we have 4 forms:
 - the Console form is the first to start as boot. All the module are loaded on the setup and the loading success message or errors are reported on the screen by this form.
@@ -60,9 +60,9 @@ The can analyzer module allows to send all the received and sent can bus packets
 
 ## Motor Maps Loader
 The motor maps loader is a module used to quickly change the motor driver configuration without the need to modify and re-upload its firmware or to see which configuration is currently loaded on the motor driver. 
-This module loads the configuration container inside the MOTOR.CFG and the MAPS.CFG files.
+This module loads the placed inside the MOTOR.CFG and the MAPS.CFG files.
 The first file contains the properties relative to some different motors that can be used by the prototype.
-The second file contains the properties relative to different sets of maps, which one tells to the motor driver how to act.
+The second file contains the properties relative to the different sets of maps, which one tells the motor driver how to act.
 All the configurations are sent through the can bus to a specific id used only for this work.
 
 ## Other modules
